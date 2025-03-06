@@ -27,6 +27,16 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 * Role: Developer
 * Responsibilities: UI
 
+### Kaung Zin Ye Naung
+
+<img src="images/kaungzinye.png" width="200px">
+
+[[github](http://github.com/kaungzinye)]
+[[portfolio](team/kaung.md)]
+
+* Role: Developer
+* Responsibilities: Responsible for displaying wedding overview
+
 ### Johnny Doe
 
 <img src="images/johndoe.png" width="200px">
@@ -35,16 +45,6 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 * Role: Developer
 * Responsibilities: Data
-
-### Jean Doe
-
-<img src="images/johndoe.png" width="200px">
-
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
-
-* Role: Developer
-* Responsibilities: Dev Ops + Threading
 
 ### Jaeho (Jose) Kim
 
@@ -55,3 +55,13 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 * Role: Developer
 * Responsibilities: Making sure details of wedding guests can be edited properly
+
+### Bhavina
+
+<img src="images/bhavinaa.png" width="200px">
+
+[[github](http://github.com/bhavinaa)]
+[[portfolio](www.linkedin.com/in/bhavina-sk)]
+
+* Role: Developer
+* Responsibilities: Helping to develop the wedding planner
