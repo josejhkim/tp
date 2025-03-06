@@ -2,7 +2,7 @@
   layout: default.md
   title: "About Us"
 ---
-
+z
 # About Us
 
 We are a team based in the [School of Computing, National University of Singapore](http://www.comp.nus.edu.sg).
@@ -15,10 +15,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 <img src="images/jonzyyyy.png" width="200px">
 
-[[homepage](http://www.comp.nus.edu.sg/~damithch)]
 [[github](https://github.com/jonzyyyy)]
-[[portfolio](team/johndoe.md)]
-
 * Role: Responsible for filtering guests based on RSVP/Dietary
 
 ### Jane Doe
