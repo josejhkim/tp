@@ -50,12 +50,12 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 * Role: Developer
 * Responsibilities: Dev Ops + Threading
 
-### James Doe
+### Jaeho (Jose) Kim
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/josejhkim.png" width="200px">
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[GitHub](http://github.com/josejhkim)]
+[[LinkedIn](http://linkedin.com/in/josejhkim)]
 
 * Role: Developer
-* Responsibilities: UI
+* Responsibilities: Making sure details of wedding guests can be edited properly
