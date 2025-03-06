@@ -59,3 +59,14 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 * Role: Developer
 * Responsibilities: UI
+
+
+### Bhavina
+
+<img src="images/bhavinaa.png" width="200px">
+
+[[github](http://github.com/bhavinaa)]
+[[portfolio](www.linkedin.com/in/bhavina-sk)]
+
+* Role: Developer
+* Responsibilities: Helping to develop the wedding planner
