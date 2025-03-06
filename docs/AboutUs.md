@@ -1,6 +1,6 @@
 ---
-  layout: default.md
-  title: "About Us"
+layout: default.md
+title: "About Us"
 ---
 
 # About Us
@@ -11,15 +11,12 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ## Project team
 
-### John Doe
+### Jonathan Ngien
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/jonzyyyy.png" width="200px">
 
-[[homepage](http://www.comp.nus.edu.sg/~damithch)]
-[[github](https://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
-
-* Role: Project Advisor
+[[github](https://github.com/jonzyyyy)]
+* Role: Responsible for filtering guests based on RSVP/Dietary
 
 ### Jane Doe
 
@@ -40,26 +37,15 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 * Role: Developer
 * Responsibilities: Data
 
-### Jean Doe
+### Jaeho (Jose) Kim
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/josejhkim.png" width="200px">
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
-
-* Role: Developer
-* Responsibilities: Dev Ops + Threading
-
-### James Doe
-
-<img src="images/johndoe.png" width="200px">
-
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[GitHub](http://github.com/josejhkim)]
+[[LinkedIn](http://linkedin.com/in/josejhkim)]
 
 * Role: Developer
-* Responsibilities: UI
-
+* Responsibilities: Making sure details of wedding guests can be edited properly
 
 ### Bhavina
 
