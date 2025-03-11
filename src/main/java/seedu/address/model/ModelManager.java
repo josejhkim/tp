@@ -11,7 +11,10 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.person.Guest;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.Phone;
+import seedu.address.model.wedding.Wedding;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -22,6 +25,8 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
+
+    private Wedding currentWedding;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -126,6 +131,46 @@ public class ModelManager implements Model {
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
+    }
+
+    @Override
+    public void addWedding(Wedding wedding) {
+        requireNonNull(wedding);
+        addressBook.addWedding(wedding);
+    }
+
+    @Override
+    public void deleteWedding(Wedding wedding) {
+        requireNonNull(wedding);
+        addressBook.removeWedding(wedding);
+    }
+
+    @Override
+    public Wedding findWeddingByName(String name) {
+        requireNonNull(name);
+        return addressBook.getWeddingList().stream()
+            .filter(wedding -> wedding.getName().equals(name))
+            .findFirst()
+            .orElse(null);
+    }
+
+    @Override
+    public void setCurrentWedding(Wedding wedding) {
+        this.currentWedding = wedding;
+    }
+    @Override
+    public Wedding getCurrentWedding() {
+        return currentWedding;
+    }
+
+    @Override
+    public Guest findGuestByPhone(Wedding wedding, Phone phone) {
+        return wedding.getRsvpList().getGuestByPhone(phone);
+    }
+
+    @Override
+    public Guest findGuestByGuestId(Wedding wedding,Integer guestId) {
+        return wedding.getRsvpList().getGuestByGuestId(guestId);
     }
 
     @Override

@@ -6,6 +6,9 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.Guest;
+import seedu.address.model.person.Phone;
+import seedu.address.model.wedding.Wedding;
 
 /**
  * The API of the Model component.
@@ -84,4 +87,35 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
+
+    /**
+     * Adds the given wedding.
+     * {@code wedding} must not already exist in the address book.
+     */
+    void addWedding(Wedding wedding);
+
+    /**
+     * Deletes the given wedding.
+     * The wedding must exist in the address book.
+     */
+    void deleteWedding(Wedding wedding);
+
+    /**
+     * Finds and returns the wedding with the given name.
+     * Returns null if no such wedding exists.
+     */
+    Wedding findWeddingByName(String name);
+    /**
+     * Sets the current wedding.
+     */
+    void setCurrentWedding(Wedding wedding);
+    /**
+     * Returns the current wedding.
+     */
+    Wedding getCurrentWedding();
+    Guest findGuestByPhone(Wedding wedding, Phone phone);
+    Guest findGuestByGuestId(Wedding wedding, Integer guestId);
+
+
+
 }

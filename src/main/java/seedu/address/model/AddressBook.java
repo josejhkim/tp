@@ -2,12 +2,15 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.wedding.Wedding;
 
 /**
  * Wraps all data at the address-book level
@@ -16,6 +19,7 @@ import seedu.address.model.person.UniquePersonList;
 public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
+    private final List<Wedding> weddings;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -26,6 +30,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     {
         persons = new UniquePersonList();
+        weddings = new ArrayList<>();
     }
 
     public AddressBook() {}
@@ -46,6 +51,14 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void setPersons(List<Person> persons) {
         this.persons.setPersons(persons);
+    }
+    /**
+     * Replaces the contents of the wedding list with {@code weddings}.
+     * {@code weddings} must not contain duplicate weddings.
+     */
+    public void setWeddings(List<Wedding> weddings) {
+        this.weddings.clear();
+        this.weddings.addAll(weddings);
     }
 
     /**
@@ -94,6 +107,44 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons.remove(key);
     }
 
+    //// wedding-level operations
+
+    /**
+     * Returns true if a wedding with the same identity as {@code wedding} exists in the address book.
+     */
+    public boolean hasWedding(Wedding wedding) {
+        requireNonNull(wedding);
+        return weddings.contains(wedding);
+    }
+
+    /**
+     * Adds a wedding to the address book.
+     * The wedding must not already exist in the address book.
+     */
+    public void addWedding(Wedding wedding) {
+        weddings.add(wedding);
+    }
+
+    /**
+     * Removes {@code wedding} from this {@code AddressBook}.
+     * {@code wedding} must exist in the address book.
+     */
+    public void removeWedding(Wedding wedding) {
+        weddings.remove(wedding);
+    }
+
+    /**
+     * Finds and returns the wedding with the given name.
+     * Returns null if no such wedding exists.
+     */
+    public Wedding findWeddingByName(String name) {
+        requireNonNull(name);
+        return weddings.stream()
+            .filter(wedding -> wedding.getName().equals(name))
+            .findFirst()
+            .orElse(null);
+    }
+
     //// util methods
 
     @Override
@@ -106,6 +157,10 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public ObservableList<Person> getPersonList() {
         return persons.asUnmodifiableObservableList();
+    }
+    @Override
+    public ObservableList<Wedding> getWeddingList() {
+        return FXCollections.unmodifiableObservableList(FXCollections.observableList(weddings));
     }
 
     @Override
@@ -120,7 +175,8 @@ public class AddressBook implements ReadOnlyAddressBook {
         }
 
         AddressBook otherAddressBook = (AddressBook) other;
-        return persons.equals(otherAddressBook.persons);
+        return persons.equals(otherAddressBook.persons)
+            && weddings.equals(otherAddressBook.weddings);
     }
 
     @Override
