@@ -3,19 +3,23 @@ package seedu.address.model.person;
 import java.util.HashSet;
 import java.util.Objects;
 
+/**
+ * Represents a Guest in the address book.
+ * Guarantees: details are present and not null, field values are validated, immutable.
+ */
 public class Guest extends Person {
-    private final DietaryRestriction DietaryRestriction;
-    private final RSVP rsvp;
+    private final DietaryRestriction dietaryRestriction;
+    private final Rsvp rsvp;
     private final int guestId;
 
-    /*
-        * Every field must be present and not null, a person class is created with
-        * name, phone, email, address, and an EMPTY set of tags
+    /**
+    * Every field must be present and not null, a person class is created with
+    * name, phone, email, address, and an EMPTY set of tags
      */
-    public Guest(Name name, Email email, Address address, Phone phone, DietaryRestriction DietaryRestriction,
-                 RSVP rsvp) {
+    public Guest(Name name, Email email, Address address, Phone phone, DietaryRestriction dietaryRestriction,
+                 Rsvp rsvp) {
         super(name, phone, email, address, new HashSet<>());
-        this.DietaryRestriction = DietaryRestriction;
+        this.dietaryRestriction = dietaryRestriction;
         this.rsvp = rsvp;
         this.guestId = generateGuestId(phone);
     }
@@ -25,10 +29,10 @@ public class Guest extends Person {
     }
 
     public DietaryRestriction getDietaryRestriction() {
-        return DietaryRestriction;
+        return dietaryRestriction;
     }
 
-    public RSVP getRSVP() {
+    public Rsvp getRsvp() {
         return rsvp;
     }
 
@@ -45,20 +49,20 @@ public class Guest extends Person {
             return false;
         }
         Guest otherGuest = (Guest) other;
-        return super.equals(other) &&
-                Objects.equals(DietaryRestriction, otherGuest.DietaryRestriction) &&
-                rsvp == otherGuest.rsvp &&
-                guestId == otherGuest.guestId;
+        return super.equals(other)
+            && Objects.equals(dietaryRestriction, otherGuest.dietaryRestriction)
+            && rsvp == otherGuest.rsvp
+            && guestId == otherGuest.guestId;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), DietaryRestriction, rsvp);
+        return Objects.hash(super.hashCode(), dietaryRestriction, rsvp);
     }
 
     @Override
     public String toString() {
-        return super.toString() + ", Dietary Restriction: " + DietaryRestriction + ", RSVP: " + rsvp;
+        return super.toString() + ", Dietary Restriction: " + dietaryRestriction + ", RSVP: " + rsvp;
     }
 
 }

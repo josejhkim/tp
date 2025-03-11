@@ -1,24 +1,30 @@
 package seedu.address.model.wedding;
 
-import seedu.address.model.person.Guest;
-import seedu.address.model.person.RSVPList;
-
 import java.util.Objects;
 
+import seedu.address.model.person.Guest;
+import seedu.address.model.person.RsvpList;
+/**
+ * Represents a Wedding in the address book.
+ */
 public class Wedding {
     private final String name;
-    private final RSVPList rsvpList;
-
+    private final RsvpList rsvpList;
+    /**
+     * Constructs a {@code Wedding}.
+     *
+     * @param name A wedding name.
+     */
     public Wedding(String name) {
         this.name = name;
-        this.rsvpList = new RSVPList();
+        this.rsvpList = new RsvpList();
     }
 
     public String getName() {
         return name;
     }
 
-    public RSVPList getRsvpList() {
+    public RsvpList getRsvpList() {
         return rsvpList;
     }
 
@@ -39,8 +45,8 @@ public class Wedding {
             return false;
         }
         Wedding otherWedding = (Wedding) other;
-        return Objects.equals(name, otherWedding.name) &&
-            Objects.equals(rsvpList, otherWedding.rsvpList);
+        return Objects.equals(name, otherWedding.name)
+            && Objects.equals(rsvpList, otherWedding.rsvpList);
     }
 
     @Override

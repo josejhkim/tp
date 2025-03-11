@@ -169,7 +169,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Guest findGuestByGuestId(Wedding wedding,Integer guestId) {
+    public Guest findGuestByGuestId(Wedding wedding, Integer guestId) {
         return wedding.getRsvpList().getGuestByGuestId(guestId);
     }
 

@@ -1,7 +1,5 @@
 package seedu.address.model.person;
 
-import seedu.address.model.person.UniquePersonList;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -9,7 +7,7 @@ import java.util.stream.Collectors;
  * A list of guests who have been RSVPed to the event.
  * Contains both guests who have RSVPed "yes" and "no".
  */
-public class RSVPList extends UniquePersonList {
+public class RsvpList extends UniquePersonList {
     @Override
     public void add(Person toAdd) {
         if (!(toAdd instanceof Guest)) {

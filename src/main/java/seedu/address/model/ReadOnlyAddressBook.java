@@ -1,6 +1,5 @@
 package seedu.address.model;
 
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.person.Person;
 import seedu.address.model.wedding.Wedding;

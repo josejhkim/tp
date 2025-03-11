@@ -5,7 +5,9 @@ import static java.util.Objects.requireNonNull;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.wedding.Wedding;
-
+/**
+ * Sets the current wedding in the model.
+ */
 public class SetWeddingCommand extends Command {
 
     public static final String COMMAND_WORD = "setWedding";

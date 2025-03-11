@@ -5,8 +5,8 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.person.Person;
 import seedu.address.model.person.Guest;
+import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.wedding.Wedding;
 
@@ -113,7 +113,13 @@ public interface Model {
      * Returns the current wedding.
      */
     Wedding getCurrentWedding();
+    /**
+     * Finds given guest to the current wedding according to phone number.
+     */
     Guest findGuestByPhone(Wedding wedding, Phone phone);
+    /**
+     * Finds given guest to the current wedding according to guestId.
+     */
     Guest findGuestByGuestId(Wedding wedding, Integer guestId);
 
 

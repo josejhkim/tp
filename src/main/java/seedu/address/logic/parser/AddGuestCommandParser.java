@@ -18,26 +18,40 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Guest;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
-import seedu.address.model.person.RSVP;
-
+import seedu.address.model.person.Rsvp;
+/**
+ * Parses input arguments and creates a new AddGuestCommand object
+ */
 public class AddGuestCommandParser implements Parser<AddGuestCommand> {
-
+    /**
+     * Parses the given {@code String} of arguments in the context of the AddGuestCommand
+     * and returns a AddGuestCommand object for execution.
+     * @throws ParseException if the user input does not conform the expected format
+     */
     @Override
     public AddGuestCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-            ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_DIETARY_RESTRICTION, PREFIX_RSVP);
+            ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL,
+                PREFIX_DIETARY_RESTRICTION, PREFIX_RSVP);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_DIETARY_RESTRICTION, PREFIX_RSVP)
+        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL,
+            PREFIX_DIETARY_RESTRICTION, PREFIX_RSVP)
             || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddGuestCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                AddGuestCommand.MESSAGE_USAGE));
         }
         //Getting all the details of the guest
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-        Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
-        Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
-        Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
-        DietaryRestriction dietaryRestriction = ParserUtil.parseDietaryRestriction(argMultimap.getValue(PREFIX_DIETARY_RESTRICTION).get());
-        RSVP rsvp = ParserUtil.parseRSVP(argMultimap.getValue(PREFIX_RSVP).get());
+        Email email = ParserUtil.parseEmail(
+            argMultimap.getValue(PREFIX_EMAIL).get());
+        Address address = ParserUtil.parseAddress(
+            argMultimap.getValue(PREFIX_ADDRESS).get());
+        Phone phone = ParserUtil.parsePhone(
+            argMultimap.getValue(PREFIX_PHONE).get());
+        DietaryRestriction dietaryRestriction = ParserUtil.parseDietaryRestriction(
+            argMultimap.getValue(PREFIX_DIETARY_RESTRICTION).get());
+        Rsvp rsvp = ParserUtil.parseRsvp(
+            argMultimap.getValue(PREFIX_RSVP).get());
 
         Guest guest = new Guest(name, email, address, phone, dietaryRestriction, rsvp);
 

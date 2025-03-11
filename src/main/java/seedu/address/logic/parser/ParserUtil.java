@@ -14,7 +14,7 @@ import seedu.address.model.person.DietaryRestriction;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
-import seedu.address.model.person.RSVP;
+import seedu.address.model.person.Rsvp;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -127,16 +127,14 @@ public class ParserUtil {
     /**
      * Parses a {@code String rsvp} into a {@code RSVP}.
      * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code rsvp} is invalid if the status
-     * is not one of the valid statuses.
+     * @throws ParseException if the given {@code rsvp} is invalid if the status is not one of the valid statuses.
      */
-    public static RSVP parseRSVP(String rsvp) throws ParseException {
+    public static Rsvp parseRsvp(String rsvp) throws ParseException {
         requireNonNull(rsvp);
-        String trimmedRSVP = rsvp.trim().toUpperCase();
+        String trimmedRsvp = rsvp.trim().toUpperCase();
         try {
-            RSVP.Status status = RSVP.Status.valueOf(trimmedRSVP);
-            return new RSVP(status);
+            Rsvp.Status status = Rsvp.Status.valueOf(trimmedRsvp);
+            return new Rsvp(status);
         } catch (IllegalArgumentException e) {
             throw new ParseException("Invalid RSVP status: " + rsvp + "It should be YES, NO or NO_RESPONSE.");
         }
@@ -154,7 +152,8 @@ public class ParserUtil {
         String trimmedTypicalRestriction = dietaryRestriction.trim().toUpperCase();
         try {
             // See if it's a typical restriction
-            DietaryRestriction.TypicalRestriction typicalRestriction = DietaryRestriction.TypicalRestriction.valueOf(trimmedTypicalRestriction);
+            DietaryRestriction.TypicalRestriction typicalRestriction =
+                DietaryRestriction.TypicalRestriction.valueOf(trimmedTypicalRestriction);
             return new DietaryRestriction(typicalRestriction);
         } catch (IllegalArgumentException e) {
             // If it's not a typical one, treat it as a custom restriction

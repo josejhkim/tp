@@ -1,14 +1,19 @@
 package seedu.address.model.person;
 
 import java.util.Objects;
-
-public class RSVP {
+/**
+ * Represents an RSVP in the address book.
+ */
+public class Rsvp {
+    /**
+     * Enum to represent typical RSVP statuses.
+     */
     public enum Status {
         YES, NO, NO_RESPONSE
     }
     private final Status status;
 
-    public RSVP(Status status) {
+    public Rsvp(Status status) {
         this.status = status;
     }
 
@@ -21,11 +26,11 @@ public class RSVP {
         if (this == other) {
             return true;
         }
-        if (!(other instanceof RSVP)) {
+        if (!(other instanceof Rsvp)) {
             return false;
         }
-        RSVP otherRSVP = (RSVP) other;
-        return status == otherRSVP.status;
+        Rsvp otherRsvp = (Rsvp) other;
+        return status == otherRsvp.status;
     }
 
     @Override

@@ -4,7 +4,9 @@ import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import seedu.address.logic.commands.SetWeddingCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-
+/**
+ * Parses input arguments and creates a new SetWeddingCommand object
+ */
 public class SetWeddingCommandParser implements Parser<SetWeddingCommand> {
 
     @Override

@@ -7,7 +7,9 @@ import seedu.address.model.Model;
 import seedu.address.model.person.Guest;
 import seedu.address.model.person.Phone;
 import seedu.address.model.wedding.Wedding;
-
+/**
+ * Removes a guest from the current wedding.
+ */
 public class RemoveGuestCommand extends Command {
 
     public static final String COMMAND_WORD = "removeGuest";
@@ -16,16 +18,27 @@ public class RemoveGuestCommand extends Command {
         + "Example: " + COMMAND_WORD + " p/91234567 or " + COMMAND_WORD + " gid/123";
 
     public static final String MESSAGE_SUCCESS = "Guest removed from wedding: %1$s";
-    public static final String MESSAGE_NO_CURRENT_WEDDING = "No current wedding set. Please set a current wedding first.";
-    public static final String MESSAGE_GUEST_NOT_FOUND = "No guest found with the provided details. Please check and try again.";
+    public static final String MESSAGE_NO_CURRENT_WEDDING = "No current wedding set."
+        + " Please set a current wedding first.";
+    public static final String MESSAGE_GUEST_NOT_FOUND = "No guest found with the provided details."
+        + " Please check and try again.";
 
     private final Phone phone;
     private final int guestId;
-
+    /**
+     * Creates a RemoveGuestCommand to remove the guest with the specified phone number.
+     */
     public RemoveGuestCommand(Phone phone, int guestId) {
         this.phone = phone;
         this.guestId = guestId;
     }
+
+    /**
+     * Executes the RemoveGuestCommand.
+     * @param model {@code Model} which the command should operate on.
+     * @return {@code CommandResult} that describes the result of executing the command.
+     * @throws CommandException if the current wedding is not set or the guest is not found.
+     */
 
     @Override
     public CommandResult execute(Model model) throws CommandException {

@@ -9,9 +9,15 @@ import java.util.stream.Stream;
 import seedu.address.logic.commands.RemoveGuestCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Phone;
-
+/**
+ * Parses input arguments and creates a new RemoveGuestCommand object
+ */
 public class RemoveGuestCommandParser implements Parser<RemoveGuestCommand> {
-
+    /**
+     * Parses the given {@code String} of arguments in the context of the RemoveGuestCommand
+     * and returns a RemoveGuestCommand object for execution.
+     * @throws ParseException if the user input does not conform the expected format
+     */
     @Override
     public RemoveGuestCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
@@ -33,7 +39,9 @@ public class RemoveGuestCommandParser implements Parser<RemoveGuestCommand> {
 
         return new RemoveGuestCommand(phone, guestId);
     }
-
+    /**
+     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
+     */
     private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
         return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }

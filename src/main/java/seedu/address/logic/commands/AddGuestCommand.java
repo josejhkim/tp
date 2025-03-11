@@ -7,6 +7,9 @@ import seedu.address.model.Model;
 import seedu.address.model.person.Guest;
 import seedu.address.model.wedding.Wedding;
 
+/**
+ * Adds a guest to the current wedding.
+ */
 public class AddGuestCommand extends Command {
 
     public static final String COMMAND_WORD = "addGuest";
@@ -23,13 +26,19 @@ public class AddGuestCommand extends Command {
     public AddGuestCommand(Guest guest) {
         this.guest = guest;
     }
+    /**
+     * Executes the AddGuestCommand.
+     * @param model {@code Model} which the command should operate on.
+     * @return {@code CommandResult} that describes the result of executing the command.
+     * @throws CommandException if the current wedding is not set.
+     */
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         Wedding currentWedding = model.getCurrentWedding();
         if (currentWedding == null) {
-            throw new CommandException("Wedding ");
+            throw new CommandException("No Current Wedding");
         }
         currentWedding.addGuest(guest);
         return new CommandResult(String.format(MESSAGE_SUCCESS, guest));
