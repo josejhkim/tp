@@ -10,7 +10,12 @@ public class DietaryRestriction {
      * Enum to represent typical dietary restrictions.
      */
     public enum TypicalRestriction {
-        VEGETARIAN, VEGAN, HALAL, NONE
+        VEGETARIAN, VEGAN, HALAL, NONE;
+
+        @Override
+        public String toString() {
+            return super.toString();
+        }
     }
 
     private final TypicalRestriction typicalRestriction;

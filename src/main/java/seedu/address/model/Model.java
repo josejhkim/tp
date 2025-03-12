@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.person.Guest;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
@@ -116,11 +117,11 @@ public interface Model {
     /**
      * Finds given guest to the current wedding according to phone number.
      */
-    Guest findGuestByPhone(Wedding wedding, Phone phone);
+    Guest findGuestByPhone(Wedding wedding, Phone phone) throws CommandException;
     /**
      * Finds given guest to the current wedding according to guestId.
      */
-    Guest findGuestByGuestId(Wedding wedding, Integer guestId);
+    Guest findGuestByGuestId(Wedding wedding, Integer guestId) throws CommandException;
 
 
 

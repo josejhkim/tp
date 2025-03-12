@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.person.Address;
@@ -56,5 +57,20 @@ public class AddGuestCommandTest {
         model.getCurrentWedding().addGuest(guest); // Adding the guest first to cause failure
 
         assertThrows(DuplicatePersonException.class, () -> command.execute(model));
+    }
+
+    @Test
+    public void execute_noCurrentWedding_throwsCommandException() {
+        model.setCurrentWedding(null); // Set currentWedding to null
+
+        Guest guest = new Guest(new Name("John Doe"),
+            new Email("johndoe@example.com"),
+            new Address("123 Street"),
+            new Phone("12345678"),
+            new DietaryRestriction("None"),
+            new Rsvp(Rsvp.Status.YES));
+        AddGuestCommand command = new AddGuestCommand(guest);
+
+        assertThrows(CommandException.class, () -> command.execute(model), "No Current Wedding");
     }
 }

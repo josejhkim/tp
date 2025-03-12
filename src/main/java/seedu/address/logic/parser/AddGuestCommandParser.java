@@ -32,22 +32,22 @@ public class AddGuestCommandParser implements Parser<AddGuestCommand> {
     public AddGuestCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
             ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL,
-                PREFIX_DIETARY_RESTRICTION, PREFIX_RSVP);
+                PREFIX_ADDRESS, PREFIX_DIETARY_RESTRICTION, PREFIX_RSVP);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL,
-            PREFIX_DIETARY_RESTRICTION, PREFIX_RSVP)
+            PREFIX_ADDRESS, PREFIX_DIETARY_RESTRICTION, PREFIX_RSVP)
             || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 AddGuestCommand.MESSAGE_USAGE));
         }
         //Getting all the details of the guest
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
+        Phone phone = ParserUtil.parsePhone(
+            argMultimap.getValue(PREFIX_PHONE).get());
         Email email = ParserUtil.parseEmail(
             argMultimap.getValue(PREFIX_EMAIL).get());
         Address address = ParserUtil.parseAddress(
             argMultimap.getValue(PREFIX_ADDRESS).get());
-        Phone phone = ParserUtil.parsePhone(
-            argMultimap.getValue(PREFIX_PHONE).get());
         DietaryRestriction dietaryRestriction = ParserUtil.parseDietaryRestriction(
             argMultimap.getValue(PREFIX_DIETARY_RESTRICTION).get());
         Rsvp rsvp = ParserUtil.parseRsvp(

@@ -43,4 +43,26 @@ public class AddGuestCommand extends Command {
         currentWedding.addGuest(guest);
         return new CommandResult(String.format(MESSAGE_SUCCESS, guest));
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        }
+        if (!(other instanceof AddGuestCommand)) {
+            return false;
+        }
+        AddGuestCommand otherCommand = (AddGuestCommand) other;
+        return guest.toString().equals(otherCommand.guest.toString());
+    }
+
+    @Override
+    public int hashCode() {
+        return guest.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return "AddGuestCommand{guest=" + guest + "}";
+    }
 }

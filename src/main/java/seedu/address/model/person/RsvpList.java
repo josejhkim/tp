@@ -1,5 +1,7 @@
 package seedu.address.model.person;
 
+import seedu.address.logic.commands.exceptions.CommandException;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -41,17 +43,19 @@ public class RsvpList extends UniquePersonList {
             .collect(Collectors.toList());
     }
 
-    public Guest getGuestByPhone(Phone phone) {
+    public Guest getGuestByPhone(Phone phone) throws CommandException {
         return getAllGuests().stream()
             .filter(guest -> guest.getPhone().equals(phone))
             .findFirst()
-            .orElse(null);
+            .orElseThrow(() -> new CommandException(
+                "Guest with phone " + phone + " not found"));
     }
 
-    public Guest getGuestByGuestId(Integer guestId) {
+    public Guest getGuestByGuestId(Integer guestId) throws CommandException {
         return getAllGuests().stream()
             .filter(guest -> guest.getGuestId().equals(guestId))
             .findFirst()
-            .orElse(null);
+            .orElseThrow(() -> new CommandException(
+                "Guest with ID " + guestId + " not found"));
     }
 }

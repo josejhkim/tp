@@ -34,4 +34,10 @@ public class SetWeddingCommand extends Command {
         model.setCurrentWedding(wedding);
         return new CommandResult(String.format(MESSAGE_SUCCESS, weddingName));
     }
+    @Override
+    public boolean equals(Object other) {
+        return other == this
+            || (other instanceof SetWeddingCommand
+            && weddingName.equals(((SetWeddingCommand) other).weddingName));
+    }
 }

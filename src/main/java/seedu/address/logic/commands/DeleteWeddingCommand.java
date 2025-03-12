@@ -34,4 +34,11 @@ public class DeleteWeddingCommand extends Command {
         model.deleteWedding(wedding);
         return new CommandResult(String.format(MESSAGE_SUCCESS, wedding));
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this
+            || (other instanceof DeleteWeddingCommand
+            && weddingName.equals(((DeleteWeddingCommand) other).weddingName));
+    }
 }

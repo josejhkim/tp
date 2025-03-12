@@ -62,7 +62,13 @@ public class Guest extends Person {
 
     @Override
     public String toString() {
-        return super.toString() + ", Dietary Restriction: " + dietaryRestriction + ", RSVP: " + rsvp;
+        return "Name: " + getName()
+            + "; Phone: " + getPhone()
+            + "; Email: " + getEmail()
+            + "; Address: " + getAddress()
+            + "; Tags: " + getTags()
+            + "; Dietary Restriction: " + dietaryRestriction
+            + ", RSVP: " + rsvp;
     }
 
 }

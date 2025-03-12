@@ -23,12 +23,28 @@ public class RemoveGuestCommandParser implements Parser<RemoveGuestCommand> {
         ArgumentMultimap argMultimap =
             ArgumentTokenizer.tokenize(args, PREFIX_PHONE, PREFIX_GUEST_ID);
 
+//        if (!arePrefixesPresent(argMultimap, PREFIX_PHONE) && !arePrefixesPresent(argMultimap, PREFIX_GUEST_ID)
+//            || arePrefixesPresent(argMultimap, PREFIX_PHONE) && arePrefixesPresent(argMultimap, PREFIX_GUEST_ID)
+//            || !argMultimap.getPreamble().isEmpty()) {
+//            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RemoveGuestCommand.MESSAGE_USAGE));
+//        }
         if (!arePrefixesPresent(argMultimap, PREFIX_PHONE) && !arePrefixesPresent(argMultimap, PREFIX_GUEST_ID)
+            || arePrefixesPresent(argMultimap, PREFIX_PHONE) && arePrefixesPresent(argMultimap, PREFIX_GUEST_ID)
             || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RemoveGuestCommand.MESSAGE_USAGE));
+
+            String errorMessage = MESSAGE_INVALID_COMMAND_FORMAT;
+            if (!arePrefixesPresent(argMultimap, PREFIX_PHONE) && !arePrefixesPresent(argMultimap, PREFIX_GUEST_ID)) {
+                errorMessage = "Missing required prefix: either " + PREFIX_PHONE + " or " + PREFIX_GUEST_ID;
+            } else if (arePrefixesPresent(argMultimap, PREFIX_PHONE) && arePrefixesPresent(argMultimap, PREFIX_GUEST_ID)) {
+                errorMessage = "Only one of " + PREFIX_PHONE + " or " + PREFIX_GUEST_ID + " should be provided";
+            } else if (!argMultimap.getPreamble().isEmpty()) {
+                errorMessage = "Unexpected preamble: " + argMultimap.getPreamble();
+            }
+
+            throw new ParseException(String.format(errorMessage, RemoveGuestCommand.MESSAGE_USAGE));
         }
         Phone phone = null;
-        int guestId = 0;
+        Integer guestId = null;
 
 
         if (argMultimap.getValue(PREFIX_PHONE).isPresent()) {

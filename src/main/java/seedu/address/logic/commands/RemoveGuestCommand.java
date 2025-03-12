@@ -24,11 +24,11 @@ public class RemoveGuestCommand extends Command {
         + " Please check and try again.";
 
     private final Phone phone;
-    private final int guestId;
+    private final Integer guestId;
     /**
      * Creates a RemoveGuestCommand to remove the guest with the specified phone number.
      */
-    public RemoveGuestCommand(Phone phone, int guestId) {
+    public RemoveGuestCommand(Phone phone, Integer guestId) {
         this.phone = phone;
         this.guestId = guestId;
     }
@@ -50,14 +50,28 @@ public class RemoveGuestCommand extends Command {
         Guest guestToRemove = null;
         if (phone != null) {
             guestToRemove = model.findGuestByPhone(currentWedding, phone);
-        } else if (guestId != 0) {
+        } else if (guestId != null) {
             guestToRemove = model.findGuestByGuestId(currentWedding, guestId);
         }
 
         if (guestToRemove == null) {
             throw new CommandException(MESSAGE_GUEST_NOT_FOUND);
         }
+
         currentWedding.removeGuest(guestToRemove);
         return new CommandResult(String.format(MESSAGE_SUCCESS, guestToRemove));
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+        if (!(other instanceof RemoveGuestCommand)) {
+            return false;
+        }
+        RemoveGuestCommand otherCommand = (RemoveGuestCommand) other;
+        return (phone == null ? otherCommand.phone == null : phone.equals(otherCommand.phone))
+            && (guestId == null ? otherCommand.guestId == null : guestId.equals(otherCommand.guestId));
     }
 }

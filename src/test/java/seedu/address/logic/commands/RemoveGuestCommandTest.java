@@ -30,7 +30,7 @@ public class RemoveGuestCommandTest {
     }
 
     @Test
-    public void execute_removeGuest_success() throws Exception {
+    public void execute_removeGuestByPhone_success() throws Exception {
         Guest guest = new Guest(
             new Name("John Doe"),
             new Email("johndoe@example.com"),
@@ -47,9 +47,46 @@ public class RemoveGuestCommandTest {
     }
 
     @Test
-    public void execute_removeGuest_failure() {
+    public void execute_removeGuestByPhone_failure() {
         RemoveGuestCommand command = new RemoveGuestCommand(new Phone("12345674"), 0);
 
         assertThrows(CommandException.class, () -> command.execute(model));
+    }
+
+    @Test
+    public void execute_removeGuestById_success() throws CommandException {
+        Guest guest = new Guest(new Name("John Doe"),
+            new Email("johndoe@example.com"),
+            new Address("123 Street"),
+            new Phone("12345678"),
+            new DietaryRestriction("None"),
+            new Rsvp(Rsvp.Status.YES));
+        model.getCurrentWedding().addGuest(guest);
+        RemoveGuestCommand command = new RemoveGuestCommand(null, "12345678".hashCode() );
+        CommandResult result = command.execute(model);
+        assertEquals(String.format(RemoveGuestCommand.MESSAGE_SUCCESS, guest), result.getFeedbackToUser());
+    }
+
+    @Test
+    public void execute_removeGuestById_failure() {
+        RemoveGuestCommand command = new RemoveGuestCommand(new Phone("12345674"), "12345678".hashCode() );
+
+        assertThrows(CommandException.class, () -> command.execute(model));
+    }
+
+
+    @Test
+    public void execute_noCurrentWedding_throwsCommandException() {
+        model.setCurrentWedding(null); // Set currentWedding to null
+
+        Guest guest = new Guest(new Name("John Doe"),
+            new Email("johndoe@example.com"),
+            new Address("123 Street"),
+            new Phone("12345678"),
+            new DietaryRestriction("None"),
+            new Rsvp(Rsvp.Status.YES));
+        RemoveGuestCommand command = new RemoveGuestCommand(new Phone("12345678"),0);
+
+        assertThrows(CommandException.class, () -> command.execute(model), "No Current Wedding");
     }
 }

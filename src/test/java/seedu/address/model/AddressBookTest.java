@@ -9,11 +9,13 @@ import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import javafx.collections.FXCollections;
@@ -89,6 +91,57 @@ public class AddressBookTest {
         String expected = AddressBook.class.getCanonicalName() + "{persons=" + addressBook.getPersonList() + "}";
         assertEquals(expected, addressBook.toString());
     }
+
+    @Test
+    public void setWeddings_validList_success() {
+        List<Wedding> weddings = new ArrayList<>();
+        weddings.add(new Wedding("Wedding 1"));
+        weddings.add(new Wedding("Wedding 2"));
+
+        addressBook.setWeddings(weddings);
+
+        assertEquals(weddings, addressBook.getWeddings());
+    }
+
+    @Test
+    public void setWeddings_emptyList_success() {
+        List<Wedding> weddings = new ArrayList<>();
+
+        addressBook.setWeddings(weddings);
+
+        assertEquals(weddings, addressBook.getWeddings());
+    }
+
+    @Test
+    public void hasWedding_nullWedding_throwsNullPointerException() {
+        Assertions.assertThrows(NullPointerException.class, () -> addressBook.hasWedding(null));
+    }
+
+    @Test
+    public void hasWedding_weddingNotInAddressBook_returnsFalse() {
+        Wedding wedding = new Wedding("Wedding 1");
+        assertFalse(addressBook.hasWedding(wedding));
+    }
+
+    @Test
+    public void hasWedding_weddingInAddressBook_returnsTrue() {
+        Wedding wedding = new Wedding("Wedding 1");
+        addressBook.addWedding(wedding);
+        assertTrue(addressBook.hasWedding(wedding));
+    }
+
+    @Test
+    public void findWeddingByName_weddingExists_returnsWedding() {
+        Wedding wedding = new Wedding("Wedding 1");
+        addressBook.addWedding(wedding);
+        assertEquals(wedding, addressBook.findWeddingByName("Wedding 1"));
+    }
+
+    @Test
+    public void findWeddingByName_weddingDoesNotExist_throwsIllegalArgumentException() {
+        Assertions.assertThrows(IllegalArgumentException.class, () -> addressBook.findWeddingByName("Nonexistent Wedding"));
+    }
+
 
     /**
      * A stub ReadOnlyAddressBook whose persons list can violate interface constraints.

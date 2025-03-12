@@ -13,6 +13,9 @@ public class SeeRsvpListCommandParser implements Parser<SeeRsvpListCommand> {
      */
     @Override
     public SeeRsvpListCommand parse(String args) throws ParseException {
+        if (!args.trim().isEmpty()) {
+            throw new ParseException(String.format("Unexpected arguments: %s", args));
+        }
         return new SeeRsvpListCommand();
     }
 }

@@ -142,7 +142,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         return weddings.stream()
             .filter(wedding -> wedding.getName().equals(name))
             .findFirst()
-            .orElse(null);
+            .orElseThrow(() -> new IllegalArgumentException("No such wedding exists"));
     }
 
     //// util methods
@@ -182,5 +182,9 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public int hashCode() {
         return persons.hashCode();
+    }
+
+    public List<Wedding> getWeddings() {
+        return weddings;
     }
 }

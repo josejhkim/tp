@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static seedu.address.testutil.Assert.assertThrows;
@@ -12,15 +13,44 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.person.Address;
+import seedu.address.model.person.DietaryRestriction;
+import seedu.address.model.person.Email;
+import seedu.address.model.person.Guest;
+import seedu.address.model.person.Name;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
+import seedu.address.model.person.Phone;
+import seedu.address.model.person.Rsvp;
+import seedu.address.model.wedding.Wedding;
 import seedu.address.testutil.AddressBookBuilder;
 
 public class ModelManagerTest {
 
     private ModelManager modelManager = new ModelManager();
+    private Wedding wedding;
+    private Guest guest;
+
+    @BeforeEach
+    public void setUp() {
+        modelManager = new ModelManager();
+        wedding = new Wedding("John and Jane's Wedding");
+        guest = new Guest(
+            new Name("John Doe"),
+            new Email("johndoe@example.com"),
+            new Address("123 Street"),
+            new Phone("12345678"),
+            new DietaryRestriction("None"),
+            new Rsvp(Rsvp.Status.YES)
+        );
+        wedding.addGuest(guest);
+        modelManager.addWedding(wedding);
+        modelManager.setCurrentWedding(wedding);
+    }
 
     @Test
     public void constructor() {
@@ -94,6 +124,30 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void findGuestByPhone_existingPhone_returnsGuest() throws CommandException {
+        Guest foundGuest = modelManager.findGuestByPhone(wedding, new Phone("12345678"));
+        assertEquals(guest, foundGuest);
+    }
+
+    @Test
+    public void findGuestByPhone_nonExistingPhone_returnsException() {
+        assertThrows(CommandException.class ,
+            () -> modelManager.findGuestByPhone(wedding, new Phone("87654321")));
+    }
+
+    @Test
+    public void findGuestByGuestID_existingId_returnsGuest() throws CommandException {
+        Guest foundGuest = modelManager.findGuestByGuestId(wedding, "12345678".hashCode());
+        assertEquals(guest, foundGuest);
+    }
+
+    @Test
+    public void findGuestByGuestID_nonExistingId_returnsException() {
+        assertThrows(CommandException.class ,
+            () -> modelManager.findGuestByGuestId(wedding, "87654321".hashCode()));
+    }
+
+    @Test
     public void equals() {
         AddressBook addressBook = new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
         AddressBook differentAddressBook = new AddressBook();
@@ -129,4 +183,5 @@ public class ModelManagerTest {
         differentUserPrefs.setAddressBookFilePath(Paths.get("differentFilePath"));
         assertFalse(modelManager.equals(new ModelManager(addressBook, differentUserPrefs)));
     }
+
 }

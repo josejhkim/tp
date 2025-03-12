@@ -15,9 +15,11 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Address;
+import seedu.address.model.person.DietaryRestriction;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Rsvp;
 import seedu.address.model.tag.Tag;
 
 public class ParserUtilTest {
@@ -192,5 +194,53 @@ public class ParserUtilTest {
         Set<Tag> expectedTagSet = new HashSet<Tag>(Arrays.asList(new Tag(VALID_TAG_1), new Tag(VALID_TAG_2)));
 
         assertEquals(expectedTagSet, actualTagSet);
+    }
+    @Test
+    public void parseRsvp_withValidRsvpYes_returnsEqual() throws Exception {
+        assertEquals(ParserUtil.parseRsvp("yes"), new Rsvp(Rsvp.Status.YES));
+    }
+
+    @Test
+    public void parseRsvp_withValidRsvpNo_returnsEqual() throws Exception {
+        assertEquals(ParserUtil.parseRsvp("no"), new Rsvp(Rsvp.Status.NO));
+    }
+
+    @Test
+    public void parseRsvp_withValidRsvpNoResponse_returnsEqual() throws Exception {
+        assertEquals(ParserUtil.parseRsvp("no_response"), new Rsvp(Rsvp.Status.NO_RESPONSE));
+    }
+
+    @Test
+    public void parseRsvp_withInvalidRsvp_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseRsvp("maybe"));
+    }
+
+    @Test
+    public void parseDietaryRestriction_none_returnsNone() throws Exception {
+        assertEquals(ParserUtil.parseDietaryRestriction("None"),
+            new DietaryRestriction(DietaryRestriction.TypicalRestriction.NONE));
+    }
+
+    @Test
+    public void parseDietaryRestriction_halal_returnsHalal() throws Exception {
+        assertEquals(ParserUtil.parseDietaryRestriction("Halal"),
+            new DietaryRestriction(DietaryRestriction.TypicalRestriction.HALAL));
+    }
+
+    @Test
+    public void parseDietaryRestriction_Vegetarian_returnsVegetarian() throws Exception {
+        assertEquals(ParserUtil.parseDietaryRestriction("Vegetarian"),
+            new DietaryRestriction(DietaryRestriction.TypicalRestriction.VEGETARIAN));
+    }
+    @Test
+    public void parseDietaryRestriction_Vegan_returnsVegan() throws Exception {
+        assertEquals(ParserUtil.parseDietaryRestriction("Vegan"),
+            new DietaryRestriction(DietaryRestriction.TypicalRestriction.VEGAN));
+    }
+
+    @Test
+    public void parseDietaryRestriction_custom_returnsCustom() throws Exception{
+        assertEquals(ParserUtil.parseDietaryRestriction("Custom"),
+            new DietaryRestriction("Custom"));
     }
 }

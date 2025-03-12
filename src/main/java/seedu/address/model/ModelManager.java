@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.person.Guest;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
@@ -164,12 +165,12 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Guest findGuestByPhone(Wedding wedding, Phone phone) {
+    public Guest findGuestByPhone(Wedding wedding, Phone phone) throws CommandException {
         return wedding.getRsvpList().getGuestByPhone(phone);
     }
 
     @Override
-    public Guest findGuestByGuestId(Wedding wedding, Integer guestId) {
+    public Guest findGuestByGuestId(Wedding wedding, Integer guestId) throws CommandException {
         return wedding.getRsvpList().getGuestByGuestId(guestId);
     }
 

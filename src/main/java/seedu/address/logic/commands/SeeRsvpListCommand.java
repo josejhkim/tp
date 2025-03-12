@@ -24,4 +24,9 @@ public class SeeRsvpListCommand extends Command {
         }
         return new CommandResult(String.format(MESSAGE_SUCCESS, result.toString().trim()));
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other instanceof SeeRsvpListCommand;
+    }
 }
