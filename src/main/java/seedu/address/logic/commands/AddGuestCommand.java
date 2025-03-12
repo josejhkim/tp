@@ -13,13 +13,15 @@ import seedu.address.model.wedding.Wedding;
 public class AddGuestCommand extends Command {
 
     public static final String COMMAND_WORD = "addGuest";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a guest to a wedding.\n"
-        + "Parameters: WEDDING_NAME GUEST_NAME\n"
-        + "Example: " + COMMAND_WORD + " John and Jane's Wedding John Doe";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a guest to the current wedding.\n"
+        + "Parameters: "
+        + "n/NAME p/PHONE e/EMAIL a/ADDRESS d/DIETARY_RESTRICTION r/RSVP\n"
+        + "Example: " + COMMAND_WORD + " "
+        + "n/John Doe p/12345678 e/johndoe@example.com a/123 Street d/None r/YES";
 
     public static final String MESSAGE_SUCCESS = "Guest added to wedding: %1$s";
     public static final String MESSAGE_NO_CURRENT_WEDDING =
-        "No current wedding set. Please set a current wedding first. Using the setWedding command.";
+        "No current wedding set. Please set a current wedding first using the setWedding command.";
 
     private final Guest guest;
 
@@ -38,7 +40,7 @@ public class AddGuestCommand extends Command {
         requireNonNull(model);
         Wedding currentWedding = model.getCurrentWedding();
         if (currentWedding == null) {
-            throw new CommandException("No Current Wedding");
+            throw new CommandException(MESSAGE_NO_CURRENT_WEDDING);
         }
         currentWedding.addGuest(guest);
         return new CommandResult(String.format(MESSAGE_SUCCESS, guest));
