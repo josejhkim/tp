@@ -27,7 +27,6 @@ import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.SeeRsvpListCommand;
 import seedu.address.logic.commands.SetWeddingCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Guest;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.EditPersonDescriptorBuilder;

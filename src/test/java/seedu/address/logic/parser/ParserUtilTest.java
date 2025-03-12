@@ -228,18 +228,18 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseDietaryRestriction_Vegetarian_returnsVegetarian() throws Exception {
+    public void parseDietaryRestriction_vegetarian_returnsVegetarian() throws Exception {
         assertEquals(ParserUtil.parseDietaryRestriction("Vegetarian"),
             new DietaryRestriction(DietaryRestriction.TypicalRestriction.VEGETARIAN));
     }
     @Test
-    public void parseDietaryRestriction_Vegan_returnsVegan() throws Exception {
+    public void parseDietaryRestriction_vegan_returnsVegan() throws Exception {
         assertEquals(ParserUtil.parseDietaryRestriction("Vegan"),
             new DietaryRestriction(DietaryRestriction.TypicalRestriction.VEGAN));
     }
 
     @Test
-    public void parseDietaryRestriction_custom_returnsCustom() throws Exception{
+    public void parseDietaryRestriction_custom_returnsCustom() throws Exception {
         assertEquals(ParserUtil.parseDietaryRestriction("Custom"),
             new DietaryRestriction("Custom"));
     }

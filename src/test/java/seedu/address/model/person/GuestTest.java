@@ -86,7 +86,9 @@ public class GuestTest {
         Rsvp rsvp = new Rsvp(Rsvp.Status.YES);
 
         Guest guest = new Guest(name, email, address, phone, dietaryRestriction, rsvp);
-        String expectedString = "Name: John Doe; Phone: 12345678; Email: johndoe@example.com; Address: 123 Street; Tags: []; Dietary Restriction: VEGAN, RSVP: YES";
+        String expectedString =
+            "Name: John Doe; Phone: 12345678; Email: johndoe@example.com; "
+                + "Address: 123 Street; Tags: []; Dietary Restriction: VEGAN, RSVP: YES";
         assertEquals(expectedString, guest.toString());
     }
 }

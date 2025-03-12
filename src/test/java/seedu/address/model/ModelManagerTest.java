@@ -2,7 +2,6 @@ package seedu.address.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static seedu.address.testutil.Assert.assertThrows;
@@ -131,8 +130,8 @@ public class ModelManagerTest {
 
     @Test
     public void findGuestByPhone_nonExistingPhone_returnsException() {
-        assertThrows(CommandException.class ,
-            () -> modelManager.findGuestByPhone(wedding, new Phone("87654321")));
+        assertThrows(CommandException.class , () ->
+            modelManager.findGuestByPhone(wedding, new Phone("87654321")));
     }
 
     @Test
@@ -143,8 +142,8 @@ public class ModelManagerTest {
 
     @Test
     public void findGuestByGuestID_nonExistingId_returnsException() {
-        assertThrows(CommandException.class ,
-            () -> modelManager.findGuestByGuestId(wedding, "87654321".hashCode()));
+        assertThrows(CommandException.class , () ->
+            modelManager.findGuestByGuestId(wedding, "87654321".hashCode()));
     }
 
     @Test

@@ -1,9 +1,9 @@
 package seedu.address.model.person;
 
-import seedu.address.logic.commands.exceptions.CommandException;
-
 import java.util.List;
 import java.util.stream.Collectors;
+
+import seedu.address.logic.commands.exceptions.CommandException;
 
 /**
  * A list of guests who have been RSVPed to the event.

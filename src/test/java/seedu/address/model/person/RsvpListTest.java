@@ -1,14 +1,16 @@
 package seedu.address.model.person;
 
-import seedu.address.logic.commands.exceptions.CommandException;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.HashSet;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import seedu.address.logic.commands.exceptions.CommandException;
 
 public class RsvpListTest {
 
@@ -49,7 +51,7 @@ public class RsvpListTest {
     @Test
     public void contains_validGuest_returnsTrue() {
         rsvpList.add(guest);
-        assertEquals(true, rsvpList.contains(guest));
+        assertTrue(rsvpList.contains(guest));
     }
 
     @Test
@@ -61,7 +63,7 @@ public class RsvpListTest {
             new Address("456 Avenue"),
             new HashSet<>()
         );
-        assertEquals(false, rsvpList.contains(person));
+        assertFalse(rsvpList.contains(person));
     }
 
     @Test
@@ -95,7 +97,7 @@ public class RsvpListTest {
     }
 
     @Test
-    public void getGuestByGuestId_existingId_returnsGuest() throws CommandException{
+    public void getGuestByGuestId_existingId_returnsGuest() throws CommandException {
         rsvpList.add(guest);
         assertEquals(guest, rsvpList.getGuestByGuestId("12345678".hashCode()));
     }

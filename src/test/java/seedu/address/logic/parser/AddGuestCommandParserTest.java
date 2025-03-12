@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.AddGuestCommand;
-
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.DietaryRestriction;
@@ -30,13 +29,12 @@ public class AddGuestCommandParserTest {
                 new DietaryRestriction(DietaryRestriction.TypicalRestriction.NONE),
                 new Rsvp(Rsvp.Status.YES));
             AddGuestCommand command = parser.parse(
-            " n/John Doe p/12345678 e/johndoe@example.com a/123 Street d/None r/YES");
+                " n/John Doe p/12345678 e/johndoe@example.com a/123 Street d/None r/YES");
             System.out.println(command);
             System.out.println(new AddGuestCommand(guest));
 
-        assertEquals(new AddGuestCommand(guest), command);
-    }
-        catch (ParseException e) {
+            assertEquals(new AddGuestCommand(guest), command);
+        } catch (ParseException e) {
             e.printStackTrace();
         }
     }

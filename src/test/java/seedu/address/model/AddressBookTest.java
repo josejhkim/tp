@@ -139,7 +139,8 @@ public class AddressBookTest {
 
     @Test
     public void findWeddingByName_weddingDoesNotExist_throwsIllegalArgumentException() {
-        Assertions.assertThrows(IllegalArgumentException.class, () -> addressBook.findWeddingByName("Nonexistent Wedding"));
+        Assertions.assertThrows(IllegalArgumentException.class, () ->
+            addressBook.findWeddingByName("Nonexistent Wedding"));
     }
 
 
