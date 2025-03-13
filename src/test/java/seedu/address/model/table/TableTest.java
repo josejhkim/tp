@@ -2,8 +2,12 @@ package seedu.address.model.table;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
+
+
+
 
 public class TableTest {
 
@@ -43,5 +47,18 @@ public class TableTest {
         String json = table.toJson();
         Table restoredTable = Table.fromJson(json);
         assertEquals(table, restoredTable);
+    }
+
+    @Test
+    void testTableCreation() {
+        Table table = new Table(1, 6);
+        assertEquals(1, table.getTableId());
+        assertEquals(6, table.getCapacity());
+    }
+
+    @Test
+    void testGetGuestListInitiallyEmpty() {
+        Table table = new Table(1, 4);
+        assertTrue(table.getGuestList().isEmpty(), "Guest list should be empty initially.");
     }
 }
