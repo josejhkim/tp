@@ -22,7 +22,10 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.person.Guest;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.Phone;
+import seedu.address.model.wedding.Wedding;
 import seedu.address.testutil.PersonBuilder;
 
 public class AddCommandTest {
@@ -157,6 +160,41 @@ public class AddCommandTest {
         public void updateFilteredPersonList(Predicate<Person> predicate) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public void addWedding(Wedding wedding) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteWedding(Wedding wedding) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Wedding findWeddingByName(String name) {
+            return null;
+        }
+
+        @Override
+        public void setCurrentWedding(Wedding wedding) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Wedding getCurrentWedding() {
+            return null;
+        }
+
+        @Override
+        public Guest findGuestByPhone(Wedding wedding, Phone phone) {
+            return null;
+        }
+
+        @Override
+        public Guest findGuestByGuestId(Wedding wedding, Integer guestId) {
+            return null;
+        }
     }
 
     /**
@@ -202,3 +240,4 @@ public class AddCommandTest {
     }
 
 }
+

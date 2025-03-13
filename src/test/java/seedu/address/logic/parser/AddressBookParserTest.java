@@ -15,13 +15,17 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ClearCommand;
+import seedu.address.logic.commands.CreateWeddingCommand;
 import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.DeleteWeddingCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.SeeRsvpListCommand;
+import seedu.address.logic.commands.SetWeddingCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
@@ -32,6 +36,36 @@ import seedu.address.testutil.PersonUtil;
 public class AddressBookParserTest {
 
     private final AddressBookParser parser = new AddressBookParser();
+
+    @Test
+    public void parseCommand_createWedding() throws Exception {
+        String weddingName = "John and Jane's Wedding";
+        CreateWeddingCommand command = (CreateWeddingCommand) parser.parseCommand(
+            CreateWeddingCommand.COMMAND_WORD + " " + weddingName);
+        assertEquals(new CreateWeddingCommand(weddingName), command);
+    }
+
+    @Test
+    public void parseCommand_deleteWedding() throws Exception {
+        String weddingName = "John and Jane's Wedding";
+        DeleteWeddingCommand command = (DeleteWeddingCommand) parser.parseCommand(
+            DeleteWeddingCommand.COMMAND_WORD + " " + weddingName);
+        assertEquals(new DeleteWeddingCommand(weddingName), command);
+    }
+
+    @Test
+    public void parseCommand_setWedding() throws Exception {
+        String weddingName = "John and Jane's Wedding";
+        SetWeddingCommand command = (SetWeddingCommand) parser.parseCommand(
+            SetWeddingCommand.COMMAND_WORD + " " + weddingName);
+        assertEquals(new SetWeddingCommand(weddingName), command);
+    }
+
+    @Test
+    public void parseCommand_seeRsvpList() throws Exception {
+        assertTrue(parser.parseCommand(SeeRsvpListCommand.COMMAND_WORD) instanceof SeeRsvpListCommand);
+    }
+    // Existing tests..
 
     @Test
     public void parseCommand_add() throws Exception {

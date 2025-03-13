@@ -10,9 +10,11 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Address;
+import seedu.address.model.person.DietaryRestriction;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Rsvp;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -120,5 +122,42 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    /**
+     * Parses a {@code String rsvp} into a {@code RSVP}.
+     * Leading and trailing whitespaces will be trimmed.
+     * @throws ParseException if the given {@code rsvp} is invalid if the status is not one of the valid statuses.
+     */
+    public static Rsvp parseRsvp(String rsvp) throws ParseException {
+        requireNonNull(rsvp);
+        String trimmedRsvp = rsvp.trim().toUpperCase();
+        try {
+            Rsvp.Status status = Rsvp.Status.valueOf(trimmedRsvp);
+            return new Rsvp(status);
+        } catch (IllegalArgumentException e) {
+            throw new ParseException("Invalid RSVP status: " + rsvp + "It should be YES, NO or NO_RESPONSE.");
+        }
+    }
+    /**
+     * Parses a {@code String dietaryRestriction} into a {@code DietaryRestriction}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * Tries to parse the dietary restriction as a typical restriction first.
+     * If not possible, treats it as a custom restriction.
+     */
+    public static DietaryRestriction parseDietaryRestriction(String dietaryRestriction) throws ParseException {
+        requireNonNull(dietaryRestriction);
+        // Trim the restriction to be a typical restriction like halal etc...
+        String trimmedTypicalRestriction = dietaryRestriction.trim().toUpperCase();
+        try {
+            // See if it's a typical restriction
+            DietaryRestriction.TypicalRestriction typicalRestriction =
+                DietaryRestriction.TypicalRestriction.valueOf(trimmedTypicalRestriction);
+            return new DietaryRestriction(typicalRestriction);
+        } catch (IllegalArgumentException e) {
+            // If it's not a typical one, treat it as a custom restriction
+            return new DietaryRestriction(dietaryRestriction.trim());
+        }
     }
 }
