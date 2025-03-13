@@ -1,0 +1,6 @@
+{
+    "java.configuration.updateBuildConfiguration": "interactive",
+    "java.import.gradle.java.home": "/usr/lib/jvm/java-17-openjdk-amd64",
+    "java.format.settings.url": ".vscode/java-formatter.xml"
+    
+}
