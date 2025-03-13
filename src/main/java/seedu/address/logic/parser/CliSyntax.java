@@ -14,5 +14,6 @@ public class CliSyntax {
     public static final Prefix PREFIX_GUEST_ID = new Prefix("gid/");
     public static final Prefix PREFIX_DIETARY_RESTRICTION = new Prefix("d/");
     public static final Prefix PREFIX_RSVP = new Prefix("r/");
-
+    public static final Prefix PREFIX_CATEGORY = new Prefix("c/");
+    public static final Prefix PREFIX_FIELD = new Prefix("f/");
 }
