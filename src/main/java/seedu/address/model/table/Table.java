@@ -24,6 +24,7 @@ public class Table {
     public int getCapacity() {
         return capacity;
     }
+
     public void setCapacity(int capacity) {
         this.capacity = capacity;
     }
@@ -32,14 +33,13 @@ public class Table {
         return guestList;
     }
 
-    public void addGuest(Guest guestName) {
+    public void addGuest(Guest guest) {
         if (guestList.size() < capacity) {
-            guestList.add(guestName);
+            guestList.add(guest);
         } else {
             System.out.println("Table is full. Cannot add more guests.");
         }
     }
-
 
     @Override
     public String toString() {
@@ -50,7 +50,8 @@ public class Table {
     public boolean equals(Object other) {
         if (this == other) {
             return true;
-        } if (!(other instanceof Table)) {
+        }
+        if (!(other instanceof Table)) {
             return false;
         }
         Table table = (Table) other;
@@ -61,5 +62,17 @@ public class Table {
     public int hashCode() {
         return Objects.hash(tableId, capacity);
     }
-}
 
+    // Convert to JSON for storage (Future Use)
+    public String toJson() {
+        return "{ \"tableId\": " + tableId + ", \"capacity\": " + capacity + " }";
+    }
+
+    // Convert from JSON to Table object (Future Use)
+    public static Table fromJson(String json) {
+        String[] parts = json.replace("{", "").replace("}", "").replace("\"", "").split(",");
+        int tableId = Integer.parseInt(parts[0].split(":")[1].trim());
+        int capacity = Integer.parseInt(parts[1].split(":")[1].trim());
+        return new Table(tableId, capacity);
+    }
+}
