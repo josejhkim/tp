@@ -13,6 +13,14 @@ public class Rsvp {
     }
     private final Status status;
 
+    /**
+     * Constructs a default {@code Rsvp}
+     * representing no response
+     */
+    public Rsvp() {
+        this.status = Status.NO_RESPONSE;
+    }
+
     public Rsvp(Status status) {
         this.status = status;
     }

@@ -40,9 +40,9 @@ public class ModelManagerTest {
         wedding = new Wedding("John and Jane's Wedding");
         guest = new Guest(
             new Name("John Doe"),
+            new Phone("12345678"),
             new Email("johndoe@example.com"),
             new Address("123 Street"),
-            new Phone("12345678"),
             new DietaryRestriction("None"),
             new Rsvp(Rsvp.Status.YES)
         );

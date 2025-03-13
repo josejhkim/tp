@@ -33,9 +33,9 @@ public class RemoveGuestCommandTest {
     public void execute_removeGuestByPhone_success() throws Exception {
         Guest guest = new Guest(
             new Name("John Doe"),
+            new Phone("12345678"),
             new Email("johndoe@example.com"),
             new Address("123 Street"),
-            new Phone("12345678"),
             new DietaryRestriction("None"),
             new Rsvp(Rsvp.Status.YES));
         model.getCurrentWedding().addGuest(guest);
@@ -56,9 +56,9 @@ public class RemoveGuestCommandTest {
     @Test
     public void execute_removeGuestById_success() throws CommandException {
         Guest guest = new Guest(new Name("John Doe"),
+            new Phone("12345678"),
             new Email("johndoe@example.com"),
             new Address("123 Street"),
-            new Phone("12345678"),
             new DietaryRestriction("None"),
             new Rsvp(Rsvp.Status.YES));
         model.getCurrentWedding().addGuest(guest);
@@ -80,9 +80,9 @@ public class RemoveGuestCommandTest {
         model.setCurrentWedding(null); // Set currentWedding to null
 
         Guest guest = new Guest(new Name("John Doe"),
+            new Phone("12345678"),
             new Email("johndoe@example.com"),
             new Address("123 Street"),
-            new Phone("12345678"),
             new DietaryRestriction("None"),
             new Rsvp(Rsvp.Status.YES));
         RemoveGuestCommand command = new RemoveGuestCommand(new Phone("12345678"), 0);

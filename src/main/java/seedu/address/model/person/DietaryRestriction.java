@@ -20,6 +20,16 @@ public class DietaryRestriction {
 
     private final TypicalRestriction typicalRestriction;
     private final String customRestriction;
+
+    /**
+     * Constructs a default {@code DietaryRestriction}
+     * representing no restrictions
+     */
+    public DietaryRestriction() {
+        this.typicalRestriction = TypicalRestriction.NONE;
+        this.customRestriction = null;
+    }
+
     /**
      * Constructs a {@code DietaryRestriction}.
      *
