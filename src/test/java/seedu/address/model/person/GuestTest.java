@@ -16,7 +16,7 @@ public class GuestTest {
         DietaryRestriction dietaryRestriction = new DietaryRestriction(DietaryRestriction.TypicalRestriction.VEGAN);
         Rsvp rsvp = new Rsvp(Rsvp.Status.YES);
 
-        Guest guest = new Guest(name, email, address, phone, dietaryRestriction, rsvp);
+        Guest guest = new Guest(name, phone, email, address, dietaryRestriction, rsvp);
 
         assertEquals(name, guest.getName());
         assertEquals(email, guest.getEmail());
@@ -35,8 +35,7 @@ public class GuestTest {
         Phone phone = new Phone("12345678");
         DietaryRestriction dietaryRestriction = new DietaryRestriction(DietaryRestriction.TypicalRestriction.VEGAN);
         Rsvp rsvp = new Rsvp(Rsvp.Status.YES);
-
-        Guest guest = new Guest(name, email, address, phone, dietaryRestriction, rsvp);
+        Guest guest = new Guest(name, phone, email, address, dietaryRestriction, rsvp);
         assertEquals(guest, guest);
     }
 
@@ -49,7 +48,7 @@ public class GuestTest {
         DietaryRestriction dietaryRestriction1 = new DietaryRestriction(DietaryRestriction.TypicalRestriction.VEGAN);
         Rsvp rsvp1 = new Rsvp(Rsvp.Status.YES);
 
-        Guest guest1 = new Guest(name1, email1, address1, phone1, dietaryRestriction1, rsvp1);
+        Guest guest1 = new Guest(name1, phone1, email1, address1, dietaryRestriction1, rsvp1);
 
         Name name2 = new Name("Jane Doe");
         Email email2 = new Email("janedoe@example.com");
@@ -58,7 +57,7 @@ public class GuestTest {
         DietaryRestriction dietaryRestriction2 = new DietaryRestriction(DietaryRestriction.TypicalRestriction.HALAL);
         Rsvp rsvp2 = new Rsvp(Rsvp.Status.NO);
 
-        Guest guest2 = new Guest(name2, email2, address2, phone2, dietaryRestriction2, rsvp2);
+        Guest guest2 = new Guest(name2, phone2, email2, address2, dietaryRestriction2, rsvp2);
 
         assertNotEquals(guest1, guest2);
     }
@@ -72,7 +71,7 @@ public class GuestTest {
         DietaryRestriction dietaryRestriction = new DietaryRestriction(DietaryRestriction.TypicalRestriction.VEGAN);
         Rsvp rsvp = new Rsvp(Rsvp.Status.YES);
 
-        Guest guest = new Guest(name, email, address, phone, dietaryRestriction, rsvp);
+        Guest guest = new Guest(name, phone, email, address, dietaryRestriction, rsvp);
         assertEquals(guest.hashCode(), guest.hashCode());
     }
 
@@ -85,7 +84,7 @@ public class GuestTest {
         DietaryRestriction dietaryRestriction = new DietaryRestriction(DietaryRestriction.TypicalRestriction.VEGAN);
         Rsvp rsvp = new Rsvp(Rsvp.Status.YES);
 
-        Guest guest = new Guest(name, email, address, phone, dietaryRestriction, rsvp);
+        Guest guest = new Guest(name, phone, email, address, dietaryRestriction, rsvp);
         String expectedString =
             "Name: John Doe; Phone: 12345678; Email: johndoe@example.com; "
                 + "Address: 123 Street; Tags: []; Dietary Restriction: VEGAN, RSVP: YES";
