@@ -63,19 +63,6 @@ public class Table {
     }
 
     /**
-     * Adds a guest to the table if there is available capacity.
-     *
-     * @param guest The guest to add.
-     */
-    public void addGuest(Guest guest) {
-        if (guestList.size() < capacity) {
-            guestList.add(guest);
-        } else {
-            System.out.println("Table is full. Cannot add more guests.");
-        }
-    }
-
-    /**
      * Returns a string representation of the table.
      *
      * @return A formatted string containing table ID and capacity.
