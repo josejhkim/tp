@@ -195,7 +195,8 @@ public class ParserUtil {
         } catch (ParseException pe) {
             throw new ParseException("Error parsing filter for category '" + trimmedCategory + "': " + pe.getMessage());
         } catch (Exception e) {
-            throw new ParseException("Unexpected error parsing filter for category '" + trimmedCategory + "': " + e.getMessage());
+            throw new ParseException("Unexpected error parsing filter for category '" + trimmedCategory + "': "
+                    + e.getMessage());
         }
     }
 

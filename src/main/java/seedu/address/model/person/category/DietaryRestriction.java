@@ -5,7 +5,7 @@ import java.util.Objects;
 /**
  * Represents a Person's dietary restriction in the address book.
  */
-public class DietaryRestriction implements Category{
+public class DietaryRestriction implements Category {
     /**
      * Enum to represent typical dietary restrictions.
      */
