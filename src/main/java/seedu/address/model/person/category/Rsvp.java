@@ -1,10 +1,11 @@
-package seedu.address.model.person;
+package seedu.address.model.person.category;
 
 import java.util.Objects;
+
 /**
  * Represents an RSVP in the address book.
  */
-public class Rsvp {
+public class Rsvp implements Category {
     /**
      * Enum to represent typical RSVP statuses.
      */

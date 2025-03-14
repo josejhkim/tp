@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.model.person.category.Rsvp;
+
 public class RsvpTest {
 
     @Test

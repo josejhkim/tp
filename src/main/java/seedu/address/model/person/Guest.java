@@ -3,6 +3,9 @@ package seedu.address.model.person;
 import java.util.HashSet;
 import java.util.Objects;
 
+import seedu.address.model.person.category.DietaryRestriction;
+import seedu.address.model.person.category.Rsvp;
+
 /**
  * Represents a Guest in the address book.
  * Guarantees: details are present and not null, field values are validated, immutable.
