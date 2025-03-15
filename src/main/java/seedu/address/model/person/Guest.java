@@ -16,9 +16,9 @@ public class Guest extends Person {
     * Every field must be present and not null, a person class is created with
     * name, phone, email, address, and an EMPTY set of tags
      */
-    public Guest(Name name, Email email, Address address, Phone phone, DietaryRestriction dietaryRestriction,
+    public Guest(Name name, Email email, Address address, Phone phone, Remark remark, DietaryRestriction dietaryRestriction,
                  Rsvp rsvp) {
-        super(name, phone, email, address, new HashSet<>());
+        super(name, phone, email, address, remark, new HashSet<>());
         this.dietaryRestriction = dietaryRestriction;
         this.rsvp = rsvp;
         this.guestId = generateGuestId(phone);

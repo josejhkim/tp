@@ -9,20 +9,15 @@ import java.util.regex.Pattern;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.AddGuestCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.CreateWeddingCommand;
 import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.DeleteWeddingCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
-import seedu.address.logic.commands.RemoveGuestCommand;
-import seedu.address.logic.commands.SeeRsvpListCommand;
-import seedu.address.logic.commands.SetWeddingCommand;
+import seedu.address.logic.commands.RemarkCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -59,24 +54,6 @@ public class AddressBookParser {
 
         switch (commandWord) {
 
-        case AddGuestCommand.COMMAND_WORD:
-            return new AddGuestCommandParser().parse(arguments);
-
-        case RemoveGuestCommand.COMMAND_WORD:
-            return new RemoveGuestCommandParser().parse(arguments);
-
-        case CreateWeddingCommand.COMMAND_WORD:
-            return new CreateWeddingCommandParser().parse(arguments);
-
-        case DeleteWeddingCommand.COMMAND_WORD:
-            return new DeleteWeddingCommandParser().parse(arguments);
-
-        case SetWeddingCommand.COMMAND_WORD:
-            return new SetWeddingCommandParser().parse(arguments);
-
-        case SeeRsvpListCommand.COMMAND_WORD:
-            return new SeeRsvpListCommandParser().parse(arguments);
-
         case AddCommand.COMMAND_WORD:
             return new AddCommandParser().parse(arguments);
 
@@ -91,6 +68,9 @@ public class AddressBookParser {
 
         case FindCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);
+
+        case RemarkCommand.COMMAND_WORD:
+            return new RemarkCommandParser().parse(arguments);
 
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
