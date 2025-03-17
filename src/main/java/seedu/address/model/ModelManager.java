@@ -137,7 +137,10 @@ public class ModelManager implements Model {
     @Override
     public void addWedding(Wedding wedding) {
         requireNonNull(wedding);
-        addressBook.addWedding(wedding);
+        if (this.currentWedding == null) {
+            addressBook.addWedding(wedding);
+            this.currentWedding = wedding;
+        }
     }
 
     @Override
@@ -157,8 +160,10 @@ public class ModelManager implements Model {
 
     @Override
     public void setCurrentWedding(Wedding wedding) {
+        requireNonNull(wedding);
         this.currentWedding = wedding;
     }
+
     @Override
     public Wedding getCurrentWedding() {
         return currentWedding;

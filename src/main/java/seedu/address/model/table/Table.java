@@ -7,18 +7,25 @@ import java.util.Objects;
 import seedu.address.model.person.Guest;
 
 /**
- * Represents a table at a wedding event.
+ * Represents a seating table in a wedding.
+ * Each table has a unique table ID, a seating capacity, and a list of guests currently assigned.
  */
 public class Table {
+
+    /** Unique identifier for the table. */
     private final int tableId;
+
+    /** Maximum seating capacity for the table. */
     private int capacity;
-    private List<Guest> guestList;
+
+    /** List of guests assigned to this table. */
+    private final List<Guest> guestList;
 
     /**
-     * Constructs a Table with an ID and capacity.
+     * Constructs a {@code Table} with the given table ID and capacity.
      *
-     * @param tableId  The ID of the table.
-     * @param capacity The maximum number of guests the table can hold.
+     * @param tableId The unique identifier for the table.
+     * @param capacity The seating capacity for the table.
      */
     public Table(int tableId, int capacity) {
         this.tableId = tableId;
@@ -27,7 +34,7 @@ public class Table {
     }
 
     /**
-     * Returns the table ID.
+     * Returns the unique table ID for this table.
      *
      * @return The table ID.
      */
@@ -36,47 +43,52 @@ public class Table {
     }
 
     /**
-     * Returns the table capacity.
+     * Returns the seating capacity of this table.
      *
-     * @return The table capacity.
+     * @return The seating capacity.
      */
     public int getCapacity() {
         return capacity;
     }
 
     /**
-     * Sets the table capacity.
+     * Sets a new seating capacity for this table.
      *
-     * @param capacity The new capacity of the table.
+     * @param capacity The new seating capacity.
      */
     public void setCapacity(int capacity) {
         this.capacity = capacity;
     }
 
     /**
-     * Returns the guest list for this table.
+     * Returns the list of guests currently assigned to this table.
      *
-     * @return A list of guests assigned to the table.
+     * @return A list of {@code Guest} objects assigned to the table.
      */
     public List<Guest> getGuestList() {
         return guestList;
     }
 
     /**
-     * Returns a string representation of the table.
+     * Returns a string representation of this table, showing its ID, capacity, and current guest count.
+     * <p>
+     * Example format: {@code "Table{ID=1, Capacity=8, Guests=0}"}.
      *
-     * @return A formatted string containing table ID and capacity.
+     * @return A formatted string representing the table.
      */
     @Override
     public String toString() {
-        return "Table ID: " + tableId + ", Capacity: " + capacity;
+        return "Table{ID=" + tableId
+                + ", Capacity=" + capacity
+                + ", Guests=" + guestList.size() + "}";
     }
 
     /**
-     * Checks if this table is equal to another table.
+     * Checks whether this table is equal to another object.
+     * Two tables are considered equal if they have the same {@code tableId} and {@code capacity}.
      *
      * @param other The object to compare.
-     * @return True if both tables have the same table ID and capacity.
+     * @return True if both tables share the same ID and capacity; false otherwise.
      */
     @Override
     public boolean equals(Object other) {
@@ -86,39 +98,17 @@ public class Table {
         if (!(other instanceof Table)) {
             return false;
         }
-        Table table = (Table) other;
-        return tableId == table.tableId && capacity == table.capacity;
+        Table t = (Table) other;
+        return tableId == t.tableId && capacity == t.capacity;
     }
 
     /**
-     * Returns the hash code of the table.
+     * Returns the hash code for this table, based on its ID and capacity.
      *
-     * @return The hash code based on table ID and capacity.
+     * @return The hash code derived from table ID and capacity.
      */
     @Override
     public int hashCode() {
         return Objects.hash(tableId, capacity);
-    }
-
-    /**
-     * Converts the table object to a JSON-like string representation.
-     *
-     * @return A JSON-formatted string of the table.
-     */
-    public String toJson() {
-        return "{ \"tableId\": " + tableId + ", \"capacity\": " + capacity + " }";
-    }
-
-    /**
-     * Converts a JSON-formatted string into a Table object.
-     *
-     * @param json The JSON string representing a table.
-     * @return A Table object with extracted values.
-     */
-    public static Table fromJson(String json) {
-        String[] parts = json.replace("{", "").replace("}", "").replace("\"", "").split(",");
-        int tableId = Integer.parseInt(parts[0].split(":")[1].trim());
-        int capacity = Integer.parseInt(parts[1].split(":")[1].trim());
-        return new Table(tableId, capacity);
     }
 }

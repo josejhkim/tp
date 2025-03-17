@@ -10,14 +10,18 @@ import java.util.regex.Pattern;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.AddGuestCommand;
+import seedu.address.logic.commands.AddTableCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CreateWeddingCommand;
 import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.DeleteTableCommand;
 import seedu.address.logic.commands.DeleteWeddingCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.FindTableCommand;
+import seedu.address.logic.commands.GetAllTablesCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.RemoveGuestCommand;
@@ -105,6 +109,18 @@ public class AddressBookParser {
         case WeddingOverviewCommand.COMMAND_WORD:
             return new WeddingOverviewCommandParser().parse(arguments);
 
+        case AddTableCommand.COMMAND_WORD:
+            return new AddTableCommandParser().parse(arguments);
+
+        case DeleteTableCommand.COMMAND_WORD:
+            return new DeleteTableCommandParser().parse(arguments);
+
+        case GetAllTablesCommand.COMMAND_WORD:
+            return new GetAllTablesCommandParser().parse(arguments);
+
+
+        case FindTableCommand.COMMAND_WORD:
+            return new FindTableCommandParser().parse(arguments);
         default:
             logger.finer("This user input caused a ParseException: " + userInput);
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

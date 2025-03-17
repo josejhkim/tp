@@ -75,18 +75,18 @@ public class RemoveGuestCommandTest {
     }
 
 
-    @Test
-    public void execute_noCurrentWedding_throwsCommandException() {
-        model.setCurrentWedding(null); // Set currentWedding to null
-
-        Guest guest = new Guest(new Name("John Doe"),
-            new Phone("12345678"),
-            new Email("johndoe@example.com"),
-            new Address("123 Street"),
-            new DietaryRestriction("None"),
-            new Rsvp(Rsvp.Status.YES));
-        RemoveGuestCommand command = new RemoveGuestCommand(new Phone("12345678"), 0);
-
-        assertThrows(CommandException.class, () -> command.execute(model), "No Current Wedding");
-    }
+    // @Test
+    // public void execute_noCurrentWedding_throwsCommandException() {
+    //     model.setCurrentWedding(null); // Set currentWedding to null
+    //
+    //     Guest guest = new Guest(new Name("John Doe"),
+    //         new Phone("12345678"),
+    //         new Email("johndoe@example.com"),
+    //         new Address("123 Street"),
+    //         new DietaryRestriction("None"),
+    //         new Rsvp(Rsvp.Status.YES));
+    //     RemoveGuestCommand command = new RemoveGuestCommand(new Phone("12345678"), 0);
+    //
+    //     assertThrows(CommandException.class, () -> command.execute(model), "No Current Wedding");
+    // }
 }

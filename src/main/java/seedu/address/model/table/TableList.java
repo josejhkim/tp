@@ -5,10 +5,9 @@ import java.util.List;
 
 /**
  * Represents a list of tables at a wedding event.
- * Provides methods to add, check, delete, and retrieve tables.
  */
 public class TableList {
-    private List<Table> tables;
+    private final List<Table> tables;
 
     /**
      * Constructs an empty list of tables.
@@ -27,13 +26,18 @@ public class TableList {
     }
 
     /**
-     * Checks if a table exists in the list.
+     * Finds a table by its ID.
      *
-     * @param table The table to check.
-     * @return True if the table exists, false otherwise.
+     * @param tableId The ID of the table to find.
+     * @return The matching Table if found, otherwise null.
      */
-    public boolean hasTable(Table table) {
-        return tables.contains(table);
+    public Table findTableById(int tableId) {
+        for (Table t : tables) {
+            if (t.getTableId() == tableId) {
+                return t;
+            }
+        }
+        return null; // Not found
     }
 
     /**
@@ -42,13 +46,13 @@ public class TableList {
      * @param tableId The ID of the table to be deleted.
      */
     public void deleteTable(int tableId) {
-        tables.removeIf(table -> table.getTableId() == tableId);
+        tables.removeIf(t -> t.getTableId() == tableId);
     }
 
     /**
-     * Retrieves the list of tables.
+     * Returns the list of tables.
      *
-     * @return A list of all tables.
+     * @return A list of all tables in this TableList.
      */
     public List<Table> getTables() {
         return tables;
