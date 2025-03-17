@@ -15,7 +15,7 @@ public class GetAllTablesCommandParser implements Parser<GetAllTablesCommand> {
      */
     @Override
     public GetAllTablesCommand parse(String args) throws ParseException {
-        
+
         String trimmedArgs = args.trim().toLowerCase();
 
         if (!trimmedArgs.isEmpty()) {
