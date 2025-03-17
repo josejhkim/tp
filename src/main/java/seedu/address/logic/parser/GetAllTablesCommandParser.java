@@ -15,7 +15,7 @@ public class GetAllTablesCommandParser implements Parser<GetAllTablesCommand> {
      */
     @Override
     public GetAllTablesCommand parse(String args) throws ParseException {
-        // Convert to lowercase to allow case-insensitive commands
+        
         String trimmedArgs = args.trim().toLowerCase();
 
         if (!trimmedArgs.isEmpty()) {
