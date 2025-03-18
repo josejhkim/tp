@@ -21,6 +21,7 @@ public class Table {
     /** List of guests assigned to this table. */
     private final List<Guest> guestList;
 
+
     /**
      * Constructs a {@code Table} with the given table ID and capacity.
      *
@@ -31,6 +32,7 @@ public class Table {
         this.tableId = tableId;
         this.capacity = capacity;
         this.guestList = new ArrayList<>();
+
     }
 
     /**
@@ -102,6 +104,7 @@ public class Table {
         return tableId == t.tableId && capacity == t.capacity;
     }
 
+
     /**
      * Returns the hash code for this table, based on its ID and capacity.
      *
@@ -111,4 +114,17 @@ public class Table {
     public int hashCode() {
         return Objects.hash(tableId, capacity);
     }
+
+    public List<Integer> getGuestIds() {
+        return null;
+    }
+
+    public void addGuestById(int guestId) {
+
+    }
+
+    public void addGuestId(int guestId) {
+    }
+
+
 }

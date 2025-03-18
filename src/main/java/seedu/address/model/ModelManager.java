@@ -40,6 +40,11 @@ public class ModelManager implements Model {
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+
+        // ✅ Ensure Wedding is set when app starts
+        if (addressBook.getWedding() != null) {
+            setCurrentWedding(addressBook.getWedding());
+        }
     }
 
     public ModelManager() {
@@ -134,39 +139,36 @@ public class ModelManager implements Model {
         filteredPersons.setPredicate(predicate);
     }
 
+
+    /**
+     * Adds a Wedding to the system. Only one Wedding can exist at a time.
+     */
     @Override
     public void addWedding(Wedding wedding) {
         requireNonNull(wedding);
-        if (this.currentWedding == null) {
-            addressBook.addWedding(wedding);
-            this.currentWedding = wedding;
+        if (addressBook.getWedding() != null) {
+            throw new IllegalStateException("A wedding already exists. Cannot create another.");
         }
+        addressBook.setWedding(wedding);
     }
 
-    @Override
-    public void deleteWedding(Wedding wedding) {
-        requireNonNull(wedding);
-        addressBook.removeWedding(wedding);
+
+    public void deleteWedding() {
+        addressBook.removeWedding();
+        this.currentWedding = null;
     }
 
-    @Override
-    public Wedding findWeddingByName(String name) {
-        requireNonNull(name);
-        return addressBook.getWeddingList().stream()
-            .filter(wedding -> wedding.getName().equals(name))
-            .findFirst()
-            .orElse(null);
+    /**
+     * Returns the current Wedding.
+     */
+    public Wedding getCurrentWedding() {
+        return addressBook.getWedding();
     }
 
     @Override
     public void setCurrentWedding(Wedding wedding) {
         requireNonNull(wedding);
-        this.currentWedding = wedding;
-    }
-
-    @Override
-    public Wedding getCurrentWedding() {
-        return currentWedding;
+        addressBook.setWedding(wedding);
     }
 
     @Override
@@ -191,9 +193,15 @@ public class ModelManager implements Model {
         }
 
         ModelManager otherModelManager = (ModelManager) other;
-        return addressBook.equals(otherModelManager.addressBook)
-                && userPrefs.equals(otherModelManager.userPrefs)
-                && filteredPersons.equals(otherModelManager.filteredPersons);
+        return addressBook.equals(otherModelManager.addressBook) && userPrefs.equals(otherModelManager.userPrefs) && filteredPersons.equals(otherModelManager.filteredPersons);
     }
+
+
+
+
+
+
+
+
 
 }

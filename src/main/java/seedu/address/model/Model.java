@@ -99,13 +99,8 @@ public interface Model {
      * Deletes the given wedding.
      * The wedding must exist in the address book.
      */
-    void deleteWedding(Wedding wedding);
+    void deleteWedding();
 
-    /**
-     * Finds and returns the wedding with the given name.
-     * Returns null if no such wedding exists.
-     */
-    Wedding findWeddingByName(String name);
     /**
      * Sets the current wedding.
      */

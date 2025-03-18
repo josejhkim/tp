@@ -12,12 +12,10 @@ public class CreateWeddingCommand extends Command {
 
     public static final String COMMAND_WORD = "createWedding";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Creates a new wedding.\n"
-        + "Parameters: NAME\n"
-        + "Example: " + COMMAND_WORD + " John and Jane's Wedding";
+            + "Parameters: NAME\n"
+            + "Example: " + COMMAND_WORD + " John and Jane's Wedding";
 
-    //public static final String MESSAGE_SUCCESS = "New wedding created: %1$s";
-    public static final String MESSAGE_SUCCESS =
-            "New wedding created: %1$s\nNumber of tables: %2$d\nNumber of guests: %3$d";
+    public static final String MESSAGE_SUCCESS = "New wedding created: %1$s";
 
     private final String weddingName;
 
@@ -30,11 +28,7 @@ public class CreateWeddingCommand extends Command {
         requireNonNull(model);
         Wedding wedding = new Wedding(weddingName);
         model.addWedding(wedding);
-        return new CommandResult(String.format(MESSAGE_SUCCESS,
-                wedding.getName(), wedding.getTableList().getTables().size(),
-                wedding.getRsvpList().getAllGuests().size()));
-
-        //return new CommandResult(String.format(MESSAGE_SUCCESS, wedding));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, wedding));
     }
 
     @Override

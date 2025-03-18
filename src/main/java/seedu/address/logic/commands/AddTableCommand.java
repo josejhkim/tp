@@ -5,30 +5,25 @@ import static java.util.Objects.requireNonNull;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.table.Table;
-import seedu.address.model.table.TableList;
 import seedu.address.model.wedding.Wedding;
 
 /**
- * Adds a new table to the current wedding.
+ * Adds a table to the wedding.
  */
 public class AddTableCommand extends Command {
+
     public static final String COMMAND_WORD = "addTable";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a table to the wedding.\n"
+            + "Parameters: TABLE_ID CAPACITY\n"
+            + "Example: " + COMMAND_WORD + " 1 6";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a new table to the current wedding.\n"
-            + "Parameters: tableId/ID capacity/CAPACITY\n"
-            + "Example: " + COMMAND_WORD + " tableId/1 capacity/8";
-
-    public static final String MESSAGE_NO_CURRENT_WEDDING =
-            "No current wedding set. Use setWedding command first.";
-    public static final String MESSAGE_SUCCESS = "New table added: %1$s";
-    public static final String MESSAGE_DUPLICATE_TABLE = "A table with ID %d already exists!";
+    public static final String MESSAGE_SUCCESS = "Table added: Table ID: %1$d, Capacity: %2$d";
+    public static final String MESSAGE_NO_WEDDING = "No wedding is currently set. Use `setWedding` first.";
+    public static final String MESSAGE_DUPLICATE_TABLE = "A table with this ID already exists.";
 
     private final int tableId;
     private final int capacity;
 
-    /**
-     * Constructs an {@code AddTableCommand} to add a table with the given ID and capacity.
-     */
     public AddTableCommand(int tableId, int capacity) {
         this.tableId = tableId;
         this.capacity = capacity;
@@ -38,32 +33,39 @@ public class AddTableCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        // 1) Check if there's a current wedding
-        Wedding currentWedding = model.getCurrentWedding();
-        if (currentWedding == null) {
-            throw new CommandException(MESSAGE_NO_CURRENT_WEDDING);
+        Wedding wedding = model.getCurrentWedding();
+        if (wedding == null) {
+            throw new CommandException("No wedding is currently set. Use `setWedding` first.");
         }
 
-        // 2) Check if table ID is duplicated
-        TableList tableList = currentWedding.getTableList();
-        Table existingTable = tableList.findTableById(tableId);
-        if (existingTable != null) {
-            throw new CommandException(String.format(MESSAGE_DUPLICATE_TABLE, tableId));
+        // Debug existing tables before adding
+        System.out.println("DEBUG: Checking tables before adding...");
+        if (wedding.getTableList() == null) {
+            throw new CommandException("ERROR: TableList is NULL! (Wedding.getTableList())");
         }
 
-        // 3) Add the new table
-        Table newTable = new Table(tableId, capacity);
-        tableList.addTable(newTable);
+        // Debug check: Does table already exist?
+        if (wedding.getTableList().hasTable(tableId)) {
+            throw new CommandException("A table with this ID already exists.");
+        }
 
-        // 4) Return success
-        return new CommandResult(String.format(MESSAGE_SUCCESS, newTable));
+        // Create a new table
+        Table table = new Table(tableId, capacity);
+
+        // Debug before adding
+        System.out.println("DEBUG: Adding table -> " + table);
+        wedding.getTableList().addTable(table);
+        System.out.println("DEBUG: Tables after adding -> " + wedding.getTableList().getTables());
+
+        // Ensure the model saves the updated wedding
+        model.setCurrentWedding(wedding);
+
+        // Debug final wedding state
+        System.out.println("DEBUG: Wedding state after addTable -> " + wedding);
+
+        return new CommandResult(String.format("Table added: Table ID: %d, Capacity: %d", tableId, capacity));
     }
 
-    @Override
-    public boolean equals(Object other) {
-        return this == other
-                || (other instanceof AddTableCommand
-                && tableId == ((AddTableCommand) other).tableId
-                && capacity == ((AddTableCommand) other).capacity);
-    }
+
+
 }

@@ -63,6 +63,17 @@ public class AddressBookParser {
         logger.fine("Command word: " + commandWord + "; Arguments: " + arguments);
 
         switch (commandWord) {
+        case WeddingOverviewCommand.COMMAND_WORD:
+            if (!arguments.isEmpty()) {
+                throw new ParseException(WeddingOverviewCommand.MESSAGE_USAGE); // ✅ Ensure no arguments
+            }
+            return new WeddingOverviewCommand();
+
+        case SetWeddingCommand.COMMAND_WORD:
+            return new SetWeddingCommand(arguments);
+
+        case DeleteWeddingCommand.COMMAND_WORD:
+            return new DeleteWeddingCommand();
 
         case AddGuestCommand.COMMAND_WORD:
             return new AddGuestCommandParser().parse(arguments);
@@ -73,11 +84,6 @@ public class AddressBookParser {
         case CreateWeddingCommand.COMMAND_WORD:
             return new CreateWeddingCommandParser().parse(arguments);
 
-        case DeleteWeddingCommand.COMMAND_WORD:
-            return new DeleteWeddingCommandParser().parse(arguments);
-
-        case SetWeddingCommand.COMMAND_WORD:
-            return new SetWeddingCommandParser().parse(arguments);
 
         case SeeRsvpListCommand.COMMAND_WORD:
             return new SeeRsvpListCommandParser().parse(arguments);
@@ -105,9 +111,6 @@ public class AddressBookParser {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
-
-        case WeddingOverviewCommand.COMMAND_WORD:
-            return new WeddingOverviewCommandParser().parse(arguments);
 
         case AddTableCommand.COMMAND_WORD:
             return new AddTableCommandParser().parse(arguments);

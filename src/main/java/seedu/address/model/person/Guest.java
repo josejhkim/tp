@@ -27,6 +27,15 @@ public class Guest extends Person {
         this.guestId = generateGuestId(phone);
     }
 
+    public Guest(int guestId, Name name, Phone phone, Email email, Address address, DietaryRestriction dietaryRestriction,
+                 Rsvp rsvp) {
+        super(name, phone, email, address, new HashSet<>());
+        this.dietaryRestriction = dietaryRestriction;
+        this.rsvp = rsvp;
+        this.guestId = guestId;
+
+    }
+
     private int generateGuestId(Phone phone) {
         return phone.hashCode();
     }

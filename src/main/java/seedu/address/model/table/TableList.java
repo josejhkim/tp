@@ -22,6 +22,10 @@ public class TableList {
      * @param table The table to be added.
      */
     public void addTable(Table table) {
+        System.out.println("DEBUG: addTable() called -> " + table);
+        if (tables == null) {
+            throw new IllegalStateException("ERROR: `tables` list is NULL inside TableList!");
+        }
         tables.add(table);
     }
 
@@ -40,6 +44,14 @@ public class TableList {
         return null; // Not found
     }
 
+    public boolean hasTable(int tableId) {
+        if (findTableById(tableId) == null) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
     /**
      * Deletes a table from the list based on the table ID.
      *
@@ -54,7 +66,9 @@ public class TableList {
      *
      * @return A list of all tables in this TableList.
      */
+
     public List<Table> getTables() {
-        return tables;
+        System.out.println("DEBUG: Returning tables -> " + tables);
+        return tables; // ✅ Ensure this is never null
     }
 }
