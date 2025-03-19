@@ -1,11 +1,9 @@
 package seedu.address.model.wedding;
 
 import java.util.Objects;
-import java.util.Optional;
 
 import seedu.address.model.person.Guest;
 import seedu.address.model.person.RsvpList;
-import seedu.address.model.table.Table;
 import seedu.address.model.table.UniqueTableList;
 /**
  * Represents a Wedding in the address book.
@@ -45,19 +43,6 @@ public class Wedding {
         rsvpList.remove(guest);
     }
 
-    public void addTable(Table table) {
-        tableList.addTable(table);
-    }
-
-    public void removeTable(int tableId) {
-        tableList.deleteTable(tableId);
-    }
-
-    public Optional<Guest> findGuestById(int guestId) {
-        return rsvpList.getAllGuests().stream()
-                .filter(g -> g.getGuestId() == guestId)
-                .findFirst();
-    }
     @Override
     public boolean equals(Object other) {
         if (this == other) {

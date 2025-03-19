@@ -19,7 +19,8 @@ public class Guest extends Person {
     * Every field must be present and not null, a person class is created with
     * name, phone, email, address, and an EMPTY set of tags
      */
-    public Guest(Name name, Phone phone, Email email, Address address, DietaryRestriction dietaryRestriction,
+    public Guest(Name name, Phone phone, Email email, Address address,
+                 DietaryRestriction dietaryRestriction,
                  Rsvp rsvp) {
         super(name, phone, email, address, new HashSet<>());
         this.dietaryRestriction = dietaryRestriction;
@@ -27,7 +28,15 @@ public class Guest extends Person {
         this.guestId = generateGuestId(phone);
     }
 
-    public Guest(int guestId, Name name, Phone phone, Email email, Address address, DietaryRestriction dietaryRestriction,
+    /**
+     * Every field must be present and not null, a person class is created with
+     * name, phone, email, address, and an EMPTY set of tags
+     * this is needed to make the JSON object make into an object in memory
+     * TO BE CHANGED #ID = STRING?
+     */
+
+    public Guest(int guestId, Name name, Phone phone, Email email, Address address,
+                 DietaryRestriction dietaryRestriction,
                  Rsvp rsvp) {
         super(name, phone, email, address, new HashSet<>());
         this.dietaryRestriction = dietaryRestriction;

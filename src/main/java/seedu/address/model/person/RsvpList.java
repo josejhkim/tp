@@ -5,7 +5,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.person.exceptions.GuestNotFoundException;
+
 
 /**
  * A list of guests who have been RSVPed to the event.

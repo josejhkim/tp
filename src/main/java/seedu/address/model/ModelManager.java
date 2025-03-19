@@ -152,7 +152,9 @@ public class ModelManager implements Model {
         addressBook.setWedding(wedding);
     }
 
-
+    /**
+     * Deletes a Wedding from the system. All related associations are deleted
+     */
     public void deleteWedding() {
         addressBook.removeWedding();
         this.currentWedding = null;
@@ -179,7 +181,8 @@ public class ModelManager implements Model {
     @Override
     public Guest findGuestByGuestId(Wedding wedding, Integer guestId) throws CommandException {
         return wedding.getRsvpList().getGuestByGuestId(guestId)
-                .orElseThrow(() -> new CommandException("Guest with ID " + guestId + " not found in wedding " + wedding.getName()));
+                .orElseThrow(() -> new CommandException("Guest with ID "
+                        + guestId + " not found in wedding " + wedding.getName()));
     }
 
 
@@ -195,7 +198,9 @@ public class ModelManager implements Model {
         }
 
         ModelManager otherModelManager = (ModelManager) other;
-        return addressBook.equals(otherModelManager.addressBook) && userPrefs.equals(otherModelManager.userPrefs) && filteredPersons.equals(otherModelManager.filteredPersons);
+        return addressBook.equals(otherModelManager.addressBook)
+                && userPrefs.equals(otherModelManager.userPrefs)
+                && filteredPersons.equals(otherModelManager.filteredPersons);
     }
 
 

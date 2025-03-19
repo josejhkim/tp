@@ -1,6 +1,7 @@
 package seedu.address.storage;
 
 import java.util.Objects;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -100,23 +101,26 @@ class JsonAdaptedGuest {
         final Address modelAddress = new Address(address);
 
         if (dietaryRestriction == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, DietaryRestriction.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    DietaryRestriction.class.getSimpleName()));
         }
         final DietaryRestriction modelDietaryRestriction = new DietaryRestriction(dietaryRestriction);
 
         if (rsvp == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Rsvp.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Rsvp.class.getSimpleName()));
         }
 
         final Rsvp.Status statusEnum;
         try {
-            statusEnum = Rsvp.Status.valueOf(rsvp.toUpperCase()); // ✅ Converts String to Enum
+            statusEnum = Rsvp.Status.valueOf(rsvp.toUpperCase()); // Converts String to Enum
         } catch (IllegalArgumentException e) {
             throw new IllegalValueException("Invalid RSVP status: " + rsvp);
         }
         final Rsvp modelRsvp = new Rsvp(statusEnum);
 
-        return new Guest(guestId, modelName, modelPhone, modelEmail, modelAddress, modelDietaryRestriction, modelRsvp);
+        return new Guest(guestId, modelName, modelPhone, modelEmail, modelAddress,
+                modelDietaryRestriction, modelRsvp);
     }
 
     @Override
@@ -140,6 +144,7 @@ class JsonAdaptedGuest {
 
     @Override
     public int hashCode() {
-        return Objects.hash(guestId, name, phone, email, address, dietaryRestriction, rsvp);
+        return Objects.hash(guestId, name, phone, email, address,
+                dietaryRestriction, rsvp);
     }
 }

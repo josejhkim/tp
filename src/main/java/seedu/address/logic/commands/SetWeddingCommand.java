@@ -17,7 +17,8 @@ public class SetWeddingCommand extends Command {
             + "Example: " + COMMAND_WORD + " John and Jane's Wedding";
 
     public static final String MESSAGE_SUCCESS = "Current wedding set to: %1$s";
-    public static final String MESSAGE_WEDDING_ALREADY_EXISTS = "A wedding already exists. Delete the current wedding first.";
+    public static final String MESSAGE_WEDDING_ALREADY_EXISTS =
+            "A wedding already exists. Delete the current wedding first.";
 
     private final String weddingName;
 
