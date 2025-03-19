@@ -8,6 +8,9 @@ import org.junit.jupiter.api.Test;
 import seedu.address.logic.commands.DeleteWeddingCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
+/**
+ * Unit tests for {@link DeleteWeddingCommandParser}.
+ */
 public class DeleteWeddingCommandParserTest {
 
     private final DeleteWeddingCommandParser parser = new DeleteWeddingCommandParser();
@@ -16,12 +19,13 @@ public class DeleteWeddingCommandParserTest {
     public void parse_validArgs_returnsDeleteWeddingCommand() throws Exception {
         String validArgs = "Wedding ID";
         DeleteWeddingCommand command = parser.parse(validArgs);
-        assertEquals(new DeleteWeddingCommand(validArgs), command);
+
+        // ✅ Remove the argument since DeleteWeddingCommand takes no arguments
+        assertEquals(new DeleteWeddingCommand(), command);
     }
 
     @Test
     public void parse_emptyArgs_throwsParseException() {
-        String emptyArgs = "";
-        assertThrows(ParseException.class, () -> parser.parse(emptyArgs));
+        assertThrows(ParseException.class, () -> parser.parse(""));
     }
 }

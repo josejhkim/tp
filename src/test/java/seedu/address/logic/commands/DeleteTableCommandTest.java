@@ -5,13 +5,18 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.table.Table;
+import seedu.address.model.table.UniqueTableList;
 import seedu.address.model.wedding.Wedding;
-import seedu.address.model.table.TableList;
 
+
+/**
+ * Unit tests for {@link DeleteTableCommand}.
+ */
 public class DeleteTableCommandTest {
     private Model model;
 
@@ -23,16 +28,17 @@ public class DeleteTableCommandTest {
 
     @Test
     public void execute_validTable_deletionSuccessful() throws CommandException {
-        TableList tableList = model.getCurrentWedding().getTableList();
+        UniqueTableList tableList = model.getCurrentWedding().getTableList();
         tableList.addTable(new Table(1, 8));
 
         DeleteTableCommand command = new DeleteTableCommand(1);
         CommandResult result = command.execute(model);
 
-        String expectedMessage = "Table deleted: Table{ID=1, Capacity=8, Guests=0}";
+        String expectedMessage = "Table deleted: Table{ID=1, Capacity=8, Guest Names=[]}";
         assertEquals(expectedMessage, result.getFeedbackToUser());
-        // The table list should now be empty
-        assertEquals(0, tableList.getTables().size());
+
+        // Ensure the table was deleted
+        assertEquals(0, tableList.asUnmodifiableObservableList().size());
     }
 
     @Test
@@ -42,12 +48,13 @@ public class DeleteTableCommandTest {
                 "Table with ID 5 not found.");
     }
 
-    // @Test
-    // public void execute_noCurrentWedding_throwsCommandException() {
-    //     model.setCurrentWedding(null);
-    //     DeleteTableCommand command = new DeleteTableCommand(2);
-    //
-    //     // We expect a CommandException with "No current wedding set. Use setWedding command first."
-    //     assertThrows(CommandException.class, () -> command.execute(model));
-    // }
+    @Test
+    public void execute_noCurrentWedding_throwsCommandException() {
+        model.setCurrentWedding(null);
+        DeleteTableCommand command = new DeleteTableCommand(2);
+
+        // Expect a CommandException with "No current wedding set. Use setWedding command first."
+        assertThrows(CommandException.class, () -> command.execute(model),
+                "No current wedding set. Use setWedding command first.");
+    }
 }

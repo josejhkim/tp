@@ -167,13 +167,8 @@ public class AddCommandTest {
         }
 
         @Override
-        public void deleteWedding(Wedding wedding) {
+        public void deleteWedding() {
             throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public Wedding findWeddingByName(String name) {
-            return null;
         }
 
         @Override

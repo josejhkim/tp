@@ -11,31 +11,42 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.wedding.Wedding;
 
+/**
+ * Unit tests for {@link WeddingOverviewCommand}.
+ */
 public class WeddingOverviewCommandTest {
     private Model model;
 
     @BeforeEach
     public void setUp() {
         model = new ModelManager();
+        model.setCurrentWedding(new Wedding("John and Jane's Wedding"));
     }
 
     @Test
-    public void execute_weddingOverview_success() throws Exception {
-        Wedding wedding = new Wedding("John and Jane's Wedding");
-        model.addWedding(wedding);
-        model.setCurrentWedding(wedding);
-        WeddingOverviewCommand command = new WeddingOverviewCommand("John and Jane's Wedding");
+    public void execute_existingWeddingOverview_success() throws CommandException {
+        WeddingOverviewCommand command = new WeddingOverviewCommand(); // ✅ No arguments
 
         CommandResult result = command.execute(model);
 
-        assertEquals(String.format(WeddingOverviewCommand.MESSAGE_SUCCESS,
-            wedding.getName(), 0, ""), result.getFeedbackToUser());
+        // Ensure the wedding overview includes the correct details
+        String expectedMessage = String.format(WeddingOverviewCommand.MESSAGE_SUCCESS,
+                "John and Jane's Wedding",
+                model.getCurrentWedding().getTableList().asUnmodifiableObservableList().size(),
+                model.getCurrentWedding().getRsvpList().getAllGuests().size(),
+                model.getCurrentWedding().getRsvpList().getAllGuests().toString());
+
+        assertEquals(expectedMessage, result.getFeedbackToUser());
     }
 
     @Test
-    public void execute_noCurrentWedding_success() throws Exception {
-        WeddingOverviewCommand command = new WeddingOverviewCommand("John and Jane's Wedding");
+    public void execute_noExistingWedding_throwsCommandException() {
+        model.setCurrentWedding(null); // Ensure no wedding exists
 
-        assertThrows(CommandException.class, () -> command.execute(model));
+        WeddingOverviewCommand command = new WeddingOverviewCommand(); // ✅ No arguments
+
+        // Expect CommandException because no wedding exists
+        assertThrows(CommandException.class, () -> command.execute(model),
+                WeddingOverviewCommand.MESSAGE_NO_WEDDING);
     }
 }

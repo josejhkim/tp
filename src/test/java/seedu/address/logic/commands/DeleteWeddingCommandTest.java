@@ -11,31 +11,39 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.wedding.Wedding;
 
+/**
+ * Unit tests for {@link DeleteWeddingCommand}.
+ */
 public class DeleteWeddingCommandTest {
     private Model model;
 
     @BeforeEach
     public void setUp() {
         model = new ModelManager();
-        Wedding currentWedding = new Wedding("John and Jane's Wedding");
-        model.addWedding(currentWedding);
-        model.setCurrentWedding(currentWedding);
+        model.setCurrentWedding(new Wedding("Test Wedding"));
     }
 
     @Test
-    public void execute_deleteWedding_success() throws Exception {
-        Wedding wedding = model.getCurrentWedding();
-        DeleteWeddingCommand command = new DeleteWeddingCommand(wedding.getName());
+    public void execute_deleteExistingWedding_success() throws CommandException {
+        DeleteWeddingCommand command = new DeleteWeddingCommand(); // ✅ No arguments
 
         CommandResult result = command.execute(model);
 
-        assertEquals(String.format(DeleteWeddingCommand.MESSAGE_SUCCESS, wedding), result.getFeedbackToUser());
+        String expectedMessage = String.format(DeleteWeddingCommand.MESSAGE_SUCCESS, "Test Wedding");
+        assertEquals(expectedMessage, result.getFeedbackToUser());
+
+        // Ensure wedding is deleted
+        assertEquals(null, model.getCurrentWedding());
     }
 
     @Test
-    public void execute_deleteWedding_failure() {
-        DeleteWeddingCommand command = new DeleteWeddingCommand("Nonexistent Wedding");
+    public void execute_noExistingWedding_throwsCommandException() {
+        model.setCurrentWedding(null); // Ensure no wedding exists
 
-        assertThrows(CommandException.class, () -> command.execute(model));
+        DeleteWeddingCommand command = new DeleteWeddingCommand(); // ✅ No arguments
+
+        // Expect CommandException because no wedding exists
+        assertThrows(CommandException.class, () -> command.execute(model),
+                DeleteWeddingCommand.MESSAGE_NO_WEDDING);
     }
 }

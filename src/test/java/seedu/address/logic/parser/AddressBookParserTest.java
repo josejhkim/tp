@@ -50,7 +50,8 @@ public class AddressBookParserTest {
         String weddingName = "John and Jane's Wedding";
         DeleteWeddingCommand command = (DeleteWeddingCommand) parser.parseCommand(
             DeleteWeddingCommand.COMMAND_WORD + " " + weddingName);
-        assertEquals(new DeleteWeddingCommand(weddingName), command);
+        assertEquals(new DeleteWeddingCommand(), command);
+
     }
 
     @Test

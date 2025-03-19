@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -28,12 +29,13 @@ public class AddTableCommandTest {
         AddTableCommand addTableCommand = new AddTableCommand(1, 8);
         CommandResult result = addTableCommand.execute(model);
 
-        String expectedMessage = "New table added: Table{ID=1, Capacity=8, Guests=0}";
+        String expectedMessage = "New table added: Table{ID=1, Capacity=8, Guest Names=[]}";
         assertEquals(expectedMessage, result.getFeedbackToUser());
 
         // The wedding’s table list should now have 1 table
-        assertEquals(1, model.getCurrentWedding().getTableList().getTables().size());
-        Table createdTable = model.getCurrentWedding().getTableList().getTables().get(0);
+        assertEquals(1, model.getCurrentWedding().getTableList().asUnmodifiableObservableList().size());
+
+        Table createdTable = model.getCurrentWedding().getTableList().asUnmodifiableObservableList().get(0);
         assertEquals(1, createdTable.getTableId());
         assertEquals(8, createdTable.getCapacity());
     }
