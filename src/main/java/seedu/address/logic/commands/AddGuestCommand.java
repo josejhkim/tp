@@ -14,14 +14,14 @@ public class AddGuestCommand extends Command {
 
     public static final String COMMAND_WORD = "addGuest";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a guest to the current wedding.\n"
-        + "Parameters: "
-        + "n/NAME p/PHONE e/EMAIL a/ADDRESS d/DIETARY_RESTRICTION r/RSVP\n"
-        + "Example: " + COMMAND_WORD + " "
-        + "n/John Doe p/12345678 e/johndoe@example.com a/123 Street d/None r/YES";
+            + "Parameters: "
+            + "n/NAME p/PHONE e/EMAIL a/ADDRESS d/DIETARY_RESTRICTION r/RSVP\n"
+            + "Example: " + COMMAND_WORD + " "
+            + "n/John Doe p/12345678 e/johndoe@example.com a/123 Street d/None r/YES";
 
     public static final String MESSAGE_SUCCESS = "Guest added to wedding: %1$s";
     public static final String MESSAGE_NO_CURRENT_WEDDING =
-        "No current wedding set. Please set a current wedding first using the setWedding command.";
+            "No current wedding set. Please set a current wedding first using the setWedding command.";
 
     private final Guest guest;
 

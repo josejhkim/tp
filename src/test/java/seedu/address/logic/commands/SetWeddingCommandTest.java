@@ -21,20 +21,29 @@ public class SetWeddingCommandTest {
 
     @Test
     public void execute_setWedding_success() throws Exception {
+        // No need to set it to null, as the logic already allows setting a new wedding
         Wedding currentWedding = new Wedding("John and Jane's Wedding");
-        model.addWedding(currentWedding);
         SetWeddingCommand command = new SetWeddingCommand(currentWedding.getName());
 
         CommandResult result = command.execute(model);
 
-        assertEquals(String.format(SetWeddingCommand.MESSAGE_SUCCESS,
-            currentWedding.getName()), result.getFeedbackToUser());
+        assertEquals(String.format(SetWeddingCommand.MESSAGE_SUCCESS, currentWedding.getName()),
+                result.getFeedbackToUser());
+
+        // Verify the wedding was set successfully
+        assertEquals(currentWedding.getName(), model.getCurrentWedding().getName());
     }
 
     @Test
     public void execute_setWedding_failure() {
-        SetWeddingCommand command = new SetWeddingCommand("Nonexistent Wedding");
+        // First, set an existing wedding
+        Wedding existingWedding = new Wedding("Existing Wedding");
+        model.setCurrentWedding(existingWedding);
 
-        assertThrows(CommandException.class, () -> command.execute(model));
+        // Then, attempt to set a **different** wedding, which should fail
+        SetWeddingCommand command = new SetWeddingCommand("New Wedding");
+
+        assertThrows(CommandException.class, () -> command.execute(model),
+                "A different wedding exists. Delete the current wedding first.");
     }
 }

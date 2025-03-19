@@ -1,33 +1,61 @@
 package seedu.address.model.table;
 
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
-import seedu.address.model.person.Guest;
-
 /**
- * Represents a table at a wedding event.
+ * Represents a seating table in a wedding.
+ * Each table has a unique ID, a seating capacity, and a list of assigned guest names.
+ * This class is immutable, meaning once a table is created, its properties cannot be modified.
  */
-public class Table {
+public final class Table {
+
+    /** The unique identifier for the table. */
     private final int tableId;
-    private int capacity;
-    private List<Guest> guestList;
+
+    /** The maximum seating capacity of the table. */
+    private final int capacity;
+
+    /** A list of guest names assigned to this table. */
+    private final List<String> guestIds;
 
     /**
-     * Constructs a Table with an ID and capacity.
+     * Constructs a new {@code Table} with the given ID and capacity.
+     * This constructor initializes an empty guest list.
      *
-     * @param tableId  The ID of the table.
-     * @param capacity The maximum number of guests the table can hold.
+     * @param tableId  The unique identifier for the table. Must be a positive integer.
+     * @param capacity The seating capacity of the table. Must be a positive integer.
+     * @throws IllegalArgumentException if {@code tableId} or {@code capacity} is not positive.
      */
     public Table(int tableId, int capacity) {
+        if (tableId <= 0 || capacity <= 0) {
+            throw new IllegalArgumentException("Table ID and capacity must be positive integers.");
+        }
         this.tableId = tableId;
         this.capacity = capacity;
-        this.guestList = new ArrayList<>();
+        this.guestIds = Collections.emptyList(); // Immutable empty list
     }
 
     /**
-     * Returns the table ID.
+     * Constructs a new {@code Table} with the given ID, capacity, and assigned guest names.
+     *
+     * @param tableId  The unique identifier for the table. Must be a positive integer.
+     * @param capacity The seating capacity of the table. Must be a positive integer.
+     * @param guestIds A list of guest names assigned to the table.
+     * @throws IllegalArgumentException if {@code tableId} or {@code capacity} is not positive.
+     */
+    public Table(int tableId, int capacity, List<String> guestIds) {
+        if (tableId <= 0 || capacity <= 0) {
+            throw new IllegalArgumentException("Table ID and capacity must be positive integers.");
+        }
+        this.tableId = tableId;
+        this.capacity = capacity;
+        this.guestIds = Collections.unmodifiableList(guestIds); // Immutable list to prevent modification
+    }
+
+    /**
+     * Returns the unique identifier for this table.
      *
      * @return The table ID.
      */
@@ -36,47 +64,59 @@ public class Table {
     }
 
     /**
-     * Returns the table capacity.
+     * Returns the seating capacity of this table.
      *
-     * @return The table capacity.
+     * @return The table's capacity.
      */
     public int getCapacity() {
         return capacity;
     }
 
     /**
-     * Sets the table capacity.
+     * Returns an immutable list of guest names assigned to this table.
      *
-     * @param capacity The new capacity of the table.
+     * @return A list of guest names assigned to the table.
      */
-    public void setCapacity(int capacity) {
-        this.capacity = capacity;
+    public List<String> getGuestIds() {
+        return guestIds;
     }
 
     /**
-     * Returns the guest list for this table.
+     * Returns an immutable list of guest names assigned to this table.
+     * This is an alias for {@code getGuestIds()} to improve readability.
      *
-     * @return A list of guests assigned to the table.
+     * @return A list of guest names assigned to the table.
      */
-    public List<Guest> getGuestList() {
-        return guestList;
+    public List<String> getGuestNames() {
+        return guestIds;
     }
 
     /**
-     * Returns a string representation of the table.
+     * Checks whether this table is the same as another table based on the table ID.
      *
-     * @return A formatted string containing table ID and capacity.
+     * @param otherTable The table to compare.
+     * @return {@code true} if both tables have the same ID, otherwise {@code false}.
+     */
+    public boolean isSameTable(Table otherTable) {
+        return otherTable != null && this.tableId == otherTable.tableId;
+    }
+
+    /**
+     * Returns a string representation of this table, showing its ID, capacity, and assigned guest names.
+     *
+     * @return A string representation of the table.
      */
     @Override
     public String toString() {
-        return "Table ID: " + tableId + ", Capacity: " + capacity;
+        return "Table{ID=" + tableId + ", Capacity=" + capacity + ", Guest Names=" + guestIds + "}";
     }
 
     /**
-     * Checks if this table is equal to another table.
+     * Compares this table to another object for equality.
+     * Two tables are considered equal if they have the same table ID, capacity, and guest list.
      *
      * @param other The object to compare.
-     * @return True if both tables have the same table ID and capacity.
+     * @return {@code true} if both tables are equal, otherwise {@code false}.
      */
     @Override
     public boolean equals(Object other) {
@@ -87,38 +127,16 @@ public class Table {
             return false;
         }
         Table table = (Table) other;
-        return tableId == table.tableId && capacity == table.capacity;
+        return tableId == table.tableId && capacity == table.capacity && guestIds.equals(table.guestIds);
     }
 
     /**
-     * Returns the hash code of the table.
+     * Returns a hash code for this table, based on its ID, capacity, and guest list.
      *
-     * @return The hash code based on table ID and capacity.
+     * @return The hash code.
      */
     @Override
     public int hashCode() {
-        return Objects.hash(tableId, capacity);
-    }
-
-    /**
-     * Converts the table object to a JSON-like string representation.
-     *
-     * @return A JSON-formatted string of the table.
-     */
-    public String toJson() {
-        return "{ \"tableId\": " + tableId + ", \"capacity\": " + capacity + " }";
-    }
-
-    /**
-     * Converts a JSON-formatted string into a Table object.
-     *
-     * @param json The JSON string representing a table.
-     * @return A Table object with extracted values.
-     */
-    public static Table fromJson(String json) {
-        String[] parts = json.replace("{", "").replace("}", "").replace("\"", "").split(",");
-        int tableId = Integer.parseInt(parts[0].split(":")[1].trim());
-        int capacity = Integer.parseInt(parts[1].split(":")[1].trim());
-        return new Table(tableId, capacity);
+        return Objects.hash(tableId, capacity, guestIds);
     }
 }

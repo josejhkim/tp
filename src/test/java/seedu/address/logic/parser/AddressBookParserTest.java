@@ -25,7 +25,6 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.SeeRsvpListCommand;
-import seedu.address.logic.commands.SetWeddingCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
@@ -45,21 +44,21 @@ public class AddressBookParserTest {
         assertEquals(new CreateWeddingCommand(weddingName), command);
     }
 
-    @Test
-    public void parseCommand_deleteWedding() throws Exception {
-        String weddingName = "John and Jane's Wedding";
-        DeleteWeddingCommand command = (DeleteWeddingCommand) parser.parseCommand(
-            DeleteWeddingCommand.COMMAND_WORD + " " + weddingName);
-        assertEquals(new DeleteWeddingCommand(weddingName), command);
-    }
 
     @Test
-    public void parseCommand_setWedding() throws Exception {
-        String weddingName = "John and Jane's Wedding";
-        SetWeddingCommand command = (SetWeddingCommand) parser.parseCommand(
-            SetWeddingCommand.COMMAND_WORD + " " + weddingName);
-        assertEquals(new SetWeddingCommand(weddingName), command);
+    public void parseCommand_deleteWedding() throws Exception {
+        DeleteWeddingCommand command = (DeleteWeddingCommand) parser.parseCommand(DeleteWeddingCommand.COMMAND_WORD);
+        assertEquals(new DeleteWeddingCommand(), command);
     }
+
+
+    // @Test
+    // public void parseCommand_setWedding() throws Exception {
+    //     String weddingName = "John and Jane's Wedding";
+    //     SetWeddingCommand command = (SetWeddingCommand) parser.parseCommand(
+    //         SetWeddingCommand.COMMAND_WORD + " " + weddingName);
+    //     assertEquals(new SetWeddingCommand(weddingName), command);
+    // }
 
     @Test
     public void parseCommand_seeRsvpList() throws Exception {

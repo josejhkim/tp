@@ -17,6 +17,6 @@ public class WeddingOverviewCommandParser implements Parser<WeddingOverviewComma
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, WeddingOverviewCommand.MESSAGE_USAGE));
         }
-        return new WeddingOverviewCommand(trimmedArgs);
+        return new WeddingOverviewCommand();
     }
 }

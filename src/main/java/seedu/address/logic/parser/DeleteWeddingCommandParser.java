@@ -21,6 +21,6 @@ public class DeleteWeddingCommandParser {
         if (trimmedArgs.isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteWeddingCommand.MESSAGE_USAGE));
         }
-        return new DeleteWeddingCommand(trimmedArgs);
+        return new DeleteWeddingCommand();
     }
 }

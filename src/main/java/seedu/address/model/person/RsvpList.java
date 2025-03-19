@@ -1,9 +1,11 @@
 package seedu.address.model.person;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import seedu.address.logic.commands.exceptions.CommandException;
+
 
 /**
  * A list of guests who have been RSVPed to the event.
@@ -51,11 +53,19 @@ public class RsvpList extends UniquePersonList {
                 "Guest with phone " + phone + " not found"));
     }
 
-    public Guest getGuestByGuestId(Integer guestId) throws CommandException {
+
+    public Optional<Guest> getGuestByGuestId(Integer guestId) {
         return getAllGuests().stream()
-            .filter(guest -> guest.getGuestId().equals(guestId))
-            .findFirst()
-            .orElseThrow(() -> new CommandException(
-                "Guest with ID " + guestId + " not found"));
+                .filter(guest -> guest.getGuestId().equals(guestId))
+                .findFirst();
     }
+
+
+    public Optional<Guest> getGuestByName(String name) {
+        return getAllGuests().stream()
+                .filter(guest -> guest.getName().equals(name))
+                .findFirst();
+    }
+
+
 }

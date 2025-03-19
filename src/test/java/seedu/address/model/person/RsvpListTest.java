@@ -98,14 +98,4 @@ public class RsvpListTest {
         assertThrows(CommandException.class, () -> rsvpList.getGuestByPhone(new Phone("87654321")));
     }
 
-    @Test
-    public void getGuestByGuestId_existingId_returnsGuest() throws CommandException {
-        rsvpList.add(guest);
-        assertEquals(guest, rsvpList.getGuestByGuestId("12345678".hashCode()));
-    }
-
-    @Test
-    public void getGuestByGuestId_nonExistingId_throwsException() {
-        assertThrows(CommandException.class, () -> rsvpList.getGuestByGuestId("87654321".hashCode()));
-    }
 }

@@ -40,6 +40,10 @@ public class ModelManager implements Model {
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+
+        if (addressBook.getWedding() != null) {
+            setCurrentWedding(addressBook.getWedding());
+        }
     }
 
     public ModelManager() {
@@ -134,34 +138,45 @@ public class ModelManager implements Model {
         filteredPersons.setPredicate(predicate);
     }
 
+
+    /**
+     * Adds a Wedding to the system. Only one Wedding can exist at a time.
+     */
     @Override
     public void addWedding(Wedding wedding) {
         requireNonNull(wedding);
-        addressBook.addWedding(wedding);
+        if (addressBook.getWedding() != null) {
+            throw new IllegalStateException("A wedding already exists. Cannot create another.");
+        }
+        addressBook.setWedding(wedding);
     }
 
-    @Override
-    public void deleteWedding(Wedding wedding) {
-        requireNonNull(wedding);
-        addressBook.removeWedding(wedding);
+    /**
+     * Deletes a Wedding from the system. All related associations are deleted
+     */
+    public void deleteWedding() {
+        addressBook.removeWedding();
+        this.currentWedding = null;
     }
 
-    @Override
-    public Wedding findWeddingByName(String name) {
-        requireNonNull(name);
-        return addressBook.getWeddingList().stream()
-            .filter(wedding -> wedding.getName().equals(name))
-            .findFirst()
-            .orElse(null);
+    /**
+     * Returns the current Wedding.
+     */
+    public Wedding getCurrentWedding() {
+        return addressBook.getWedding();
     }
+
 
     @Override
     public void setCurrentWedding(Wedding wedding) {
+        if (wedding == null) {
+            logger.warning("Attempted to set wedding to null.");
+            this.currentWedding = null;
+            return;
+        }
+        requireNonNull(wedding);
+        addressBook.setWedding(wedding);
         this.currentWedding = wedding;
-    }
-    @Override
-    public Wedding getCurrentWedding() {
-        return currentWedding;
     }
 
     @Override
@@ -171,8 +186,11 @@ public class ModelManager implements Model {
 
     @Override
     public Guest findGuestByGuestId(Wedding wedding, Integer guestId) throws CommandException {
-        return wedding.getRsvpList().getGuestByGuestId(guestId);
+        return wedding.getRsvpList().getGuestByGuestId(guestId)
+                .orElseThrow(() -> new CommandException("Guest with ID "
+                        + guestId + " not found in wedding " + wedding.getName()));
     }
+
 
     @Override
     public boolean equals(Object other) {
@@ -190,5 +208,4 @@ public class ModelManager implements Model {
                 && userPrefs.equals(otherModelManager.userPrefs)
                 && filteredPersons.equals(otherModelManager.filteredPersons);
     }
-
 }
