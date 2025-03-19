@@ -5,6 +5,7 @@ import java.util.Objects;
 
 import seedu.address.model.person.category.DietaryRestriction;
 import seedu.address.model.person.category.Rsvp;
+import seedu.address.model.table.Table;
 
 /**
  * Represents a Guest in the address book.
@@ -13,40 +14,26 @@ import seedu.address.model.person.category.Rsvp;
 public class Guest extends Person {
     private final DietaryRestriction dietaryRestriction;
     private final Rsvp rsvp;
-    private final int guestId;
+    private final Table table;
 
     /**
-    * Every field must be present and not null, a person class is created with
+    * Every field must be present and not null, a guest class is created with
     * name, phone, email, address, and an EMPTY set of tags
      */
     public Guest(Name name, Phone phone, Email email, Address address,
                  DietaryRestriction dietaryRestriction,
-                 Rsvp rsvp) {
+                 Rsvp rsvp, Table table) {
         super(name, phone, email, address, new HashSet<>());
         this.dietaryRestriction = dietaryRestriction;
         this.rsvp = rsvp;
-        this.guestId = generateGuestId(phone);
+        this.table = table;
     }
 
-    /**
-     * Every field must be present and not null, a person class is created with
-     * name, phone, email, address, and an EMPTY set of tags
-     * this is needed to make the JSON object make into an object in memory
-     * TO BE CHANGED #ID = STRING?
-     */
-
-    public Guest(int guestId, Name name, Phone phone, Email email, Address address,
-                 DietaryRestriction dietaryRestriction,
-                 Rsvp rsvp) {
-        super(name, phone, email, address, new HashSet<>());
-        this.dietaryRestriction = dietaryRestriction;
-        this.rsvp = rsvp;
-        this.guestId = guestId;
-
-    }
-
-    private int generateGuestId(Phone phone) {
-        return phone.hashCode();
+    public Guest(Guest guest, Table table) {
+        super(guest.getName(), guest.getPhone(), guest.getEmail(), guest.getAddress(), new HashSet<>());
+        this.dietaryRestriction = guest.getDietaryRestriction();
+        this.rsvp = guest.getRsvp();
+        this.table = table;
     }
 
     public DietaryRestriction getDietaryRestriction() {
@@ -57,8 +44,30 @@ public class Guest extends Person {
         return rsvp;
     }
 
-    public Integer getGuestId() {
-        return this.guestId;
+    public Table getTable() {
+        return table;
+    }
+
+    /**
+     * Get the id for the table this guest is sitting at.
+     * Return -1 if the guest is unassigned to a table.
+     * @return The id of the table for this guest or -1 if unassigned
+     */
+    public int getTableId() {
+        return this.table == null ? -1 : this.table.getTableId();
+    }
+
+    /**
+     * Get the string representation for the table id.
+     * Return "Unassigned" if the guest is unassigned to a table.
+     * @return The string representation for the table id
+     */
+    public String getTableIdString() {
+        if (this.table == null) {
+            return "Unassigned";
+        }
+
+        return String.valueOf(this.table.getTableId());
     }
 
     @Override
@@ -72,8 +81,7 @@ public class Guest extends Person {
         Guest otherGuest = (Guest) other;
         return super.equals(other)
             && Objects.equals(dietaryRestriction, otherGuest.dietaryRestriction)
-            && rsvp == otherGuest.rsvp
-            && guestId == otherGuest.guestId;
+            && rsvp == otherGuest.rsvp;
     }
 
     @Override
@@ -89,7 +97,8 @@ public class Guest extends Person {
             + "; Address: " + getAddress()
             + "; Tags: " + getTags()
             + "; Dietary Restriction: " + dietaryRestriction
-            + ", RSVP: " + rsvp;
+            + ", RSVP: " + rsvp
+            + ", Table: " + getTableIdString();
     }
 
 }
