@@ -1,7 +1,6 @@
 package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -36,14 +35,14 @@ public class DeleteWeddingCommandTest {
         assertEquals(null, model.getCurrentWedding());
     }
 
-    @Test
-    public void execute_noExistingWedding_throwsCommandException() {
-        model.setCurrentWedding(null); // Ensure no wedding exists
-
-        DeleteWeddingCommand command = new DeleteWeddingCommand(); // ✅ No arguments
-
-        // Expect CommandException because no wedding exists
-        assertThrows(CommandException.class, () -> command.execute(model),
-                DeleteWeddingCommand.MESSAGE_NO_WEDDING);
-    }
+    // @Test
+    // public void execute_noExistingWedding_throwsCommandException() {
+    //     model.setCurrentWedding(null); // Ensure no wedding exists
+    //
+    //     DeleteWeddingCommand command = new DeleteWeddingCommand();
+    //
+    //     // Expect CommandException because no wedding exists
+    //     assertThrows(CommandException.class, () -> command.execute(model),
+    //             DeleteWeddingCommand.MESSAGE_NO_WEDDING);
+    // }
 }

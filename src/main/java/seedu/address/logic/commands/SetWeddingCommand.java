@@ -18,7 +18,9 @@ public class SetWeddingCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Current wedding set to: %1$s";
     public static final String MESSAGE_WEDDING_ALREADY_EXISTS =
-            "A wedding already exists. Delete the current wedding first.";
+            "A different wedding exists. Delete the current wedding first.";
+    public static final String MESSAGE_WEDDING_ALREADY_SET =
+            "The wedding is already set to: %1$s";
 
     private final String weddingName;
 
@@ -30,16 +32,22 @@ public class SetWeddingCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        // Check if a Wedding already exists
-        if (model.getCurrentWedding() != null) {
-            throw new CommandException(MESSAGE_WEDDING_ALREADY_EXISTS);
+        Wedding existingWedding = model.getCurrentWedding();
+
+        //  Allow setting a new wedding if none exists
+        if (existingWedding == null) {
+            Wedding newWedding = new Wedding(weddingName);
+            model.setCurrentWedding(newWedding);
+            return new CommandResult(String.format(MESSAGE_SUCCESS, weddingName));
         }
 
-        // Create and set the new wedding
-        Wedding wedding = new Wedding(weddingName);
-        model.setCurrentWedding(wedding);
+        //  If the same wedding is already set, return a message
+        if (existingWedding.getName().equals(weddingName)) {
+            return new CommandResult(String.format(MESSAGE_WEDDING_ALREADY_SET, weddingName));
+        }
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, weddingName));
+        // If a **different** wedding exists, prevent setting a new one
+        throw new CommandException(MESSAGE_WEDDING_ALREADY_EXISTS);
     }
 
     @Override

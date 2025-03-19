@@ -41,7 +41,6 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
 
-        // ✅ Ensure Wedding is set when app starts
         if (addressBook.getWedding() != null) {
             setCurrentWedding(addressBook.getWedding());
         }
@@ -167,10 +166,17 @@ public class ModelManager implements Model {
         return addressBook.getWedding();
     }
 
+
     @Override
     public void setCurrentWedding(Wedding wedding) {
+        if (wedding == null) {
+            logger.warning("Attempted to set wedding to null.");
+            this.currentWedding = null;
+            return;
+        }
         requireNonNull(wedding);
         addressBook.setWedding(wedding);
+        this.currentWedding = wedding;
     }
 
     @Override

@@ -28,8 +28,7 @@ public class AddTableCommandTest {
     public void execute_validTable_addSuccessful() throws CommandException {
         AddTableCommand addTableCommand = new AddTableCommand(1, 8);
         CommandResult result = addTableCommand.execute(model);
-
-        String expectedMessage = "New table added: Table{ID=1, Capacity=8, Guest Names=[]}";
+        String expectedMessage = String.format("Table added: Table ID: %d, Capacity: %d", 1, 8);
         assertEquals(expectedMessage, result.getFeedbackToUser());
 
         // The wedding’s table list should now have 1 table

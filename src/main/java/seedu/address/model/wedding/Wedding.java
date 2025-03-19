@@ -43,6 +43,7 @@ public class Wedding {
         rsvpList.remove(guest);
     }
 
+
     @Override
     public boolean equals(Object other) {
         if (this == other) {
