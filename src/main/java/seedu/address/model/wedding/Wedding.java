@@ -3,7 +3,9 @@ package seedu.address.model.wedding;
 import java.util.Objects;
 
 import seedu.address.model.person.Guest;
+import seedu.address.model.person.Name;
 import seedu.address.model.person.RsvpList;
+import seedu.address.model.person.exceptions.GuestNotFoundException;
 import seedu.address.model.table.UniqueTableList;
 /**
  * Represents a Wedding in the address book.
