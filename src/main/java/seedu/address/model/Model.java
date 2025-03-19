@@ -17,6 +17,7 @@ import seedu.address.model.wedding.Wedding;
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Predicate<Guest> PREDICATE_SHOW_ALL_GUESTS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
