@@ -43,6 +43,14 @@ public class Wedding {
         rsvpList.remove(guest);
     }
 
+    public Guest findGuestByName(Name name) throws GuestNotFoundException {
+        for (Guest g : rsvpList.getAllGuests()) {
+            if (g.getName().equals(name)) {
+                return g;
+            }
+        }
+        throw new GuestNotFoundException("Guest with the given name doesn't exist!");
+    }
 
     @Override
     public boolean equals(Object other) {
