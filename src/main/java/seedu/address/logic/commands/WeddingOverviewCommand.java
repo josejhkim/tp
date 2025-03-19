@@ -49,7 +49,7 @@ public class WeddingOverviewCommand extends Command {
 
         return new CommandResult(String.format(MESSAGE_SUCCESS,
                 wedding.getName(),
-                wedding.getTableList().getTables().size(),
+                wedding.getTableList().asUnmodifiableObservableList().size(),
                 rsvpListSize, guestList.toString().trim()));
     }
 

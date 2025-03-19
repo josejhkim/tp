@@ -7,7 +7,7 @@ import java.util.List;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.table.Table;
-import seedu.address.model.table.TableList;
+import seedu.address.model.table.UniqueTableList;
 import seedu.address.model.wedding.Wedding;
 
 /**
@@ -15,20 +15,13 @@ import seedu.address.model.wedding.Wedding;
  */
 public class GetAllTablesCommand extends Command {
 
-    /** Command word to fetch all tables. */
     public static final String COMMAND_WORD = "getTables";
 
-    /** Usage instructions for help. */
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Lists all tables in the current wedding.\n"
             + "Example: " + COMMAND_WORD;
 
-    /** Error message when no wedding is set. */
     public static final String MESSAGE_NO_CURRENT_WEDDING = "No current wedding set. Use createWedding command first.";
-
-    /** Message for when there are no tables. */
     public static final String MESSAGE_NO_TABLES = "No tables found for this wedding.";
-
-    /** Success message for displaying tables. */
     public static final String MESSAGE_SUCCESS = "List of tables:\n%1$s";
 
     /**
@@ -49,8 +42,8 @@ public class GetAllTablesCommand extends Command {
         }
 
         // Get all tables
-        TableList tableList = currentWedding.getTableList();
-        List<Table> tables = tableList.getTables();
+        UniqueTableList tableList = currentWedding.getTableList();
+        List<Table> tables = tableList.asUnmodifiableObservableList();
 
         // Handle case where no tables exist
         if (tables.isEmpty()) {
@@ -61,7 +54,7 @@ public class GetAllTablesCommand extends Command {
         StringBuilder result = new StringBuilder();
         for (Table table : tables) {
             result.append(String.format("Table ID: %d | Capacity: %d | Guests: %d\n",
-                    table.getTableId(), table.getCapacity(), table.getGuestList().size()));
+                    table.getTableId(), table.getCapacity(), table.getGuestIds().size()));
         }
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, result.toString().trim()));

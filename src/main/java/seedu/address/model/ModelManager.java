@@ -178,8 +178,10 @@ public class ModelManager implements Model {
 
     @Override
     public Guest findGuestByGuestId(Wedding wedding, Integer guestId) throws CommandException {
-        return wedding.getRsvpList().getGuestByGuestId(guestId);
+        return wedding.getRsvpList().getGuestByGuestId(guestId)
+                .orElseThrow(() -> new CommandException("Guest with ID " + guestId + " not found in wedding " + wedding.getName()));
     }
+
 
     @Override
     public boolean equals(Object other) {

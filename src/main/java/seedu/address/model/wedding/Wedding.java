@@ -6,14 +6,14 @@ import java.util.Optional;
 import seedu.address.model.person.Guest;
 import seedu.address.model.person.RsvpList;
 import seedu.address.model.table.Table;
-import seedu.address.model.table.TableList;
+import seedu.address.model.table.UniqueTableList;
 /**
  * Represents a Wedding in the address book.
  */
 public class Wedding {
     private final String name;
     private final RsvpList rsvpList;
-    private final TableList tableList; // All tables for seating
+    private final UniqueTableList tableList; // All tables for seating
     /**
      * Constructs a {@code Wedding}.
      *
@@ -22,7 +22,7 @@ public class Wedding {
     public Wedding(String name) {
         this.name = name;
         this.rsvpList = new RsvpList();
-        this.tableList = new TableList();
+        this.tableList = new UniqueTableList();
     }
 
     public String getName() {
@@ -33,7 +33,7 @@ public class Wedding {
         return rsvpList;
     }
 
-    public TableList getTableList() {
+    public UniqueTableList getTableList() {
         return tableList;
     }
 

@@ -5,7 +5,7 @@ import static java.util.Objects.requireNonNull;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.table.Table;
-import seedu.address.model.table.TableList;
+import seedu.address.model.table.UniqueTableList;
 import seedu.address.model.wedding.Wedding;
 
 /**
@@ -32,25 +32,20 @@ public class DeleteTableCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        // 1) Check wedding
         Wedding currentWedding = model.getCurrentWedding();
         if (currentWedding == null) {
             throw new CommandException(MESSAGE_NO_CURRENT_WEDDING);
         }
 
-        // 2) Find table
-        TableList tableList = currentWedding.getTableList();
-        Table table = tableList.findTableById(tableId);
-        if (table == null) {
-            throw new CommandException(String.format(MESSAGE_TABLE_NOT_FOUND, tableId));
-        }
+        UniqueTableList tableList = currentWedding.getTableList();
+        Table table = tableList.findTableById(tableId).orElseThrow(() ->
+                new CommandException(String.format(MESSAGE_TABLE_NOT_FOUND, tableId)));
 
-        // 3) Delete the table
         tableList.deleteTable(tableId);
 
-        // 4) Return success
         return new CommandResult(String.format(MESSAGE_SUCCESS, table));
     }
+
 
     @Override
     public boolean equals(Object other) {

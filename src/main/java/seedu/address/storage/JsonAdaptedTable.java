@@ -9,12 +9,12 @@ import seedu.address.model.table.Table;
 public class JsonAdaptedTable {
     private final int tableId;
     private final int capacity;
-    private final List<Integer> guestIds;
+    private final List<String> guestIds;
 
     @JsonCreator
     public JsonAdaptedTable(@JsonProperty("tableId") int tableId,
                             @JsonProperty("capacity") int capacity,
-                            @JsonProperty("guestIds") List<Integer> guestIds) {
+                            @JsonProperty("guestIds") List<String> guestIds) {
         this.tableId = tableId;
         this.capacity = capacity;
         this.guestIds = (guestIds != null) ? guestIds : new ArrayList<>(); // ✅ Prevents NullPointerException
@@ -27,10 +27,7 @@ public class JsonAdaptedTable {
     }
 
     public Table toModelType() {
-        Table table = new Table(tableId, capacity);
-        for (int guestId : guestIds) {
-            table.addGuestId(guestId);
-        }
-        return table;
+        return new Table(tableId, capacity, new ArrayList<>(guestIds));
     }
+
 }

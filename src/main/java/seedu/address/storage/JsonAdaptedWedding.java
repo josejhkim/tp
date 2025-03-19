@@ -31,9 +31,10 @@ class JsonAdaptedWedding {
                 .collect(Collectors.toList());
 
         // Convert all tables from TableList
-        this.tables = source.getTableList().getTables().stream()
+        this.tables = source.getTableList().asUnmodifiableObservableList().stream()
                 .map(JsonAdaptedTable::new)
                 .collect(Collectors.toList());
+
     }
 
     public Wedding toModelType() throws IllegalValueException {
