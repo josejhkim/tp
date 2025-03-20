@@ -2,8 +2,11 @@ package seedu.address.model.wedding;
 
 import java.util.Objects;
 
+import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.person.Guest;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.Phone;
 import seedu.address.model.person.RsvpList;
 import seedu.address.model.person.exceptions.GuestNotFoundException;
 import seedu.address.model.table.UniqueTableList;
@@ -45,6 +48,14 @@ public class Wedding {
         rsvpList.remove(guest);
     }
 
+    public void setGuest(Guest target, Guest editedGuest) {
+        rsvpList.setGuest(target, editedGuest);
+    }
+
+    public Guest findGuestByPhone(Phone phone) throws CommandException {
+        return rsvpList.getGuestByPhone(phone);
+    }
+
     public Guest findGuestByName(Name name) throws GuestNotFoundException {
         for (Guest g : rsvpList.getAllGuests()) {
             if (g.getName().equals(name)) {
@@ -52,6 +63,10 @@ public class Wedding {
             }
         }
         throw new GuestNotFoundException("Guest with the given name doesn't exist!");
+    }
+
+    public boolean hasGuest(Guest guest) {
+        return this.rsvpList.contains(guest);
     }
 
     @Override
