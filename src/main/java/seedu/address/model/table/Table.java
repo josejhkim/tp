@@ -15,6 +15,7 @@ import seedu.address.model.person.RsvpList;
 public final class Table {
 
     public static final String ID_CONSTRAINTS = "The table ID should be a positive integer";
+    public static final int MAX_CAPACITY = 10000;
 
     /** The unique identifier for the table. */
     private final int tableId;
