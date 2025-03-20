@@ -77,7 +77,7 @@ public class DeleteGuestFromTableCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof EditGuestCommand)) {
+        if (!(other instanceof DeleteGuestFromTableCommand)) {
             return false;
         }
 
