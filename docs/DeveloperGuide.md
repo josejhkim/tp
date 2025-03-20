@@ -320,7 +320,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**
 
 1. User wants to set a wedding as active.
-2. User enters the command `setWedding WEDDINGNAME` with the desired wedding's name.
+2. User enters the command `setWedding Jack and Jill's wedding` with the desired wedding's name.
 3. WeddingHero verifies that the specified wedding exists.
 4. WeddingHero sets the wedding as the active wedding.
 5. WeddingHero displays a confirmation message that the wedding is now active.
@@ -342,6 +342,30 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
    2c1. If the user enters invalid text or an unsupported format for the wedding name, WeddingHero displays an error message indicating the input is invalid.  
    2c2. WeddingHero prompts the user to re-enter the command in the correct format.  
    2c3. Once valid input is provided, the process resumes at step 3.
+
+---
+
+### Use case: Wedding Overview
+
+**Preconditions:**
+- A wedding has been created.
+- A wedding has been set as the active wedding in WeddingHero.
+
+**MSS**
+
+1. User wants to view the wedding overview.
+2. WeddingHero retrieves the overview details of the current active wedding, including the number of tables, guests 
+   and list of guests.
+3. WeddingHero displays the wedding overview information.
+4. Use case ends.
+
+**Extensions:**
+
+2a. **No Active Wedding Set**  
+    2a1. If no active wedding is set, WeddingHero informs the user that an active wedding must be set before viewing an overview.  
+    2a2. WeddingHero prompts the user to set a wedding.  
+    2a3. Once an active wedding is set, the user may reissue the wedding overview command, and the process resumes at 
+    step 2.
 
 ---
 
@@ -428,18 +452,83 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ---
 
+### Use case: Add a table
+
+**Preconditions:**
+- A wedding has been created.
+- A wedding has been set as the active wedding in WeddingHero.
+
+**MSS**
+
+1. User decides to add a new table.
+2. User enters the command `addTable tableID/4 8` with the desired table's ID and capacity.
+3. WeddingHero validates that the table ID is unique and that the capacity is a valid positive integer.
+4. WeddingHero adds the table to the current wedding selected by `setWedding`.
+5. WeddingHero displays a confirmation message indicating that the table has been successfully added.
+6. Use case ends.
+
+**Extensions:**
+
+2a. **Missing Required Details**  
+   2a1. If the user omits the table ID or capacity, WeddingHero displays an error message indicating that both parameters are required.  
+   2a2. WeddingHero prompts the user to re-enter the command with the correct format.  
+   2a3. Once the correct input is provided, the process resumes at step 3.
+
+2b. **Invalid Capacity**  
+   2b1. If the user enters an invalid capacity (e.g. a non-numeric value or a negative number), WeddingHero displays an error message specifying that the capacity must be a positive integer.  
+   2b2. WeddingHero prompts the user to re-enter the command with a valid capacity (e.g. positive numeric number).  
+   2b3. Once a valid capacity is provided, the process resumes at step 3.
+
+2c. **Duplicate Table ID**  
+   2c1. If a table with the provided table ID already exists in the current wedding layout, WeddingHero notifies the user of the duplicate.  
+   2c2. WeddingHero prompts the user to enter a new unique table ID.  
+   2c3. If a new, unique table ID is provided, the process resumes at step 3; if the user cancels, the use case ends.
+
+---
+
+### Use case: Delete a table
+
+**Preconditions:**
+- A wedding has been created.
+- A wedding has been set as the active wedding in WeddingHero.
+
+**MSS**
+
+1. User decides to delete an existing table.
+2. User enters the command `deleteTable tableID/3` with the desired table's ID.
+3. WeddingHero validates that the table ID is provided.
+4. WeddingHero searches for the table matching the provided ID.
+5. If a matching table is found, WeddingHero prompts the user to confirm the deletion.
+6. User confirms the deletion.
+7. WeddingHero deletes the table from the wedding layout.
+8. WeddingHero displays a confirmation message that the table has been successfully deleted.
+   Use case ends.
+
+**Extensions:**
+
+2a. **Missing Table ID**  
+   2a1. If the user omits the table ID when entering the command, WeddingHero displays an error message indicating that the table ID is required.  
+   2a2. WeddingHero prompts the user to re-enter the command with the correct format.  
+   2a3. Once the correct input is provided, the process resumes at step 3.
+
+2b. **Table Not Found**  
+   2b1. If WeddingHero is unable to locate a table matching the provided ID, it informs the user that no matching table was found.  
+   2b2. WeddingHero prompts the user to either re-enter a valid table ID.   
+   2b3. If the user provides a valid table ID, the process resumes at step 3. Otherwise, use case ends.
+
+---
+
 *{More to be added}*
 
 ### Non-Functional Requirements
 
 1. Should work on any mainstream OS as long as it has Java 17 or above installed.
 2. Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-3. A user with above average typing speed for regular English text (i.e., not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+3. A user with above-average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 4. The command syntax should follow a consistent pattern, so users can easily learn new commands without extensive documentation.
 5. The codebase should be modular, ensuring that future features can be implemented without major refactoring.
-6. The system should focus on managing a single wedding at a time for simplicity.
-
-### Glossary
+6. The app should support the management of multiple weddings concurrently, allowing a single user to effortlessly switch between different events
+7. The app must ensure data accuracy by validating inputs (e.g., checking valid phone numbers) before updating the database.
 
 # Glossary
 
@@ -473,19 +562,6 @@ Given below are instructions to test the app manually.
       Expected: The most recent window size and location is retained.
 
 3. _{ more test cases … }_
-
-### Deleting a person
-
-1. Deleting a person while all persons are being shown
-   1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-   2. Test case: `delete 1`  
-      Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-   3. Test case: `delete 0`  
-      Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-   4. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)  
-      Expected: Similar to previous.
-
-2. _{ more test cases … }_
 
 ### Saving data
 
