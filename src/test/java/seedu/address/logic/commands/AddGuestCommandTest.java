@@ -35,7 +35,8 @@ public class AddGuestCommandTest {
                 new Email("johndoe@example.com"),
                 new Address("123 Street"),
                 new DietaryRestriction("None"),
-                new Rsvp(Rsvp.Status.YES));
+                new Rsvp(Rsvp.Status.YES),
+            null);
         AddGuestCommand command = new AddGuestCommand(guest);
 
         CommandResult result = command.execute(model);
@@ -50,7 +51,8 @@ public class AddGuestCommandTest {
                 new Email("johndoe@example.com"),
                 new Address("123 Street"),
                 new DietaryRestriction("None"),
-                new Rsvp(Rsvp.Status.YES));
+                new Rsvp(Rsvp.Status.YES),
+                null);
         AddGuestCommand command = new AddGuestCommand(guest);
 
         model.getCurrentWedding().addGuest(guest); // Adding the guest first to cause failure

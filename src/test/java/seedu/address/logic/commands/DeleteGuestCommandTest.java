@@ -18,7 +18,7 @@ import seedu.address.model.person.category.DietaryRestriction;
 import seedu.address.model.person.category.Rsvp;
 import seedu.address.model.wedding.Wedding;
 
-public class RemoveGuestCommandTest {
+public class DeleteGuestCommandTest {
     private Model model;
 
     @BeforeEach
@@ -37,9 +37,10 @@ public class RemoveGuestCommandTest {
             new Email("johndoe@example.com"),
             new Address("123 Street"),
             new DietaryRestriction("None"),
-            new Rsvp(Rsvp.Status.YES));
+            new Rsvp(Rsvp.Status.YES),
+            null);
         model.getCurrentWedding().addGuest(guest);
-        DeleteGuestCommand command = new DeleteGuestCommand(new Phone("12345678"), 0);
+        DeleteGuestCommand command = new DeleteGuestCommand(new Phone("12345678"), null);
 
         CommandResult result = command.execute(model);
 
@@ -48,7 +49,7 @@ public class RemoveGuestCommandTest {
 
     @Test
     public void execute_removeGuestByPhone_failure() {
-        DeleteGuestCommand command = new DeleteGuestCommand(new Phone("12345674"), 0);
+        DeleteGuestCommand command = new DeleteGuestCommand(new Phone("12345674"), null);
 
         assertThrows(CommandException.class, () -> command.execute(model));
     }
@@ -60,16 +61,17 @@ public class RemoveGuestCommandTest {
             new Email("johndoe@example.com"),
             new Address("123 Street"),
             new DietaryRestriction("None"),
-            new Rsvp(Rsvp.Status.YES));
+            new Rsvp(Rsvp.Status.YES),
+            null);
         model.getCurrentWedding().addGuest(guest);
-        DeleteGuestCommand command = new DeleteGuestCommand(null, "12345678".hashCode());
+        DeleteGuestCommand command = new DeleteGuestCommand(null, new Name("John Doe"));
         CommandResult result = command.execute(model);
         assertEquals(String.format(DeleteGuestCommand.MESSAGE_SUCCESS, guest), result.getFeedbackToUser());
     }
 
     @Test
     public void execute_removeGuestById_failure() {
-        DeleteGuestCommand command = new DeleteGuestCommand(new Phone("12345674"), "12345678".hashCode());
+        DeleteGuestCommand command = new DeleteGuestCommand(new Phone("12345674"), null);
 
         assertThrows(CommandException.class, () -> command.execute(model));
     }

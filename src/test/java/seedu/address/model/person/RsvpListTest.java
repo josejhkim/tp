@@ -28,7 +28,8 @@ public class RsvpListTest {
             new Email("johndoe@example.com"),
             new Address("123 Street"),
             new DietaryRestriction(DietaryRestriction.TypicalRestriction.VEGAN),
-            new Rsvp(Rsvp.Status.YES)
+            new Rsvp(Rsvp.Status.YES),
+            null
         );
     }
 

@@ -20,7 +20,7 @@ import seedu.address.model.person.Phone;
 // In our tests, we learned that the expected object should match these null values precisely,
 // as the equals() method compares the fields directly.
 
-public class RemoveGuestCommandParserTest {
+public class DeleteGuestCommandParserTest {
 
     private final DeleteGuestCommandParser parser = new DeleteGuestCommandParser();
 
@@ -52,9 +52,5 @@ public class RemoveGuestCommandParserTest {
         assertThrows(ParseException.class, () -> parser.parse(invalidArgs));
     }
 
-    @Test
-    public void parse_missingPhoneAndGuestId_throwsParseException() {
-        String invalidArgs = " n/John Doe";
-        assertThrows(ParseException.class, () -> parser.parse(invalidArgs));
-    }
+
 }
