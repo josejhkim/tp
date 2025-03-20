@@ -328,19 +328,19 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Extensions:**
 
-2a. **Missing Wedding Name**  
-   2a1. If the user issues the command without providing a wedding name, WeddingHero displays an error message indicating that the wedding name is required.  
-   2a2. WeddingHero prompts the user to re-enter the command with the correct format.  
+2a. **Missing Wedding Name** 
+   2a1. If the user issues the command without providing a wedding name, WeddingHero displays an error message indicating that the wedding name is required.
+   2a2. WeddingHero prompts the user to re-enter the command with the correct format.
    2a3. Upon receiving the correct input, the process resumes at step 3.
 
-2b. **Non-Existent Wedding**  
-   2b1. If the specified wedding name does not match any existing wedding, WeddingHero informs the user that no such wedding was found.  
-   2b2. WeddingHero prompts the user to either re-enter a valid wedding name or cancel the operation.  
+2b. **Non-Existent Wedding**
+   2b1. If the specified wedding name does not match any existing wedding, WeddingHero informs the user that no such wedding was found.
+   2b2. WeddingHero prompts the user to either re-enter a valid wedding name or cancel the operation.
    2b3. If the user provides a valid wedding name, the process resumes at step 3; if the user cancels, the use case ends.
 
-2c. **Invalid Input Format**  
-   2c1. If the user enters invalid text or an unsupported format for the wedding name, WeddingHero displays an error message indicating the input is invalid.  
-   2c2. WeddingHero prompts the user to re-enter the command in the correct format.  
+2c. **Invalid Input Format**
+   2c1. If the user enters invalid text or an unsupported format for the wedding name, WeddingHero displays an error message indicating the input is invalid.
+   2c2. WeddingHero prompts the user to re-enter the command in the correct format.
    2c3. Once valid input is provided, the process resumes at step 3.
 
 ---
@@ -354,17 +354,17 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**
 
 1. User wants to view the wedding overview.
-2. WeddingHero retrieves the overview details of the current active wedding, including the number of tables, guests 
+2. WeddingHero retrieves the overview details of the current active wedding, including the number of tables, guests
    and list of guests.
 3. WeddingHero displays the wedding overview information.
 4. Use case ends.
 
 **Extensions:**
 
-2a. **No Active Wedding Set**  
-    2a1. If no active wedding is set, WeddingHero informs the user that an active wedding must be set before viewing an overview.  
-    2a2. WeddingHero prompts the user to set a wedding.  
-    2a3. Once an active wedding is set, the user may reissue the wedding overview command, and the process resumes at 
+2a. **No Active Wedding Set**
+    2a1. If no active wedding is set, WeddingHero informs the user that an active wedding must be set before viewing an overview.
+    2a2. WeddingHero prompts the user to set a wedding.
+    2a3. Once an active wedding is set, the user may reissue the wedding overview command, and the process resumes at
     step 2.
 
 ---
@@ -378,7 +378,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**
 
 1. User decides to add a new guest.
-2. User to enters the guest details in the following correct format:  
+2. User to enters the guest details in the following correct format:
    `addGuest n/john Doe p/81231234 e/JohnDoe@gmail.com a/123 Kent Ridge d/None r/YES`
 3. WeddingHero validates the entered details.
 4. WeddingHero adds the guest to the current wedding's guest list.
@@ -387,25 +387,25 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Extensions:**
 
-2a. **Missing Required Tag**  
-    2a1. If the user omits one or more required identifier tags (e.g. `n/`, `p/`, etc.).  
-    2a2. WeddingHero displays an error message displaying the correct format, along with an example.  
+2a. **Missing Required Tag**
+    2a1. If the user omits one or more required identifier tags (e.g. `n/`, `p/`, etc.).
+    2a2. WeddingHero displays an error message displaying the correct format, along with an example.
     2a3. Upon receiving the correct input, the process resumes at step 3.
 
-2b. **Invalid Phone number**  
-    2b1. If the user enters an invalid phone number containing non numbers (e.g. 8124123A).  
-    2b2. WeddingHero displays an error message, informing user that numbers are only allowed for phone number.  
+2b. **Invalid Phone number**
+    2b1. If the user enters an invalid phone number containing non numbers (e.g. 8124123A).
+    2b2. WeddingHero displays an error message, informing user that numbers are only allowed for phone number.
     2b3. Once valid input is provided, the process resumes at step 3.
 
-2b. **Invalid Email address**  
-    2c1. If the user enters an invalid email address (e.g. joe@).  
+2b. **Invalid Email address**
+    2c1. If the user enters an invalid email address (e.g. joe@).
     2c2. WeddingHero displays an error message, informing user the requirements for a valid email address.  
     2c3. Once valid input is provided, the process resumes at step 3.
 
-3c. **Duplicate Guest**  
+3c. **Duplicate Guest**
     3c1. If WeddingHero detects that a guest with the same identifier (e.g. same name) already exists,
-    it notifies the user of the duplicate.  
-    3c2. WeddingHero prompts the user that guest has already been added.  
+    it notifies the user of the duplicate.
+    3c2. WeddingHero prompts the user that guest has already been added.
     Use case ends.
 
 ---
@@ -427,27 +427,27 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Extensions:**
 
-3a. **Alternative Identifier: Phone Number**  
-    3a1. Instead of using the guest name, the user issues the delete command with a phone number identifier (e.g., `deleteGuest p/81231234`).  
-    3a2. WeddingHero searches for a guest matching the provided phone number.  
+3a. **Alternative Identifier: Phone Number**
+    3a1. Instead of using the guest name, the user issues the delete command with a phone number identifier (e.g., `deleteGuest p/81231234`).
+    3a2. WeddingHero searches for a guest matching the provided phone number. 
     3a3. WeddingHero then proceeds to step 5 of the MSS.
 
-3b. **Missing Identifier Tag**  
-    3b1. The user issues the delete command without using the required identifier tag (e.g., `deleteGuest John Doe` without `n/` or `p/`).  
-    3b2. WeddingHero detects the missing tag and displays an error message instructing the user to use the correct identifier format.  
-    3b3. WeddingHero prompts the user to re-enter the command with either of the proper tags.  
+3b. **Missing Identifier Tag**
+    3b1. The user issues the delete command without using the required identifier tag (e.g., `deleteGuest John Doe` without `n/` or `p/`).
+    3b2. WeddingHero detects the missing tag and displays an error message instructing the user to use the correct identifier format. 
+    3b3. WeddingHero prompts the user to re-enter the command with either of the proper tags.
     3b4. If the user re-enters the command with a valid identifier, the process resumes at step 4.
 
-3c. **Invalid Input Text**  
-    3c1. The user enters invalid text that does not conform to the expected format (e.g., contains non-alphanumeric characters).  
-    3c2. WeddingHero identifies the invalid input and displays an error message indicating that the input is invalid.  
-    3c3. WeddingHero prompts the user to re-enter a valid identifier.  
+3c. **Invalid Input Text**
+    3c1. The user enters invalid text that does not conform to the expected format (e.g., contains non-alphanumeric characters).
+    3c2. WeddingHero identifies the invalid input and displays an error message indicating that the input is invalid.
+    3c3. WeddingHero prompts the user to re-enter a valid identifier.
     3c4. If the user provides a valid input, the process resumes at step 4.
 
-5a. **No Matching Guest Found**  
-    5a1. WeddingHero is unable to find any guest matching the provided identifier (name or phone number).  
-    5a2. WeddingHero informs the user that no matching guest was found.  
-    5a3. If the user re-enters a valid tag with a different value as an identifier, the process resumes at step 4.  
+5a. **No Matching Guest Found**
+    5a1. WeddingHero is unable to find any guest matching the provided identifier (name or phone number).
+    5a2. WeddingHero informs the user that no matching guest was found.
+    5a3. If the user re-enters a valid tag with a different value as an identifier, the process resumes at step 4.
     5a4. If the user changes commands, the use case ends.
 
 ---
@@ -469,19 +469,19 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Extensions:**
 
-2a. **Missing Required Details**  
-   2a1. If the user omits the table ID or capacity, WeddingHero displays an error message indicating that both parameters are required.  
-   2a2. WeddingHero prompts the user to re-enter the command with the correct format.  
+2a. **Missing Required Details**
+   2a1. If the user omits the table ID or capacity, WeddingHero displays an error message indicating that both parameters are required.
+   2a2. WeddingHero prompts the user to re-enter the command with the correct format.
    2a3. Once the correct input is provided, the process resumes at step 3.
 
-2b. **Invalid Capacity**  
-   2b1. If the user enters an invalid capacity (e.g. a non-numeric value or a negative number), WeddingHero displays an error message specifying that the capacity must be a positive integer.  
-   2b2. WeddingHero prompts the user to re-enter the command with a valid capacity (e.g. positive numeric number).  
+2b. **Invalid Capacity**
+   2b1. If the user enters an invalid capacity (e.g. a non-numeric value or a negative number), WeddingHero displays an error message specifying that the capacity must be a positive integer.
+   2b2. WeddingHero prompts the user to re-enter the command with a valid capacity (e.g. positive numeric number).
    2b3. Once a valid capacity is provided, the process resumes at step 3.
 
-2c. **Duplicate Table ID**  
-   2c1. If a table with the provided table ID already exists in the current wedding layout, WeddingHero notifies the user of the duplicate.  
-   2c2. WeddingHero prompts the user to enter a new unique table ID.  
+2c. **Duplicate Table ID**
+   2c1. If a table with the provided table ID already exists in the current wedding layout, WeddingHero notifies the user of the duplicate.
+   2c2. WeddingHero prompts the user to enter a new unique table ID.
    2c3. If a new, unique table ID is provided, the process resumes at step 3; if the user cancels, the use case ends.
 
 ---
@@ -506,14 +506,14 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Extensions:**
 
-2a. **Missing Table ID**  
-   2a1. If the user omits the table ID when entering the command, WeddingHero displays an error message indicating that the table ID is required.  
-   2a2. WeddingHero prompts the user to re-enter the command with the correct format.  
+2a. **Missing Table ID**
+   2a1. If the user omits the table ID when entering the command, WeddingHero displays an error message indicating that the table ID is required.
+   2a2. WeddingHero prompts the user to re-enter the command with the correct format.
    2a3. Once the correct input is provided, the process resumes at step 3.
 
-2b. **Table Not Found**  
+2b. **Table Not Found**
    2b1. If WeddingHero is unable to locate a table matching the provided ID, it informs the user that no matching table was found.  
-   2b2. WeddingHero prompts the user to either re-enter a valid table ID.   
+   2b2. WeddingHero prompts the user to either re-enter a valid table ID. 
    2b3. If the user provides a valid table ID, the process resumes at step 3. Otherwise, use case ends.
 
 ---
@@ -553,12 +553,12 @@ Given below are instructions to test the app manually.
 
 1. Initial launch
    1. Download the jar file and copy it into an empty folder.
-   2. Double-click the jar file.  
+   2. Double-click the jar file.
       Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
 
 2. Saving window preferences
    1. Resize the window to an optimum size. Move the window to a different location. Close the window.
-   2. Re-launch the app by double-clicking the jar file.  
+   2. Re-launch the app by double-clicking the jar file.
       Expected: The most recent window size and location is retained.
 
 3. _{ more test cases … }_
