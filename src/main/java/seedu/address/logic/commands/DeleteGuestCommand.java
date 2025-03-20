@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Guest;
+import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.wedding.Wedding;
 /**
@@ -12,10 +13,10 @@ import seedu.address.model.wedding.Wedding;
  */
 public class DeleteGuestCommand extends Command {
 
-    public static final String COMMAND_WORD = "removeGuest";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Removes a guest from the current wedding.\n"
+    public static final String COMMAND_WORD = "deleteGuest";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Deletes a guest from the current wedding.\n"
         + "Parameters: p/GUEST_PHONE_NUMBER or gid/GUEST_ID\n"
-        + "Example: " + COMMAND_WORD + " p/91234567 or " + COMMAND_WORD + " gid/123";
+        + "Example: " + COMMAND_WORD + " n/ John Doe or " + COMMAND_WORD + " gid/123";
 
     public static final String MESSAGE_SUCCESS = "Guest removed from wedding: %1$s";
     public static final String MESSAGE_NO_CURRENT_WEDDING = "No current wedding set."
@@ -24,13 +25,13 @@ public class DeleteGuestCommand extends Command {
         + " Please check and try again.";
 
     private final Phone phone;
-    private final Integer guestId;
+    private final Name guestName;
     /**
      * Creates a RemoveGuestCommand to remove the guest with the specified phone number.
      */
-    public DeleteGuestCommand(Phone phone, Integer guestId) {
+    public DeleteGuestCommand(Phone phone, Name guestName) {
         this.phone = phone;
-        this.guestId = guestId;
+        this.guestName = guestName;
     }
 
     /**
@@ -49,9 +50,9 @@ public class DeleteGuestCommand extends Command {
         }
         Guest guestToRemove = null;
         if (phone != null) {
-            guestToRemove = model.findGuestByPhone(currentWedding, phone);
-        } else if (guestId != null) {
-            guestToRemove = model.findGuestByGuestId(currentWedding, guestId);
+            guestToRemove = currentWedding.findGuestByPhone(phone);
+        } else if (guestName != null) {
+            guestToRemove = currentWedding.findGuestByName(guestName);
         }
 
         if (guestToRemove == null) {
@@ -72,6 +73,6 @@ public class DeleteGuestCommand extends Command {
         }
         DeleteGuestCommand otherCommand = (DeleteGuestCommand) other;
         return (phone == null ? otherCommand.phone == null : phone.equals(otherCommand.phone))
-            && (guestId == null ? otherCommand.guestId == null : guestId.equals(otherCommand.guestId));
+            && (guestName == null ? otherCommand.guestName == null : guestName.equals(otherCommand.guestName));
     }
 }
