@@ -203,6 +203,23 @@ Deletes the specified guest from the guest list.
   the guest list.
 - Running `weddingOverview`, taking a look at the guest list, followed by `deleteGuest n/Johnny Wang` deletes the first 
 
+### Adding a Table : `addTable`
+
+Adds a table with the specified ID and capacity.
+
+**Format:**  
+`addTable tableID/TABLEID CAPACITY`
+
+- Adds a table with the provided **TABLEID** and **CAPACITY**.
+- The parameter `tableID/{TABLEID}` denotes the unique identifier for the table. Ensure that it is unique by using 
+  the `getTablesCommand`
+- The parameter `{CAPACITY}` represents the seating capacity of the table.
+- Both parameters are required to correctly add the table to the wedding plan.
+
+**Examples:**
+- Running `addTable tableID/12 8` will add a table with the ID `12` and a seating capacity for 8 guests.
+
+
 ### Clearing all entries : `clear`
 
 Clears all entries from the address book.
