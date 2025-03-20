@@ -11,6 +11,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -237,4 +238,10 @@ public class ParserUtilTest {
         assertEquals(ParserUtil.parseDietaryRestriction("Vegan"),
             new DietaryRestriction(DietaryRestriction.TypicalRestriction.VEGAN));
     }
+
+    @Test
+    public void parseDietaryRestriction_invalidValue_throwsParseException() {
+        Assertions.assertThrows(ParseException.class, () -> ParserUtil.parseDietaryRestriction("invalid"));
+    }
+
 }

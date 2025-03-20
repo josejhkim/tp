@@ -1,7 +1,9 @@
 package seedu.address.model.person;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
@@ -38,5 +40,12 @@ public class DietaryRestrictionTest {
     public void toString_typicalRestriction_returnsString() {
         DietaryRestriction restriction = new DietaryRestriction(DietaryRestriction.TypicalRestriction.VEGAN);
         assertEquals("VEGAN", restriction.toString());
+    }
+
+    @Test
+    public void getPossibleValues() {
+        String possibleValues = DietaryRestriction.getPossibleValues();
+        assertFalse(possibleValues.isEmpty());
+        assertTrue(possibleValues.contains("NONE"));
     }
 }
