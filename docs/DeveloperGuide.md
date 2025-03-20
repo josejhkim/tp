@@ -284,47 +284,34 @@ Olivia is a professional wedding planner with 5 years of experience organising c
 
 Priorities: High (must have) - `* * *` , Medium (nice to have) - `* *` , Low (unlikely to have) - `*`
 
-| Priority | As a... | I want to... | So that I can |
-| --- | --- | --- | --- |
-| *** | wedding planner | make changes to my clients plans |  |
-| *** | wedding planner of a couple that cant make up their mind | add and delete the guest list | should the couple decide to make changes |
-| *** | wedding planner of a couple with lots of guests | indicate whether a guest is confirmed, unconfirmed or cancelled | there will not be empty seats |
-| *** | forgetful wedding planner | mark the status of the vendor list | keep track whether a vendor has confirmed |
-| *** | detailed wedding planner | see a list of upcoming tasks that are most urgent | pay attention to them first |
-| *** | wedding planner | leave notes and comments on tasks | my team stays aligned without needing endless back-and-forth messages |
-| *** | wedding planner | create a library of preferred vendors and pricing details | easily recommend the best options to my clients |
-| *** | wedding planner | send scheduled messages to the guests, vendors and photographers | they can be reminded of the upcoming schedule and deadlines |
-| *** | wedding planner | get a contact list of wedding-related vendors nearby | I don’t have to worry about looking them up personally |
-| *** | wedding planner | track expenses against a set budget | I stay informed of the wedding costs |
-| *** | wedding planner | share a todo-list with my clients | we can stay on the same page about what needs to be done |
-| *** | wedding planner | set up a Telegram-like channel for the guests with anonymous voting | I can send out mass announcements and get feedback |
-| *** | wedding planner | gather anonymous congratulations messages from the guests | display during or after the wedding for the couple |
-| *** | wedding planner | record the feedback I get from each event and customer | I can see what I can improve on |
-| *** | wedding planner | keep an archive of the vendors I contacted for past events | I know who to avoid and who to work with again |
-| *** | wedding planner | plan special events like lucky draws or surprise the bride (other wedding related special events idk) | my guests can have a more memorable wedding |
-| *** | wedding planner | save wedding themes and styles chosen by the couple | the wedding stays consistent aesthetically |
-| *** | wedding planner | assign specific tasks to team members | work is distributed evenly |
-| *** | wedding planner | have reusable templates | I can save time when planning many weddings |
-| *** | wedding planner | automated notifications for payments due to vendors |  |
-| *** | wedding planner | automatic reminders for RSVP and guests |  |
-| *** | wedding planner | send financial reports and summaries | present budget updates to clients |
-| *** | wedding planner | keep track of dietary restrictions for guests | ensure the catering meets everyone’s needs |
-| *** | wedding planner | track guest RSVPs and their meal preferences | finalize catering and seating arrangements efficiently |
-| *** | wedding planner who helps out in multiple weddings | keep track of the vendor contacts helping out in multiple weddings | coordinate and easily track which vendors are handling which aspects of each wedding (e.g., florist, caterer, photographer) |
-| *** | destination wedding planner | track which guests are traveling, their accommodation details, and arrival/departure dates | coordinate transportation and lodging arrangements smoothly |
-| *** | wedding planner planning a wedding | track my wedding budget and categorize expenses (e.g., venue, catering, decor) | stay within budget and manage payments effectively |
-| *** | wedding planner | associate vendors with multiple weddings in my address book | track which vendors are involved in each event and avoid scheduling conflicts |
-| *** | wedding planner managing multiple weddings | create separate workspaces for each client | keep each wedding’s details organized without mixing up information |
-| *** | wedding planner handling high-profile clients | set privacy levels for different team members | sensitive client information is only accessible to authorized users |
-| *** | wedding planner working with indecisive couples | track different versions of the wedding plan | revert to previous ideas if needed |
-| *** | wedding planner with international clients | automatically convert budgets and vendor costs into different currencies | accurately track expenses across regions |
-| *** | wedding planner who wants to improve efficiency | analyze past wedding timelines and bottlenecks | optimize planning for future weddings |
-| *** | wedding planner managing an event with cultural traditions | add custom event timelines with traditional ceremonies | ensure all cultural aspects are planned properly |
-
+| Priority | As a...                                                 | I want to...                                                                                 | So that I can                                                                                                  |
+|----------|---------------------------------------------------------|------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------|
+| ***      | wedding planner                                         | make changes to my clients plans                                                               |                                                                                                                |
+| ***      | wedding planner of a couple that cant make up their mind | add and delete the guest list                                                                  | should the couple decide to make changes                                                                       |
+| ***      | wedding planner of a couple with lots of guests         | indicate whether a guest is confirmed, unconfirmed or cancelled                                | cater enough food for them                                                                                     |
+| ***      | wedding planner                                         | keep track of dietary restrictions for guests                                                  | ensure the catering meets everyone’s needs                                                                     |
+| ***      | wedding planner                                         | track guest RSVPs and their meal preferences                                                   | finalise catering and seating arrangements efficiently                                                         |
+| ***      | wedding planner                                         | Assign guests to tables                                                                        | ensures no seats are left empty within a table                                                                 |
+| ***      | wedding planner of high profile clients                 | store information about guests like contact details, address                                   | send out personalised invitation cards                                                                         |
+| ***      | wedding planner                                         | see a quick overview of a specific wedding                                                     | easily determine the number of guests and tables currently assigned to my client's wedding                    |
+| ***      | wedding planner with mulitple clients                   | view the entire guest list assigned to one of my weddings easily                               | so that I can quickly look through guests information                                                          |
+| ***      | experienced wedding planner                             | be able to set the number of tables early to gauge the number of guests my client has          | easily manage other logistics such as venue decision, food catering etc.                                      |
+| ***      | wedding planner                                         | be able to decide how many guests should be seating at one table                               | customise it to my clients needs                                                                              |
+| ***      | wedding planner                                         | view the entire table list quickly                                                             | quickly be able to see the list of tables and their capacities                                                |
+| **       | organised wedding planner                               | filter guests based on their dietary restrictions and RSVP status                              | view guests based on a specific category                                                                      |
+| **       | wedding planner                                         | leave notes and comments on tasks                                                               | my team stays aligned without needing endless back-and-forth messages                                        |
+| *        | forgetful wedding planner                               | mark the status of the vendor list                                                             | keep track whether a vendor has confirmed                                                                     |
+| *        | detailed wedding planner                                | see a list of upcoming tasks that are most urgent                                              | pay attention to them first                                                                                   |
+| *        | wedding planner                                         | create a library of preferred vendors and pricing details                                      | easily recommend the best options to my clients                                                               |
+| *        | wedding planner                                         | send scheduled messages to the guests, vendors and photographers                               | they can be reminded of the upcoming schedule and deadlines                                                   |
+| *        | wedding planner                                         | get a contact list of wedding-related vendors nearby                                           | I don’t have to worry about looking them up personally                                                        |
+| *        | wedding planner                                         | track expenses against a set budget                                                            | I stay informed of the wedding costs                                                                          |
+| *        | wedding planner                                         | share a todo-list with my clients                                                              | we can stay on the same page about what needs to be done                                                      |
 
 ### Use cases
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user` , unless specified otherwise)
+(For all use cases below, the **System** is the `WeddingHero` and the **Actor** is the `user` , unless specified 
+otherwise)
 
 **Use case: Delete a person**
 
@@ -347,7 +334,81 @@ Priorities: High (must have) - `* * *` , Medium (nice to have) - `* *` , Low (un
     - 3a1. AddressBook shows an error message.
       Use case resumes at step 2.
 
+**Use case: Create a wedding**
+
+**MSS**
+
+1. User requests to create a new wedding.
+2. User enters the wedding name using the command, 
+e.g. `createWedding John & Jane Wedding`.
+3. WeddingHero validates the input details.
+4. WeddingHero creates a new wedding entry in the system.
+5. WeddingHero confirms the successful creation of the wedding.
+   Use case ends.
+
+--- 
+**Use case: Delete a guest**
+
+**Preconditions:**
+- A wedding has been created.
+- A wedding has been set as the active wedding in WeddingHero.
+
+**MSS**
+
+1. User requests to view the current guest list.
+2. WeddingHero displays the list of guests.
+3. User selects a guest to delete by providing an identifier (guest name). <br>
+e.g. deleteGuest n/John Doe
+4. WeddingHero searches for a guest matching the provided name or phone number.
+5. WeddingHero deletes the guest.
+   Use case ends.
+
+**Extensions:**
+
+3a. **Alternative Identifier: Phone Number**<br>
+&nbsp;&nbsp;3a1. Instead of using the guest name, the user issues the delete command with a phone number identifier<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(e.g. `deleteGuest p/81231234`).<br>
+&nbsp;&nbsp;3a2. WeddingHero searches for a guest matching the provided phone number.<br>
+&nbsp;&nbsp;3a3. WeddingHero then proceeds to step 5 of the MSS.
+
+3b. **Missing Identifier Tag**
+3b1. The user issues the delete command without using the required identifier tag <br> 
+(e.g. `deleteGuest John Doe` without `n/` or `p/`).<br>
+3b2. WeddingHero detects the missing tag and displays an error message instructing the user to use the correct identifier format.  
+3b3. WeddingHero prompts the user to re-enter the command with the proper tag.  
+3b4. If the user re-enters the command with a valid identifier, the process resumes at step 4.
+
+
+3c. **Invalid Input Text**  
+   >3c1. The user enters invalid text that does not conform to the expected format (e.g. including unsupported 
+   > characters or gibberish).  
+   3c2. WeddingHero identifies the invalid input and displays an error message indicating that the input is invalid.  
+   3c3. WeddingHero prompts the user to re-enter a valid identifier.  
+   3c4. If the user provides a valid input, the process resumes at step 4.
+
+4a. **No Matching Guest Found**
+   4a1. WeddingHero is unable to find any guest matching the provided identifier (name or phone number).
+   4a2. WeddingHero informs the user that no matching guest was found.
+   4a3. WeddingHero prompts the user to either re-enter a valid identifier or cancel the deletion.
+   4a4. If the user re-enters a new identifier o, the process resumes at step 4.
+   4a5. If the user cancels, the use case ends.
+
+**MSS**
+
+1. User requests to view the current guest list.
+2. WeddingHero displays the list of guests.
+3. User identifies a guest to be deleted by either name or phone number.
+4. User issues the delete command using one of the following:
+   - For name: `deleteGuest n/NAME`
+   - For phone number: `deleteGuest p/PHONE_NUMBER`
+5. WeddingHero verifies the provided identifier matches an existing guest.
+6. WeddingHero deletes the guest from the guest list.
+7. WeddingHero confirms the successful deletion to the user.
+   Use case ends.
+
+
 *{More to be added}*
+
 
 ### Non-Functional Requirements
 
