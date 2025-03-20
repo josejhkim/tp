@@ -1,12 +1,18 @@
 ---
-  layout: default.md
-  title: "User Guide"
-  pageNav: 3
+layout: default.md
+title: "User Guide"
+pageNav: 3
 ---
 
-# AB-3 User Guide
+# Wedding Hero User Guide
 
-AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized for use via a  Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps.
+Wedding Hero is a **desktop application** tailored specifically for wedding planners, optimised for fast 
+interactions via a **Command Line Interface** (CLI) while still providing the benefits of a clear and intuitive 
+**Graphical User Interface** (GUI). Designed to help **professional wedding planners** manage complex wedding details 
+efficiently, 
+Wedding Hero consolidates **guest lists, seating arrangements, and crucial guest details like dietary information and 
+RSVP status** into one centralised dashboard. If you’re comfortable typing quickly, Wedding Hero empowers you to manage
+your wedding planning tasks more efficiently and precisely than traditional mouse-based applications.
 
 <!-- * Table of Contents -->
 <page-nav-print />
@@ -16,17 +22,21 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
 ## Quick start
 
 1. Ensure you have Java `17` or above installed in your Computer.<br>
-   **Mac users:** Ensure you have the precise JDK version prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
+   **Mac users:** Ensure you have the precise JDK version prescribed
+    [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).<br>
+    **Window and Linux users:** can find their Java `17` download links 
+    [here](https://www.oracle.com/java/technologies/downloads/#java17).
+2. Download the latest `.jar` file from [here](https://github.com/se-edu/addressbook-level3/releases).
 
-1. Download the latest `.jar` file from [here](https://github.com/se-edu/addressbook-level3/releases).
+3. Copy the file to the folder you want to use as the _home folder_ for your AddressBook.
 
-1. Copy the file to the folder you want to use as the _home folder_ for your AddressBook.
-
-1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar addressbook.jar` command to run the application.<br>
+4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar addressbook.jar` 
+command to run the application.<br>
    A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
    ![Ui](images/Ui.png)
 
-1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
+5. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will 
+open the help window.<br>
    Some example commands you can try:
 
    * `list` : Lists all contacts.
@@ -52,16 +62,14 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
 * Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
   e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
 
-* Items in square brackets are optional.<br>
-  e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-
-* Items with `…`​ after them can be used multiple times including zero times.<br>
-  e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-
-* Parameters can be in any order.<br>
+* Parameters can be typed in any order.<br>
   e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 
-* Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
+* Items in square brackets are optional.<br>
+  e.g. `deleteGuest [n/NAME] [p/PHONE_NUMBER]` can be used as `deleteGuest [n/NAME]` or `deleteGuest [p/PHONE_NUMBER]`
+
+* Extraneous parameters for commands that do not take in parameters (such as `help`, `weddingOverview`, `exit` and 
+  `seeRSVPList`) will be ignored.<br>
   e.g. if the command specifies `help 123`, it will be interpreted as `help`.
 
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
@@ -75,21 +83,20 @@ Shows a message explaning how to access the help page.
 
 Format: `help`
 
-
-### Adding a person: `add`
+### Adding a person: `addGuest`
 
 Adds a person to the address book.
 
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​`
+Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS d/DIETARY_RESTRICTION r/RSVP`
 
 <box type="tip" seamless>
 
-**Tip:** A person can have any number of tags (including 0)
+💡**Tip:** Refer to the dietary restriction section below to see the full list of dietary restrictions to choose from.
 </box>
 
 Examples:
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `addGuest n/John Doe p/12345678 e/johndoe@example.com a/123 Street d/None r/YES`
+* `addGuest n/Willams p/88887777 e/Willams@example.com a/321 Street d/None r/NO`
 
 ### Listing all persons : `list`
 
@@ -132,19 +139,23 @@ Examples:
 * `find alex david` returns `Alex Yeoh`, `David Li`<br>
   ![result for 'find alex david'](images/findAlexDavidResult.png)
 
-### Deleting a person : `delete`
+### Deleting a Guest : `deleteGuest`
 
-Deletes the specified person from the address book.
+Deletes the specified guest from the guest list.
 
-Format: `delete INDEX`
+**Format:**  
+`deleteGuest [n/NAME] [p/PHONE_NUMBER]`
 
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index **must be a positive integer** 1, 2, 3, …​
+- Deletes the guest with the provided **NAME**.
+- The parameter `n/` must be followed by the guest's name **exactly** as it appears.
+- If you only key in parts of the guest's name, you will get an error.
+- **Important**: Although both parameters `n/` and `p/` are optional, you would have to use **only one** of them as an 
+  identifier and **not both** 
 
-Examples:
-* `list` followed by `delete 2` deletes the 2nd person in the address book.
-* `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
+**Examples:**
+- Running `seeRSVPList` followed by `deleteGuest p/12341234` will delete the guest with the phone number `12341234` from 
+  the guest list.
+- Running `weddingOverview`, taking a look at the guest list, followed by `deleteGuest n/Johnny Wang` deletes the first 
 
 ### Clearing all entries : `clear`
 
