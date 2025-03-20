@@ -158,7 +158,8 @@ public class ParserUtil {
             return new DietaryRestriction(typicalRestriction);
         } catch (IllegalArgumentException e) {
             // If it's not a typical one, treat it as a custom restriction
-            return new DietaryRestriction(dietaryRestriction.trim());
+            throw new ParseException("Invalid dietary restriction: " + dietaryRestriction + ". "
+                + "Possible values are: " + DietaryRestriction.getPossibleValues());
         }
     }
 

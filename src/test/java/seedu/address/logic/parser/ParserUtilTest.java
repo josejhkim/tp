@@ -237,10 +237,4 @@ public class ParserUtilTest {
         assertEquals(ParserUtil.parseDietaryRestriction("Vegan"),
             new DietaryRestriction(DietaryRestriction.TypicalRestriction.VEGAN));
     }
-
-    @Test
-    public void parseDietaryRestriction_custom_returnsCustom() throws Exception {
-        assertEquals(ParserUtil.parseDietaryRestriction("Custom"),
-            new DietaryRestriction("Custom"));
-    }
 }

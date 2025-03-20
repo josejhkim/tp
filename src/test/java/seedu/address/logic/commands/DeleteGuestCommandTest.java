@@ -18,7 +18,7 @@ import seedu.address.model.person.category.DietaryRestriction;
 import seedu.address.model.person.category.Rsvp;
 import seedu.address.model.wedding.Wedding;
 
-public class RemoveGuestCommandTest {
+public class DeleteGuestCommandTest {
     private Model model;
 
     @BeforeEach
@@ -36,19 +36,19 @@ public class RemoveGuestCommandTest {
             new Phone("12345678"),
             new Email("johndoe@example.com"),
             new Address("123 Street"),
-            new DietaryRestriction("None"),
+            new DietaryRestriction(DietaryRestriction.TypicalRestriction.NONE),
             new Rsvp(Rsvp.Status.YES));
         model.getCurrentWedding().addGuest(guest);
-        RemoveGuestCommand command = new RemoveGuestCommand(new Phone("12345678"), 0);
+        DeleteGuestCommand command = new DeleteGuestCommand(new Phone("12345678"), 0);
 
         CommandResult result = command.execute(model);
 
-        assertEquals(String.format(RemoveGuestCommand.MESSAGE_SUCCESS, guest), result.getFeedbackToUser());
+        assertEquals(String.format(DeleteGuestCommand.MESSAGE_SUCCESS, guest), result.getFeedbackToUser());
     }
 
     @Test
     public void execute_removeGuestByPhone_failure() {
-        RemoveGuestCommand command = new RemoveGuestCommand(new Phone("12345674"), 0);
+        DeleteGuestCommand command = new DeleteGuestCommand(new Phone("12345674"), 0);
 
         assertThrows(CommandException.class, () -> command.execute(model));
     }
@@ -59,17 +59,17 @@ public class RemoveGuestCommandTest {
             new Phone("12345678"),
             new Email("johndoe@example.com"),
             new Address("123 Street"),
-            new DietaryRestriction("None"),
+            new DietaryRestriction(DietaryRestriction.TypicalRestriction.NONE),
             new Rsvp(Rsvp.Status.YES));
         model.getCurrentWedding().addGuest(guest);
-        RemoveGuestCommand command = new RemoveGuestCommand(null, "12345678".hashCode());
+        DeleteGuestCommand command = new DeleteGuestCommand(null, "12345678".hashCode());
         CommandResult result = command.execute(model);
-        assertEquals(String.format(RemoveGuestCommand.MESSAGE_SUCCESS, guest), result.getFeedbackToUser());
+        assertEquals(String.format(DeleteGuestCommand.MESSAGE_SUCCESS, guest), result.getFeedbackToUser());
     }
 
     @Test
     public void execute_removeGuestById_failure() {
-        RemoveGuestCommand command = new RemoveGuestCommand(new Phone("12345674"), "12345678".hashCode());
+        DeleteGuestCommand command = new DeleteGuestCommand(new Phone("12345674"), "12345678".hashCode());
 
         assertThrows(CommandException.class, () -> command.execute(model));
     }

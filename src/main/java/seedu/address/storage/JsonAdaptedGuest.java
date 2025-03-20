@@ -6,6 +6,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.logic.parser.ParserUtil;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Guest;
@@ -104,7 +106,12 @@ class JsonAdaptedGuest {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     DietaryRestriction.class.getSimpleName()));
         }
-        final DietaryRestriction modelDietaryRestriction = new DietaryRestriction(dietaryRestriction);
+        final DietaryRestriction modelDietaryRestriction;
+        try {
+            modelDietaryRestriction = ParserUtil.parseDietaryRestriction(dietaryRestriction);
+        } catch (ParseException e) {
+            throw new IllegalValueException(e.getMessage());
+        }
 
         if (rsvp == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,

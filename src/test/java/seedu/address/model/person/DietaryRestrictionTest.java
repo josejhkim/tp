@@ -13,15 +13,6 @@ public class DietaryRestrictionTest {
     public void constructor_typicalRestriction_success() {
         DietaryRestriction restriction = new DietaryRestriction(DietaryRestriction.TypicalRestriction.VEGAN);
         assertEquals(DietaryRestriction.TypicalRestriction.VEGAN, restriction.getTypicalRestriction());
-        assertEquals(null, restriction.getCustomRestriction());
-    }
-
-    @Test
-    public void constructor_customRestriction_success() {
-        String customRestriction = "Gluten-Free";
-        DietaryRestriction restriction = new DietaryRestriction(customRestriction);
-        assertEquals(DietaryRestriction.TypicalRestriction.NONE, restriction.getTypicalRestriction());
-        assertEquals(customRestriction, restriction.getCustomRestriction());
     }
 
     @Test
@@ -47,12 +38,5 @@ public class DietaryRestrictionTest {
     public void toString_typicalRestriction_returnsString() {
         DietaryRestriction restriction = new DietaryRestriction(DietaryRestriction.TypicalRestriction.VEGAN);
         assertEquals("VEGAN", restriction.toString());
-    }
-
-    @Test
-    public void toString_customRestriction_returnsString() {
-        String customRestriction = "Gluten-Free";
-        DietaryRestriction restriction = new DietaryRestriction(customRestriction);
-        assertEquals(customRestriction, restriction.toString());
     }
 }
