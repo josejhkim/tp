@@ -272,14 +272,20 @@ _Details coming soon ..._
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Command summary
 
-Action     | Format, Examples
------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-**Add**    | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-**Clear**  | `clear`
-**Delete** | `delete INDEX`<br> e.g., `delete 3`
-**Edit**   | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
-**Find**   | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
-**List**   | `list`
-**Help**   | `help`
+## Command Summary
+
+Action                 | Format, Examples
+-----------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------
+**Help**               | `help`
+**Create Wedding**     | `createWedding WEDDINGNAME`<br>e.g., `createWedding John & Jane Wedding`<br>e.g., `createWedding Smith Family Wedding`
+**Set Wedding**        | `setWedding WEDDINGNAME`<br>e.g., `setWedding John & Jane Wedding`<br>e.g., `setWedding Smith Wedding`
+**Wedding Overview**   | `weddingOverview`
+**Add Guest**          | `addGuest n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS d/DIETARY_RESTRICTION r/RSVP`<br>e.g., `addGuest n/John Doe p/12345678 e/johndoe@example.com a/123 Street d/None r/YES`
+**Delete Guest**       | `deleteGuest [n/NAME] [p/PHONE_NUMBER]`<br>e.g., `deleteGuest p/12341234`<br>e.g., `deleteGuest n/Johnny Wang`
+**Add Table**          | `addTable tableID/TABLEID CAPACITY`<br>e.g., `addTable tableID/12 8`
+**Delete Table**       | `deleteTable tableID/TABLEID`<br>e.g., `deleteTable tableID/12`
+**List Tables**        | `getTables`
+**Find Table**         | `findTable tableID/TABLEID`<br>e.g., `findTable tableID/12`
+**RSVP List**          | `seeRSVPList`
+**Exit**               | `exit`
