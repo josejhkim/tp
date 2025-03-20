@@ -242,10 +242,7 @@ Lists all tables currently added to the wedding layout.
 
 - Retrieves a list of all tables.
 - No additional arguments are required.
-- The command displays details of each table for easy reference.
-
-**Examples:**
-- Running `getTables` displays a list of all tables with their respective details like the guests seated at that table.
+- The command displays details of each table like the guests seated at that table for easy reference.
 
 ### Finding a Table : `findTable`
 
@@ -260,6 +257,17 @@ Finds a table by its ID.
 
 **Examples:**
 - Running `findTable tableID/12` searches for and displays the table with the ID `12`.
+
+### Showing RSVP List : `seeRSVPList`
+
+Displays the RSVP list for the current active wedding.
+
+**Format:**  
+`seeRSVPList`
+
+- Retrieves and displays the RSVP list of the wedding that is currently set as active.
+- No additional arguments are required.
+- Useful for quickly reviewing which guests have responded.
 
 
 ### Clearing all entries : `clear`
