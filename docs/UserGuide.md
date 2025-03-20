@@ -1,12 +1,18 @@
 ---
-  layout: default.md
-  title: "User Guide"
-  pageNav: 3
+layout: default.md
+title: "User Guide"
+pageNav: 3
 ---
 
-# AB-3 User Guide
+# Wedding Hero User Guide
 
-AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized for use via a  Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps.
+Wedding Hero is a **desktop application** tailored specifically for wedding planners, optimised for fast 
+interactions via a **Command Line Interface** (CLI) while still providing the benefits of a clear and intuitive 
+**Graphical User Interface** (GUI). Designed to help **professional wedding planners** manage complex wedding details 
+efficiently, 
+Wedding Hero consolidates **guest lists, seating arrangements, and crucial guest details like dietary information and 
+RSVP status** into one centralised dashboard. If you’re comfortable typing quickly, Wedding Hero empowers you to manage
+your wedding planning tasks more efficiently and precisely than traditional mouse-based applications.
 
 <!-- * Table of Contents -->
 <page-nav-print />
@@ -16,17 +22,21 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
 ## Quick start
 
 1. Ensure you have Java `17` or above installed in your Computer.<br>
-   **Mac users:** Ensure you have the precise JDK version prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
+   **Mac users:** Ensure you have the precise JDK version prescribed
+    [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).<br>
+    **Window and Linux users:** can find their Java `17` download links 
+    [here](https://www.oracle.com/java/technologies/downloads/#java17).
+2. Download the latest `.jar` file from [here](https://github.com/se-edu/addressbook-level3/releases).
 
-1. Download the latest `.jar` file from [here](https://github.com/se-edu/addressbook-level3/releases).
+3. Copy the file to the folder you want to use as the _home folder_ for your AddressBook.
 
-1. Copy the file to the folder you want to use as the _home folder_ for your AddressBook.
-
-1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar addressbook.jar` command to run the application.<br>
+4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar addressbook.jar` 
+command to run the application.<br>
    A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
    ![Ui](images/Ui.png)
 
-1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
+5. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will 
+open the help window.<br>
    Some example commands you can try:
 
    * `list` : Lists all contacts.
@@ -52,16 +62,14 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
 * Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
   e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
 
-* Items in square brackets are optional.<br>
-  e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-
-* Items with `…`​ after them can be used multiple times including zero times.<br>
-  e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-
-* Parameters can be in any order.<br>
+* Parameters can be typed in any order.<br>
   e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 
-* Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
+* Items in square brackets are optional.<br>
+  e.g. `deleteGuest [n/NAME] [p/PHONE_NUMBER]` can be used as `deleteGuest [n/NAME]` or `deleteGuest [p/PHONE_NUMBER]`
+
+* Extraneous parameters for commands that do not take in parameters (such as `help`, `weddingOverview`, `exit` and 
+  `seeRSVPList`) will be ignored.<br>
   e.g. if the command specifies `help 123`, it will be interpreted as `help`.
 
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
@@ -75,82 +83,153 @@ Shows a message explaning how to access the help page.
 
 Format: `help`
 
+### Creating a Wedding : `createWedding`
 
-### Adding a person: `add`
+Creates a new wedding in the wedding planner.
+
+**Format:**  
+`createWedding WEDDINGNAME`
+
+- Creates a wedding with the provided `WEDDINGNAME`.
+- The parameter `WEDDINGNAME` should be a valid string representing the name of the wedding. Feel free to use spaces.
+- This command is used to quickly add a new wedding event to the system.
+
+**Examples:**
+- Running `createWedding John & Jane Wedding` will create a wedding entry with the name "John & Jane Wedding".
+- Using `createWedding Smith Family Wedding` will add a wedding event named "Smith Family Wedding".
+
+
+### Setting a Wedding : `setWedding`
+
+Sets a specific wedding as the active wedding, enabling modifications such as editing guest lists and other wedding details.
+
+**Format:**  
+`setWedding WEDDINGNAME`
+
+- Sets the active wedding context to the wedding with the provided **`WEDDINGNAME`**.
+- Once set, subsequent commands will target this wedding for modifications.
+- The **`WEDDINGNAME`** must match exactly as stored in the system.
+
+**Examples:**
+- Running `setWedding John & Jane Wedding` sets the active wedding to "John & Jane Wedding".
+- Using `setWedding Smith Wedding` sets the active wedding to the wedding named "Smith Wedding".
+
+### Wedding Overview : `weddingOverview`
+
+Provides an overview of the current active wedding, including details such as the number of tables and guests.
+
+**Format:**  
+`weddingOverview`
+
+- Retrieves a summary overview of the active wedding.
+- No additional arguments are required.
+- The overview includes key details such as the number of tables and guests and the list of guests invited.
+
+**Examples:**
+- Running `weddingOverview` after setting an active wedding displays the wedding's summary details.
+
+
+### Adding a person: `addGuest`
 
 Adds a person to the address book.
 
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​`
+Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS d/DIETARY_RESTRICTION r/RSVP`
 
 <box type="tip" seamless>
 
-**Tip:** A person can have any number of tags (including 0)
+💡**Tip:** Refer to the dietary restriction section below to see the full list of dietary restrictions to choose from.
 </box>
 
 Examples:
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `addGuest n/John Doe p/12345678 e/johndoe@example.com a/123 Street d/None r/YES`
+* `addGuest n/Willams p/88887777 e/Willams@example.com a/321 Street d/None r/NO`
 
-### Listing all persons : `list`
 
-Shows a list of all persons in the address book.
+### Deleting a Guest : `deleteGuest`
 
-Format: `list`
+Deletes the specified guest from the guest list.
 
-### Editing a person : `edit`
+**Format:**  
+`deleteGuest [n/NAME] [p/PHONE_NUMBER]`
 
-Edits an existing person in the address book.
+- Deletes the guest with the provided **NAME**.
+- The parameter `n/` must be followed by the guest's name **exactly** as it appears.
+- If you only key in parts of the guest's name, you will get an error.
+- **Important**: Although both parameters `n/` and `p/` are optional, you would have to use **only one** of them as 
+an identifier and **not both**.
 
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
+**Examples:**
+- Running `seeRSVPList` followed by `deleteGuest p/12341234` will delete the guest with the phone number `12341234` from 
+  the guest list.
+- Running `weddingOverview`, taking a look at the guest list, followed by `deleteGuest n/Johnny Wang` deletes the 
+guest with the name `Johnny Wang` 
 
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person’s tags by typing `t/` without
-    specifying any tags after it.
 
-Examples:
-*  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-*  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+### Adding a Table : `addTable`
 
-### Locating persons by name: `find`
+Adds a table with the specified ID and capacity.
 
-Finds persons whose names contain any of the given keywords.
+**Format:**  
+`addTable tableID/TABLEID CAPACITY`
 
-Format: `find KEYWORD [MORE_KEYWORDS]`
+- Adds a table with the provided `TABLEID` and `CAPACITY`.
+- The parameter `TABLEID` denotes the unique identifier for the table. Ensure that it is unique by using 
+  the `getTablesCommand`.
+- The parameter `CAPACITY` represents the seating capacity of the table.
+- Both parameters are required to correctly add the table to the wedding plan.
 
-* The search is case-insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search).
-  e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+**Examples:**
+- Running `addTable tableID/12 8` will add a table with the ID `12` and a seating capacity for 8 guests.
 
-Examples:
-* `find John` returns `john` and `John Doe`
-* `find alex david` returns `Alex Yeoh`, `David Li`<br>
-  ![result for 'find alex david'](images/findAlexDavidResult.png)
+### Deleting a Table : `deleteTable`
 
-### Deleting a person : `delete`
+Deletes a table by its ID.
 
-Deletes the specified person from the address book.
+**Format:**  
+`deleteTable tableID/TABLEID`
 
-Format: `delete INDEX`
+- Deletes the table with the provided `TABLEID`.
+- The parameter `TABLEID` must match the table's ID exactly as stored in the system.
+- This command removes the specified table from the currently set wedding.
 
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index **must be a positive integer** 1, 2, 3, …​
+**Examples:**
+- Running `deleteTable tableID/12` deletes the table with the ID `12`.
 
-Examples:
-* `list` followed by `delete 2` deletes the 2nd person in the address book.
-* `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
+### Listing Tables : `getTables`
 
-### Clearing all entries : `clear`
+Lists all tables currently added to the wedding layout.
 
-Clears all entries from the address book.
+**Format:**  
+`getTables`
 
-Format: `clear`
+- Retrieves a list of all tables.
+- No additional arguments are required.
+- The command displays details of each table like the guests seated at that table for easy reference.
+
+### Finding a Table : `findTable`
+
+Finds a table by its ID.
+
+**Format:**  
+`findTable tableID/TABLEID`
+
+- Searches for the table with the specified `TABLEID`.
+- The parameter `TABLEID` should exactly match the table's identifier number.
+- Useful for quickly locating a specific table in the wedding layout.
+
+**Examples:**
+- Running `findTable tableID/12` searches for and displays the table with the ID `12`.
+
+### Showing RSVP List : `seeRSVPList`
+
+Displays the RSVP list for the current active wedding.
+
+**Format:**  
+`seeRSVPList`
+
+- Retrieves and displays the RSVP list of the wedding that is currently set as active.
+- No additional arguments are required.
+- Useful for quickly reviewing which guests have responded.
 
 ### Exiting the program : `exit`
 
