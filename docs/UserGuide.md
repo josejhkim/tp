@@ -155,13 +155,15 @@ Deletes the specified guest from the guest list.
 - Deletes the guest with the provided **NAME**.
 - The parameter `n/` must be followed by the guest's name **exactly** as it appears.
 - If you only key in parts of the guest's name, you will get an error.
-- **Important**: Although both parameters `n/` and `p/` are optional, you would have to use **only one** of them as an 
-  identifier and **not both** 
+- **Important**: Although both parameters `n/` and `p/` are optional, you would have to use **only one** of them as 
+an identifier and **not both**.
 
 **Examples:**
 - Running `seeRSVPList` followed by `deleteGuest p/12341234` will delete the guest with the phone number `12341234` from 
   the guest list.
-- Running `weddingOverview`, taking a look at the guest list, followed by `deleteGuest n/Johnny Wang` deletes the first 
+- Running `weddingOverview`, taking a look at the guest list, followed by `deleteGuest n/Johnny Wang` deletes the 
+guest with the name `Johnny Wang` 
+
 
 ### Adding a Table : `addTable`
 
@@ -170,9 +172,9 @@ Adds a table with the specified ID and capacity.
 **Format:**  
 `addTable tableID/TABLEID CAPACITY`
 
-- Adds a table with the provided **TABLEID** and **CAPACITY**.
+- Adds a table with the provided `TABLEID` and `CAPACITY`.
 - The parameter `TABLEID` denotes the unique identifier for the table. Ensure that it is unique by using 
-  the `getTablesCommand`
+  the `getTablesCommand`.
 - The parameter `CAPACITY` represents the seating capacity of the table.
 - Both parameters are required to correctly add the table to the wedding plan.
 
@@ -186,7 +188,7 @@ Deletes a table by its ID.
 **Format:**  
 `deleteTable tableID/TABLEID`
 
-- Deletes the table with the provided **TABLEID**.
+- Deletes the table with the provided `TABLEID`.
 - The parameter `TABLEID` must match the table's ID exactly as stored in the system.
 - This command removes the specified table from the currently set wedding.
 
@@ -211,7 +213,7 @@ Finds a table by its ID.
 **Format:**  
 `findTable tableID/TABLEID`
 
-- Searches for the table with the specified **TABLEID**.
+- Searches for the table with the specified `TABLEID`.
 - The parameter `TABLEID` should exactly match the table's identifier number.
 - Useful for quickly locating a specific table in the wedding layout.
 
