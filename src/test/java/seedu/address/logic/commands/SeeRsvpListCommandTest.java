@@ -37,6 +37,7 @@ public class SeeRsvpListCommandTest {
             new DietaryRestriction("None"),
             new Rsvp(Rsvp.Status.YES),
             null);
+
         model.getCurrentWedding().addGuest(guest);
         SeeRsvpListCommand command = new SeeRsvpListCommand();
 

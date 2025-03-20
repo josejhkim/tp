@@ -17,6 +17,7 @@ public class DeleteGuestCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Deletes a guest from the current wedding.\n"
         + "Parameters: p/GUEST_PHONE_NUMBER or gid/GUEST_ID\n"
         + "Example: " + COMMAND_WORD + " n/ John Doe or " + COMMAND_WORD + " gid/123";
+ 
 
     public static final String MESSAGE_SUCCESS = "Guest removed from wedding: %1$s";
     public static final String MESSAGE_NO_CURRENT_WEDDING = "No current wedding set."
@@ -25,6 +26,7 @@ public class DeleteGuestCommand extends Command {
         + " Please check and try again.";
 
     private final Phone phone;
+
     private final Name guestName;
     /**
      * Creates a RemoveGuestCommand to remove the guest with the specified phone number.
@@ -74,5 +76,6 @@ public class DeleteGuestCommand extends Command {
         DeleteGuestCommand otherCommand = (DeleteGuestCommand) other;
         return (phone == null ? otherCommand.phone == null : phone.equals(otherCommand.phone))
             && (guestName == null ? otherCommand.guestName == null : guestName.equals(otherCommand.guestName));
+
     }
 }

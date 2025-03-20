@@ -37,6 +37,7 @@ public class AddGuestCommandTest {
                 new DietaryRestriction("None"),
                 new Rsvp(Rsvp.Status.YES),
             null);
+
         AddGuestCommand command = new AddGuestCommand(guest);
 
         CommandResult result = command.execute(model);
@@ -53,6 +54,7 @@ public class AddGuestCommandTest {
                 new DietaryRestriction("None"),
                 new Rsvp(Rsvp.Status.YES),
                 null);
+
         AddGuestCommand command = new AddGuestCommand(guest);
 
         model.getCurrentWedding().addGuest(guest); // Adding the guest first to cause failure
