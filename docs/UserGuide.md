@@ -244,15 +244,14 @@ AddressBook data are saved in the hard disk automatically after any command that
 ### Editing the data file
 
 AddressBook data are saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
-
-<box type="warning" seamless>
+<box type="warning" seamless><br>
 
 **Caution:**
 If your changes to the data file makes its format invalid, AddressBook will discard all data and start with an empty data file at the next run.  Hence, it is recommended to take a backup of the file before editing it.<br>
 Furthermore, certain edits can cause the AddressBook to behave in unexpected ways (e.g., if a value entered is outside the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 </box>
 
-### Archiving data files `[coming in v2.0]`
+### Automatic assignment of guests to tables when guest RSVP status is YES `[coming in v2.0]`
 
 _Details coming soon ..._
 
@@ -267,19 +266,22 @@ _Details coming soon ..._
 
 ## Known issues
 
-1. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen. The remedy is to delete the `preferences.json` file created by the application before running the application again.
-2. **If you minimize the Help Window** and then run the `help` command (or use the `Help` menu, or the keyboard shortcut `F1`) again, the original Help Window will remain minimized, and no new Help Window will appear. The remedy is to manually restore the minimized Help Window.
-
 --------------------------------------------------------------------------------------------------------------------
 
-## Command summary
 
-Action     | Format, Examples
------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-**Add**    | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-**Clear**  | `clear`
-**Delete** | `delete INDEX`<br> e.g., `delete 3`
-**Edit**   | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
-**Find**   | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
-**List**   | `list`
-**Help**   | `help`
+## Command Summary
+
+Action                 | Format, Examples
+-----------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------
+**Help**               | `help`
+**Create Wedding**     | `createWedding WEDDINGNAME`<br>e.g., `createWedding John & Jane Wedding`<br>e.g., `createWedding Smith Family Wedding`
+**Set Wedding**        | `setWedding WEDDINGNAME`<br>e.g., `setWedding John & Jane Wedding`<br>e.g., `setWedding Smith Wedding`
+**Wedding Overview**   | `weddingOverview`
+**Add Guest**          | `addGuest n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS d/DIETARY_RESTRICTION r/RSVP`<br>e.g., `addGuest n/John Doe p/12345678 e/johndoe@example.com a/123 Street d/None r/YES`
+**Delete Guest**       | `deleteGuest [n/NAME] [p/PHONE_NUMBER]`<br>e.g., `deleteGuest p/12341234`<br>e.g., `deleteGuest n/Johnny Wang`
+**Add Table**          | `addTable tableID/TABLEID CAPACITY`<br>e.g., `addTable tableID/12 8`
+**Delete Table**       | `deleteTable tableID/TABLEID`<br>e.g., `deleteTable tableID/12`
+**List Tables**        | `getTables`
+**Find Table**         | `findTable tableID/TABLEID`<br>e.g., `findTable tableID/12`
+**RSVP List**          | `seeRSVPList`
+**Exit**               | `exit`
