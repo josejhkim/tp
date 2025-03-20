@@ -6,11 +6,11 @@ pageNav: 3
 
 # Wedding Hero User Guide
 
-Wedding Hero is a **desktop application** tailored specifically for wedding planners, optimised for fast 
-interactions via a **Command Line Interface** (CLI) while still providing the benefits of a clear and intuitive 
-**Graphical User Interface** (GUI). Designed to help **professional wedding planners** manage complex wedding details 
-efficiently, 
-Wedding Hero consolidates **guest lists, seating arrangements, and crucial guest details like dietary information and 
+Wedding Hero is a **desktop application** tailored specifically for wedding planners, optimised for fast
+interactions via a **Command Line Interface** (CLI) while still providing the benefits of a clear and intuitive
+**Graphical User Interface** (GUI). Designed to help **professional wedding planners** manage complex wedding details
+efficiently,
+Wedding Hero consolidates **guest lists, seating arrangements, and crucial guest details like dietary information and
 RSVP status** into one centralised dashboard. If you’re comfortable typing quickly, Wedding Hero empowers you to manage
 your wedding planning tasks more efficiently and precisely than traditional mouse-based applications.
 
@@ -24,18 +24,18 @@ your wedding planning tasks more efficiently and precisely than traditional mous
 1. Ensure you have Java `17` or above installed in your Computer.<br>
    **Mac users:** Ensure you have the precise JDK version prescribed
     [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).<br>
-    **Window and Linux users:** can find their Java `17` download links 
+    **Window and Linux users:** can find their Java `17` download links
     [here](https://www.oracle.com/java/technologies/downloads/#java17).
 2. Download the latest `.jar` file from [here](https://github.com/se-edu/addressbook-level3/releases).
 
 3. Copy the file to the folder you want to use as the _home folder_ for your AddressBook.
 
-4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar addressbook.jar` 
+4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar addressbook.jar`
 command to run the application.<br>
    A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
    ![Ui](images/Ui.png)
 
-5. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will 
+5. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will
 open the help window.<br>
    Some example commands you can try:
 
@@ -68,11 +68,12 @@ open the help window.<br>
 * Items in square brackets are optional.<br>
   e.g. `deleteGuest [n/NAME] [p/PHONE_NUMBER]` can be used as `deleteGuest [n/NAME]` or `deleteGuest [p/PHONE_NUMBER]`
 
-* Extraneous parameters for commands that do not take in parameters (such as `help`, `weddingOverview`, `exit` and 
+* Extraneous parameters for commands that do not take in parameters (such as `help`, `weddingOverview`, `exit` and
   `seeRSVPList`) will be ignored.<br>
   e.g. if the command specifies `help 123`, it will be interpreted as `help`.
 
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
+
 </box>
 
 ### Viewing help : `help`
@@ -87,7 +88,7 @@ Format: `help`
 
 Creates a new wedding in the wedding planner.
 
-**Format:**  
+**Format:**
 `createWedding WEDDINGNAME`
 
 - Creates a wedding with the provided `WEDDINGNAME`.
@@ -103,7 +104,7 @@ Creates a new wedding in the wedding planner.
 
 Sets a specific wedding as the active wedding, enabling modifications such as editing guest lists and other wedding details.
 
-**Format:**  
+**Format:**
 `setWedding WEDDINGNAME`
 
 - Sets the active wedding context to the wedding with the provided **`WEDDINGNAME`**.
@@ -118,7 +119,7 @@ Sets a specific wedding as the active wedding, enabling modifications such as ed
 
 Provides an overview of the current active wedding, including details such as the number of tables and guests.
 
-**Format:**  
+**Format:**
 `weddingOverview`
 
 - Retrieves a summary overview of the active wedding.
@@ -138,6 +139,7 @@ Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS d/DIETARY_RESTRICTION r/RSV
 <box type="tip" seamless>
 
 💡**Tip:** Refer to the dietary restriction section below to see the full list of dietary restrictions to choose from.
+
 </box>
 
 Examples:
@@ -149,31 +151,31 @@ Examples:
 
 Deletes the specified guest from the guest list.
 
-**Format:**  
+**Format:**
 `deleteGuest [n/NAME] [p/PHONE_NUMBER]`
 
 - Deletes the guest with the provided **NAME**.
 - The parameter `n/` must be followed by the guest's name **exactly** as it appears.
 - If you only key in parts of the guest's name, you will get an error.
-- **Important**: Although both parameters `n/` and `p/` are optional, you would have to use **only one** of them as 
+- **Important**: Although both parameters `n/` and `p/` are optional, you would have to use **only one** of them as
 an identifier and **not both**.
 
 **Examples:**
-- Running `seeRSVPList` followed by `deleteGuest p/12341234` will delete the guest with the phone number `12341234` from 
+- Running `seeRSVPList` followed by `deleteGuest p/12341234` will delete the guest with the phone number `12341234` from
   the guest list.
-- Running `weddingOverview`, taking a look at the guest list, followed by `deleteGuest n/Johnny Wang` deletes the 
-guest with the name `Johnny Wang` 
+- Running `weddingOverview`, taking a look at the guest list, followed by `deleteGuest n/Johnny Wang` deletes the
+guest with the name `Johnny Wang`
 
 
 ### Adding a Table : `addTable`
 
 Adds a table with the specified ID and capacity.
 
-**Format:**  
+**Format:**
 `addTable tableID/TABLEID CAPACITY`
 
 - Adds a table with the provided `TABLEID` and `CAPACITY`.
-- The parameter `TABLEID` denotes the unique identifier for the table. Ensure that it is unique by using 
+- The parameter `TABLEID` denotes the unique identifier for the table. Ensure that it is unique by using
   the `getTablesCommand`.
 - The parameter `CAPACITY` represents the seating capacity of the table.
 - Both parameters are required to correctly add the table to the wedding plan.
@@ -185,7 +187,7 @@ Adds a table with the specified ID and capacity.
 
 Deletes a table by its ID.
 
-**Format:**  
+**Format:**
 `deleteTable tableID/TABLEID`
 
 - Deletes the table with the provided `TABLEID`.
@@ -199,7 +201,7 @@ Deletes a table by its ID.
 
 Lists all tables currently added to the wedding layout.
 
-**Format:**  
+**Format:**
 `getTables`
 
 - Retrieves a list of all tables.
@@ -210,7 +212,7 @@ Lists all tables currently added to the wedding layout.
 
 Finds a table by its ID.
 
-**Format:**  
+**Format:**
 `findTable tableID/TABLEID`
 
 - Searches for the table with the specified `TABLEID`.
@@ -224,7 +226,7 @@ Finds a table by its ID.
 
 Displays the RSVP list for the current active wedding.
 
-**Format:**  
+**Format:**
 `seeRSVPList`
 
 - Retrieves and displays the RSVP list of the wedding that is currently set as active.
