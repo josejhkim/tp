@@ -10,7 +10,8 @@ public class DietaryRestriction implements Category {
      * Enum to represent typical dietary restrictions.
      */
     public enum TypicalRestriction {
-        VEGETARIAN, VEGAN, HALAL, NONE;
+        VEGETARIAN, VEGAN, HALAL, SHELLFISH, PEANUTS, EGGS, FISH,
+        SOY, SESAME, NONE;
 
         @Override
         public String toString() {
@@ -19,7 +20,6 @@ public class DietaryRestriction implements Category {
     }
 
     private final TypicalRestriction typicalRestriction;
-    private final String customRestriction;
 
     /**
      * Constructs a default {@code DietaryRestriction}
@@ -27,7 +27,6 @@ public class DietaryRestriction implements Category {
      */
     public DietaryRestriction() {
         this.typicalRestriction = TypicalRestriction.NONE;
-        this.customRestriction = null;
     }
 
     /**
@@ -37,25 +36,27 @@ public class DietaryRestriction implements Category {
      */
     public DietaryRestriction(TypicalRestriction typicalRestriction) {
         this.typicalRestriction = typicalRestriction;
-        this.customRestriction = null;
-    }
-    /**
-     * Constructs a {@code DietaryRestriction}.
-     *
-     * @param customRestriction A custom dietary restriction.
-     */
-    public DietaryRestriction(String customRestriction) {
-        this.typicalRestriction = TypicalRestriction.NONE;
-        this.customRestriction = customRestriction;
     }
 
     public TypicalRestriction getTypicalRestriction() {
         return typicalRestriction;
     }
 
-    public String getCustomRestriction() {
-        return customRestriction;
+    /**
+     * Returns a string of all possible typical dietary restrictions.
+     */
+    public static String getPossibleValues() {
+        StringBuilder possibleValues = new StringBuilder();
+        for (TypicalRestriction restriction : TypicalRestriction.values()) {
+            possibleValues.append(restriction.name()).append(", ");
+        }
+        // Remove the last comma and space
+        if (!possibleValues.isEmpty()) {
+            possibleValues.setLength(possibleValues.length() - 2);
+        }
+        return possibleValues.toString();
     }
+
 
     @Override
     public boolean equals(Object other) {
@@ -66,17 +67,16 @@ public class DietaryRestriction implements Category {
             return false;
         }
         DietaryRestriction otherRestriction = (DietaryRestriction) other;
-        return typicalRestriction == otherRestriction.typicalRestriction
-            && Objects.equals(customRestriction, otherRestriction.customRestriction);
+        return typicalRestriction == otherRestriction.typicalRestriction;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(typicalRestriction, customRestriction);
+        return Objects.hash(typicalRestriction);
     }
 
     @Override
     public String toString() {
-        return typicalRestriction != TypicalRestriction.NONE ? typicalRestriction.toString() : customRestriction;
+        return typicalRestriction.toString();
     }
 }

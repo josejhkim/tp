@@ -1,7 +1,9 @@
 package seedu.address.model.person;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
@@ -13,15 +15,6 @@ public class DietaryRestrictionTest {
     public void constructor_typicalRestriction_success() {
         DietaryRestriction restriction = new DietaryRestriction(DietaryRestriction.TypicalRestriction.VEGAN);
         assertEquals(DietaryRestriction.TypicalRestriction.VEGAN, restriction.getTypicalRestriction());
-        assertEquals(null, restriction.getCustomRestriction());
-    }
-
-    @Test
-    public void constructor_customRestriction_success() {
-        String customRestriction = "Gluten-Free";
-        DietaryRestriction restriction = new DietaryRestriction(customRestriction);
-        assertEquals(DietaryRestriction.TypicalRestriction.NONE, restriction.getTypicalRestriction());
-        assertEquals(customRestriction, restriction.getCustomRestriction());
     }
 
     @Test
@@ -50,9 +43,9 @@ public class DietaryRestrictionTest {
     }
 
     @Test
-    public void toString_customRestriction_returnsString() {
-        String customRestriction = "Gluten-Free";
-        DietaryRestriction restriction = new DietaryRestriction(customRestriction);
-        assertEquals(customRestriction, restriction.toString());
+    public void getPossibleValues() {
+        String possibleValues = DietaryRestriction.getPossibleValues();
+        assertFalse(possibleValues.isEmpty());
+        assertTrue(possibleValues.contains("NONE"));
     }
 }

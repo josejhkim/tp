@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.RemoveGuestCommand;
+import seedu.address.logic.commands.DeleteGuestCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Phone;
 
@@ -20,17 +20,17 @@ import seedu.address.model.person.Phone;
 // In our tests, we learned that the expected object should match these null values precisely,
 // as the equals() method compares the fields directly.
 
-public class RemoveGuestCommandParserTest {
+public class DeleteGuestCommandParserTest {
 
-    private final RemoveGuestCommandParser parser = new RemoveGuestCommandParser();
+    private final DeleteGuestCommandParser parser = new DeleteGuestCommandParser();
 
     @Test
     public void parse_allFieldsPresent_success() throws Exception {
-        RemoveGuestCommand command = parser.parse(
+        DeleteGuestCommand command = parser.parse(
             " p/12345678");
 
         assertEquals(
-            new RemoveGuestCommand(new Phone("12345678"), null), command);
+            new DeleteGuestCommand(new Phone("12345678"), null), command);
     }
 
     @Test
@@ -42,15 +42,15 @@ public class RemoveGuestCommandParserTest {
     @Test
     public void parse_validPhoneArgs_returnsRemoveGuestCommand() throws Exception {
         String validArgs = " p/12345678";
-        RemoveGuestCommand command = parser.parse(validArgs);
-        assertEquals(new RemoveGuestCommand(new Phone("12345678"), null), command);
+        DeleteGuestCommand command = parser.parse(validArgs);
+        assertEquals(new DeleteGuestCommand(new Phone("12345678"), null), command);
     }
 
     @Test
     public void parse_validGuestIdArgs_returnsRemoveGuestCommand() throws Exception {
         String validArgs = " gid/1";
-        RemoveGuestCommand command = parser.parse(validArgs);
-        assertEquals(new RemoveGuestCommand(null, 1), command);
+        DeleteGuestCommand command = parser.parse(validArgs);
+        assertEquals(new DeleteGuestCommand(null, 1), command);
     }
 
     @Test

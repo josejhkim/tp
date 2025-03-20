@@ -11,6 +11,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -239,8 +240,8 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseDietaryRestriction_custom_returnsCustom() throws Exception {
-        assertEquals(ParserUtil.parseDietaryRestriction("Custom"),
-            new DietaryRestriction("Custom"));
+    public void parseDietaryRestriction_invalidValue_throwsParseException() {
+        Assertions.assertThrows(ParseException.class, () -> ParserUtil.parseDietaryRestriction("invalid"));
     }
+
 }

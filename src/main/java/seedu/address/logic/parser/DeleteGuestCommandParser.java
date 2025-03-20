@@ -6,20 +6,20 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 
 import java.util.stream.Stream;
 
-import seedu.address.logic.commands.RemoveGuestCommand;
+import seedu.address.logic.commands.DeleteGuestCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Phone;
 /**
  * Parses input arguments and creates a new RemoveGuestCommand object
  */
-public class RemoveGuestCommandParser implements Parser<RemoveGuestCommand> {
+public class DeleteGuestCommandParser implements Parser<DeleteGuestCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the RemoveGuestCommand
      * and returns a RemoveGuestCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     @Override
-    public RemoveGuestCommand parse(String args) throws ParseException {
+    public DeleteGuestCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
             ArgumentTokenizer.tokenize(args, PREFIX_PHONE, PREFIX_GUEST_ID);
 
@@ -37,7 +37,7 @@ public class RemoveGuestCommandParser implements Parser<RemoveGuestCommand> {
                 errorMessage = "Unexpected preamble: " + argMultimap.getPreamble();
             }
 
-            throw new ParseException(String.format(errorMessage, RemoveGuestCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(errorMessage, DeleteGuestCommand.MESSAGE_USAGE));
         }
         Phone phone = null;
         Integer guestId = null;
@@ -49,7 +49,7 @@ public class RemoveGuestCommandParser implements Parser<RemoveGuestCommand> {
             guestId = Integer.parseInt(argMultimap.getValue(PREFIX_GUEST_ID).get());
         }
 
-        return new RemoveGuestCommand(phone, guestId);
+        return new DeleteGuestCommand(phone, guestId);
     }
     /**
      * Returns true if none of the prefixes contains empty {@code Optional} values in the given

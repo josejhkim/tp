@@ -10,7 +10,7 @@ import seedu.address.model.wedding.Wedding;
 /**
  * Removes a guest from the current wedding.
  */
-public class RemoveGuestCommand extends Command {
+public class DeleteGuestCommand extends Command {
 
     public static final String COMMAND_WORD = "removeGuest";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Removes a guest from the current wedding.\n"
@@ -28,7 +28,7 @@ public class RemoveGuestCommand extends Command {
     /**
      * Creates a RemoveGuestCommand to remove the guest with the specified phone number.
      */
-    public RemoveGuestCommand(Phone phone, Integer guestId) {
+    public DeleteGuestCommand(Phone phone, Integer guestId) {
         this.phone = phone;
         this.guestId = guestId;
     }
@@ -67,10 +67,10 @@ public class RemoveGuestCommand extends Command {
         if (other == this) {
             return true;
         }
-        if (!(other instanceof RemoveGuestCommand)) {
+        if (!(other instanceof DeleteGuestCommand)) {
             return false;
         }
-        RemoveGuestCommand otherCommand = (RemoveGuestCommand) other;
+        DeleteGuestCommand otherCommand = (DeleteGuestCommand) other;
         return (phone == null ? otherCommand.phone == null : phone.equals(otherCommand.phone))
             && (guestId == null ? otherCommand.guestId == null : guestId.equals(otherCommand.guestId));
     }
