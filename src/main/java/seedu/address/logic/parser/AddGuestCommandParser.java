@@ -54,7 +54,7 @@ public class AddGuestCommandParser implements Parser<AddGuestCommand> {
         Rsvp rsvp = ParserUtil.parseRsvp(
             argMultimap.getValue(PREFIX_RSVP).get());
 
-        Guest guest = new Guest(name, phone, email, address, dietaryRestriction, rsvp);
+        Guest guest = new Guest(name, phone, email, address, dietaryRestriction, rsvp, null);
 
         return new AddGuestCommand(guest);
     }
