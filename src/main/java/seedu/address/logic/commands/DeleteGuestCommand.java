@@ -25,6 +25,7 @@ public class DeleteGuestCommand extends Command {
         + " Please check and try again.";
 
     private final Phone phone;
+
     private final Name guestName;
     /**
      * Creates a RemoveGuestCommand to remove the guest with the specified phone number.
@@ -74,5 +75,6 @@ public class DeleteGuestCommand extends Command {
         DeleteGuestCommand otherCommand = (DeleteGuestCommand) other;
         return (phone == null ? otherCommand.phone == null : phone.equals(otherCommand.phone))
             && (guestName == null ? otherCommand.guestName == null : guestName.equals(otherCommand.guestName));
+
     }
 }

@@ -8,6 +8,7 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.DeleteGuestCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 /**
@@ -34,6 +35,7 @@ public class DeleteGuestCommandParser implements Parser<DeleteGuestCommand> {
             } else if (arePrefixesPresent(argMultimap, PREFIX_PHONE)
                 && arePrefixesPresent(argMultimap, PREFIX_NAME)) {
                 errorMessage = "Only one of " + PREFIX_PHONE + " or " + PREFIX_NAME + " should be provided";
+
             } else if (!argMultimap.getPreamble().isEmpty()) {
                 errorMessage = "Unexpected preamble: " + argMultimap.getPreamble();
             }
@@ -44,8 +46,10 @@ public class DeleteGuestCommandParser implements Parser<DeleteGuestCommand> {
         Name name = null;
 
 
+
         if (argMultimap.getValue(PREFIX_PHONE).isPresent()) {
             phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
+
         } else if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
             name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         }

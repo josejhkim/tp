@@ -51,5 +51,4 @@ public class DeleteGuestCommandParserTest {
         String invalidArgs = "";
         assertThrows(ParseException.class, () -> parser.parse(invalidArgs));
     }
-
 }

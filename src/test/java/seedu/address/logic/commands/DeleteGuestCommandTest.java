@@ -41,7 +41,6 @@ public class DeleteGuestCommandTest {
             null);
         model.getCurrentWedding().addGuest(guest);
         DeleteGuestCommand command = new DeleteGuestCommand(new Phone("12345678"), null);
-
         CommandResult result = command.execute(model);
 
         assertEquals(String.format(DeleteGuestCommand.MESSAGE_SUCCESS, guest), result.getFeedbackToUser());
@@ -50,7 +49,6 @@ public class DeleteGuestCommandTest {
     @Test
     public void execute_removeGuestByPhone_failure() {
         DeleteGuestCommand command = new DeleteGuestCommand(new Phone("12345674"), null);
-
         assertThrows(CommandException.class, () -> command.execute(model));
     }
 
@@ -72,7 +70,6 @@ public class DeleteGuestCommandTest {
     @Test
     public void execute_removeGuestById_failure() {
         DeleteGuestCommand command = new DeleteGuestCommand(new Phone("12345674"), null);
-
         assertThrows(CommandException.class, () -> command.execute(model));
     }
 
