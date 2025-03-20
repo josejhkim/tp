@@ -99,6 +99,22 @@ Creates a new wedding in the wedding planner.
 - Using `createWedding "Smith Family Wedding"` will add a wedding event named "Smith Family Wedding".
 
 
+### Setting a Wedding : `setWedding`
+
+Sets a specific wedding as the active wedding, enabling modifications such as editing guest lists and other wedding details.
+
+**Format:**  
+`setWedding WEDDINGNAME`
+
+- Sets the active wedding context to the wedding with the provided **WEDDINGNAME**.
+- Once set, subsequent commands will target this wedding for modifications.
+- The **WEDDINGNAME** must match exactly as stored in the system.
+
+**Examples:**
+- Running `setWedding John & Jane Wedding` sets the active wedding to "John & Jane Wedding".
+- Using `setWedding "Smith Wedding` sets the active wedding context to the wedding named "Smith Wedding".
+
+
 ### Adding a person: `addGuest`
 
 Adds a person to the address book.
