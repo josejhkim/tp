@@ -211,9 +211,9 @@ Adds a table with the specified ID and capacity.
 `addTable tableID/TABLEID CAPACITY`
 
 - Adds a table with the provided **TABLEID** and **CAPACITY**.
-- The parameter `tableID/{TABLEID}` denotes the unique identifier for the table. Ensure that it is unique by using 
+- The parameter `TABLEID` denotes the unique identifier for the table. Ensure that it is unique by using 
   the `getTablesCommand`
-- The parameter `{CAPACITY}` represents the seating capacity of the table.
+- The parameter `CAPACITY` represents the seating capacity of the table.
 - Both parameters are required to correctly add the table to the wedding plan.
 
 **Examples:**
@@ -233,7 +233,7 @@ Deletes a table by its ID.
 **Examples:**
 - Running `deleteTable tableID/12` deletes the table with the ID `12`.
 
-### Listing Tables : getTables
+### Listing Tables : `getTables`
 
 Lists all tables currently added to the wedding layout.
 
@@ -245,7 +245,21 @@ Lists all tables currently added to the wedding layout.
 - The command displays details of each table for easy reference.
 
 **Examples:**
-- Running `getTables` displays a list of all tables with their respective details.
+- Running `getTables` displays a list of all tables with their respective details like the guests seated at that table.
+
+### Finding a Table : `findTable`
+
+Finds a table by its ID.
+
+**Format:**  
+`findTable tableID/TABLEID`
+
+- Searches for the table with the specified **TABLEID**.
+- The parameter `TABLEID` should exactly match the table's identifier number.
+- Useful for quickly locating a specific table in the wedding layout.
+
+**Examples:**
+- Running `findTable tableID/12` searches for and displays the table with the ID `12`.
 
 
 ### Clearing all entries : `clear`
