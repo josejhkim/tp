@@ -186,10 +186,6 @@ public class AddCommandTest {
             return null;
         }
 
-        @Override
-        public Guest findGuestByGuestId(Wedding wedding, Integer guestId) {
-            return null;
-        }
     }
 
     /**

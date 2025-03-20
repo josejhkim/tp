@@ -47,13 +47,6 @@ public class RemoveGuestCommandParserTest {
     }
 
     @Test
-    public void parse_validGuestIdArgs_returnsRemoveGuestCommand() throws Exception {
-        String validArgs = " gid/1";
-        DeleteGuestCommand command = parser.parse(validArgs);
-        assertEquals(new DeleteGuestCommand(null, 1), command);
-    }
-
-    @Test
     public void parse_missingAllFields_throwsParseException() {
         String invalidArgs = "";
         assertThrows(ParseException.class, () -> parser.parse(invalidArgs));

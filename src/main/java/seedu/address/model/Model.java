@@ -114,11 +114,4 @@ public interface Model {
      * Finds given guest to the current wedding according to phone number.
      */
     Guest findGuestByPhone(Wedding wedding, Phone phone) throws CommandException;
-    /**
-     * Finds given guest to the current wedding according to guestId.
-     */
-    Guest findGuestByGuestId(Wedding wedding, Integer guestId) throws CommandException;
-
-
-
 }
