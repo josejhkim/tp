@@ -114,6 +114,20 @@ Sets a specific wedding as the active wedding, enabling modifications such as ed
 - Running `setWedding John & Jane Wedding` sets the active wedding to "John & Jane Wedding".
 - Using `setWedding "Smith Wedding` sets the active wedding context to the wedding named "Smith Wedding".
 
+### Wedding Overview : `weddingOverview`
+
+Provides an overview of the current active wedding, including details such as the number of tables and guests.
+
+**Format:**  
+`weddingOverview`
+
+- Retrieves a summary overview of the active wedding.
+- No additional arguments are required.
+- The overview includes key details such as the number of tables and guests and the list of guests invited.
+
+**Examples:**
+- Running `weddingOverview` after setting an active wedding displays the wedding's summary details.
+
 
 ### Adding a person: `addGuest`
 
