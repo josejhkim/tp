@@ -38,8 +38,10 @@ public class DeleteTableCommand extends Command {
         }
 
         UniqueTableList tableList = currentWedding.getTableList();
-        Table table = tableList.findTableById(tableId).orElseThrow(() ->
-                new CommandException(String.format(MESSAGE_TABLE_NOT_FOUND, tableId)));
+        Table table = tableList.findTableById(tableId);
+        if (table == null) {
+            throw new CommandException(String.format(MESSAGE_TABLE_NOT_FOUND, tableId));
+        }
 
         tableList.deleteTable(tableId);
 
