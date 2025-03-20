@@ -219,6 +219,34 @@ Adds a table with the specified ID and capacity.
 **Examples:**
 - Running `addTable tableID/12 8` will add a table with the ID `12` and a seating capacity for 8 guests.
 
+### Deleting a Table : `deleteTable`
+
+Deletes a table by its ID.
+
+**Format:**  
+`deleteTable tableID/TABLEID`
+
+- Deletes the table with the provided **TABLEID**.
+- The parameter `TABLEID` must match the table's ID exactly as stored in the system.
+- This command removes the specified table from the currently set wedding.
+
+**Examples:**
+- Running `deleteTable tableID/12` deletes the table with the ID `12`.
+
+### Listing Tables : getTables
+
+Lists all tables currently added to the wedding layout.
+
+**Format:**  
+`getTables`
+
+- Retrieves a list of all tables.
+- No additional arguments are required.
+- The command displays details of each table for easy reference.
+
+**Examples:**
+- Running `getTables` displays a list of all tables with their respective details.
+
 
 ### Clearing all entries : `clear`
 
