@@ -90,13 +90,13 @@ Creates a new wedding in the wedding planner.
 **Format:**  
 `createWedding WEDDINGNAME`
 
-- Creates a wedding with the provided **weddingName**.
+- Creates a wedding with the provided `WEDDINGNAME`.
 - The parameter `WEDDINGNAME` should be a valid string representing the name of the wedding. Feel free to use spaces.
 - This command is used to quickly add a new wedding event to the system.
 
 **Examples:**
-- Running `createWedding "John & Jane Wedding"` will create a wedding entry with the name "John & Jane Wedding".
-- Using `createWedding "Smith Family Wedding"` will add a wedding event named "Smith Family Wedding".
+- Running `createWedding John & Jane Wedding` will create a wedding entry with the name "John & Jane Wedding".
+- Using `createWedding Smith Family Wedding` will add a wedding event named "Smith Family Wedding".
 
 
 ### Setting a Wedding : `setWedding`
@@ -106,13 +106,13 @@ Sets a specific wedding as the active wedding, enabling modifications such as ed
 **Format:**  
 `setWedding WEDDINGNAME`
 
-- Sets the active wedding context to the wedding with the provided **WEDDINGNAME**.
+- Sets the active wedding context to the wedding with the provided **`WEDDINGNAME`**.
 - Once set, subsequent commands will target this wedding for modifications.
-- The **WEDDINGNAME** must match exactly as stored in the system.
+- The **`WEDDINGNAME`** must match exactly as stored in the system.
 
 **Examples:**
 - Running `setWedding John & Jane Wedding` sets the active wedding to "John & Jane Wedding".
-- Using `setWedding "Smith Wedding` sets the active wedding context to the wedding named "Smith Wedding".
+- Using `setWedding Smith Wedding` sets the active wedding to the wedding named "Smith Wedding".
 
 ### Wedding Overview : `weddingOverview`
 
@@ -144,46 +144,6 @@ Examples:
 * `addGuest n/John Doe p/12345678 e/johndoe@example.com a/123 Street d/None r/YES`
 * `addGuest n/Willams p/88887777 e/Willams@example.com a/321 Street d/None r/NO`
 
-### Listing all persons : `list`
-
-Shows a list of all persons in the address book.
-
-Format: `list`
-
-### Editing a person : `edit`
-
-Edits an existing person in the address book.
-
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
-
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person’s tags by typing `t/` without
-    specifying any tags after it.
-
-Examples:
-*  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-*  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
-
-### Locating persons by name: `find`
-
-Finds persons whose names contain any of the given keywords.
-
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
-* The search is case-insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search).
-  e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-
-Examples:
-* `find John` returns `john` and `John Doe`
-* `find alex david` returns `Alex Yeoh`, `David Li`<br>
-  ![result for 'find alex david'](images/findAlexDavidResult.png)
 
 ### Deleting a Guest : `deleteGuest`
 
@@ -268,13 +228,6 @@ Displays the RSVP list for the current active wedding.
 - Retrieves and displays the RSVP list of the wedding that is currently set as active.
 - No additional arguments are required.
 - Useful for quickly reviewing which guests have responded.
-
-
-### Clearing all entries : `clear`
-
-Clears all entries from the address book.
-
-Format: `clear`
 
 ### Exiting the program : `exit`
 
