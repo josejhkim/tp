@@ -366,45 +366,30 @@ e.g. deleteGuest n/John Doe
 **Extensions:**
 
 3a. **Alternative Identifier: Phone Number**<br>
-&nbsp;&nbsp;3a1. Instead of using the guest name, the user issues the delete command with a phone number identifier<br>
-&nbsp;&nbsp;&nbsp;&nbsp;(e.g. `deleteGuest p/81231234`).<br>
-&nbsp;&nbsp;3a2. WeddingHero searches for a guest matching the provided phone number.<br>
-&nbsp;&nbsp;3a3. WeddingHero then proceeds to step 5 of the MSS.
+    3a1. Instead of using the guest name, the user issues the delete command with a phone number identifier<br>
+    (e.g. `deleteGuest p/81231234`).<br>
+    3a2. WeddingHero searches for a guest matching the provided phone number.<br>
+    3a3. WeddingHero then proceeds to step 5 of the MSS.
 
 3b. **Missing Identifier Tag**
-3b1. The user issues the delete command without using the required identifier tag <br> 
-(e.g. `deleteGuest John Doe` without `n/` or `p/`).<br>
-3b2. WeddingHero detects the missing tag and displays an error message instructing the user to use the correct identifier format.  
-3b3. WeddingHero prompts the user to re-enter the command with the proper tag.  
-3b4. If the user re-enters the command with a valid identifier, the process resumes at step 4.
-
+    3b1. The user issues the delete command without using the required identifier tag <br> 
+    (e.g. `deleteGuest John Doe` without `n/` or `p/`).<br>
+    3b2. WeddingHero detects the missing tag and displays an error message instructing the user to use the correct identifier format.<br> 
+    3b3. WeddingHero prompts the user to re-enter the command with either of the proper tags.<br>
+    3b4. If the user re-enters the command with a valid identifier, the process resumes at step 4.
 
 3c. **Invalid Input Text**  
-   >3c1. The user enters invalid text that does not conform to the expected format (e.g. including unsupported 
-   > characters or gibberish).  
-   3c2. WeddingHero identifies the invalid input and displays an error message indicating that the input is invalid.  
+   3c1. The user enters invalid text that does not conform to the expected format (e.g. contains non-alphanumeric 
+characters).  
+   3c2. WeddingHero identifies the invalid input and displays an error message indicating that the input is invalid.
    3c3. WeddingHero prompts the user to re-enter a valid identifier.  
    3c4. If the user provides a valid input, the process resumes at step 4.
 
-4a. **No Matching Guest Found**
-   4a1. WeddingHero is unable to find any guest matching the provided identifier (name or phone number).
-   4a2. WeddingHero informs the user that no matching guest was found.
-   4a3. WeddingHero prompts the user to either re-enter a valid identifier or cancel the deletion.
-   4a4. If the user re-enters a new identifier o, the process resumes at step 4.
-   4a5. If the user cancels, the use case ends.
-
-**MSS**
-
-1. User requests to view the current guest list.
-2. WeddingHero displays the list of guests.
-3. User identifies a guest to be deleted by either name or phone number.
-4. User issues the delete command using one of the following:
-   - For name: `deleteGuest n/NAME`
-   - For phone number: `deleteGuest p/PHONE_NUMBER`
-5. WeddingHero verifies the provided identifier matches an existing guest.
-6. WeddingHero deletes the guest from the guest list.
-7. WeddingHero confirms the successful deletion to the user.
-   Use case ends.
+5a. **No Matching Guest Found**
+   5a1. WeddingHero is unable to find any guest matching the provided identifier (name or phone number).
+   5a2. WeddingHero informs the user that no matching guest was found.
+   5a3. If the user re-enters a valid tag with a different value as an identifier, the process resumes at step 4.
+   5a4. If the user changes commands, the use case ends.
 
 
 *{More to be added}*
