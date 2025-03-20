@@ -83,7 +83,7 @@ public class AddGuestToTableCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof EditGuestCommand)) {
+        if (!(other instanceof AddGuestToTableCommand)) {
             return false;
         }
 
