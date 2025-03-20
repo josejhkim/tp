@@ -1,10 +1,13 @@
 package seedu.address.model.person;
 
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.person.exceptions.GuestNotFoundException;
 
 
 /**
@@ -35,6 +38,11 @@ public class RsvpList extends UniquePersonList {
         }
         super.remove(toRemove);
     }
+
+    public void setGuest(Guest target, Guest editedGuest) {
+        super.setPerson(target, editedGuest);
+    }
+
     /*
     * Returns all guests in the RSVP list.
      */
@@ -42,6 +50,16 @@ public class RsvpList extends UniquePersonList {
         return asUnmodifiableObservableList().stream()
             .filter(person -> person instanceof Guest)
             .map(person -> (Guest) person)
+            .collect(Collectors.toList());
+    }
+
+    /**
+     * Returns all guests' names in the RSVP list.
+     * @return List of all guests' names in the RSVP list
+     */
+    public List<Name> getAllGuestNames() {
+        return getAllGuests().stream()
+            .map(guest -> guest.getName())
             .collect(Collectors.toList());
     }
 
@@ -53,19 +71,25 @@ public class RsvpList extends UniquePersonList {
                 "Guest with phone " + phone + " not found"));
     }
 
-
-    public Optional<Guest> getGuestByGuestId(Integer guestId) {
-        return getAllGuests().stream()
-                .filter(guest -> guest.getGuestId().equals(guestId))
-                .findFirst();
-    }
-
-
-    public Optional<Guest> getGuestByName(String name) {
-        return getAllGuests().stream()
+    public Guest getGuestByName(String name) throws CommandException {
+        try {
+            return getAllGuests().stream()
                 .filter(guest -> guest.getName().equals(name))
-                .findFirst();
+                .findFirst().get();
+        } catch (NoSuchElementException nsee) {
+            throw new CommandException("Guest with name " + name + " not found");
+        }
     }
 
+    public int size() {
+        return this.getAllGuests().size();
+    }
 
+    @Override
+    public String toString() {
+        return "[ "
+            + getAllGuestNames().stream().map(name -> name.fullName)
+            .reduce("", (prev, curr) -> prev + curr + ", ")
+            + " ]";
+    }
 }
