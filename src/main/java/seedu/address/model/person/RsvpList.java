@@ -87,9 +87,9 @@ public class RsvpList extends UniquePersonList {
 
     @Override
     public String toString() {
-        return "[ "
+        return "["
             + getAllGuestNames().stream().map(name -> name.fullName)
             .reduce("", (prev, curr) -> prev + curr + ", ")
-            + " ]";
+            + "]";
     }
 }
