@@ -34,7 +34,7 @@ public class AddGuestCommandTest {
                 new Phone("12345678"),
                 new Email("johndoe@example.com"),
                 new Address("123 Street"),
-                new DietaryRestriction("None"),
+                new DietaryRestriction(DietaryRestriction.TypicalRestriction.NONE),
                 new Rsvp(Rsvp.Status.YES),
             null);
 
@@ -51,7 +51,7 @@ public class AddGuestCommandTest {
                 new Phone("12345678"),
                 new Email("johndoe@example.com"),
                 new Address("123 Street"),
-                new DietaryRestriction("None"),
+                new DietaryRestriction(DietaryRestriction.TypicalRestriction.NONE),
                 new Rsvp(Rsvp.Status.YES),
                 null);
 

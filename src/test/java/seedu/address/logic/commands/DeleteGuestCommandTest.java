@@ -36,7 +36,7 @@ public class DeleteGuestCommandTest {
             new Phone("12345678"),
             new Email("johndoe@example.com"),
             new Address("123 Street"),
-            new DietaryRestriction("None"),
+            new DietaryRestriction(DietaryRestriction.TypicalRestriction.NONE),
             new Rsvp(Rsvp.Status.YES),
             null);
         model.getCurrentWedding().addGuest(guest);
@@ -58,7 +58,7 @@ public class DeleteGuestCommandTest {
             new Phone("12345678"),
             new Email("johndoe@example.com"),
             new Address("123 Street"),
-            new DietaryRestriction("None"),
+            new DietaryRestriction(DietaryRestriction.TypicalRestriction.NONE),
             new Rsvp(Rsvp.Status.YES),
             null);
         model.getCurrentWedding().addGuest(guest);
