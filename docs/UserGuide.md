@@ -83,6 +83,22 @@ Shows a message explaning how to access the help page.
 
 Format: `help`
 
+### Creating a Wedding : `createWedding`
+
+Creates a new wedding in the wedding planner.
+
+**Format:**  
+`createWedding WEDDINGNAME`
+
+- Creates a wedding with the provided **weddingName**.
+- The parameter `WEDDINGNAME` should be a valid string representing the name of the wedding. Feel free to use spaces.
+- This command is used to quickly add a new wedding event to the system.
+
+**Examples:**
+- Running `createWedding "John & Jane Wedding"` will create a wedding entry with the name "John & Jane Wedding".
+- Using `createWedding "Smith Family Wedding"` will add a wedding event named "Smith Family Wedding".
+
+
 ### Adding a person: `addGuest`
 
 Adds a person to the address book.
