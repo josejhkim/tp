@@ -1,14 +1,10 @@
 package seedu.address.model.person;
 
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.person.exceptions.GuestNotFoundException;
-
 
 /**
  * A list of guests who have been RSVPed to the event.

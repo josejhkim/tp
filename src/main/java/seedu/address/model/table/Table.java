@@ -1,8 +1,8 @@
 package seedu.address.model.table;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+
 import seedu.address.model.person.Guest;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.RsvpList;

@@ -3,11 +3,8 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TABLE_ID;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_GUESTS;
-import java.util.List;
-import java.util.Optional;
+
 import seedu.address.commons.util.ToStringBuilder;
-import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Guest;
@@ -15,6 +12,10 @@ import seedu.address.model.person.Name;
 import seedu.address.model.table.Table;
 import seedu.address.model.wedding.Wedding;
 
+/**
+ * Adds the guest to the specified table.
+ * If the guest was previously allocated to another table, removes them from there.
+ */
 public class AddGuestToTableCommand extends Command {
 
     public static final String COMMAND_WORD = "addGuestToTable";
@@ -37,7 +38,10 @@ public class AddGuestToTableCommand extends Command {
 
     private final Name guestName;
     private final int newTableId;
-
+    /**
+     * @param guestName Name of the guest to add to the table
+     * @param newTableId Int ID of the table to add the guest to
+     */
     public AddGuestToTableCommand(Name guestName, int newTableId) {
         requireNonNull(guestName);
         requireNonNull(newTableId);
@@ -64,7 +68,8 @@ public class AddGuestToTableCommand extends Command {
         currentWedding.setGuest(guestToAdd, addedGuest);
         currentWedding.getTableList().removeGuestFromTable(newTableId, guestToAdd);
         currentWedding.getTableList().assignGuestToTable(newTableId, addedGuest);
-        return new CommandResult(String.format(MESSAGE_ADD_GUEST_TO_TABLE_SUCCESS, addedGuest.getName().fullName, newTableId));
+        return new CommandResult(String.format(MESSAGE_ADD_GUEST_TO_TABLE_SUCCESS,
+            addedGuest.getName().fullName, newTableId));
     }
 
 

@@ -1,15 +1,10 @@
 package seedu.address.model.table;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.person.Guest;
-import seedu.address.model.person.Name;
 import seedu.address.model.person.RsvpList;
 import seedu.address.model.table.exceptions.TableNotFoundException;
 

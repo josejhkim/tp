@@ -49,7 +49,8 @@ public class DeleteGuestFromTableCommandTest {
 
         CommandResult result = command.execute(model);
 
-        assertEquals(String.format(DeleteGuestFromTableCommand.MESSAGE_REMOVED_GUEST_FROM_TABLE_SUCCESS, name.fullName, 1),
+        assertEquals(String.format(DeleteGuestFromTableCommand.MESSAGE_REMOVED_GUEST_FROM_TABLE_SUCCESS,
+                name.fullName, 1),
             result.getFeedbackToUser());
     }
 

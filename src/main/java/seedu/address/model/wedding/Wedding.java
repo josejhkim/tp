@@ -2,7 +2,6 @@ package seedu.address.model.wedding;
 
 import java.util.Objects;
 
-import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.person.Guest;
 import seedu.address.model.person.Name;
@@ -10,6 +9,7 @@ import seedu.address.model.person.Phone;
 import seedu.address.model.person.RsvpList;
 import seedu.address.model.person.exceptions.GuestNotFoundException;
 import seedu.address.model.table.UniqueTableList;
+
 /**
  * Represents a Wedding in the address book.
  */
@@ -56,6 +56,13 @@ public class Wedding {
         return rsvpList.getGuestByPhone(phone);
     }
 
+    /**
+     * Finds a guest from the wedding with the matching name.
+     * Throws a GuestNotFoundException if there isn't any
+     * @param name Name of the guest to find
+     * @return A Guest object with the corresponding name
+     * @throws GuestNotFoundException
+     */
     public Guest findGuestByName(Name name) throws GuestNotFoundException {
         for (Guest g : rsvpList.getAllGuests()) {
             if (g.getName().equals(name)) {

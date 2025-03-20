@@ -29,6 +29,10 @@ public class Guest extends Person {
         this.table = table;
     }
 
+    /**
+     * @param guest A guest object to copy attributes from
+     * @param table A table object that this guest is assigned to
+     */
     public Guest(Guest guest, Table table) {
         super(guest.getName(), guest.getPhone(), guest.getEmail(), guest.getAddress(), new HashSet<>());
         this.dietaryRestriction = guest.getDietaryRestriction();

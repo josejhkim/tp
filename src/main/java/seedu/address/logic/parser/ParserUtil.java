@@ -1,7 +1,6 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.Messages.MESSAGE_INVALID_TABLE_ID;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -164,6 +163,13 @@ public class ParserUtil {
         }
     }
 
+    /**
+     * Parses a {@code String tableId} into a {@code int tableId}.
+     *
+     * @param tableId A string representation of the table id
+     * @return An integer representation of the table id
+     * @throws ParseException
+     */
     public static int parseTableId(String tableId) throws ParseException {
         String trimmedTableId = tableId.trim();
         if (!StringUtil.isNonZeroUnsignedInteger(trimmedTableId)) {

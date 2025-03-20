@@ -1,8 +1,9 @@
 package seedu.address.logic.parser;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import org.junit.jupiter.api.Test;
+
 import seedu.address.logic.commands.AddGuestToTableCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Name;
@@ -21,7 +22,6 @@ public class AddGuestToTableCommandParserTest {
             System.out.println(new AddGuestToTableCommand(name, 1));
             assert(new AddGuestToTableCommand(name, 1).equals(command));
 
-//            assertEquals(new AddGuestToTableCommand(name, 1), command);
         } catch (ParseException e) {
             e.printStackTrace();
         }

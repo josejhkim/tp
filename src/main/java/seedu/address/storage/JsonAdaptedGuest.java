@@ -137,7 +137,7 @@ class JsonAdaptedGuest {
             return false;
         }
         JsonAdaptedGuest otherGuest = (JsonAdaptedGuest) other;
-        return  Objects.equals(name, otherGuest.name)
+        return Objects.equals(name, otherGuest.name)
                 && Objects.equals(phone, otherGuest.phone)
                 && Objects.equals(email, otherGuest.email)
                 && Objects.equals(address, otherGuest.address)

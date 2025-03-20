@@ -3,18 +3,17 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TABLE_ID;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_GUESTS;
-import java.util.List;
-import java.util.Optional;
+
 import seedu.address.commons.util.ToStringBuilder;
-import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Guest;
 import seedu.address.model.person.Name;
-import seedu.address.model.table.Table;
 import seedu.address.model.wedding.Wedding;
 
+/**
+ * Deletes a guest from the given table.
+ */
 public class DeleteGuestFromTableCommand extends Command {
 
     public static final String COMMAND_WORD = "deleteGuestFromTable";
@@ -36,6 +35,10 @@ public class DeleteGuestFromTableCommand extends Command {
     private final Name guestName;
     private final int oldTableId;
 
+    /**
+     * @param guestName Name of the guest to delete from the table
+     * @param oldTableId Int ID of the table to delete the guest from
+     */
     public DeleteGuestFromTableCommand(Name guestName, int oldTableId) {
         requireNonNull(guestName);
         requireNonNull(oldTableId);
@@ -54,7 +57,7 @@ public class DeleteGuestFromTableCommand extends Command {
 
         Guest guestToRemove = currentWedding.findGuestByName(guestName);
 
-        Guest removedGuest = createRemovedGuest(model.getCurrentWedding(), guestToRemove, oldTableId);
+        Guest removedGuest = createRemovedGuest(guestToRemove);
 
         if (!guestToRemove.equals(removedGuest) && currentWedding.hasGuest(removedGuest)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
@@ -62,11 +65,19 @@ public class DeleteGuestFromTableCommand extends Command {
 
         currentWedding.setGuest(guestToRemove, removedGuest);
         currentWedding.getTableList().removeGuestFromTable(oldTableId, guestToRemove);
-        return new CommandResult(String.format(MESSAGE_REMOVED_GUEST_FROM_TABLE_SUCCESS, removedGuest.getName().fullName,
-            oldTableId));
+        return new CommandResult(String.format(MESSAGE_REMOVED_GUEST_FROM_TABLE_SUCCESS,
+            removedGuest.getName().fullName, oldTableId));
     }
 
-    private static Guest createRemovedGuest(Wedding wedding, Guest guestToRemove, int oldTableId) throws CommandException {
+    /**
+     * Creates a new Guest object from the given guest object
+     * to replace it in the wedding object.
+     * @param guestToRemove The guest object to remove from the table
+     * @return A new copy of the guest object to replace the previous one
+     * @throws CommandException
+     */
+    private static Guest createRemovedGuest(Guest guestToRemove)
+            throws CommandException {
         return new Guest(guestToRemove, null);
     }
 
