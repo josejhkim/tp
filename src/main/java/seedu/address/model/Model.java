@@ -17,6 +17,7 @@ import seedu.address.model.wedding.Wedding;
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Predicate<Guest> PREDICATE_SHOW_ALL_GUESTS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -113,11 +114,4 @@ public interface Model {
      * Finds given guest to the current wedding according to phone number.
      */
     Guest findGuestByPhone(Wedding wedding, Phone phone) throws CommandException;
-    /**
-     * Finds given guest to the current wedding according to guestId.
-     */
-    Guest findGuestByGuestId(Wedding wedding, Integer guestId) throws CommandException;
-
-
-
 }

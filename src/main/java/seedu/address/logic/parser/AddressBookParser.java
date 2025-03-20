@@ -10,12 +10,14 @@ import java.util.regex.Pattern;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.AddGuestCommand;
+import seedu.address.logic.commands.AddGuestToTableCommand;
 import seedu.address.logic.commands.AddTableCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CreateWeddingCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.DeleteGuestCommand;
+import seedu.address.logic.commands.DeleteGuestFromTableCommand;
 import seedu.address.logic.commands.DeleteTableCommand;
 import seedu.address.logic.commands.DeleteWeddingCommand;
 import seedu.address.logic.commands.EditCommand;
@@ -78,8 +80,14 @@ public class AddressBookParser {
         case AddGuestCommand.COMMAND_WORD:
             return new AddGuestCommandParser().parse(arguments);
 
+        case AddGuestToTableCommand.COMMAND_WORD:
+            return new AddGuestToTableCommandParser().parse(arguments);
+
         case DeleteGuestCommand.COMMAND_WORD:
             return new DeleteGuestCommandParser().parse(arguments);
+
+        case DeleteGuestFromTableCommand.COMMAND_WORD:
+            return new DeleteGuestFromTableCommandParser().parse(arguments);
 
         case CreateWeddingCommand.COMMAND_WORD:
             return new CreateWeddingCommandParser().parse(arguments);

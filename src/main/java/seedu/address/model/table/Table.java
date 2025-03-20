@@ -1,8 +1,11 @@
 package seedu.address.model.table;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+
+import seedu.address.model.person.Guest;
+import seedu.address.model.person.Name;
+import seedu.address.model.person.RsvpList;
 
 /**
  * Represents a seating table in a wedding.
@@ -11,14 +14,16 @@ import java.util.Objects;
  */
 public final class Table {
 
+    public static final String ID_CONSTRAINTS = "The table ID should be a positive integer";
+    public static final int MAX_CAPACITY = 10000;
+
     /** The unique identifier for the table. */
     private final int tableId;
 
     /** The maximum seating capacity of the table. */
     private final int capacity;
 
-    /** A list of guest names assigned to this table. */
-    private final List<String> guestIds;
+    private final RsvpList rsvpList;
 
     /**
      * Constructs a new {@code Table} with the given ID and capacity.
@@ -34,7 +39,7 @@ public final class Table {
         }
         this.tableId = tableId;
         this.capacity = capacity;
-        this.guestIds = Collections.emptyList(); // Immutable empty list
+        this.rsvpList = new RsvpList();
     }
 
     /**
@@ -42,16 +47,15 @@ public final class Table {
      *
      * @param tableId  The unique identifier for the table. Must be a positive integer.
      * @param capacity The seating capacity of the table. Must be a positive integer.
-     * @param guestIds A list of guest names assigned to the table.
      * @throws IllegalArgumentException if {@code tableId} or {@code capacity} is not positive.
      */
-    public Table(int tableId, int capacity, List<String> guestIds) {
+    public Table(int tableId, int capacity, RsvpList rsvpList) {
         if (tableId <= 0 || capacity <= 0) {
             throw new IllegalArgumentException("Table ID and capacity must be positive integers.");
         }
         this.tableId = tableId;
         this.capacity = capacity;
-        this.guestIds = Collections.unmodifiableList(guestIds); // Immutable list to prevent modification
+        this.rsvpList = rsvpList;
     }
 
     /**
@@ -72,13 +76,8 @@ public final class Table {
         return capacity;
     }
 
-    /**
-     * Returns an immutable list of guest names assigned to this table.
-     *
-     * @return A list of guest names assigned to the table.
-     */
-    public List<String> getGuestIds() {
-        return guestIds;
+    public List<Guest> getGuests() {
+        return this.rsvpList.getAllGuests();
     }
 
     /**
@@ -87,8 +86,8 @@ public final class Table {
      *
      * @return A list of guest names assigned to the table.
      */
-    public List<String> getGuestNames() {
-        return guestIds;
+    public List<Name> getGuestNames() {
+        return this.rsvpList.getAllGuestNames();
     }
 
     /**
@@ -108,7 +107,8 @@ public final class Table {
      */
     @Override
     public String toString() {
-        return "Table{ID=" + tableId + ", Capacity=" + capacity + ", Guest Names=" + guestIds + "}";
+        return "Table{ID=" + tableId + ", Capacity=" + capacity + ", Guest Names="
+            + rsvpList + "}";
     }
 
     /**
@@ -127,7 +127,8 @@ public final class Table {
             return false;
         }
         Table table = (Table) other;
-        return tableId == table.tableId && capacity == table.capacity && guestIds.equals(table.guestIds);
+        return tableId == table.tableId && capacity == table.capacity
+            && table.rsvpList.equals(((Table) other).rsvpList);
     }
 
     /**
@@ -137,6 +138,6 @@ public final class Table {
      */
     @Override
     public int hashCode() {
-        return Objects.hash(tableId, capacity, guestIds);
+        return Objects.hash(tableId, capacity, rsvpList);
     }
 }

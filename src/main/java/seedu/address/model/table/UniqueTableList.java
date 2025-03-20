@@ -1,9 +1,6 @@
 package seedu.address.model.table;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
+import java.util.NoSuchElementException;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -58,8 +55,12 @@ public class UniqueTableList {
      * @throws TableNotFoundException if the table does not exist.
      */
     public void deleteTable(int tableId) {
-        Table table = findTableById(tableId).orElseThrow(TableNotFoundException::new);
-        internalList.remove(table);
+        Table table = findTableById(tableId);
+        if (table != null) {
+            internalList.remove(table);
+            return;
+        }
+        throw new TableNotFoundException();
     }
 
     /**
@@ -68,8 +69,13 @@ public class UniqueTableList {
      * @param tableId The ID of the table to find.
      * @return An {@code Optional} containing the table if found, otherwise an empty {@code Optional}.
      */
-    public Optional<Table> findTableById(int tableId) {
-        return internalList.stream().filter(table -> table.getTableId() == tableId).findFirst();
+    public Table findTableById(int tableId) {
+        try {
+            return internalList.stream().filter(table -> table.getTableId() == tableId)
+                .findFirst().get();
+        } catch (NoSuchElementException nsee) {
+            return null;
+        }
     }
 
     /**
@@ -90,25 +96,29 @@ public class UniqueTableList {
      * </p>
      *
      * @param tableId  The ID of the table.
-     * @param guestName The name of the guest to be assigned.
-     * @param rsvpList The RSVP list containing registered guests.
+     * @param guest The new guest to be added in this table.
      * @throws TableNotFoundException if the table does not exist.
      * @throws IllegalArgumentException if the guest is not found or the table is full.
      */
-    public void assignGuestToTable(int tableId, String guestName, RsvpList rsvpList) {
-        Table table = findTableById(tableId).orElseThrow(TableNotFoundException::new);
-        Guest guest = rsvpList.getGuestByName(guestName)
-                .orElseThrow(() -> new IllegalArgumentException("Guest named '" + guestName + "' not found."));
+    public void assignGuestToTable(int tableId, Guest guest) {
+        Table table = findTableById(tableId);
+        if (table == null) {
+            throw new TableNotFoundException();
+        }
 
-        if (table.getGuestNames().size() >= table.getCapacity()) {
+        RsvpList newList = new RsvpList();
+
+        for (Guest g : table.getGuests()) {
+            newList.add(g);
+        }
+
+        newList.add(guest);
+
+        if (newList.size() >= table.getCapacity()) {
             throw new IllegalArgumentException("Table is full.");
         }
 
-        // Create a new table with the updated guest list
-        List<String> newGuestNames = new ArrayList<>(table.getGuestNames());
-        newGuestNames.add(guestName);
-
-        Table updatedTable = new Table(table.getTableId(), table.getCapacity(), newGuestNames);
+        Table updatedTable = new Table(table.getTableId(), table.getCapacity(), newList);
         internalList.set(internalList.indexOf(table), updatedTable);
     }
 
@@ -119,17 +129,22 @@ public class UniqueTableList {
      * </p>
      *
      * @param tableId  The ID of the table.
-     * @param guestId  The name of the guest to remove.
+     * @param guest  The guest to be added.
      * @throws TableNotFoundException if the table does not exist.
      */
-    public void removeGuestFromTable(int tableId, String guestId) {
-        Table table = findTableById(tableId).orElseThrow(TableNotFoundException::new);
+    public void removeGuestFromTable(int tableId, Guest guest) {
+        Table table = findTableById(tableId);
+        if (table == null) {
+            throw new TableNotFoundException();
+        }
 
-        List<String> newGuestIds = table.getGuestIds().stream()
-                .filter(id -> !id.equals(guestId))
-                .collect(Collectors.toList());
+        RsvpList rsvpList = new RsvpList();
 
-        Table updatedTable = new Table(table.getTableId(), table.getCapacity(), newGuestIds);
+        table.getGuests().stream()
+                .filter(g -> !g.equals(guest))
+                .forEach(g -> rsvpList.add(g));
+
+        Table updatedTable = new Table(table.getTableId(), table.getCapacity(), rsvpList);
         internalList.set(internalList.indexOf(table), updatedTable);
     }
 

@@ -27,7 +27,8 @@ public class AddGuestCommandParserTest {
                 new Email("johndoe@example.com"),
                 new Address("123 Street"),
                 new DietaryRestriction(DietaryRestriction.TypicalRestriction.NONE),
-                new Rsvp(Rsvp.Status.YES));
+                new Rsvp(Rsvp.Status.YES),
+                null);
             AddGuestCommand command = parser.parse(
                 " n/John Doe p/12345678 e/johndoe@example.com a/123 Street d/None r/YES");
             System.out.println(command);

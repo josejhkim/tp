@@ -54,11 +54,13 @@ public class FindTableCommand extends Command {
         UniqueTableList tableList = currentWedding.getTableList();
 
         // Find table safely using Optional
-        Table table = tableList.findTableById(tableId)
-                .orElseThrow(() -> new CommandException(String.format(MESSAGE_TABLE_NOT_FOUND, tableId)));
+        Table table = tableList.findTableById(tableId);
+        if (table == null) {
+            throw new CommandException(String.format(MESSAGE_TABLE_NOT_FOUND, tableId));
+        }
 
         return new CommandResult(String.format(MESSAGE_SUCCESS,
-                table.getTableId(), table.getCapacity(), table.getGuestIds().size()));
+                table.getTableId(), table.getCapacity(), table.getGuests().size()));
     }
 
     @Override

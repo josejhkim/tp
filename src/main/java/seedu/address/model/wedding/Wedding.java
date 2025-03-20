@@ -2,9 +2,14 @@ package seedu.address.model.wedding;
 
 import java.util.Objects;
 
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.person.Guest;
+import seedu.address.model.person.Name;
+import seedu.address.model.person.Phone;
 import seedu.address.model.person.RsvpList;
+import seedu.address.model.person.exceptions.GuestNotFoundException;
 import seedu.address.model.table.UniqueTableList;
+
 /**
  * Represents a Wedding in the address book.
  */
@@ -43,6 +48,33 @@ public class Wedding {
         rsvpList.remove(guest);
     }
 
+    public void setGuest(Guest target, Guest editedGuest) {
+        rsvpList.setGuest(target, editedGuest);
+    }
+
+    public Guest findGuestByPhone(Phone phone) throws CommandException {
+        return rsvpList.getGuestByPhone(phone);
+    }
+
+    /**
+     * Finds a guest from the wedding with the matching name.
+     * Throws a GuestNotFoundException if there isn't any
+     * @param name Name of the guest to find
+     * @return A Guest object with the corresponding name
+     * @throws GuestNotFoundException
+     */
+    public Guest findGuestByName(Name name) throws GuestNotFoundException {
+        for (Guest g : rsvpList.getAllGuests()) {
+            if (g.getName().equals(name)) {
+                return g;
+            }
+        }
+        throw new GuestNotFoundException("Guest with the given name doesn't exist!");
+    }
+
+    public boolean hasGuest(Guest guest) {
+        return this.rsvpList.contains(guest);
+    }
 
     @Override
     public boolean equals(Object other) {

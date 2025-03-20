@@ -44,7 +44,8 @@ public class ModelManagerTest {
             new Email("johndoe@example.com"),
             new Address("123 Street"),
             new DietaryRestriction(DietaryRestriction.TypicalRestriction.NONE),
-            new Rsvp(Rsvp.Status.YES)
+            new Rsvp(Rsvp.Status.YES),
+            null
         );
         wedding.addGuest(guest);
         modelManager.addWedding(wedding);
@@ -132,18 +133,6 @@ public class ModelManagerTest {
     public void findGuestByPhone_nonExistingPhone_returnsException() {
         assertThrows(CommandException.class , () ->
             modelManager.findGuestByPhone(wedding, new Phone("87654321")));
-    }
-
-    @Test
-    public void findGuestByGuestID_existingId_returnsGuest() throws CommandException {
-        Guest foundGuest = modelManager.findGuestByGuestId(wedding, "12345678".hashCode());
-        assertEquals(guest, foundGuest);
-    }
-
-    @Test
-    public void findGuestByGuestID_nonExistingId_returnsException() {
-        assertThrows(CommandException.class , () ->
-            modelManager.findGuestByGuestId(wedding, "87654321".hashCode()));
     }
 
     @Test

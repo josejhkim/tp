@@ -16,6 +16,7 @@ import seedu.address.model.person.Phone;
 import seedu.address.model.person.category.Category;
 import seedu.address.model.person.category.DietaryRestriction;
 import seedu.address.model.person.category.Rsvp;
+import seedu.address.model.table.Table;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -161,6 +162,22 @@ public class ParserUtil {
             throw new ParseException("Invalid dietary restriction: " + dietaryRestriction + ". "
                 + "Possible values are: " + DietaryRestriction.getPossibleValues());
         }
+    }
+
+    /**
+     * Parses a {@code String tableId} into a {@code int tableId}.
+     *
+     * @param tableId A string representation of the table id
+     * @return An integer representation of the table id
+     * @throws ParseException
+     */
+    public static int parseTableId(String tableId) throws ParseException {
+        String trimmedTableId = tableId.trim();
+        if (!StringUtil.isNonZeroUnsignedInteger(trimmedTableId)) {
+            throw new ParseException(Table.ID_CONSTRAINTS);
+        }
+
+        return Integer.parseInt(trimmedTableId);
     }
 
     /**
