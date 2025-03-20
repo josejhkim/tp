@@ -63,6 +63,7 @@ public class UniqueTableList {
         Table table = findTableById(tableId);
         if (table != null) {
             internalList.remove(table);
+            return;
         }
         throw new TableNotFoundException();
     }
