@@ -54,7 +54,7 @@ public class GetAllTablesCommand extends Command {
         StringBuilder result = new StringBuilder();
         for (Table table : tables) {
             result.append(String.format("Table ID: %d | Capacity: %d | Guests: %d\n",
-                    table.getTableId(), table.getCapacity(), table.getGuestIds().size()));
+                    table.getTableId(), table.getCapacity(), table.getGuests().size()));
         }
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, result.toString().trim()));
