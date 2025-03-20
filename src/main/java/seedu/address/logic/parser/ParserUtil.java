@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.Messages.MESSAGE_INVALID_TABLE_ID;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -16,6 +17,7 @@ import seedu.address.model.person.Phone;
 import seedu.address.model.person.category.Category;
 import seedu.address.model.person.category.DietaryRestriction;
 import seedu.address.model.person.category.Rsvp;
+import seedu.address.model.table.Table;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -160,6 +162,15 @@ public class ParserUtil {
             // If it's not a typical one, treat it as a custom restriction
             return new DietaryRestriction(dietaryRestriction.trim());
         }
+    }
+
+    public static int parseTableId(String tableId) throws ParseException {
+        String trimmedTableId = tableId.trim();
+        if (!StringUtil.isNonZeroUnsignedInteger(trimmedTableId)) {
+            throw new ParseException(Table.ID_CONSTRAINTS);
+        }
+
+        return Integer.parseInt(trimmedTableId);
     }
 
     /**
