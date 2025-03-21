@@ -8,6 +8,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 
+import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.person.category.DietaryRestriction;
 import seedu.address.model.person.category.Rsvp;
 import seedu.address.model.table.Table;
@@ -37,7 +38,7 @@ public class Person {
      */
     public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags,
                   DietaryRestriction dietaryRestriction,
-                  Rsvp rsvp, Table table) {
+                  Rsvp rsvp, Optional<Table> table) {
         requireAllNonNull(name, phone, email, address, tags, dietaryRestriction,
             rsvp);
         this.name = name;
@@ -47,7 +48,7 @@ public class Person {
         this.tags.addAll(tags);
         this.dietaryRestriction = dietaryRestriction;
         this.rsvp = rsvp;
-        this.table = Optional.ofNullable(table);
+        this.table = table != null ? table : Optional.empty();
     }
 
     /**
@@ -108,11 +109,7 @@ public class Person {
      * @return The string representation for the table id
      */
     public String getTableIdString() {
-        if (this.table == null) {
-            return "Unassigned";
-        }
-
-        return String.valueOf(this.table.map(Table::getTableId).orElse(-1));
+        return table.map(Table::toString).orElse("Unassigned");
     }
 
     /**
@@ -170,14 +167,16 @@ public class Person {
 
     @Override
     public String toString() {
-        return "Name: " + getName()
-            + "; Phone: " + getPhone()
-            + "; Email: " + getEmail()
-            + "; Address: " + getAddress()
-            + "; Tags: " + getTags()
-            + "; Dietary Restriction: " + dietaryRestriction
-            + "; RSVP: " + rsvp
-            + "; Table: " + getTableIdString();
+        return new ToStringBuilder(this)
+            .add("name", name)
+            .add("phone", phone)
+            .add("email", email)
+            .add("address", address)
+            .add("tags", tags)
+            .add("dietaryRestriction", dietaryRestriction)
+            .add("rsvp", rsvp)
+            .add("table", table.map(Table::toString).orElse("Unassigned"))
+            .toString();
     }
 
 }

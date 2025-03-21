@@ -28,7 +28,7 @@ public class TypicalPersons {
 
     public static final Person ALICE = new PersonBuilder().withName("Alice Pauline")
         .withAddress("123, Jurong West Ave 6, #08-111").withEmail("alice@example.com")
-        .withPhone("94351253").withTable(1, 5).withRsvp(Rsvp.Status.YES)
+        .withPhone("94351253").withRsvp(Rsvp.Status.YES)
         .withDietaryRestriction(DietaryRestriction.TypicalRestriction.NONE)
         .withTags("friends").build();
     public static final Person BENSON = new PersonBuilder().withName("Benson Meier")
@@ -63,11 +63,11 @@ public class TypicalPersons {
 
     // Manually added - Person's details found in {@code CommandTestUtil}
     public static final Person AMY = new PersonBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY)
-        .withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY).withTable(10, 5)
+        .withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY)
         .withRsvp(Rsvp.Status.YES).withDietaryRestriction(DietaryRestriction.TypicalRestriction.NONE)
         .withTags(VALID_TAG_FRIEND).build();
     public static final Person BOB = new PersonBuilder().withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
-        .withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB).withTable(11, 5)
+        .withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
         .withRsvp(Rsvp.Status.NO).withDietaryRestriction(DietaryRestriction.TypicalRestriction.NONE)
         .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
 

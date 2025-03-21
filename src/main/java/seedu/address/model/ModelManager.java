@@ -142,9 +142,9 @@ public class ModelManager implements Model {
     @Override
     public void addWedding(Wedding wedding) {
         requireNonNull(wedding);
-        if (addressBook.getWedding() != null) {
-            throw new IllegalStateException("A wedding already exists. Cannot create another.");
-        }
+//        if (addressBook.getWedding() != null) {
+//            throw new IllegalStateException("A wedding already exists. Cannot create another.");
+//        }
         addressBook.setWedding(wedding);
     }
 
@@ -166,10 +166,10 @@ public class ModelManager implements Model {
     @Override
     public void setCurrentWedding(Wedding wedding) {
         requireNonNull(wedding);
-        if (wedding == null) {
-            logger.warning("Attempted to set wedding to null.");
-            return;
-        }
+//        if (wedding == null) {
+//            logger.warning("Attempted to set wedding to null.");
+//            return;
+//        }
         addressBook.setWedding(wedding);
     }
 

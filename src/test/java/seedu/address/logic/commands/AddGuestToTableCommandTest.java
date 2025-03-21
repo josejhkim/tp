@@ -2,12 +2,15 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Person;
@@ -22,7 +25,7 @@ import seedu.address.model.wedding.Wedding;
 import java.util.HashSet;
 
 public class AddGuestToTableCommandTest {
-    private Model model;
+    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private Name name = new Name("John Doe");
 
     @BeforeEach
@@ -48,6 +51,8 @@ public class AddGuestToTableCommandTest {
     @Test
     public void execute_addGuestToTable_success() throws Exception {
 
+
+
         AddGuestToTableCommand command = new AddGuestToTableCommand(name, 1);
 
         CommandResult result = command.execute(model);
@@ -57,9 +62,8 @@ public class AddGuestToTableCommandTest {
     }
 
     @Test
-    public void execute_addGuestToTable_failure() {
+    public void execute_addGuestToTable_failure() throws CommandException {
         AddGuestToTableCommand command = new AddGuestToTableCommand(name, 3);
-
         assertThrows(TableNotFoundException.class, () -> command.execute(model));
     }
 }

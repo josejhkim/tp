@@ -32,27 +32,6 @@ import seedu.address.testutil.AddressBookBuilder;
 public class ModelManagerTest {
 
     private ModelManager modelManager = new ModelManager();
-    private Wedding wedding;
-    private Person guest;
-
-    @BeforeEach
-    public void setUp() {
-        modelManager = new ModelManager();
-        wedding = new Wedding("John and Jane's Wedding");
-        guest = new Person(
-            new Name("John Doe"),
-            new Phone("12345678"),
-            new Email("johndoe@example.com"),
-            new Address("123 Street"),
-            new HashSet<>(),
-            new DietaryRestriction(DietaryRestriction.TypicalRestriction.NONE),
-            new Rsvp(Rsvp.Status.YES),
-            null
-        );
-        wedding.addGuest(guest);
-        modelManager.addWedding(wedding);
-        modelManager.setCurrentWedding(wedding);
-    }
 
     @Test
     public void constructor() {

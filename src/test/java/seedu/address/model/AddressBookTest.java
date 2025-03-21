@@ -31,6 +31,7 @@ public class AddressBookTest {
     @Test
     public void constructor() {
         assertEquals(Collections.emptyList(), addressBook.getPersonList());
+        assertTrue(addressBook.hasWedding());
     }
 
     @Test

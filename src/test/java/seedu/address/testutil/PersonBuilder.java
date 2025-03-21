@@ -105,7 +105,7 @@ public class PersonBuilder {
         this.email = new Email(email);
         return this;
     }
-    public PersonBuilder withTable(int tableId, int capacity){
+    public PersonBuilder withTable(int tableId, int capacity) {
         this.table = Optional.of(new Table(tableId, capacity));
         return this;
     }
@@ -122,7 +122,7 @@ public class PersonBuilder {
 
     public Person build() {
         return new Person(name, phone, email, address, tags, dietaryRestriction, rsvp,
-            table.orElse(new Table(DEFAULT_TABLEID, DEFAULT_CAPACITY)));
+            table);
     }
 
 }
