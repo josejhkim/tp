@@ -7,6 +7,7 @@ import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -29,23 +30,23 @@ public class AddGuestToTableCommandTest {
 
     @BeforeEach
     public void setUp() {
-//        model = new ModelManager();
-//        Wedding currentWedding = new Wedding("John and Jane's Wedding");
-//        model.addWedding(currentWedding);
-//        model.setCurrentWedding(currentWedding);
-//        Table table = new Table(1, 10);
-//        currentWedding.getTableList().addTable(table);
+        model = new ModelManager();
+        Wedding currentWedding = new Wedding("John and Jane's Wedding");
+        model.addWedding(currentWedding);
+        model.setCurrentWedding(currentWedding);
+        Table table = new Table(1, 10);
+        currentWedding.getTableList().addTable(table);
 
-//        Person guest = new Person(name,
-//            new Phone("12345678"),
-//            new Email("johndoe@example.com"),
-//            new Address("123 Street"),
-//            new HashSet<>(),
-//            new DietaryRestriction(DietaryRestriction.TypicalRestriction.NONE),
-//            new Rsvp(Rsvp.Status.YES),
-//            null);
-//
-//        currentWedding.getRsvpList().add(guest);
+        Person guest = new Person(name,
+            new Phone("12345678"),
+            new Email("johndoe@example.com"),
+            new Address("123 Street"),
+            new HashSet<>(),
+            new DietaryRestriction(DietaryRestriction.TypicalRestriction.NONE),
+            new Rsvp(Rsvp.Status.YES),
+            null);
+
+        currentWedding.getRsvpList().add(guest);
     }
     @Test
     public void execute_addGuestToTable_success() throws Exception {
@@ -61,9 +62,8 @@ public class AddGuestToTableCommandTest {
     }
 
     @Test
-    public void execute_addGuestToTable_failure() {
+    public void execute_addGuestToTable_failure() throws CommandException {
         AddGuestToTableCommand command = new AddGuestToTableCommand(name, 3);
-
         assertThrows(TableNotFoundException.class, () -> command.execute(model));
     }
 }
