@@ -3,8 +3,8 @@ package seedu.address.model.wedding;
 import java.util.Objects;
 
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.person.Guest;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.RsvpList;
 import seedu.address.model.person.exceptions.GuestNotFoundException;
@@ -40,19 +40,19 @@ public class Wedding {
         return tableList;
     }
 
-    public void addGuest(Guest guest) {
+    public void addGuest(Person guest) {
         rsvpList.add(guest);
     }
 
-    public void removeGuest(Guest guest) {
+    public void removeGuest(Person guest) {
         rsvpList.remove(guest);
     }
 
-    public void setGuest(Guest target, Guest editedGuest) {
+    public void setGuest(Person target, Person editedGuest) {
         rsvpList.setGuest(target, editedGuest);
     }
 
-    public Guest findGuestByPhone(Phone phone) throws CommandException {
+    public Person findGuestByPhone(Phone phone) throws CommandException {
         return rsvpList.getGuestByPhone(phone);
     }
 
@@ -60,19 +60,19 @@ public class Wedding {
      * Finds a guest from the wedding with the matching name.
      * Throws a GuestNotFoundException if there isn't any
      * @param name Name of the guest to find
-     * @return A Guest object with the corresponding name
+     * @return A Person object with the corresponding name
      * @throws GuestNotFoundException
      */
-    public Guest findGuestByName(Name name) throws GuestNotFoundException {
-        for (Guest g : rsvpList.getAllGuests()) {
+    public Person findGuestByName(Name name) throws GuestNotFoundException {
+        for (Person g : rsvpList.getAllGuests()) {
             if (g.getName().equals(name)) {
                 return g;
             }
         }
-        throw new GuestNotFoundException("Guest with the given name doesn't exist!");
+        throw new GuestNotFoundException("Person with the given name doesn't exist!");
     }
 
-    public boolean hasGuest(Guest guest) {
+    public boolean hasGuest(Person guest) {
         return this.rsvpList.contains(guest);
     }
 

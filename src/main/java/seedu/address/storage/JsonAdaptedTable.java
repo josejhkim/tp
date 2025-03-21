@@ -17,7 +17,7 @@ import seedu.address.model.table.Table;
 public class JsonAdaptedTable {
     private final int tableId;
     private final int capacity;
-    private final List<JsonAdaptedGuest> guests;
+    private final List<JsonAdaptedPerson> guests;
 
     /**
      * Constructs a {@code Table} with the given person details.
@@ -25,7 +25,7 @@ public class JsonAdaptedTable {
     @JsonCreator
     public JsonAdaptedTable(@JsonProperty("tableId") int tableId,
                             @JsonProperty("capacity") int capacity,
-                            @JsonProperty("guests") List<JsonAdaptedGuest> guests) {
+                            @JsonProperty("guests") List<JsonAdaptedPerson> guests) {
 
         this.tableId = tableId;
         this.capacity = capacity;
@@ -39,7 +39,7 @@ public class JsonAdaptedTable {
         this.tableId = source.getTableId();
         this.capacity = source.getCapacity();
         this.guests = source.getGuests().stream()
-            .map(JsonAdaptedGuest::new)
+            .map(JsonAdaptedPerson::new)
             .collect(Collectors.toList());
     }
 
@@ -50,7 +50,7 @@ public class JsonAdaptedTable {
      */
     public Table toModelType() throws IllegalValueException {
         RsvpList rsvpList = new RsvpList();
-        for (JsonAdaptedGuest g : guests) {
+        for (JsonAdaptedPerson g : guests) {
             rsvpList.add(g.toModelType());
         }
         Table table = new Table(tableId, capacity, rsvpList);

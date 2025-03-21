@@ -4,7 +4,7 @@ import java.util.List;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.Guest;
+import seedu.address.model.person.Person;
 import seedu.address.model.person.RsvpList;
 import seedu.address.model.person.category.Category;
 import seedu.address.model.person.category.DietaryRestriction;
@@ -54,9 +54,9 @@ public class FilterGuestCommand extends Command {
         }
 
         RsvpList rsvpList = wedding.getRsvpList();
-        List<Guest> guests = rsvpList.getAllGuests();
+        List<Person> guests = rsvpList.getAllGuests();
         StringBuilder guestList = new StringBuilder();
-        for (Guest guest: guests) {
+        for (Person guest: guests) {
             if (category instanceof DietaryRestriction) {
                 if (guest.getDietaryRestriction().equals(this.category)) {
                     guestList.append(guest.getDietaryRestriction());

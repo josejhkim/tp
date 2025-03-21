@@ -1,84 +1,75 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
-import seedu.address.commons.util.ToStringBuilder;
-import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
+import seedu.address.model.wedding.Wedding;
 
 /**
- * Adds a person to the address book.
+ * Adds a guest to the current wedding.
  */
 public class AddCommand extends Command {
-
-    public static final String COMMAND_WORD = "add";
-
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a person to the address book. "
-            + "Parameters: "
-            + PREFIX_NAME + "NAME "
-            + PREFIX_EMAIL + "EMAIL "
-            + PREFIX_ADDRESS + "ADDRESS "
-            + PREFIX_PHONE + "PHONE "
-            + "[" + PREFIX_TAG + "TAG]...\n"
-            + "Example: " + COMMAND_WORD + " "
-            + PREFIX_NAME + "John Doe "
-            + PREFIX_EMAIL + "johnd@example.com "
-            + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
-            + PREFIX_PHONE + "98765432 "
-            + PREFIX_TAG + "friends "
-            + PREFIX_TAG + "owesMoney";
-
-    public static final String MESSAGE_SUCCESS = "New person added: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
+    public static final String COMMAND_WORD = "addGuest";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a guest to the current wedding.\n"
+        + "Parameters: "
+        + "n/NAME p/PHONE e/EMAIL a/ADDRESS d/DIETARY_RESTRICTION r/RSVP\n"
+        + "Example: " + COMMAND_WORD + " "
+        + "n/John Doe p/12345678 e/johndoe@example.com a/123 Street d/None r/YES";
 
-    private final Person toAdd;
+    public static final String MESSAGE_SUCCESS = "Person added to wedding: %1$s";
+    public static final String MESSAGE_NO_CURRENT_WEDDING =
+        "No current wedding set. Please set a current wedding first using the setWedding command.";
 
-    /**
-     * Creates an AddCommand to add the specified {@code Person}
-     */
-    public AddCommand(Person person) {
-        requireNonNull(person);
-        toAdd = person;
+    private final Person guest;
+
+    public AddCommand(Person guest) {
+        this.guest = guest;
     }
+    /**
+     * Executes the AddGuestCommand.
+     * @param model {@code Model} which the command should operate on.
+     * @return {@code CommandResult} that describes the result of executing the command.
+     * @throws CommandException if the current wedding is not set.
+     */
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        Wedding currentWedding = model.getCurrentWedding();
+        if (currentWedding == null) {
+            throw new CommandException(MESSAGE_NO_CURRENT_WEDDING);
+        }
 
-        if (model.hasPerson(toAdd)) {
+        if (model.hasPerson(guest)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
-        model.addPerson(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(toAdd)));
+        currentWedding.addGuest(guest);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, guest));
     }
 
     @Override
     public boolean equals(Object other) {
-        if (other == this) {
+        if (this == other) {
             return true;
         }
-
-        // instanceof handles nulls
         if (!(other instanceof AddCommand)) {
             return false;
         }
+        AddCommand otherCommand = (AddCommand) other;
+        return guest.toString().equals(otherCommand.guest.toString());
+    }
 
-        AddCommand otherAddCommand = (AddCommand) other;
-        return toAdd.equals(otherAddCommand.toAdd);
+    @Override
+    public int hashCode() {
+        return guest.hashCode();
     }
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this)
-                .add("toAdd", toAdd)
-                .toString();
+        return "seedu.address.logic.commands.AddCommand{toAdd=" + guest + "}";
     }
 }

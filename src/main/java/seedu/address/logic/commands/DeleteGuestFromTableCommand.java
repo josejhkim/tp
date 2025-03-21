@@ -7,8 +7,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TABLE_ID;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.Guest;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.Person;
 import seedu.address.model.wedding.Wedding;
 
 /**
@@ -28,7 +28,7 @@ public class DeleteGuestFromTableCommand extends Command {
         + PREFIX_NAME + "John Doe"
         + PREFIX_TABLE_ID + "2";
 
-    public static final String MESSAGE_REMOVED_GUEST_FROM_TABLE_SUCCESS = "Deleted Guest: %s from Table: %d";
+    public static final String MESSAGE_REMOVED_GUEST_FROM_TABLE_SUCCESS = "Deleted Person: %s from Table: %d";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_PERSON = "This guest already exists in the address book.";
 
@@ -55,9 +55,9 @@ public class DeleteGuestFromTableCommand extends Command {
             throw new CommandException("No current wedding");
         }
 
-        Guest guestToRemove = currentWedding.findGuestByName(guestName);
+        Person guestToRemove = currentWedding.findGuestByName(guestName);
 
-        Guest removedGuest = createRemovedGuest(guestToRemove);
+        Person removedGuest = createRemovedGuest(guestToRemove);
 
         if (!guestToRemove.equals(removedGuest) && currentWedding.hasGuest(removedGuest)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
@@ -70,15 +70,15 @@ public class DeleteGuestFromTableCommand extends Command {
     }
 
     /**
-     * Creates a new Guest object from the given guest object
+     * Creates a new Person object from the given guest object
      * to replace it in the wedding object.
      * @param guestToRemove The guest object to remove from the table
      * @return A new copy of the guest object to replace the previous one
      * @throws CommandException
      */
-    private static Guest createRemovedGuest(Guest guestToRemove)
+    private static Person createRemovedGuest(Person guestToRemove)
             throws CommandException {
-        return new Guest(guestToRemove, null);
+        return new Person(guestToRemove, null);
     }
 
     @Override

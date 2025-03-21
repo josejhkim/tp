@@ -11,6 +11,7 @@ import static seedu.address.testutil.TypicalPersons.BENSON;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.HashSet;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,7 +20,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
-import seedu.address.model.person.Guest;
+import seedu.address.model.person.Person;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Phone;
@@ -32,17 +33,18 @@ public class ModelManagerTest {
 
     private ModelManager modelManager = new ModelManager();
     private Wedding wedding;
-    private Guest guest;
+    private Person guest;
 
     @BeforeEach
     public void setUp() {
         modelManager = new ModelManager();
         wedding = new Wedding("John and Jane's Wedding");
-        guest = new Guest(
+        guest = new Person(
             new Name("John Doe"),
             new Phone("12345678"),
             new Email("johndoe@example.com"),
             new Address("123 Street"),
+            new HashSet<>(),
             new DietaryRestriction(DietaryRestriction.TypicalRestriction.NONE),
             new Rsvp(Rsvp.Status.YES),
             null
@@ -125,7 +127,7 @@ public class ModelManagerTest {
 
     @Test
     public void findGuestByPhone_existingPhone_returnsGuest() throws CommandException {
-        Guest foundGuest = modelManager.findGuestByPhone(wedding, new Phone("12345678"));
+        Person foundGuest = modelManager.findGuestByPhone(wedding, new Phone("12345678"));
         assertEquals(guest, foundGuest);
     }
 

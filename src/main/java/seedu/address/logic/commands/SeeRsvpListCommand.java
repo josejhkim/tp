@@ -3,7 +3,7 @@ package seedu.address.logic.commands;
 import java.util.List;
 
 import seedu.address.model.Model;
-import seedu.address.model.person.Guest;
+import seedu.address.model.person.Person;
 import seedu.address.model.person.RsvpList;
 
 /**
@@ -17,9 +17,9 @@ public class SeeRsvpListCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         RsvpList rsvpList = model.getCurrentWedding().getRsvpList();
-        List<Guest> guests = rsvpList.getAllGuests();
+        List<Person> guests = rsvpList.getAllGuests();
         StringBuilder result = new StringBuilder();
-        for (Guest guest : guests) {
+        for (Person guest : guests) {
             result.append(guest.toString()).append("\n");
         }
         return new CommandResult(String.format(MESSAGE_SUCCESS, result.toString().trim()));

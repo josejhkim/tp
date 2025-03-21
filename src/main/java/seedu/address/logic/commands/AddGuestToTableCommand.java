@@ -7,8 +7,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TABLE_ID;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.Guest;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.Person;
 import seedu.address.model.table.Table;
 import seedu.address.model.wedding.Wedding;
 
@@ -33,7 +33,7 @@ public class AddGuestToTableCommand extends Command {
         + PREFIX_NAME + "John Doe"
         + PREFIX_TABLE_ID + "2";
 
-    public static final String MESSAGE_ADD_GUEST_TO_TABLE_SUCCESS = "Added Guest: %s to Table: %d";
+    public static final String MESSAGE_ADD_GUEST_TO_TABLE_SUCCESS = "Added Person: %s to Table: %d";
     public static final String MESSAGE_DUPLICATE_PERSON = "This guest already exists in the address book.";
 
     private final Name guestName;
@@ -58,8 +58,8 @@ public class AddGuestToTableCommand extends Command {
             throw new CommandException("No current wedding");
         }
 
-        Guest guestToAdd = currentWedding.findGuestByName(guestName);
-        Guest addedGuest = createAddedGuest(currentWedding, guestToAdd, newTableId);
+        Person guestToAdd = currentWedding.findGuestByName(guestName);
+        Person addedGuest = createAddedGuest(currentWedding, guestToAdd, newTableId);
 
         if (!guestToAdd.equals(addedGuest) && currentWedding.hasGuest(addedGuest)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
@@ -73,10 +73,10 @@ public class AddGuestToTableCommand extends Command {
     }
 
 
-    private static Guest createAddedGuest(Wedding wedding, Guest guestToAdd, int newTableId) throws CommandException {
+    private static Person createAddedGuest(Wedding wedding, Person guestToAdd, int newTableId) throws CommandException {
         Table tableToAdd = wedding.getTableList().findTableById(newTableId);
 
-        Guest addedGuest = new Guest(guestToAdd, tableToAdd);
+        Person addedGuest = new Person(guestToAdd, tableToAdd);
 
         return addedGuest;
     }

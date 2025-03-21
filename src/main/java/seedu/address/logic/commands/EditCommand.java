@@ -26,6 +26,8 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.category.DietaryRestriction;
+import seedu.address.model.person.category.Rsvp;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -100,8 +102,12 @@ public class EditCommand extends Command {
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
+        DietaryRestriction updatedDietaryRestriction =
+            editPersonDescriptor.getDietaryRestriction().orElse(personToEdit.getDietaryRestriction());
 
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
+        Rsvp updatedRsvp = editPersonDescriptor.getRsvp().orElse(personToEdit.getRsvp());
+        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags,
+            updatedDietaryRestriction, updatedRsvp, null);
     }
 
     @Override
@@ -138,6 +144,8 @@ public class EditCommand extends Command {
         private Email email;
         private Address address;
         private Set<Tag> tags;
+        private DietaryRestriction dietaryRestriction;
+        private Rsvp rsvp;
 
         public EditPersonDescriptor() {}
 
@@ -151,7 +159,10 @@ public class EditCommand extends Command {
             setEmail(toCopy.email);
             setAddress(toCopy.address);
             setTags(toCopy.tags);
+            setDietaryRestriction(toCopy.dietaryRestriction);
+            setRsvp(toCopy.rsvp);
         }
+
 
         /**
          * Returns true if at least one field is edited.
@@ -188,6 +199,17 @@ public class EditCommand extends Command {
             this.address = address;
         }
 
+        private void setRsvp(Rsvp rsvp) {
+            this.rsvp = rsvp;
+        }
+        public Optional<Rsvp> getRsvp() {
+            return Optional.ofNullable(rsvp);
+        }
+
+        private void setDietaryRestriction(DietaryRestriction dietaryRestriction) {
+            this.dietaryRestriction = dietaryRestriction;
+        }
+
         public Optional<Address> getAddress() {
             return Optional.ofNullable(address);
         }
@@ -207,6 +229,10 @@ public class EditCommand extends Command {
          */
         public Optional<Set<Tag>> getTags() {
             return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
+        }
+
+        public Optional<DietaryRestriction> getDietaryRestriction() {
+            return Optional.ofNullable(dietaryRestriction);
         }
 
         @Override
@@ -238,5 +264,7 @@ public class EditCommand extends Command {
                     .add("tags", tags)
                     .toString();
         }
+
+
     }
 }

@@ -13,12 +13,12 @@ import seedu.address.model.wedding.Wedding;
 class JsonAdaptedWedding {
 
     private final String name;
-    private final List<JsonAdaptedGuest> guests;
+    private final List<JsonAdaptedPerson> guests;
     private final List<JsonAdaptedTable> tables;
 
     @JsonCreator
     public JsonAdaptedWedding(@JsonProperty("name") String name,
-                              @JsonProperty("guests") List<JsonAdaptedGuest> guests,
+                              @JsonProperty("guests") List<JsonAdaptedPerson> guests,
                               @JsonProperty("tables") List<JsonAdaptedTable> tables) {
         this.name = name;
         this.guests = (guests != null) ? guests : new ArrayList<>();
@@ -30,7 +30,7 @@ class JsonAdaptedWedding {
 
         // Convert all guests from RsvpList
         this.guests = source.getRsvpList().getAllGuests().stream()
-                .map(JsonAdaptedGuest::new)
+                .map(JsonAdaptedPerson::new)
                 .collect(Collectors.toList());
 
         // Convert all tables from TableList
@@ -44,7 +44,7 @@ class JsonAdaptedWedding {
         Wedding wedding = new Wedding(name);
 
         // Restore guests
-        for (JsonAdaptedGuest jGuest : guests) {
+        for (JsonAdaptedPerson jGuest : guests) {
             wedding.getRsvpList().add(jGuest.toModelType());
         }
 

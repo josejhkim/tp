@@ -3,8 +3,8 @@ package seedu.address.model.table;
 import java.util.List;
 import java.util.Objects;
 
-import seedu.address.model.person.Guest;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.Person;
 import seedu.address.model.person.RsvpList;
 
 /**
@@ -76,7 +76,7 @@ public final class Table {
         return capacity;
     }
 
-    public List<Guest> getGuests() {
+    public List<Person> getGuests() {
         return this.rsvpList.getAllGuests();
     }
 
@@ -107,7 +107,7 @@ public final class Table {
      */
     @Override
     public String toString() {
-        return "Table{ID=" + tableId + ", Capacity=" + capacity + ", Guest Names="
+        return "Table{ID=" + tableId + ", Capacity=" + capacity + ", Person Names="
             + rsvpList + "}";
     }
 
