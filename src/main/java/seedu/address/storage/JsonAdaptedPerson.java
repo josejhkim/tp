@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -147,9 +148,9 @@ class JsonAdaptedPerson {
         }
         final Rsvp modelRsvp = new Rsvp(statusEnum);
 
-        Table modelTable = null;
+        Optional<Table> modelTable = Optional.empty();
         if (!table.equals("Unassigned")) {
-            modelTable = new Table(Integer.parseInt(table), Table.MAX_CAPACITY);
+            modelTable =Optional.of(new Table(Integer.parseInt(table), Table.MAX_CAPACITY));
         }
 
         return new Person(modelName, modelPhone, modelEmail, modelAddress, modelTags,

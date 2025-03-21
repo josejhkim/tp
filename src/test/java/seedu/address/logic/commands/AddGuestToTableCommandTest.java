@@ -2,12 +2,14 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Person;
@@ -22,31 +24,33 @@ import seedu.address.model.wedding.Wedding;
 import java.util.HashSet;
 
 public class AddGuestToTableCommandTest {
-    private Model model;
+    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private Name name = new Name("John Doe");
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager();
-        Wedding currentWedding = new Wedding("John and Jane's Wedding");
-        model.addWedding(currentWedding);
-        model.setCurrentWedding(currentWedding);
-        Table table = new Table(1, 10);
-        currentWedding.getTableList().addTable(table);
+//        model = new ModelManager();
+//        Wedding currentWedding = new Wedding("John and Jane's Wedding");
+//        model.addWedding(currentWedding);
+//        model.setCurrentWedding(currentWedding);
+//        Table table = new Table(1, 10);
+//        currentWedding.getTableList().addTable(table);
 
-        Person guest = new Person(name,
-            new Phone("12345678"),
-            new Email("johndoe@example.com"),
-            new Address("123 Street"),
-            new HashSet<>(),
-            new DietaryRestriction(DietaryRestriction.TypicalRestriction.NONE),
-            new Rsvp(Rsvp.Status.YES),
-            null);
-
-        currentWedding.getRsvpList().add(guest);
+//        Person guest = new Person(name,
+//            new Phone("12345678"),
+//            new Email("johndoe@example.com"),
+//            new Address("123 Street"),
+//            new HashSet<>(),
+//            new DietaryRestriction(DietaryRestriction.TypicalRestriction.NONE),
+//            new Rsvp(Rsvp.Status.YES),
+//            null);
+//
+//        currentWedding.getRsvpList().add(guest);
     }
     @Test
     public void execute_addGuestToTable_success() throws Exception {
+
+
 
         AddGuestToTableCommand command = new AddGuestToTableCommand(name, 1);
 

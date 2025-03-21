@@ -32,7 +32,9 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     }
 
-    public AddressBook() {}
+    public AddressBook() {
+        this.wedding = new Wedding("Default Wedding");
+    }
 
     /**
      * Creates an AddressBook using the Persons in the {@code toBeCopied}
