@@ -50,7 +50,7 @@ public class AddCommandTest {
 
         CommandResult commandResult = new AddCommand(validPerson).execute(model);
 
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, Messages.format(validPerson)),
+        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validPerson),
                 commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validPerson).toString(),
             ((ModelStubAcceptingPersonAdded) model).getCurrentWedding().getRsvpList().toString());
