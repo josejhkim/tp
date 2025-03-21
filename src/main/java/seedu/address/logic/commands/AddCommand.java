@@ -44,7 +44,7 @@ public class AddCommand extends Command {
             throw new CommandException(MESSAGE_NO_CURRENT_WEDDING);
         }
 
-        if (model.hasPerson(guest)) {
+        if (currentWedding.hasGuest(guest)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
