@@ -28,6 +28,7 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.category.DietaryRestriction;
 import seedu.address.model.person.category.Rsvp;
+import seedu.address.model.table.Table;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -106,8 +107,9 @@ public class EditCommand extends Command {
             editPersonDescriptor.getDietaryRestriction().orElse(personToEdit.getDietaryRestriction());
 
         Rsvp updatedRsvp = editPersonDescriptor.getRsvp().orElse(personToEdit.getRsvp());
+        Table updatedTable = personToEdit.getTable().orElse(null);
         return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags,
-            updatedDietaryRestriction, updatedRsvp, null);
+            updatedDietaryRestriction, updatedRsvp, updatedTable);
     }
 
     @Override

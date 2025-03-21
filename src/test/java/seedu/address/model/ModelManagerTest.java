@@ -125,17 +125,6 @@ public class ModelManagerTest {
         assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredPersonList().remove(0));
     }
 
-    @Test
-    public void findGuestByPhone_existingPhone_returnsGuest() throws CommandException {
-        Person foundGuest = modelManager.findGuestByPhone(wedding, new Phone("12345678"));
-        assertEquals(guest, foundGuest);
-    }
-
-    @Test
-    public void findGuestByPhone_nonExistingPhone_returnsException() {
-        assertThrows(CommandException.class , () ->
-            modelManager.findGuestByPhone(wedding, new Phone("87654321")));
-    }
 
     @Test
     public void equals() {

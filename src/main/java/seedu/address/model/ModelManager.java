@@ -26,8 +26,6 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
 
-    private Wedding currentWedding;
-
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
@@ -38,11 +36,11 @@ public class ModelManager implements Model {
 
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
 
         if (addressBook.getWedding() != null) {
             setCurrentWedding(addressBook.getWedding());
         }
+        filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
     }
 
     public ModelManager() {
@@ -155,7 +153,6 @@ public class ModelManager implements Model {
      */
     public void deleteWedding() {
         addressBook.removeWedding();
-        this.currentWedding = null;
     }
 
     /**
@@ -168,19 +165,12 @@ public class ModelManager implements Model {
 
     @Override
     public void setCurrentWedding(Wedding wedding) {
+        requireNonNull(wedding);
         if (wedding == null) {
             logger.warning("Attempted to set wedding to null.");
-            this.currentWedding = null;
             return;
         }
-        requireNonNull(wedding);
         addressBook.setWedding(wedding);
-        this.currentWedding = wedding;
-    }
-
-    @Override
-    public Person findGuestByPhone(Wedding wedding, Phone phone) throws CommandException {
-        return wedding.getRsvpList().getGuestByPhone(phone);
     }
 
     @Override

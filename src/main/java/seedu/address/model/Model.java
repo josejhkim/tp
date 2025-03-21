@@ -109,8 +109,4 @@ public interface Model {
      * Returns the current wedding.
      */
     Wedding getCurrentWedding();
-    /**
-     * Finds given guest to the current wedding according to phone number.
-     */
-    Person findGuestByPhone(Wedding wedding, Phone phone) throws CommandException;
 }

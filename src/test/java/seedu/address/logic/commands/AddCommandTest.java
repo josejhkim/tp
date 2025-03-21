@@ -191,11 +191,6 @@ public class AddCommandTest {
             this.currentWedding = wedding;
         }
 
-        @Override
-        public Person findGuestByPhone(Wedding wedding, Phone phone) {
-            return null;
-        }
-
     }
 
     /**

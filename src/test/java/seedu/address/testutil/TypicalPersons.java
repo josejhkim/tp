@@ -19,6 +19,7 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.category.DietaryRestriction;
 import seedu.address.model.person.category.Rsvp;
+import seedu.address.model.wedding.Wedding;
 
 /**
  * A utility class containing a list of {@code Person} objects to be used in tests.
@@ -79,6 +80,7 @@ public class TypicalPersons {
      */
     public static AddressBook getTypicalAddressBook() {
         AddressBook ab = new AddressBook();
+        ab.setWedding(new Wedding("John and Jane"));
         for (Person person : getTypicalPersons()) {
             ab.addPerson(person);
         }
