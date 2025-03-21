@@ -11,13 +11,6 @@ import seedu.address.logic.commands.exceptions.CommandException;
  * Contains both guests who have RSVPed "yes" and "no".
  */
 public class RsvpList extends UniquePersonList {
-    @Override
-    public void add(Person toAdd) {
-        if (!(toAdd instanceof Person)) {
-            throw new IllegalArgumentException("Only guests can be added to the RSVP list.");
-        }
-        super.add(toAdd);
-    }
 
     @Override
     public boolean contains(Person toCheck) {
@@ -67,25 +60,9 @@ public class RsvpList extends UniquePersonList {
                 "Person with phone " + phone + " not found"));
     }
 
-    public Person getGuestByName(String name) throws CommandException {
-        try {
-            return getAllGuests().stream()
-                .filter(guest -> guest.getName().equals(name))
-                .findFirst().get();
-        } catch (NoSuchElementException nsee) {
-            throw new CommandException("Person with name " + name + " not found");
-        }
-    }
-
     public int size() {
         return this.getAllGuests().size();
     }
 
-    @Override
-    public String toString() {
-        return "["
-            + getAllGuestNames().stream().map(name -> name.fullName)
-            .reduce("", (prev, curr) -> prev + curr + ", ")
-            + "]";
-    }
+
 }

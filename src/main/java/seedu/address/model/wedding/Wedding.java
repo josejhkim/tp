@@ -7,6 +7,7 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.RsvpList;
+import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.person.exceptions.GuestNotFoundException;
 import seedu.address.model.table.UniqueTableList;
 
@@ -49,11 +50,7 @@ public class Wedding {
     }
 
     public void setGuest(Person target, Person editedGuest) {
-        rsvpList.setGuest(target, editedGuest);
-    }
-
-    public Person findGuestByPhone(Phone phone) throws CommandException {
-        return rsvpList.getGuestByPhone(phone);
+        rsvpList.setPerson(target, editedGuest);
     }
 
     /**
@@ -64,12 +61,7 @@ public class Wedding {
      * @throws GuestNotFoundException
      */
     public Person findGuestByName(Name name) throws GuestNotFoundException {
-        for (Person g : rsvpList.getAllGuests()) {
-            if (g.getName().equals(name)) {
-                return g;
-            }
-        }
-        throw new GuestNotFoundException("Person with the given name doesn't exist!");
+        return rsvpList.findPersonByName(name);
     }
 
     public boolean hasGuest(Person guest) {

@@ -26,6 +26,7 @@ public class AddCommand extends Command {
     private final Person guest;
 
     public AddCommand(Person guest) {
+        requireNonNull(guest);
         this.guest = guest;
     }
     /**
