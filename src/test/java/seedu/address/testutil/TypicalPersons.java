@@ -63,11 +63,11 @@ public class TypicalPersons {
 
     // Manually added - Person's details found in {@code CommandTestUtil}
     public static final Person AMY = new PersonBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY)
-        .withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY).withTable(10, 5)
+        .withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY)
         .withRsvp(Rsvp.Status.YES).withDietaryRestriction(DietaryRestriction.TypicalRestriction.NONE)
         .withTags(VALID_TAG_FRIEND).build();
     public static final Person BOB = new PersonBuilder().withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
-        .withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB).withTable(11, 5)
+        .withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
         .withRsvp(Rsvp.Status.NO).withDietaryRestriction(DietaryRestriction.TypicalRestriction.NONE)
         .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
 
