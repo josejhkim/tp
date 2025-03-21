@@ -17,16 +17,17 @@ import seedu.address.model.person.category.Rsvp;
 public class RsvpListTest {
 
     private RsvpList rsvpList;
-    private Guest guest;
+    private Person guest;
 
     @BeforeEach
     public void setUp() {
         rsvpList = new RsvpList();
-        guest = new Guest(
+        guest = new Person(
             new Name("John Doe"),
             new Phone("12345678"),
             new Email("johndoe@example.com"),
             new Address("123 Street"),
+            new HashSet<>(),
             new DietaryRestriction(DietaryRestriction.TypicalRestriction.VEGAN),
             new Rsvp(Rsvp.Status.YES),
             null
@@ -46,7 +47,10 @@ public class RsvpListTest {
             new Phone("87654321"),
             new Email("janedoe@example.com"),
             new Address("456 Avenue"),
-            new HashSet<>()
+            new HashSet<>(),
+            new DietaryRestriction(DietaryRestriction.TypicalRestriction.NONE),
+            new Rsvp(Rsvp.Status.NO),
+            null
         );
         assertThrows(IllegalArgumentException.class, () -> rsvpList.add(person));
     }
@@ -64,7 +68,10 @@ public class RsvpListTest {
             new Phone("87654321"),
             new Email("janedoe@example.com"),
             new Address("456 Avenue"),
-            new HashSet<>()
+            new HashSet<>(),
+            new DietaryRestriction(DietaryRestriction.TypicalRestriction.NONE),
+            new Rsvp(Rsvp.Status.NO),
+            null
         );
         assertFalse(rsvpList.contains(person));
     }
@@ -83,7 +90,10 @@ public class RsvpListTest {
             new Phone("87654321"),
             new Email("janedoe@example.com"),
             new Address("456 Avenue"),
-            new HashSet<>()
+            new HashSet<>(),
+            new DietaryRestriction(DietaryRestriction.TypicalRestriction.NONE),
+            new Rsvp(Rsvp.Status.NO),
+            null
         );
         assertThrows(IllegalArgumentException.class, () -> rsvpList.remove(person));
     }
@@ -98,5 +108,4 @@ public class RsvpListTest {
     public void getGuestByPhone_nonExistingPhone_throwsException() {
         assertThrows(CommandException.class, () -> rsvpList.getGuestByPhone(new Phone("87654321")));
     }
-
 }

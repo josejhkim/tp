@@ -11,17 +11,10 @@ import seedu.address.logic.commands.exceptions.CommandException;
  * Contains both guests who have RSVPed "yes" and "no".
  */
 public class RsvpList extends UniquePersonList {
-    @Override
-    public void add(Person toAdd) {
-        if (!(toAdd instanceof Guest)) {
-            throw new IllegalArgumentException("Only guests can be added to the RSVP list.");
-        }
-        super.add(toAdd);
-    }
 
     @Override
     public boolean contains(Person toCheck) {
-        if (!(toCheck instanceof Guest)) {
+        if (!(toCheck instanceof Person)) {
             return false;
         }
         return super.contains(toCheck);
@@ -29,23 +22,23 @@ public class RsvpList extends UniquePersonList {
 
     @Override
     public void remove(Person toRemove) {
-        if (!(toRemove instanceof Guest)) {
+        if (!(toRemove instanceof Person)) {
             throw new IllegalArgumentException("Only guests can be removed from the RSVP list.");
         }
         super.remove(toRemove);
     }
 
-    public void setGuest(Guest target, Guest editedGuest) {
+    public void setGuest(Person target, Person editedGuest) {
         super.setPerson(target, editedGuest);
     }
 
     /*
     * Returns all guests in the RSVP list.
      */
-    public List<Guest> getAllGuests() {
+    public List<Person> getAllGuests() {
         return asUnmodifiableObservableList().stream()
-            .filter(person -> person instanceof Guest)
-            .map(person -> (Guest) person)
+            .filter(person -> person instanceof Person)
+            .map(person -> (Person) person)
             .collect(Collectors.toList());
     }
 
@@ -59,33 +52,17 @@ public class RsvpList extends UniquePersonList {
             .collect(Collectors.toList());
     }
 
-    public Guest getGuestByPhone(Phone phone) throws CommandException {
+    public Person getGuestByPhone(Phone phone) throws CommandException {
         return getAllGuests().stream()
             .filter(guest -> guest.getPhone().equals(phone))
             .findFirst()
             .orElseThrow(() -> new CommandException(
-                "Guest with phone " + phone + " not found"));
-    }
-
-    public Guest getGuestByName(String name) throws CommandException {
-        try {
-            return getAllGuests().stream()
-                .filter(guest -> guest.getName().equals(name))
-                .findFirst().get();
-        } catch (NoSuchElementException nsee) {
-            throw new CommandException("Guest with name " + name + " not found");
-        }
+                "Person with phone " + phone + " not found"));
     }
 
     public int size() {
         return this.getAllGuests().size();
     }
 
-    @Override
-    public String toString() {
-        return "["
-            + getAllGuestNames().stream().map(name -> name.fullName)
-            .reduce("", (prev, curr) -> prev + curr + ", ")
-            + "]";
-    }
+
 }

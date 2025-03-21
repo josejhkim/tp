@@ -6,7 +6,6 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.person.Guest;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.wedding.Wedding;
@@ -17,7 +16,7 @@ import seedu.address.model.wedding.Wedding;
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
-    Predicate<Guest> PREDICATE_SHOW_ALL_GUESTS = unused -> true;
+    Predicate<Person> PREDICATE_SHOW_ALL_GUESTS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -110,8 +109,4 @@ public interface Model {
      * Returns the current wedding.
      */
     Wedding getCurrentWedding();
-    /**
-     * Finds given guest to the current wedding according to phone number.
-     */
-    Guest findGuestByPhone(Wedding wedding, Phone phone) throws CommandException;
 }

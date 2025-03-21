@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.function.Predicate;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
@@ -22,13 +23,21 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
-import seedu.address.model.person.Guest;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.wedding.Wedding;
 import seedu.address.testutil.PersonBuilder;
 
 public class AddCommandTest {
+
+    private Model model;
+
+    @BeforeEach
+    public void setUp() {
+        model = new ModelStubAcceptingPersonAdded();
+        Wedding wedding = new Wedding("john and jane"); // Create a new wedding
+        model.setCurrentWedding(wedding); // Set the current wedding
+    }
 
     @Test
     public void constructor_nullPerson_throwsNullPointerException() {
@@ -37,23 +46,23 @@ public class AddCommandTest {
 
     @Test
     public void execute_personAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
         Person validPerson = new PersonBuilder().build();
 
-        CommandResult commandResult = new AddCommand(validPerson).execute(modelStub);
+        CommandResult commandResult = new AddCommand(validPerson).execute(model);
 
         assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, Messages.format(validPerson)),
                 commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validPerson), modelStub.personsAdded);
+        assertEquals(Arrays.asList(validPerson).toString(),
+            ((ModelStubAcceptingPersonAdded) model).getCurrentWedding().getRsvpList().toString());
     }
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
         Person validPerson = new PersonBuilder().build();
         AddCommand addCommand = new AddCommand(validPerson);
-        ModelStub modelStub = new ModelStubWithPerson(validPerson);
+        model = new ModelStubWithPerson(validPerson);
 
-        assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_PERSON, () -> addCommand.execute(modelStub));
+        assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_PERSON, () -> addCommand.execute(model));
     }
 
     @Test
@@ -91,6 +100,7 @@ public class AddCommandTest {
      * A default model stub that have all of the methods failing.
      */
     private class ModelStub implements Model {
+        private Wedding currentWedding;
         @Override
         public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
             throw new AssertionError("This method should not be called.");
@@ -172,18 +182,13 @@ public class AddCommandTest {
         }
 
         @Override
-        public void setCurrentWedding(Wedding wedding) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public Wedding getCurrentWedding() {
-            return null;
+            return currentWedding;
         }
 
         @Override
-        public Guest findGuestByPhone(Wedding wedding, Phone phone) {
-            return null;
+        public void setCurrentWedding(Wedding wedding) {
+            this.currentWedding = wedding;
         }
 
     }
@@ -197,6 +202,9 @@ public class AddCommandTest {
         ModelStubWithPerson(Person person) {
             requireNonNull(person);
             this.person = person;
+            Wedding addingWedding = new Wedding("john and jane");
+            addingWedding.addGuest(this.person);// Ensure a wedding is set
+            setCurrentWedding(addingWedding); // Ensure a wedding is set
         }
 
         @Override
@@ -211,6 +219,10 @@ public class AddCommandTest {
      */
     private class ModelStubAcceptingPersonAdded extends ModelStub {
         final ArrayList<Person> personsAdded = new ArrayList<>();
+
+        ModelStubAcceptingPersonAdded() {
+            setCurrentWedding(new Wedding("john and jane")); // Ensure a wedding is set
+        }
 
         @Override
         public boolean hasPerson(Person person) {

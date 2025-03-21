@@ -4,7 +4,7 @@ import java.util.NoSuchElementException;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.person.Guest;
+import seedu.address.model.person.Person;
 import seedu.address.model.person.RsvpList;
 import seedu.address.model.table.exceptions.TableNotFoundException;
 
@@ -100,7 +100,7 @@ public class UniqueTableList {
      * @throws TableNotFoundException if the table does not exist.
      * @throws IllegalArgumentException if the guest is not found or the table is full.
      */
-    public void assignGuestToTable(int tableId, Guest guest) {
+    public void assignGuestToTable(int tableId, Person guest) {
         Table table = findTableById(tableId);
         if (table == null) {
             throw new TableNotFoundException();
@@ -108,7 +108,7 @@ public class UniqueTableList {
 
         RsvpList newList = new RsvpList();
 
-        for (Guest g : table.getGuests()) {
+        for (Person g : table.getGuests()) {
             newList.add(g);
         }
 
@@ -132,7 +132,7 @@ public class UniqueTableList {
      * @param guest  The guest to be added.
      * @throws TableNotFoundException if the table does not exist.
      */
-    public void removeGuestFromTable(int tableId, Guest guest) {
+    public void removeGuestFromTable(int tableId, Person guest) {
         Table table = findTableById(tableId);
         if (table == null) {
             throw new TableNotFoundException();

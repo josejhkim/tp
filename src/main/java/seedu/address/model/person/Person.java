@@ -5,9 +5,12 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 
-import seedu.address.commons.util.ToStringBuilder;
+import seedu.address.model.person.category.DietaryRestriction;
+import seedu.address.model.person.category.Rsvp;
+import seedu.address.model.table.Table;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -25,16 +28,41 @@ public class Person {
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
 
+    private final DietaryRestriction dietaryRestriction;
+    private final Rsvp rsvp;
+    private final Optional<Table> table;
+
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, tags);
+    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags,
+                  DietaryRestriction dietaryRestriction,
+                  Rsvp rsvp, Table table) {
+        requireAllNonNull(name, phone, email, address, tags, dietaryRestriction,
+            rsvp);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
         this.tags.addAll(tags);
+        this.dietaryRestriction = dietaryRestriction;
+        this.rsvp = rsvp;
+        this.table = Optional.ofNullable(table);
+    }
+
+    /**
+     * @param guest A guest object to copy attributes from
+     * @param table A table object that this guest is assigned to
+     */
+    public Person(Person guest, Table table) {
+        this.name = guest.getName();
+        this.phone = guest.getPhone();
+        this.email = guest.getEmail();
+        this.address = guest.getAddress();
+        this.tags.addAll(guest.getTags());
+        this.dietaryRestriction = guest.getDietaryRestriction();
+        this.rsvp = guest.getRsvp();
+        this.table = Optional.ofNullable(table);
     }
 
     public Name getName() {
@@ -53,10 +81,45 @@ public class Person {
         return address;
     }
 
+    public DietaryRestriction getDietaryRestriction() {
+        return dietaryRestriction;
+    }
+
+    public Rsvp getRsvp() {
+        return rsvp;
+    }
+
+    public Optional<Table> getTable() {
+        return table;
+    }
+
+    /**
+     * Get the id for the table this guest is sitting at.
+     * Return -1 if the guest is unassigned to a table.
+     * @return The id of the table for this guest or -1 if unassigned
+     */
+    public int getTableId() {
+        return this.table.map(Table::getTableId).orElse(-1);
+    }
+
+    /**
+     * Get the string representation for the table id.
+     * Return "Unassigned" if the guest is unassigned to a table.
+     * @return The string representation for the table id
+     */
+    public String getTableIdString() {
+        if (this.table == null) {
+            return "Unassigned";
+        }
+
+        return String.valueOf(this.table.map(Table::getTableId).orElse(-1));
+    }
+
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
+
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
     }
@@ -94,7 +157,9 @@ public class Person {
                 && phone.equals(otherPerson.phone)
                 && email.equals(otherPerson.email)
                 && address.equals(otherPerson.address)
-                && tags.equals(otherPerson.tags);
+                && tags.equals(otherPerson.tags)
+                && Objects.equals(dietaryRestriction, otherPerson.dietaryRestriction)
+                && rsvp == otherPerson.rsvp;
     }
 
     @Override
@@ -105,13 +170,14 @@ public class Person {
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this)
-                .add("name", name)
-                .add("phone", phone)
-                .add("email", email)
-                .add("address", address)
-                .add("tags", tags)
-                .toString();
+        return "Name: " + getName()
+            + "; Phone: " + getPhone()
+            + "; Email: " + getEmail()
+            + "; Address: " + getAddress()
+            + "; Tags: " + getTags()
+            + "; Dietary Restriction: " + dietaryRestriction
+            + "; RSVP: " + rsvp
+            + "; Table: " + getTableIdString();
     }
 
 }

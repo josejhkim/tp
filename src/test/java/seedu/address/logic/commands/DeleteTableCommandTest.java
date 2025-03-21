@@ -41,7 +41,7 @@ public class DeleteTableCommandTest {
         DeleteTableCommand command = new DeleteTableCommand(1);
         CommandResult result = command.execute(model);
 
-        String expectedMessage = "Table deleted: Table{ID=1, Capacity=8, Guest Names=[]}";
+        String expectedMessage = "Table deleted: Table{ID=1, Capacity=8, Person Names=[]}";
         assertEquals(expectedMessage, result.getFeedbackToUser());
 
         // Ensure the table was deleted

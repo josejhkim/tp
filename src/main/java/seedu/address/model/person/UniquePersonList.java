@@ -78,6 +78,13 @@ public class UniquePersonList implements Iterable<Person> {
             throw new PersonNotFoundException();
         }
     }
+    public Person findPersonByName(Name name) throws PersonNotFoundException {
+        requireNonNull(name);
+        return internalList.stream()
+            .filter(person -> person.getName().equals(name))
+            .findFirst()
+            .orElseThrow(PersonNotFoundException::new);
+    }
 
     public void setPersons(UniquePersonList replacement) {
         requireNonNull(replacement);

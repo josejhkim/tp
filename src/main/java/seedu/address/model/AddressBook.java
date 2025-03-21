@@ -103,7 +103,9 @@ public class AddressBook implements ReadOnlyAddressBook {
      * The person must not already exist in the address book.
      */
     public void addPerson(Person p) {
+        //Old implementation
         persons.add(p);
+        wedding.addGuest(p);
     }
 
     /**
@@ -114,7 +116,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void setPerson(Person target, Person editedPerson) {
         requireNonNull(editedPerson);
 
-        persons.setPerson(target, editedPerson);
+        wedding.setGuest(target, editedPerson);
     }
 
     /**
@@ -174,7 +176,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     @Override
     public ObservableList<Person> getPersonList() {
-        return persons.asUnmodifiableObservableList();
+        return wedding.getRsvpList().asUnmodifiableObservableList();
     }
 
     @Override

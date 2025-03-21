@@ -402,7 +402,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     2c2. WeddingHero displays an error message, informing user the requirements for a valid email address.  
     2c3. Once valid input is provided, the process resumes at step 3.
 
-3c. **Duplicate Guest**
+3c. **Duplicate Person**
     3c1. If WeddingHero detects that a guest with the same identifier (e.g. same name) already exists,
     it notifies the user of the duplicate.
     3c2. WeddingHero prompts the user that guest has already been added.
@@ -444,7 +444,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     3c3. WeddingHero prompts the user to re-enter a valid identifier.
     3c4. If the user provides a valid input, the process resumes at step 4.
 
-5a. **No Matching Guest Found**
+5a. **No Matching Person Found**
     5a1. WeddingHero is unable to find any guest matching the provided identifier (name or phone number).
     5a2. WeddingHero informs the user that no matching guest was found.
     5a3. If the user re-enters a valid tag with a different value as an identifier, the process resumes at step 4.
@@ -532,7 +532,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 # Glossary
 
-- **Guest:** An individual invited to attend the wedding.
+- **Person:** An individual invited to attend the wedding.
 - **Table:** A designated seating area at the wedding venue, typically used to group guests together.
 - **Dietary Restriction:** A limitation or specific requirement regarding food consumption, often due to allergies, health conditions, or personal preferences.
 - **RSVP Status:** The response provided by an invited guest indicating whether they will attend the event.
