@@ -7,8 +7,10 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RSVP;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.HashSet;
+import java.util.Set;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddCommand;
@@ -20,6 +22,7 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.category.DietaryRestriction;
 import seedu.address.model.person.category.Rsvp;
+import seedu.address.model.tag.Tag;
 
 /**
  * Parses input arguments and creates a new AddGuestCommand object
@@ -42,6 +45,8 @@ public class AddCommandParser implements Parser<AddCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 AddCommand.MESSAGE_USAGE));
         }
+
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS);
         //Getting all the details of the guest
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         Phone phone = ParserUtil.parsePhone(
@@ -50,12 +55,13 @@ public class AddCommandParser implements Parser<AddCommand> {
             argMultimap.getValue(PREFIX_EMAIL).get());
         Address address = ParserUtil.parseAddress(
             argMultimap.getValue(PREFIX_ADDRESS).get());
+        Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
         DietaryRestriction dietaryRestriction = ParserUtil.parseDietaryRestriction(
             argMultimap.getValue(PREFIX_DIETARY_RESTRICTION).get());
         Rsvp rsvp = ParserUtil.parseRsvp(
             argMultimap.getValue(PREFIX_RSVP).get());
 
-        Person guest = new Person(name, phone, email, address, new HashSet<>(), dietaryRestriction, rsvp, null);
+        Person guest = new Person(name, phone, email, address, tagList, dietaryRestriction, rsvp, null);
 
         return new AddCommand(guest);
     }

@@ -207,7 +207,9 @@ public class AddCommandTest {
         ModelStubWithPerson(Person person) {
             requireNonNull(person);
             this.person = person;
-            setCurrentWedding(new Wedding("john and jane")); // Ensure a wedding is set
+            Wedding addingWedding = new Wedding("john and jane");
+            addingWedding.addGuest(this.person);// Ensure a wedding is set
+            setCurrentWedding(addingWedding); // Ensure a wedding is set
         }
 
         @Override

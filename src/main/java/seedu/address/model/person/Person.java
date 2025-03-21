@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.model.person.category.DietaryRestriction;
@@ -29,7 +30,7 @@ public class Person {
 
     private final DietaryRestriction dietaryRestriction;
     private final Rsvp rsvp;
-    private final Table table;
+    private final Optional<Table> table;
 
     /**
      * Every field must be present and not null.
@@ -38,7 +39,7 @@ public class Person {
                   DietaryRestriction dietaryRestriction,
                   Rsvp rsvp, Table table) {
         requireAllNonNull(name, phone, email, address, tags, dietaryRestriction,
-            rsvp, table);
+            rsvp);
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -46,7 +47,7 @@ public class Person {
         this.tags.addAll(tags);
         this.dietaryRestriction = dietaryRestriction;
         this.rsvp = rsvp;
-        this.table = table;
+        this.table = Optional.ofNullable(table);
     }
 
     /**
@@ -61,7 +62,7 @@ public class Person {
         this.tags.addAll(guest.getTags());
         this.dietaryRestriction = guest.getDietaryRestriction();
         this.rsvp = guest.getRsvp();
-        this.table = table;
+        this.table = Optional.ofNullable(table);
     }
 
     public Name getName() {
@@ -88,7 +89,7 @@ public class Person {
         return rsvp;
     }
 
-    public Table getTable() {
+    public Optional<Table> getTable() {
         return table;
     }
 
@@ -98,7 +99,7 @@ public class Person {
      * @return The id of the table for this guest or -1 if unassigned
      */
     public int getTableId() {
-        return this.table == null ? -1 : this.table.getTableId();
+        return this.table.map(Table::getTableId).orElse(-1);
     }
 
     /**
@@ -111,7 +112,7 @@ public class Person {
             return "Unassigned";
         }
 
-        return String.valueOf(this.table.getTableId());
+        return String.valueOf(this.table.map(Table::getTableId).orElse(-1));
     }
 
     /**
