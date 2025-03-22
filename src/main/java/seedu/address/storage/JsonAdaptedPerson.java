@@ -150,7 +150,7 @@ class JsonAdaptedPerson {
 
         Optional<Table> modelTable = Optional.empty();
         if (!table.equals("Unassigned")) {
-            modelTable =Optional.of(new Table(Integer.parseInt(table), Table.MAX_CAPACITY));
+            modelTable = Optional.of(new Table(Integer.parseInt(table), Table.MAX_CAPACITY));
         }
 
         return new Person(modelName, modelPhone, modelEmail, modelAddress, modelTags,

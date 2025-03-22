@@ -17,14 +17,12 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
 import seedu.address.model.wedding.Wedding;
 import seedu.address.testutil.PersonBuilder;
 
@@ -51,9 +49,9 @@ public class AddCommandTest {
         CommandResult commandResult = new AddCommand(validPerson).execute(model);
 
         assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validPerson),
-                commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validPerson).toString(),
-            ((ModelStubAcceptingPersonAdded) model).getCurrentWedding().getRsvpList().toString());
+            commandResult.getFeedbackToUser());
+        assertEquals(Arrays.asList(validPerson).toString(), ((ModelStubAcceptingPersonAdded) model)
+            .getCurrentWedding().getRsvpList().toString());
     }
 
     @Test
@@ -101,6 +99,7 @@ public class AddCommandTest {
      */
     private class ModelStub implements Model {
         private Wedding currentWedding;
+
         @Override
         public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
             throw new AssertionError("This method should not be called.");
@@ -203,7 +202,7 @@ public class AddCommandTest {
             requireNonNull(person);
             this.person = person;
             Wedding addingWedding = new Wedding("john and jane");
-            addingWedding.addGuest(this.person);// Ensure a wedding is set
+            addingWedding.addGuest(this.person); // Ensure a wedding is set
             setCurrentWedding(addingWedding); // Ensure a wedding is set
         }
 

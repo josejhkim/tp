@@ -105,24 +105,33 @@ public class PersonBuilder {
         this.email = new Email(email);
         return this;
     }
+    /**
+     * Sets the {@code Table} of the {@code Person} that we are building.
+     */
     public PersonBuilder withTable(int tableId, int capacity) {
         this.table = Optional.of(new Table(tableId, capacity));
         return this;
     }
 
+    /**
+     * Sets the {@code DietaryRestriction} of the {@code Person} that we are building.
+     */
     public PersonBuilder withDietaryRestriction(DietaryRestriction.TypicalRestriction dietaryRestriction) {
         this.dietaryRestriction = new DietaryRestriction(dietaryRestriction);
         return this;
     }
-
+    /**
+     * Sets the {@code Rsvp} of the {@code Person} that we are building.
+     */
     public PersonBuilder withRsvp(Rsvp.Status status) {
         this.rsvp = new Rsvp(status);
         return this;
     }
-
+    /**
+     * Builds the person object.
+     */
     public Person build() {
         return new Person(name, phone, email, address, tags, dietaryRestriction, rsvp,
             table);
     }
-
 }
