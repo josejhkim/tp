@@ -78,6 +78,10 @@ public class UniquePersonList implements Iterable<Person> {
             throw new PersonNotFoundException();
         }
     }
+    /**
+     * Returns the person with the given name.
+     * The person must exist in the list.
+     */
     public Person findPersonByName(Name name) throws PersonNotFoundException {
         requireNonNull(name);
         return internalList.stream()

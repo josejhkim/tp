@@ -24,7 +24,9 @@ public class AddCommand extends Command {
         "No current wedding set. Please set a current wedding first using the setWedding command.";
 
     private final Person guest;
-
+    /**
+     * Creates an AddGuestCommand to add the specified {@code Person} to the rsvp list in the current wedding.
+     */
     public AddCommand(Person guest) {
         requireNonNull(guest);
         this.guest = guest;

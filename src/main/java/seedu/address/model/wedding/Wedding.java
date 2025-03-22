@@ -2,12 +2,9 @@ package seedu.address.model.wedding;
 
 import java.util.Objects;
 
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
 import seedu.address.model.person.RsvpList;
-import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.person.exceptions.GuestNotFoundException;
 import seedu.address.model.table.UniqueTableList;
 

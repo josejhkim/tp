@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
+import java.util.HashSet;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -13,8 +15,8 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
-import seedu.address.model.person.Person;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.category.DietaryRestriction;
 import seedu.address.model.person.category.Rsvp;
@@ -22,11 +24,9 @@ import seedu.address.model.table.Table;
 import seedu.address.model.table.exceptions.TableNotFoundException;
 import seedu.address.model.wedding.Wedding;
 
-import java.util.HashSet;
-
 public class AddGuestToTableCommandTest {
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-    private Name name = new Name("John Doe");
+    private final Name name = new Name("John Doe");
 
     @BeforeEach
     public void setUp() {
@@ -37,22 +37,16 @@ public class AddGuestToTableCommandTest {
         Table table = new Table(1, 10);
         currentWedding.getTableList().addTable(table);
 
-        Person guest = new Person(name,
-            new Phone("12345678"),
-            new Email("johndoe@example.com"),
-            new Address("123 Street"),
-            new HashSet<>(),
-            new DietaryRestriction(DietaryRestriction.TypicalRestriction.NONE),
-            new Rsvp(Rsvp.Status.YES),
-            null);
+        Person guest = new Person(name, new Phone("12345678"), new Email("johndoe@example.com"),
+            new Address("123 Street"), new HashSet<>(), new DietaryRestriction(
+                DietaryRestriction.TypicalRestriction.NONE),
+            new Rsvp(Rsvp.Status.YES), null);
 
         currentWedding.getRsvpList().add(guest);
     }
+
     @Test
     public void execute_addGuestToTable_success() throws Exception {
-
-
-
         AddGuestToTableCommand command = new AddGuestToTableCommand(name, 1);
 
         CommandResult result = command.execute(model);
