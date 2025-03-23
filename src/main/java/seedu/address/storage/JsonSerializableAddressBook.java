@@ -38,7 +38,7 @@ class JsonSerializableAddressBook {
                 .map(JsonAdaptedPerson::new)
                 .collect(Collectors.toList()));
 
-        Wedding w = source.getWedding();
+        Wedding w = source.getCurrentWedding();
         this.wedding = (w != null) ? new JsonAdaptedWedding(w) : null;
     }
 
@@ -56,7 +56,7 @@ class JsonSerializableAddressBook {
         // Restore wedding
         if (wedding != null) {
             System.out.println("DEBUG: Restoring wedding from JSON -> " + wedding);
-            addressBook.setWedding(wedding.toModelType());
+            addressBook.setCurrentWedding(wedding.toModelType());
         }
 
         return addressBook;

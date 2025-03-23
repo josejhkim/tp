@@ -6,8 +6,11 @@ import java.util.List;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.ToStringBuilder;
+import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.table.Table;
+import seedu.address.model.wedding.UniqueWeddingList;
 import seedu.address.model.wedding.Wedding;
 
 /**
@@ -16,10 +19,11 @@ import seedu.address.model.wedding.Wedding;
  */
 public class AddressBook implements ReadOnlyAddressBook {
 
-    private final UniquePersonList persons;
-
     private Wedding wedding;
 
+    private Wedding currentWedding;
+
+    private UniqueWeddingList uniqueWeddingList;
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
      * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
@@ -28,12 +32,12 @@ public class AddressBook implements ReadOnlyAddressBook {
      *   among constructors.
      */
     {
-        persons = new UniquePersonList();
-
+        currentWedding = new Wedding("Wedding");
+        uniqueWeddingList = new UniqueWeddingList();
     }
 
     public AddressBook() {
-        this.wedding = new Wedding("Default Wedding");
+        this.currentWedding = new Wedding("Wedding");
     }
 
     /**
@@ -44,34 +48,83 @@ public class AddressBook implements ReadOnlyAddressBook {
         resetData(toBeCopied);
     }
 
-
+    @Override
+    public ObservableList<Wedding> getWeddingList() {
+        return this.uniqueWeddingList.asUnmodifiableObservableList();
+    }
 
     /**
      * Replaces the contents of the person list with {@code persons}.
      * {@code persons} must not contain duplicate persons.
      */
-    public void setPersons(List<Person> persons) {
-        this.persons.setPersons(persons);
+    public void setPersons(UniquePersonList persons) {
+        this.currentWedding.setPersons(persons);
+    }
+
+    /**
+     * Resets the existing data of this {@code AddressBook} with {@code newData}.
+     */
+    public void resetData(ReadOnlyAddressBook newData) {
+        requireNonNull(newData);
+
+        setWeddings(newData.getWeddingList());
+    }
+
+    //=========== Weddings ================================================================================
+
+    public void addWedding(Wedding wedding) {
+        this.uniqueWeddingList.addWedding(wedding);
+    }
+
+    public void createWedding(String weddingName) {
+        Wedding newWedding = new Wedding(weddingName);
+        addWedding(newWedding);
     }
 
     /**
      * Sets the active wedding in the address book.
      * Replaces any existing wedding.
      */
-    public void setWedding(Wedding wedding) {
+    public void setCurrentWedding(Wedding wedding) {
         requireNonNull(wedding);
-        this.wedding = wedding;
+        this.currentWedding = wedding;
+    }
+
+    public void setCurrentWeddingByName(String weddingName) {
+        Wedding weddingWithMatchingName = uniqueWeddingList.findWeddingByName(weddingName);
+
+        setCurrentWedding(weddingWithMatchingName);
     }
 
     /**
      * Retrieves the currently active wedding.
      */
-    public Wedding getWedding() {
-        return wedding;
+    public Wedding getCurrentWedding() {
+        return this.currentWedding;
     }
 
-    public void removeWedding() {
-        this.wedding = null;
+    public void deleteWedding(Wedding wedding) {
+        if (uniqueWeddingList.size() > 0) {
+            uniqueWeddingList.deleteWedding(wedding);
+
+            if (wedding.equals(this.currentWedding)) {
+                this.currentWedding = uniqueWeddingList.asUnmodifiableObservableList().
+                    stream().findAny().get();
+            }
+        }
+
+        Wedding defaultWedding = new Wedding("Wedding");
+        uniqueWeddingList.addWedding(wedding);
+        setCurrentWedding(wedding);
+    }
+
+    public void deleteCurrentWedding() {
+        deleteWedding(currentWedding);
+    }
+
+    public void deleteWeddingByName(String weddingName) {
+        Wedding weddingWithMatchingName = uniqueWeddingList.findWeddingByName(weddingName);
+        deleteWedding(weddingWithMatchingName);
     }
 
     /**
@@ -81,33 +134,36 @@ public class AddressBook implements ReadOnlyAddressBook {
         return wedding != null;
     }
 
-    /**
-     * Resets the existing data of this {@code AddressBook} with {@code newData}.
-     */
-    public void resetData(ReadOnlyAddressBook newData) {
-        requireNonNull(newData);
-
-        setPersons(newData.getPersonList());
+    public void setWedding(Wedding wedding, Wedding target) {
+        this.uniqueWeddingList.setWedding(wedding, target);
     }
 
-    //// person-level operations
+    public void setWeddings(List<Wedding> weddings) {
+        this.uniqueWeddingList.setWeddings(weddings);
+    }
+
+    public void setWeddings(UniqueWeddingList uniqueWeddingList) {
+        this.uniqueWeddingList.setWeddings(uniqueWeddingList);
+    }
+
+    //=========== Persons ================================================================================
 
     /**
      * Returns true if a person with the same identity as {@code person} exists in the address book.
      */
     public boolean hasPerson(Person person) {
         requireNonNull(person);
-        return persons.contains(person);
+        return currentWedding.hasPerson(person);
     }
 
     /**
      * Adds a person to the address book.
      * The person must not already exist in the address book.
      */
-    public void addPerson(Person p) {
+    public void addPerson(Person person) {
         //Old implementation
-        persons.add(p);
-        wedding.addGuest(p);
+        requireNonNull(person);
+        currentWedding.addPerson(person);
     }
 
     /**
@@ -117,68 +173,85 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void setPerson(Person target, Person editedPerson) {
         requireNonNull(editedPerson);
-
-        wedding.setGuest(target, editedPerson);
+        currentWedding.setPerson(target, editedPerson);
     }
 
     /**
      * Removes {@code key} from this {@code AddressBook}.
      * {@code key} must exist in the address book.
      */
-    public void removePerson(Person key) {
-        persons.remove(key);
+    public void deletePerson(Person key) {
+        currentWedding.deletePerson(key);
     }
 
-    //// wedding-level operations
+    public Person findPersonByName(Name name) {
+        return currentWedding.findPersonByName(name);
+    }
 
-    // /**
-    //  * Returns true if a wedding with the same identity as {@code wedding} exists in the address book.
-    //  */
-    // public boolean hasWedding(Wedding wedding) {
-    //     requireNonNull(wedding);
-    //     return weddings.contains(wedding);
-    // }
+    //=========== Tables ================================================================================
 
-    // /**
-    //  * Adds a wedding to the address book.
-    //  * The wedding must not already exist in the address book.
-    //  */
-    // public void addWedding(Wedding wedding) {
-    //     weddings.add(wedding);
-    // }
-    //
-    // /**
-    //  * Removes {@code wedding} from this {@code AddressBook}.
-    //  * {@code wedding} must exist in the address book.
-    //  */
-    // public void removeWedding(Wedding wedding) {
-    //     weddings.remove(wedding);
-    // }
-    //
-    // /**
-    //  * Finds and returns the wedding with the given name.
-    //  * Returns null if no such wedding exists.
-    //  */
-    // public Wedding findWeddingByName(String name) {
-    //     requireNonNull(name);
-    //     return weddings.stream()
-    //         .filter(wedding -> wedding.getName().equals(name))
-    //         .findFirst()
-    //         .orElseThrow(() -> new IllegalArgumentException("No such wedding exists"));
-    // }
+    public boolean hasTable(Table table) {
+        return currentWedding.hasTable(table);
+    }
 
-    //// util methods
+    public boolean hasTable(int tableId) {
+        return currentWedding.hasTable(tableId);
+    }
+
+    public void addTable(Table table) {
+        currentWedding.addTable(table);
+    }
+
+    public void deleteTable(Table table) {
+        currentWedding.deleteTable(table);
+    }
+
+    public void deleteTable(int tableId) {
+        currentWedding.deleteTable(tableId);
+    }
+
+    public void setTable(Table target, Table editedTable) {
+        requireNonNull(editedTable);
+        currentWedding.setTable(target, editedTable);
+    }
+
+    public void addPersonToTable(Person p, Table table) {
+        this.currentWedding.addPersonToTable(p, table);
+    }
+
+    public void addPersonToTable(Person p, int tableId) {
+        this.currentWedding.addPersonToTable(p, tableId);
+    }
+
+    public void deletePersonFromTable(Person p, Table table) {
+        this.currentWedding.deletePersonFromTable(p, table);
+    }
+
+    public void deletePersonFromTable(Person p, int tableId) {
+        this.currentWedding.deletePersonFromTable(p, tableId);
+    }
+
+    public Table getTable(int tableId) {
+        return currentWedding.getTable(tableId);
+    }
+
+    //=========== Utils ================================================================================
 
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-                .add("persons", persons)
+                .add("weddings", uniqueWeddingList)
+                .add("current wedding", currentWedding)
                 .toString();
     }
 
     @Override
     public ObservableList<Person> getPersonList() {
-        return wedding.getRsvpList().asUnmodifiableObservableList();
+        return currentWedding.getUniquePersonList().asUnmodifiableObservableList();
+    }
+
+    public ObservableList<Table> getTableList() {
+        return currentWedding.getTableList().asUnmodifiableObservableList();
     }
 
     @Override
@@ -193,14 +266,14 @@ public class AddressBook implements ReadOnlyAddressBook {
         }
 
         AddressBook otherAddressBook = (AddressBook) other;
-        return persons.equals(otherAddressBook.persons);
+        return uniqueWeddingList.equals(otherAddressBook.uniqueWeddingList);
 
     }
 
 
     @Override
     public int hashCode() {
-        return persons.hashCode();
+        return uniqueWeddingList.hashCode();
     }
 
 

@@ -180,6 +180,12 @@ public class ParserUtil {
         return Integer.parseInt(trimmedTableId);
     }
 
+    public static String parseWeddingName(String weddingName) throws ParseException {
+        String trimmedWeddingName = weddingName.trim();
+
+        return trimmedWeddingName;
+    }
+
     /**
      * Parses a {@code String category} and {@code String field} into a {@code Category}.
      * The category determines which subclass to create.

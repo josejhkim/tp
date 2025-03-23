@@ -21,7 +21,7 @@ import seedu.address.model.table.Table;
 import seedu.address.model.table.exceptions.TableNotFoundException;
 import seedu.address.model.wedding.Wedding;
 
-public class DeleteGuestFromTableCommandTest {
+public class DeletePersonFromTableCommandTest {
     private Model model;
     private Name name = new Name("John Doe");
 
@@ -49,18 +49,18 @@ public class DeleteGuestFromTableCommandTest {
     @Test
     public void execute_deleteGuestFromTable_success() throws Exception {
 
-        DeleteGuestFromTableCommand command = new DeleteGuestFromTableCommand(name, 1);
+        DeletePersonFromTableCommand command = new DeletePersonFromTableCommand(name, 1);
 
         CommandResult result = command.execute(model);
 
-        assertEquals(String.format(DeleteGuestFromTableCommand.MESSAGE_REMOVED_GUEST_FROM_TABLE_SUCCESS,
+        assertEquals(String.format(DeletePersonFromTableCommand.MESSAGE_REMOVED_GUEST_FROM_TABLE_SUCCESS,
                 name.fullName, 1),
             result.getFeedbackToUser());
     }
 
     @Test
     public void execute_deleteGuestFromTable_failure() {
-        AddGuestToTableCommand command = new AddGuestToTableCommand(name, 3);
+        AddPersonToTableCommand command = new AddPersonToTableCommand(name, 3);
 
         assertThrows(TableNotFoundException.class, () -> command.execute(model));
     }

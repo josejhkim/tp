@@ -14,9 +14,9 @@ import seedu.address.model.wedding.Wedding;
 /**
  * Deletes a guest from the given table.
  */
-public class DeleteGuestFromTableCommand extends Command {
+public class DeletePersonFromTableCommand extends Command {
 
-    public static final String COMMAND_WORD = "deleteGuestFromTable";
+    public static final String COMMAND_WORD = "deletePersonFromTable";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
         + ": Deletes the guest identified by name "
@@ -39,7 +39,7 @@ public class DeleteGuestFromTableCommand extends Command {
      * @param guestName Name of the guest to delete from the table
      * @param oldTableId Int ID of the table to delete the guest from
      */
-    public DeleteGuestFromTableCommand(Name guestName, int oldTableId) {
+    public DeletePersonFromTableCommand(Name guestName, int oldTableId) {
         requireNonNull(guestName);
         requireNonNull(oldTableId);
 
@@ -50,23 +50,20 @@ public class DeleteGuestFromTableCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        Wedding currentWedding = model.getCurrentWedding();
-        if (currentWedding == null) {
-            throw new CommandException("No current wedding");
-        }
 
-        Person guestToRemove = currentWedding.findGuestByName(guestName);
+        Person guestToRemove = model.findPersonByName(guestName);
 
-        Person removedGuest = createRemovedGuest(guestToRemove);
+        Person removedPerson = createRemovedPerson(guestToRemove);
 
-        if (!guestToRemove.equals(removedGuest) && currentWedding.hasGuest(removedGuest)) {
+        if (!guestToRemove.equals(removedPerson) && model.hasPerson(removedPerson)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
-        currentWedding.setGuest(guestToRemove, removedGuest);
-        currentWedding.getTableList().removeGuestFromTable(oldTableId, guestToRemove);
+        model.deletePersonFromTable(guestToRemove, oldTableId);
+        model.setPerson(guestToRemove, removedPerson);
+
         return new CommandResult(String.format(MESSAGE_REMOVED_GUEST_FROM_TABLE_SUCCESS,
-            removedGuest.getName().fullName, oldTableId));
+            removedPerson.getName().fullName, oldTableId));
     }
 
     /**
@@ -76,7 +73,7 @@ public class DeleteGuestFromTableCommand extends Command {
      * @return A new copy of the guest object to replace the previous one
      * @throws CommandException
      */
-    private static Person createRemovedGuest(Person guestToRemove)
+    private static Person createRemovedPerson(Person guestToRemove)
             throws CommandException {
         return new Person(guestToRemove, null);
     }
@@ -88,19 +85,19 @@ public class DeleteGuestFromTableCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof DeleteGuestFromTableCommand)) {
+        if (!(other instanceof DeletePersonFromTableCommand)) {
             return false;
         }
 
-        DeleteGuestFromTableCommand otherRemoveGuestFromTableCommand = (DeleteGuestFromTableCommand) other;
-        return guestName.equals(otherRemoveGuestFromTableCommand.guestName)
-            && oldTableId == otherRemoveGuestFromTableCommand.oldTableId;
+        DeletePersonFromTableCommand otherRemovePersonFromTableCommand = (DeletePersonFromTableCommand) other;
+        return guestName.equals(otherRemovePersonFromTableCommand.guestName)
+            && oldTableId == otherRemovePersonFromTableCommand.oldTableId;
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-            .add("RemovedGuest", guestName)
+            .add("RemovedPerson", guestName)
             .add("RemovedTable", oldTableId)
             .toString();
     }

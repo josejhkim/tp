@@ -40,24 +40,13 @@ public class AddTableCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        Wedding wedding = model.getCurrentWedding();
-        if (wedding == null) {
-            throw new CommandException(MESSAGE_NO_WEDDING);
-        }
 
-        if (wedding.getTableList() == null) {
-            throw new CommandException("Table list is not initialized in the wedding.");
-        }
-
-        if (wedding.getTableList().hasTable(tableId)) {
+        if (model.getTable(tableId) != null) {
             throw new CommandException(MESSAGE_DUPLICATE_TABLE);
         }
 
         Table table = new Table(tableId, capacity);
-        wedding.getTableList().addTable(table);
-
-        // Ensure the updated wedding is reflected in the model.
-        model.setCurrentWedding(wedding);
+        model.addTable(table);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, tableId, capacity));
     }

@@ -115,7 +115,7 @@ public class AddressBookTest {
         }
 
         @Override
-        public Wedding getWedding() {
+        public Wedding getCurrentWedding() {
             if (wedding == null) {
                 throw new NoSuchElementException("No wedding found in AddressBookStub.");
             }
