@@ -2,12 +2,10 @@ package seedu.address.model.person;
 
 import java.util.Objects;
 
-import seedu.address.model.person.category.Category;
-
 /**
  * Represents a Person's dietary restriction in the address book.
  */
-public class DietaryRestriction implements Category {
+public class DietaryRestriction {
     /**
      * Enum to represent typical dietary restrictions.
      */
