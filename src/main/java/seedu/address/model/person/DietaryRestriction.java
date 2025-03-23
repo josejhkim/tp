@@ -1,6 +1,8 @@
-package seedu.address.model.person.category;
+package seedu.address.model.person;
 
 import java.util.Objects;
+
+import seedu.address.model.person.category.Category;
 
 /**
  * Represents a Person's dietary restriction in the address book.

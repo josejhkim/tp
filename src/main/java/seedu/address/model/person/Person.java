@@ -9,8 +9,6 @@ import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.commons.util.ToStringBuilder;
-import seedu.address.model.person.category.DietaryRestriction;
-import seedu.address.model.person.category.Rsvp;
 import seedu.address.model.table.Table;
 import seedu.address.model.tag.Tag;
 

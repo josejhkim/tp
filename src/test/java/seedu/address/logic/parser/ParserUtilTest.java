@@ -19,8 +19,8 @@ import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
-import seedu.address.model.person.category.DietaryRestriction;
-import seedu.address.model.person.category.Rsvp;
+import seedu.address.model.person.DietaryRestriction;
+import seedu.address.model.person.Rsvp;
 import seedu.address.model.tag.Tag;
 
 public class ParserUtilTest {

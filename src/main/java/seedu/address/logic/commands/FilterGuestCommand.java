@@ -1,74 +1,42 @@
 package seedu.address.logic.commands;
 
-import java.util.List;
+import static java.util.Objects.requireNonNull;
 
+import java.util.function.Predicate;
+
+import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.person.DietaryRestriction;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.RsvpList;
-import seedu.address.model.person.category.Category;
-import seedu.address.model.person.category.DietaryRestriction;
-import seedu.address.model.person.category.Rsvp;
 
 /**
- * Command to filter guests based on a specified category and field.
+ * Command to filter guests based on dietary restrictions and/or RSVP status .
  */
 public class FilterGuestCommand extends Command {
     public static final String COMMAND_WORD = "filterGuest";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Filters the guests belonging to respective "
-            + "category and field.\n "
-            + "Parameters: c/CATEGORY f/FIELD\n"
-            + "Example: " + COMMAND_WORD + " c/RSVP" + " f/YES";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all guest(s) belonging to filtered request.\n"
+            + "Please pick at least one of the categories (Dietary restriction / RSVP) to filter by.\n"
+            + "Parameters: [d/DIETARY_RESTRICTION_FIELD] [r/RSVP_FIELD]\n"
+            + "Example: " + COMMAND_WORD + " d/" + DietaryRestriction.TypicalRestriction.values()[0].toString()
+            + " r/" + DietaryRestriction.TypicalRestriction.values()[0].toString();
 
-    public static final String MESSAGE_WEDDING_NOT_FOUND = "Wedding not found";
-    public static final String MESSAGE_SUCCESS = "Guests that have been filtered out: %1$s";
-    public static final String MESSAGE_MISSING_CATEGORY = "Please enter a category";
-    public static final String MESSAGE_NO_SUCH_CATEGORY = "Please enter a valid category";
-    private final Category category;
+    public static final String MESSAGE_WEDDING_NOT_FOUND = "Wedding not found.";
+    public static final String MESSAGE_SUCCESS = "Here are your filtered guests.";
+    public static final String MESSAGE_INVALID_RSVP_STATUS = "Please enter a valid RSVP status.";
+    public static final String MESSAGE_INVALID_DIETARY_RESTRICTION = "Please enter a valid dietary restriction.";
+    private final Predicate<Person> predicate;
 
-    /**
-     * Constructs a FilterGuestCommand with the specified category.
-     *
-     * @param category The category to filter guests by.
-     */
-    public FilterGuestCommand(Category category) {
-        // To change to classes?
-        this.category = category;
+    public FilterGuestCommand(Predicate<Person> predicate) {
+        this.predicate = predicate;
     }
 
-    /**
-     * Executes the command to filter guests based on the given category.
-     *
-     * @param model The model containing wedding data.
-     * @return CommandResult containing the filtered guests list.
-     * @throws CommandException If no wedding is found or category is missing.
-     */
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        var wedding = model.getCurrentWedding();
-        if (wedding == null) {
-            throw new CommandException(MESSAGE_WEDDING_NOT_FOUND);
-        }
-        if (category == null) {
-            throw new CommandException(MESSAGE_MISSING_CATEGORY);
-        }
-
-        RsvpList rsvpList = wedding.getRsvpList();
-        List<Person> guests = rsvpList.getAllGuests();
-        StringBuilder guestList = new StringBuilder();
-        for (Person guest: guests) {
-            if (category instanceof DietaryRestriction) {
-                if (guest.getDietaryRestriction().equals(this.category)) {
-                    guestList.append(guest.getDietaryRestriction());
-                }
-            } else if (category instanceof Rsvp) {
-                if (guest.getRsvp().equals(this.category)) {
-                    guestList.append(guest.getRsvp());
-                }
-            }
-        }
+        requireNonNull(model);
+        model.updateFilteredPersonList(predicate);
         return new CommandResult(
-                String.format(MESSAGE_SUCCESS, guestList.toString().trim()));
+                String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredPersonList().size()));
     }
 
     /**

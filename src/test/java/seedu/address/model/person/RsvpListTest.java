@@ -10,8 +10,6 @@ import java.util.HashSet;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import seedu.address.model.person.category.DietaryRestriction;
-import seedu.address.model.person.category.Rsvp;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 
 public class RsvpListTest {
