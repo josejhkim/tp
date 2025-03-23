@@ -2,6 +2,15 @@ package seedu.address.model.person;
 
 import java.util.function.Predicate;
 
+/**
+ * A predicate that tests if a {@link Person}'s dietary restriction matches a specified dietary restriction.
+ * <p>
+ * This predicate is used to filter {@code Person} objects based on their dietary restrictions. It implements
+ * the {@link java.util.function.Predicate} interface, making it suitable for use in stream filtering and other contexts.
+ * </p>
+ *
+ * @see Person#getDietaryRestriction()
+ */
 public class DietaryRestrictionFilter implements Predicate<Person> {
     private final DietaryRestriction dietaryRestrictionFilter;
 
