@@ -80,7 +80,7 @@ public class TypicalPersons {
      */
     public static AddressBook getTypicalAddressBook() {
         AddressBook ab = new AddressBook();
-        ab.setWedding(new Wedding("John and Jane"));
+        ab.setCurrentWedding(new Wedding("John and Jane"));
         for (Person person : getTypicalPersons()) {
             ab.addPerson(person);
         }

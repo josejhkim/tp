@@ -12,7 +12,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AddPersonCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -26,14 +26,14 @@ import seedu.address.model.tag.Tag;
 /**
  * Parses input arguments and creates a new AddGuestCommand object
  */
-public class AddCommandParser implements Parser<AddCommand> {
+public class AddCommandParser implements Parser<AddPersonCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the AddGuestCommand
      * and returns a AddGuestCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     @Override
-    public AddCommand parse(String args) throws ParseException {
+    public AddPersonCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
             ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL,
                 PREFIX_ADDRESS, PREFIX_TAG, PREFIX_DIETARY_RESTRICTION, PREFIX_RSVP);
@@ -42,7 +42,7 @@ public class AddCommandParser implements Parser<AddCommand> {
             PREFIX_ADDRESS, PREFIX_DIETARY_RESTRICTION, PREFIX_RSVP)
             || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                AddCommand.MESSAGE_USAGE));
+                AddPersonCommand.MESSAGE_USAGE));
         }
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS);
@@ -62,7 +62,7 @@ public class AddCommandParser implements Parser<AddCommand> {
 
         Person guest = new Person(name, phone, email, address, tagList, dietaryRestriction, rsvp, null);
 
-        return new AddCommand(guest);
+        return new AddPersonCommand(guest);
     }
 
     private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {

@@ -1,11 +1,14 @@
 package seedu.address.model.table;
 
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.RsvpList;
+import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.table.exceptions.TableNotFoundException;
 
 /**
@@ -18,7 +21,7 @@ import seedu.address.model.table.exceptions.TableNotFoundException;
  * This list does not allow duplicate tables based on {@code Table#isSameTable(Table)}.
  * </p>
  */
-public class UniqueTableList {
+public class UniqueTableList implements Iterable<Table> {
 
     private final ObservableList<Table> internalList = FXCollections.observableArrayList();
     private final ObservableList<Table> internalUnmodifiableList =
@@ -32,6 +35,10 @@ public class UniqueTableList {
      */
     public boolean contains(Table toCheck) {
         return internalList.stream().anyMatch(toCheck::isSameTable);
+    }
+
+    public Iterator<Table> iterator() {
+        return internalList.iterator();
     }
 
     /**
@@ -55,12 +62,16 @@ public class UniqueTableList {
      * @throws TableNotFoundException if the table does not exist.
      */
     public void deleteTable(int tableId) {
-        Table table = findTableById(tableId);
+        Table table = findTable(tableId);
         if (table != null) {
             internalList.remove(table);
             return;
         }
         throw new TableNotFoundException();
+    }
+
+    public void deleteTable(Table table) {
+        internalList.remove(table);
     }
 
     /**
@@ -69,9 +80,18 @@ public class UniqueTableList {
      * @param tableId The ID of the table to find.
      * @return An {@code Optional} containing the table if found, otherwise an empty {@code Optional}.
      */
-    public Table findTableById(int tableId) {
+    public Table findTable(int tableId) {
         try {
             return internalList.stream().filter(table -> table.getTableId() == tableId)
+                .findFirst().get();
+        } catch (NoSuchElementException nsee) {
+            return null;
+        }
+    }
+
+    public Table findTable(Table table) {
+        try {
+            return internalList.stream().filter(t -> t.getTableId() == table.getTableId())
                 .findFirst().get();
         } catch (NoSuchElementException nsee) {
             return null;
@@ -101,7 +121,7 @@ public class UniqueTableList {
      * @throws IllegalArgumentException if the guest is not found or the table is full.
      */
     public void assignGuestToTable(int tableId, Person guest) {
-        Table table = findTableById(tableId);
+        Table table = findTable(tableId);
         if (table == null) {
             throw new TableNotFoundException();
         }
@@ -122,6 +142,10 @@ public class UniqueTableList {
         internalList.set(internalList.indexOf(table), updatedTable);
     }
 
+    public void assignGuestToTable(Table table, Person guest) {
+        assignGuestToTable(table.getTableId(), guest);
+    }
+
     /**
      * Removes a guest from a table.
      * <p>
@@ -132,8 +156,8 @@ public class UniqueTableList {
      * @param guest  The guest to be added.
      * @throws TableNotFoundException if the table does not exist.
      */
-    public void removeGuestFromTable(int tableId, Person guest) {
-        Table table = findTableById(tableId);
+    public void deleteGuestFromTable(int tableId, Person guest) {
+        Table table = findTable(tableId);
         if (table == null) {
             throw new TableNotFoundException();
         }
@@ -148,6 +172,20 @@ public class UniqueTableList {
         internalList.set(internalList.indexOf(table), updatedTable);
     }
 
+    public void setTable(Table target, Table editedTable) {
+        requireAllNonNull(target, editedTable);
+
+        int index = internalList.indexOf(target);
+        if (index == -1) {
+            throw new TableNotFoundException();
+        }
+
+        if (!target.isSameTable(editedTable) && contains(editedTable)) {
+            throw new DuplicatePersonException();
+        }
+
+        internalList.set(index, editedTable);
+    }
     /**
      * Returns the list of tables as an unmodifiable {@code ObservableList}.
      * This ensures that the list cannot be modified externally.
@@ -156,5 +194,9 @@ public class UniqueTableList {
      */
     public ObservableList<Table> asUnmodifiableObservableList() {
         return internalUnmodifiableList;
+    }
+
+    public int size() {
+        return internalList.size();
     }
 }

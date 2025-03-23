@@ -17,7 +17,7 @@ import seedu.address.testutil.PersonBuilder;
 /**
  * Contains integration tests (interaction with the Model) for {@code AddCommand}.
  */
-public class AddCommandIntegrationTest {
+public class AddPersonCommandIntegrationTest {
 
     private Model model;
 
@@ -35,8 +35,8 @@ public class AddCommandIntegrationTest {
         expectedModel.setCurrentWedding(new Wedding("john and jane"));
         expectedModel.getCurrentWedding().addGuest(validPerson);
 
-        assertCommandSuccess(new AddCommand(validPerson), model,
-            String.format(AddCommand.MESSAGE_SUCCESS, validPerson),
+        assertCommandSuccess(new AddPersonCommand(validPerson), model,
+            String.format(AddPersonCommand.MESSAGE_SUCCESS, validPerson),
             expectedModel);
     }
 
@@ -45,7 +45,7 @@ public class AddCommandIntegrationTest {
         Person validPerson = new PersonBuilder().build();
         model.getCurrentWedding().addGuest(validPerson);
 
-        assertCommandFailure(new AddCommand(validPerson), model,
-            AddCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(new AddPersonCommand(validPerson), model,
+            AddPersonCommand.MESSAGE_DUPLICATE_PERSON);
     }
 }

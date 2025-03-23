@@ -10,7 +10,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.table.Table;
-import seedu.address.model.table.UniqueTableList;
+import seedu.address.model.table.UniqueWeddingList;
 import seedu.address.model.wedding.Wedding;
 
 
@@ -31,7 +31,7 @@ public class DeleteTableCommandTest {
         Wedding wedding = model.getCurrentWedding();
         System.out.println("DEBUG: Wedding: " + (wedding == null ? "null" : wedding.getName()));
 
-        UniqueTableList tableList = model.getCurrentWedding().getTableList();
+        UniqueWeddingList tableList = model.getCurrentWedding().getTableList();
 
 
         System.out.println("DEBUG: TableList: " + (tableList == null ? "null" : "initialized"));

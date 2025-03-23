@@ -24,7 +24,7 @@ import seedu.address.model.table.Table;
 import seedu.address.model.table.exceptions.TableNotFoundException;
 import seedu.address.model.wedding.Wedding;
 
-public class AddGuestToTableCommandTest {
+public class AddPersonToTableCommandTest {
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private final Name name = new Name("John Doe");
 
@@ -47,17 +47,17 @@ public class AddGuestToTableCommandTest {
 
     @Test
     public void execute_addGuestToTable_success() throws Exception {
-        AddGuestToTableCommand command = new AddGuestToTableCommand(name, 1);
+        AddPersonToTableCommand command = new AddPersonToTableCommand(name, 1);
 
         CommandResult result = command.execute(model);
 
-        assertEquals(String.format(AddGuestToTableCommand.MESSAGE_ADD_GUEST_TO_TABLE_SUCCESS, name.fullName, 1),
+        assertEquals(String.format(AddPersonToTableCommand.MESSAGE_ADD_GUEST_TO_TABLE_SUCCESS, name.fullName, 1),
             result.getFeedbackToUser());
     }
 
     @Test
     public void execute_addGuestToTable_failure() throws CommandException {
-        AddGuestToTableCommand command = new AddGuestToTableCommand(name, 3);
+        AddPersonToTableCommand command = new AddPersonToTableCommand(name, 3);
         assertThrows(TableNotFoundException.class, () -> command.execute(model));
     }
 }
