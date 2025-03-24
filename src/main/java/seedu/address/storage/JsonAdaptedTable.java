@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.person.RsvpList;
+import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.table.Table;
 
 /**
@@ -49,11 +49,12 @@ public class JsonAdaptedTable {
      * @throws IllegalValueException if there were any data constraints violated in the adapted table.
      */
     public Table toModelType() throws IllegalValueException {
-        RsvpList rsvpList = new RsvpList();
+        UniquePersonList personList = new UniquePersonList();
+
         for (JsonAdaptedPerson g : guests) {
-            rsvpList.add(g.toModelType());
+            personList.add(g.toModelType());
         }
-        Table table = new Table(tableId, capacity, rsvpList);
+        Table table = new Table(tableId, capacity, personList);
         return table;
     }
 }

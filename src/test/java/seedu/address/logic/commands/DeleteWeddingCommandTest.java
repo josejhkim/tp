@@ -19,12 +19,13 @@ public class DeleteWeddingCommandTest {
     @BeforeEach
     public void setUp() {
         model = new ModelManager();
-        model.setCurrentWedding(new Wedding("Test Wedding"));
+        model.addWedding(new Wedding("Test Wedding"));
+        model.setCurrentWedding("Test Wedding");
     }
 
     @Test
     public void execute_deleteExistingWedding_success() throws CommandException {
-        DeleteWeddingCommand command = new DeleteWeddingCommand(); // ✅ No arguments
+        DeleteWeddingCommand command = new DeleteWeddingCommand("Test Wedding");
 
         CommandResult result = command.execute(model);
 
@@ -32,7 +33,8 @@ public class DeleteWeddingCommandTest {
         assertEquals(expectedMessage, result.getFeedbackToUser());
 
         // Ensure wedding is deleted
-        assertEquals(null, model.getCurrentWedding());
+        assertEquals(model.getAddressBook().getWeddingList().size(), 1);
+        assertEquals(model.getAddressBook().getCurrentWedding().getName(), "Wedding");
     }
 
     // @Test

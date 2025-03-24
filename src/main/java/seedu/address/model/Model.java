@@ -5,7 +5,9 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
+import seedu.address.model.table.Table;
 import seedu.address.model.wedding.Wedding;
 
 /**
@@ -54,6 +56,8 @@ public interface Model {
     /** Returns the AddressBook */
     ReadOnlyAddressBook getAddressBook();
 
+    //=========== Person ==================================================================================
+
     /**
      * Returns true if a person with the same identity as {@code person} exists in the address book.
      */
@@ -71,6 +75,8 @@ public interface Model {
      */
     void addPerson(Person person);
 
+    Person findPersonByName(Name name);
+
     /**
      * Replaces the given person {@code target} with {@code editedPerson}.
      * {@code target} must exist in the address book.
@@ -87,6 +93,27 @@ public interface Model {
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
 
+    //=========== Table ==================================================================================
+
+    void addTable(Table table);
+
+    void deleteTable(Table table);
+
+    void deleteTable(int tableId);
+
+    void addPersonToTable(Person p, Table table);
+
+    void addPersonToTable(Person p, int tableId);
+
+    void deletePersonFromTable(Person p, Table table);
+
+    void deletePersonFromTable(Person p, int tableId);
+
+    void setTable(Table target, Table editedTable);
+
+    Table getTable(int tableId);
+
+    //=========== Wedding ==================================================================================
     /**
      * Adds the given wedding.
      * {@code wedding} must not already exist in the address book.
@@ -99,10 +126,16 @@ public interface Model {
      */
     void deleteWedding();
 
+    public void deleteWedding(Wedding wedding);
+
+    public void deleteWedding(String weddingName);
+
     /**
      * Sets the current wedding.
      */
     void setCurrentWedding(Wedding wedding);
+
+    void setCurrentWedding(String weddingName);
     /**
      * Returns the current wedding.
      */

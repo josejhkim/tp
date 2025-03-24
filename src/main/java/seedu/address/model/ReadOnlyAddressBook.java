@@ -15,6 +15,9 @@ public interface ReadOnlyAddressBook {
      */
     ObservableList<Person> getPersonList();
 
+    ObservableList<Wedding> getWeddingList();
+
     // Returns the single wedding, or null if none
-    Wedding getWedding();
+    Wedding getCurrentWedding();
+
 }

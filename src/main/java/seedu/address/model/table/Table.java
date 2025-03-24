@@ -5,7 +5,7 @@ import java.util.Objects;
 
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.RsvpList;
+import seedu.address.model.person.UniquePersonList;
 
 /**
  * Represents a seating table in a wedding.
@@ -23,7 +23,7 @@ public final class Table {
     /** The maximum seating capacity of the table. */
     private final int capacity;
 
-    private final RsvpList rsvpList;
+    private final UniquePersonList uniquePersonList;
 
     /**
      * Constructs a new {@code Table} with the given ID and capacity.
@@ -39,7 +39,7 @@ public final class Table {
         }
         this.tableId = tableId;
         this.capacity = capacity;
-        this.rsvpList = new RsvpList();
+        this.uniquePersonList = new UniquePersonList();
     }
 
     /**
@@ -49,13 +49,23 @@ public final class Table {
      * @param capacity The seating capacity of the table. Must be a positive integer.
      * @throws IllegalArgumentException if {@code tableId} or {@code capacity} is not positive.
      */
-    public Table(int tableId, int capacity, RsvpList rsvpList) {
+    public Table(int tableId, int capacity, UniquePersonList uniquePersonList) {
         if (tableId <= 0 || capacity <= 0) {
             throw new IllegalArgumentException("Table ID and capacity must be positive integers.");
         }
         this.tableId = tableId;
         this.capacity = capacity;
-        this.rsvpList = rsvpList;
+        this.uniquePersonList = uniquePersonList;
+    }
+
+    public Table(Table t) {
+        this.tableId = t.tableId;
+        this.capacity = t.capacity;
+        this.uniquePersonList = new UniquePersonList();
+        for (Person p : t.uniquePersonList) {
+            Person toAdd = new Person(p, this);
+            this.uniquePersonList.add(toAdd);
+        }
     }
 
     /**
@@ -76,8 +86,16 @@ public final class Table {
         return capacity;
     }
 
+    public void addPerson(Person p) {
+        this.uniquePersonList.add(p);
+    }
+
+    public void deletePerson(Person p) {
+        this.uniquePersonList.delete(p);
+    }
+
     public List<Person> getGuests() {
-        return this.rsvpList.getAllGuests();
+        return this.uniquePersonList.getAllPersons();
     }
 
     /**
@@ -87,7 +105,7 @@ public final class Table {
      * @return A list of guest names assigned to the table.
      */
     public List<Name> getGuestNames() {
-        return this.rsvpList.getAllGuestNames();
+        return this.uniquePersonList.getAllPersonsNames();
     }
 
     /**
@@ -108,7 +126,7 @@ public final class Table {
     @Override
     public String toString() {
         return "Table{ID=" + tableId + ", Capacity=" + capacity + ", Person Names="
-            + rsvpList + "}";
+            + uniquePersonList + "}";
     }
 
     /**
@@ -128,7 +146,7 @@ public final class Table {
         }
         Table table = (Table) other;
         return tableId == table.tableId && capacity == table.capacity
-            && table.rsvpList.equals(((Table) other).rsvpList);
+            && uniquePersonList.equals(table.uniquePersonList);
     }
 
     /**
@@ -138,6 +156,6 @@ public final class Table {
      */
     @Override
     public int hashCode() {
-        return Objects.hash(tableId, capacity, rsvpList);
+        return Objects.hash(tableId, capacity, uniquePersonList);
     }
 }

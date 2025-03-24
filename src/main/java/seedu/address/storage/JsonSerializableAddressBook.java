@@ -20,44 +20,33 @@ import seedu.address.model.wedding.Wedding;
 @JsonRootName(value = "addressbook")
 class JsonSerializableAddressBook {
 
-    public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
+    public static final String MESSAGE_DUPLICATE_WEDDING = "Wedding list contains duplicate wedding(s).";
 
-    private final List<JsonAdaptedPerson> persons = new ArrayList<>();
-    private final JsonAdaptedWedding wedding;
+    private final List<JsonAdaptedWedding> weddings = new ArrayList<>();
 
     @JsonCreator
-    public JsonSerializableAddressBook(
-            @JsonProperty("persons") List<JsonAdaptedPerson> persons,
-            @JsonProperty("wedding") JsonAdaptedWedding wedding) {
-        this.persons.addAll(persons);
-        this.wedding = wedding;
+    public JsonSerializableAddressBook(@JsonProperty("weddingList") List<JsonAdaptedWedding> weddings) {
+        this.weddings.addAll(weddings);
     }
 
     public JsonSerializableAddressBook(ReadOnlyAddressBook source) {
-        persons.addAll(source.getPersonList().stream()
-                .map(JsonAdaptedPerson::new)
-                .collect(Collectors.toList()));
-
-        Wedding w = source.getWedding();
-        this.wedding = (w != null) ? new JsonAdaptedWedding(w) : null;
+        weddings.addAll(source.getWeddingList().stream()
+            .map(JsonAdaptedWedding::new)
+            .collect(Collectors.toList()));
     }
 
     public AddressBook toModelType() throws IllegalValueException {
         AddressBook addressBook = new AddressBook();
 
-        for (JsonAdaptedPerson jsonAdaptedPerson : persons) {
-            Person person = jsonAdaptedPerson.toModelType();
-            if (addressBook.hasPerson(person)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
+        for (JsonAdaptedWedding jsonAdaptedWedding : weddings) {
+            Wedding wedding = jsonAdaptedWedding.toModelType();
+            if (addressBook.hasWedding(wedding)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_WEDDING);
             }
-            addressBook.addPerson(person);
+            addressBook.addWedding(wedding);
         }
 
-        // Restore wedding
-        if (wedding != null) {
-            System.out.println("DEBUG: Restoring wedding from JSON -> " + wedding);
-            addressBook.setWedding(wedding.toModelType());
-        }
+        addressBook.setCurrentWedding(addressBook.getWeddingList().get(1));
 
         return addressBook;
     }

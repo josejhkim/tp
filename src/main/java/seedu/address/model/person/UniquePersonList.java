@@ -5,9 +5,11 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 
@@ -26,7 +28,17 @@ public class UniquePersonList implements Iterable<Person> {
 
     private final ObservableList<Person> internalList = FXCollections.observableArrayList();
     private final ObservableList<Person> internalUnmodifiableList =
-            FXCollections.unmodifiableObservableList(internalList);
+        FXCollections.unmodifiableObservableList(internalList);
+
+    public UniquePersonList() {
+
+    }
+
+    public UniquePersonList(UniquePersonList other) {
+        for (Person p : other) {
+            add(new Person(p));
+        }
+    }
 
     /**
      * Returns true if the list contains an equivalent person as the given argument.
@@ -72,12 +84,15 @@ public class UniquePersonList implements Iterable<Person> {
      * Removes the equivalent person from the list.
      * The person must exist in the list.
      */
-    public void remove(Person toRemove) {
+    public void delete(Person toRemove) {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
             throw new PersonNotFoundException();
         }
     }
+
+
+
     /**
      * Returns the person with the given name.
      * The person must exist in the list.
@@ -88,6 +103,14 @@ public class UniquePersonList implements Iterable<Person> {
             .filter(person -> person.getName().equals(name))
             .findFirst()
             .orElseThrow(PersonNotFoundException::new);
+    }
+
+    public Person findPersonByName(Phone phone) throws CommandException {
+        return getAllPersons().stream()
+            .filter(guest -> guest.getPhone().equals(phone))
+            .findFirst()
+            .orElseThrow(() -> new CommandException(
+                "Person with phone " + phone + " not found"));
     }
 
     public void setPersons(UniquePersonList replacement) {
@@ -113,6 +136,23 @@ public class UniquePersonList implements Iterable<Person> {
      */
     public ObservableList<Person> asUnmodifiableObservableList() {
         return internalUnmodifiableList;
+    }
+
+    /*
+     * Returns all guests in the RSVP list.
+     */
+    public List<Person> getAllPersons() {
+        return internalUnmodifiableList;
+    }
+
+    /**
+     * Returns all guests' names in the RSVP list.
+     * @return List of all guests' names in the RSVP list
+     */
+    public List<Name> getAllPersonsNames() {
+        return getAllPersons().stream()
+            .map(person -> person.getName())
+            .collect(Collectors.toUnmodifiableList());
     }
 
     @Override
@@ -143,6 +183,14 @@ public class UniquePersonList implements Iterable<Person> {
     @Override
     public String toString() {
         return internalList.toString();
+    }
+
+    public int size() {
+        return internalList.size();
+    }
+
+    public boolean isEmpty() {
+        return internalList.size() <= 0;
     }
 
     /**

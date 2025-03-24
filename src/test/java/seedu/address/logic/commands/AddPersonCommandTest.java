@@ -22,11 +22,14 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.table.Table;
 import seedu.address.model.wedding.Wedding;
 import seedu.address.testutil.PersonBuilder;
 
-public class AddCommandTest {
+public class AddPersonCommandTest {
 
     private Model model;
 
@@ -39,42 +42,44 @@ public class AddCommandTest {
 
     @Test
     public void constructor_nullPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new AddCommand(null));
+        assertThrows(NullPointerException.class, () -> new AddPersonCommand(null));
     }
 
     @Test
     public void execute_personAcceptedByModel_addSuccessful() throws Exception {
         Person validPerson = new PersonBuilder().build();
 
-        CommandResult commandResult = new AddCommand(validPerson).execute(model);
+        CommandResult commandResult = new AddPersonCommand(validPerson).execute(model);
 
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validPerson),
+        assertEquals(String.format(AddPersonCommand.MESSAGE_SUCCESS, validPerson),
             commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validPerson).toString(), ((ModelStubAcceptingPersonAdded) model)
-            .getCurrentWedding().getRsvpList().toString());
+
+        UniquePersonList kkk = model.getCurrentWedding().getUniquePersonList();
+        assertEquals(Arrays.asList(validPerson).toString(), model
+            .getCurrentWedding().getUniquePersonList().toString());
     }
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
         Person validPerson = new PersonBuilder().build();
-        AddCommand addCommand = new AddCommand(validPerson);
+        AddPersonCommand addPersonCommand = new AddPersonCommand(validPerson);
         model = new ModelStubWithPerson(validPerson);
 
-        assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_PERSON, () -> addCommand.execute(model));
+        assertThrows(CommandException.class, AddPersonCommand.MESSAGE_DUPLICATE_PERSON, () -> addPersonCommand.execute(model));
     }
 
     @Test
     public void equals() {
         Person alice = new PersonBuilder().withName("Alice").build();
         Person bob = new PersonBuilder().withName("Bob").build();
-        AddCommand addAliceCommand = new AddCommand(alice);
-        AddCommand addBobCommand = new AddCommand(bob);
+        AddPersonCommand addAliceCommand = new AddPersonCommand(alice);
+        AddPersonCommand addBobCommand = new AddPersonCommand(bob);
 
         // same object -> returns true
         assertTrue(addAliceCommand.equals(addAliceCommand));
 
         // same values -> returns true
-        AddCommand addAliceCommandCopy = new AddCommand(alice);
+        AddPersonCommand addAliceCommandCopy = new AddPersonCommand(alice);
         assertTrue(addAliceCommand.equals(addAliceCommandCopy));
 
         // different types -> returns false
@@ -89,9 +94,9 @@ public class AddCommandTest {
 
     @Test
     public void toStringMethod() {
-        AddCommand addCommand = new AddCommand(ALICE);
-        String expected = AddCommand.class.getCanonicalName() + "{toAdd=" + ALICE + "}";
-        assertEquals(expected, addCommand.toString());
+        AddPersonCommand addPersonCommand = new AddPersonCommand(ALICE);
+        String expected = AddPersonCommand.class.getCanonicalName() + "{toAdd=" + ALICE + "}";
+        assertEquals(expected, addPersonCommand.toString());
     }
 
     /**
@@ -142,6 +147,71 @@ public class AddCommandTest {
 
         @Override
         public ReadOnlyAddressBook getAddressBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Person findPersonByName(Name name) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addTable(Table table) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteTable(Table table) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteTable(int tableId) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addPersonToTable(Person p, int tableId) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addPersonToTable(Person p, Table table) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deletePersonFromTable(Person p, int tableId) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deletePersonFromTable(Person p, Table table) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setTable(Table target, Table editedTable) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Table getTable(int tableId) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteWedding(Wedding wedding) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteWedding(String weddingName) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setCurrentWedding(String weddingName) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -202,7 +272,7 @@ public class AddCommandTest {
             requireNonNull(person);
             this.person = person;
             Wedding addingWedding = new Wedding("john and jane");
-            addingWedding.addGuest(this.person); // Ensure a wedding is set
+            addingWedding.addPerson(this.person); // Ensure a wedding is set
             setCurrentWedding(addingWedding); // Ensure a wedding is set
         }
 
@@ -232,6 +302,7 @@ public class AddCommandTest {
         @Override
         public void addPerson(Person person) {
             requireNonNull(person);
+            getCurrentWedding().addPerson(person);
             personsAdded.add(person);
         }
 

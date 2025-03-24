@@ -16,7 +16,7 @@ import seedu.address.model.wedding.Wedding;
  * Adds the guest to the specified table.
  * If the guest was previously allocated to another table, removes them from there.
  */
-public class AddGuestToTableCommand extends Command {
+public class AddPersonToTableCommand extends Command {
 
     public static final String COMMAND_WORD = "addGuestToTable";
 
@@ -42,7 +42,7 @@ public class AddGuestToTableCommand extends Command {
      * @param guestName Name of the guest to add to the table
      * @param newTableId Int ID of the table to add the guest to
      */
-    public AddGuestToTableCommand(Name guestName, int newTableId) {
+    public AddPersonToTableCommand(Name guestName, int newTableId) {
         requireNonNull(guestName);
         requireNonNull(newTableId);
 
@@ -53,30 +53,29 @@ public class AddGuestToTableCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        Wedding currentWedding = model.getCurrentWedding();
-        if (currentWedding == null) {
-            throw new CommandException("No current wedding");
-        }
 
-        Person guestToAdd = currentWedding.findGuestByName(guestName);
-        Person addedGuest = createAddedGuest(currentWedding, guestToAdd, newTableId);
+        Person personToAdd = model.findPersonByName(guestName);
+        Table tableToBeAdded = model.getTable(newTableId);
 
-        if (!guestToAdd.equals(addedGuest) && currentWedding.hasGuest(addedGuest)) {
+        Person addedPerson = new Person(personToAdd, tableToBeAdded);
+
+        if (!personToAdd.equals(addedPerson) && model.hasPerson(addedPerson)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
-        currentWedding.setGuest(guestToAdd, addedGuest);
-        currentWedding.getTableList().removeGuestFromTable(newTableId, guestToAdd);
-        currentWedding.getTableList().assignGuestToTable(newTableId, addedGuest);
+        if (personToAdd.getTable().isPresent()) {
+            model.deletePersonFromTable(personToAdd, personToAdd.getTable().get());
+        }
+
+        model.setPerson(personToAdd, addedPerson);
+
         return new CommandResult(String.format(MESSAGE_ADD_GUEST_TO_TABLE_SUCCESS,
-            addedGuest.getName().fullName, newTableId));
+            addedPerson.getName().fullName, newTableId));
     }
 
 
-    private static Person createAddedGuest(Wedding wedding, Person guestToAdd, int newTableId) throws CommandException {
-        Table tableToAdd = wedding.getTableList().findTableById(newTableId);
-
-        Person addedGuest = new Person(guestToAdd, tableToAdd);
+    private static Person createAddedGuest(Person guestToAdd, Table table) throws CommandException {
+        Person addedGuest = new Person(guestToAdd, table);
 
         return addedGuest;
     }
@@ -88,13 +87,13 @@ public class AddGuestToTableCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof AddGuestToTableCommand)) {
+        if (!(other instanceof AddPersonToTableCommand)) {
             return false;
         }
 
-        AddGuestToTableCommand otherAddGuestToTableCommand = (AddGuestToTableCommand) other;
-        return guestName.equals(otherAddGuestToTableCommand.guestName)
-            && newTableId == otherAddGuestToTableCommand.newTableId;
+        AddPersonToTableCommand otherAddPersonToTableCommand = (AddPersonToTableCommand) other;
+        return guestName.equals(otherAddPersonToTableCommand.guestName)
+            && newTableId == otherAddPersonToTableCommand.newTableId;
     }
 
     @Override

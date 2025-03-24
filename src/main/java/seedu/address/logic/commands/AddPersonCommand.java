@@ -8,12 +8,12 @@ import seedu.address.model.person.Person;
 import seedu.address.model.wedding.Wedding;
 
 /**
- * Adds a guest to the current wedding.
+ * Adds a person to the current wedding.
  */
-public class AddCommand extends Command {
+public class AddPersonCommand extends Command {
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
-    public static final String COMMAND_WORD = "addGuest";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a guest to the current wedding.\n"
+    public static final String COMMAND_WORD = "addPerson";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a person to the current wedding.\n"
         + "Parameters: "
         + "n/NAME p/PHONE e/EMAIL a/ADDRESS d/DIETARY_RESTRICTION r/RSVP\n"
         + "Example: " + COMMAND_WORD + " "
@@ -23,13 +23,13 @@ public class AddCommand extends Command {
     public static final String MESSAGE_NO_CURRENT_WEDDING =
         "No current wedding set. Please set a current wedding first using the setWedding command.";
 
-    private final Person guest;
+    private final Person person;
     /**
      * Creates an AddGuestCommand to add the specified {@code Person} to the rsvp list in the current wedding.
      */
-    public AddCommand(Person guest) {
-        requireNonNull(guest);
-        this.guest = guest;
+    public AddPersonCommand(Person person) {
+        requireNonNull(person);
+        this.person = person;
     }
     /**
      * Executes the AddGuestCommand.
@@ -41,17 +41,13 @@ public class AddCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        Wedding currentWedding = model.getCurrentWedding();
-        if (currentWedding == null) {
-            throw new CommandException(MESSAGE_NO_CURRENT_WEDDING);
-        }
 
-        if (currentWedding.hasGuest(guest)) {
+        if (model.hasPerson(person)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
-        currentWedding.addGuest(guest);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, guest));
+        model.addPerson(person);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, person));
     }
 
     @Override
@@ -59,20 +55,20 @@ public class AddCommand extends Command {
         if (this == other) {
             return true;
         }
-        if (!(other instanceof AddCommand)) {
+        if (!(other instanceof AddPersonCommand)) {
             return false;
         }
-        AddCommand otherCommand = (AddCommand) other;
-        return guest.toString().equals(otherCommand.guest.toString());
+        AddPersonCommand otherCommand = (AddPersonCommand) other;
+        return person.toString().equals(otherCommand.person.toString());
     }
 
     @Override
     public int hashCode() {
-        return guest.hashCode();
+        return person.hashCode();
     }
 
     @Override
     public String toString() {
-        return "seedu.address.logic.commands.AddCommand{toAdd=" + guest + "}";
+        return "seedu.address.logic.commands.AddPersonCommand{toAdd=" + person + "}";
     }
 }

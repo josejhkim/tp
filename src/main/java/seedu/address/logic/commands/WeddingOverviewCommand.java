@@ -5,7 +5,6 @@ import java.util.List;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.RsvpList;
 import seedu.address.model.table.UniqueTableList;
 import seedu.address.model.wedding.Wedding;
 
@@ -40,18 +39,14 @@ public class WeddingOverviewCommand extends Command {
         }
 
         // ✅ Ensure TableList and RsvpList are properly initialized
-        UniqueTableList tableList = wedding.getTableList();
-        RsvpList rsvpList = wedding.getRsvpList();
+        UniqueTableList tableList = model.getCurrentWedding().getTableList();
 
         if (tableList == null) {
             tableList = new UniqueTableList();
         }
-        if (rsvpList == null) {
-            rsvpList = new RsvpList();
-        }
 
         int tableCount = tableList.asUnmodifiableObservableList().size();
-        List<Person> guests = rsvpList.getAllGuests();
+        List<Person> guests = model.getFilteredPersonList();
         int guestCount = guests.size();
 
         // ✅ Format the guest list properly
