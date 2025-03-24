@@ -64,6 +64,12 @@ public class Person {
         this.table = Optional.ofNullable(table);
     }
 
+    /**
+     * Constructs a new {@code Person} by copying all attributes from another {@code Person}.
+     * This is a deep copy where the new object has the same values but is a separate instance.
+     *
+     * @param other The {@code Person} instance to copy from.
+     */
     public Person(Person other) {
         this.name = other.getName();
         this.phone = other.getPhone();

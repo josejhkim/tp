@@ -58,6 +58,13 @@ public final class Table {
         this.uniquePersonList = uniquePersonList;
     }
 
+    /**
+     * Constructs a new {@code Table} by copying the table ID and capacity from another table,
+     * and creating a deep copy of its guest list. Each {@code Person} in the new guest list
+     * is associated with this new table instance.
+     *
+     * @param t The table to copy from.
+     */
     public Table(Table t) {
         this.tableId = t.tableId;
         this.capacity = t.capacity;

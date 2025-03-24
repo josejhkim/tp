@@ -1,13 +1,13 @@
 package seedu.address.storage;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.wedding.UniqueWeddingList;
-import seedu.address.model.wedding.Wedding;
 
 class JsonAdaptedWeddingList {
 

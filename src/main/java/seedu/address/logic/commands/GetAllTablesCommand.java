@@ -7,7 +7,6 @@ import java.util.List;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.table.Table;
-import seedu.address.model.wedding.Wedding;
 
 /**
  * Lists all tables in the current wedding.

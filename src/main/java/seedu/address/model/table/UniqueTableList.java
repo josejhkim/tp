@@ -1,6 +1,7 @@
 package seedu.address.model.table;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -10,7 +11,6 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.table.exceptions.TableNotFoundException;
-import seedu.address.model.wedding.Wedding;
 
 /**
  * Represents a unique list of tables in a wedding.
@@ -28,10 +28,19 @@ public class UniqueTableList implements Iterable<Table> {
     private final ObservableList<Table> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
 
+    /**
+     * Constructs an empty UniqueTableList.
+     */
     public UniqueTableList() {
 
     }
 
+    /**
+     * Constructs a new UniqueTableList by copying all tables from the given UniqueTableList.
+     * Each table is deeply copied.
+     *
+     * @param other The UniqueTableList to copy from.
+     */
     public UniqueTableList(UniqueTableList other) {
         for (Table t : other) {
             addTable(new Table(t));
@@ -48,6 +57,11 @@ public class UniqueTableList implements Iterable<Table> {
         return internalList.stream().anyMatch(toCheck::isSameTable);
     }
 
+    /**
+     * Returns an iterator over the tables in the list.
+     *
+     * @return an Iterator of Table.
+     */
     public Iterator<Table> iterator() {
         return internalList.iterator();
     }
@@ -81,6 +95,11 @@ public class UniqueTableList implements Iterable<Table> {
         throw new TableNotFoundException();
     }
 
+    /**
+     * Deletes the specified table from the list.
+     *
+     * @param table The table to be deleted.
+     */
     public void deleteTable(Table table) {
         internalList.remove(table);
     }
@@ -100,6 +119,12 @@ public class UniqueTableList implements Iterable<Table> {
         }
     }
 
+    /**
+     * Finds a table in the list that matches the given table by ID.
+     *
+     * @param table The table to find.
+     * @return The matching table if found, otherwise {@code null}.
+     */
     public Table findTable(Table table) {
         try {
             return internalList.stream().filter(t -> t.getTableId() == table.getTableId())
@@ -153,6 +178,14 @@ public class UniqueTableList implements Iterable<Table> {
         internalList.set(internalList.indexOf(table), updatedTable);
     }
 
+    /**
+     * Assigns a guest to the specified table.
+     *
+     * @param table The table to assign the guest to.
+     * @param guest The guest to assign.
+     * @throws TableNotFoundException if the table does not exist.
+     * @throws IllegalArgumentException if the table is full.
+     */
     public void assignGuestToTable(Table table, Person guest) {
         assignGuestToTable(table.getTableId(), guest);
     }
@@ -183,6 +216,14 @@ public class UniqueTableList implements Iterable<Table> {
         internalList.set(internalList.indexOf(table), updatedTable);
     }
 
+    /**
+     * Replaces the target table in the list with the edited table.
+     *
+     * @param target The table to be replaced.
+     * @param editedTable The new table to replace the target.
+     * @throws TableNotFoundException if the target table is not found.
+     * @throws DuplicatePersonException if the edited table duplicates another existing table.
+     */
     public void setTable(Table target, Table editedTable) {
         requireAllNonNull(target, editedTable);
 
@@ -220,6 +261,11 @@ public class UniqueTableList implements Iterable<Table> {
         return internalList.equals(otherUniqueTableList.internalList);
     }
 
+    /**
+     * Returns the number of tables in the list.
+     *
+     * @return The number of tables.
+     */
     public int size() {
         return internalList.size();
     }

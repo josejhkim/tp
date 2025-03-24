@@ -1,15 +1,12 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TABLE_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_WEDDING_NAME;
 
 import java.util.stream.Stream;
-import seedu.address.logic.commands.DeletePersonFromTableCommand;
+
 import seedu.address.logic.commands.DeleteWeddingCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Name;
 
 
 /**

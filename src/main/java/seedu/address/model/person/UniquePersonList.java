@@ -30,10 +30,18 @@ public class UniquePersonList implements Iterable<Person> {
     private final ObservableList<Person> internalUnmodifiableList =
         FXCollections.unmodifiableObservableList(internalList);
 
+    /**
+     * Constructs an empty UniquePersonList.
+     */
     public UniquePersonList() {
 
     }
 
+    /**
+     * Constructs a UniquePersonList by copying another UniquePersonList.
+     *
+     * @param other The UniquePersonList to copy.
+     */
     public UniquePersonList(UniquePersonList other) {
         for (Person p : other) {
             add(new Person(p));
@@ -91,8 +99,6 @@ public class UniquePersonList implements Iterable<Person> {
         }
     }
 
-
-
     /**
      * Returns the person with the given name.
      * The person must exist in the list.
@@ -105,6 +111,14 @@ public class UniquePersonList implements Iterable<Person> {
             .orElseThrow(PersonNotFoundException::new);
     }
 
+    /**
+     * Returns the person with the given phone number.
+     * The person must exist in the list.
+     *
+     * @param phone The phone number of the person to find.
+     * @return The matching person.
+     * @throws CommandException if no person with the given phone is found.
+     */
     public Person findPersonByName(Phone phone) throws CommandException {
         return getAllPersons().stream()
             .filter(guest -> guest.getPhone().equals(phone))
