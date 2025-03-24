@@ -5,9 +5,10 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import seedu.address.model.person.DietaryRestriction.TypicalRestriction;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import seedu.address.model.person.DietaryRestriction.TypicalRestriction;
 import seedu.address.testutil.PersonBuilder;
 
 public class DietaryRestrictionFilterTest {
@@ -16,8 +17,8 @@ public class DietaryRestrictionFilterTest {
     private DietaryRestriction vegetarian;
     private DietaryRestrictionFilter vegetarianFilter;
 
-    TypicalRestriction typicalVegetarian = TypicalRestriction.VEGETARIAN;
-    TypicalRestriction typicalVegan = TypicalRestriction.VEGAN;
+    private final TypicalRestriction typicalVegetarian = TypicalRestriction.VEGETARIAN;
+    private final TypicalRestriction typicalVegan = TypicalRestriction.VEGAN;
 
     @BeforeEach
     public void setUp() {

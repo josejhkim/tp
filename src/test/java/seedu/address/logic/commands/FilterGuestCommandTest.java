@@ -17,6 +17,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
@@ -29,7 +30,6 @@ import seedu.address.model.person.Rsvp;
 import seedu.address.model.person.RsvpFilter;
 import seedu.address.testutil.AddressBookBuilder;
 import seedu.address.testutil.TypicalPersons;
-import seedu.address.commons.util.ToStringBuilder;
 
 /**
  * Contains unit tests for {@code FilterGuestCommand}.
