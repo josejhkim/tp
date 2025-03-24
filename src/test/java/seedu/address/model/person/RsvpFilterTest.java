@@ -8,6 +8,7 @@ import static seedu.address.model.person.Rsvp.Status;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import seedu.address.testutil.PersonBuilder;
 
 public class RsvpFilterTest {

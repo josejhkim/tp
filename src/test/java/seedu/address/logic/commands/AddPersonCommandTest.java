@@ -65,7 +65,8 @@ public class AddPersonCommandTest {
         AddPersonCommand addPersonCommand = new AddPersonCommand(validPerson);
         model = new ModelStubWithPerson(validPerson);
 
-        assertThrows(CommandException.class, AddPersonCommand.MESSAGE_DUPLICATE_PERSON, () -> addPersonCommand.execute(model));
+        assertThrows(CommandException.class,
+                AddPersonCommand.MESSAGE_DUPLICATE_PERSON, () -> addPersonCommand.execute(model));
     }
 
     @Test
@@ -211,8 +212,18 @@ public class AddPersonCommandTest {
         }
 
         @Override
+        public void deleteWedding() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void setCurrentWedding(String weddingName) {
             throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setCurrentWedding(Wedding wedding) {
+            this.currentWedding = wedding;
         }
 
         @Override
@@ -246,20 +257,9 @@ public class AddPersonCommandTest {
         }
 
         @Override
-        public void deleteWedding() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public Wedding getCurrentWedding() {
             return currentWedding;
         }
-
-        @Override
-        public void setCurrentWedding(Wedding wedding) {
-            this.currentWedding = wedding;
-        }
-
     }
 
     /**
@@ -313,4 +313,3 @@ public class AddPersonCommandTest {
     }
 
 }
-
