@@ -1,20 +1,18 @@
 package seedu.address.logic.parser;
 
-import static java.util.Objects.requireNonNull;
-
 import java.util.Collection;
 import java.util.HashSet;
+import static java.util.Objects.requireNonNull;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Address;
+import seedu.address.model.person.DietaryRestriction;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
-import seedu.address.model.person.category.Category;
-import seedu.address.model.person.DietaryRestriction;
 import seedu.address.model.person.Rsvp;
 import seedu.address.model.table.Table;
 import seedu.address.model.tag.Tag;
@@ -194,43 +192,4 @@ public class ParserUtil {
 
         return trimmedWeddingName;
     }
-
-    /**
-     * Parses a {@code String category} and {@code String field} into a {@code Category}.
-     * The category determines which subclass to create.
-     * - If category is "RSVP", the field is parsed as an RSVP status. If the field is empty, returns a default RSVP.
-     * - If category is "Dietary Restrictions", the field is parsed as a DietaryRestriction.
-     * Leading and trailing whitespaces will be trimmed.
-     * @throws ParseException if the given {@code category} or {@code field} is invalid.
-     */
-    public static Category parseFilter(String category, String field) throws ParseException {
-        requireNonNull(category);
-        requireNonNull(field);
-        String trimmedCategory = category.trim();
-        String trimmedField = field.trim();
-
-        try {
-            if (trimmedCategory.equalsIgnoreCase("RSVP")) {
-                if (trimmedField.isEmpty()) {
-                    // Return default RSVP (with NO_RESPONSE) if field is empty.
-                    return new Rsvp();
-                } else {
-                    return parseRsvp(trimmedField);
-                }
-            } else if (trimmedCategory.equalsIgnoreCase("Dietary Restrictions")) {
-                if (trimmedField.isEmpty()) {
-                    throw new ParseException("Dietary Restriction field cannot be empty.");
-                }
-                return parseDietaryRestriction(trimmedField);
-            } else {
-                throw new ParseException("Unknown category: " + trimmedCategory);
-            }
-        } catch (ParseException pe) {
-            throw new ParseException("Error parsing filter for category '" + trimmedCategory + "': " + pe.getMessage());
-        } catch (Exception e) {
-            throw new ParseException("Unexpected error parsing filter for category '" + trimmedCategory + "': "
-                    + e.getMessage());
-        }
-    }
-
 }

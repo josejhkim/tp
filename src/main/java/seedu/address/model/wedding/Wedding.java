@@ -1,8 +1,7 @@
 package seedu.address.model.wedding;
 
-import static java.util.Objects.requireNonNull;
-
 import java.util.Objects;
+import static java.util.Objects.requireNonNull;
 
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
@@ -21,9 +20,10 @@ public class Wedding {
     private final UniqueTableList tableList; // All tables for seating
 
     /**
-     * Constructs a {@code Wedding}.
+     * Constructs a new {@code Wedding} with the given name.
+     * Initializes empty person and table lists.
      *
-     * @param name A table name.
+     * @param name Name of the wedding.
      */
     public Wedding(String name) {
         this.name = name;
@@ -290,6 +290,12 @@ public class Wedding {
     // =========== Utils
     // ================================================================================
 
+    /**
+     * Checks if two weddings are equal.
+     *
+     * @param other The other object to compare with.
+     * @return True if equal, false otherwise.
+     */
     @Override
     public boolean equals(Object other) {
         if (this == other) {
@@ -304,11 +310,21 @@ public class Wedding {
                 && tableList.equals(otherWedding.tableList);
     }
 
+    /**
+     * Returns the hash code for the wedding.
+     *
+     * @return Hash code integer.
+     */
     @Override
     public int hashCode() {
         return Objects.hash(name, uniquePersonList, tableList);
     }
 
+    /**
+     * Returns a string representation of the wedding.
+     *
+     * @return String describing the wedding.
+     */
     @Override
     public String toString() {
         return "Wedding{name='" + name + "', people= " + uniquePersonList + '}';
