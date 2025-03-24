@@ -35,14 +35,14 @@ public class WeddingOverviewCommandTest {
         CommandResult result = command.execute(model);
 
         // ✅ Format the guest list properly
-        String formattedGuestList = testWedding.getRsvpList().getAllGuests().isEmpty()
+        String formattedGuestList = testWedding.getUniquePersonList().isEmpty()
                 ? "No guests added yet."
-                : testWedding.getRsvpList().getAllGuests().toString();
+                : testWedding.getUniquePersonList().toString();
 
         String expectedMessage = String.format(WeddingOverviewCommand.MESSAGE_SUCCESS,
                 "John and Jane's Wedding",
                 testWedding.getTableList().asUnmodifiableObservableList().size(),
-                testWedding.getRsvpList().getAllGuests().size(),
+                testWedding.getUniquePersonList().size(),
                 formattedGuestList);
 
         assertEquals(expectedMessage, result.getFeedbackToUser());

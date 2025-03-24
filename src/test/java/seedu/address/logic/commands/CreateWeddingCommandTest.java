@@ -39,7 +39,8 @@ public class CreateWeddingCommandTest {
     @Test
     public void execute_createWeddingWhenAlreadyExists_throwsCommandException() {
         String weddingName = "Existing Wedding";
-        model.setCurrentWedding(new Wedding(weddingName)); // Set an existing wedding
+        model.addWedding(new Wedding("Existing Wedding"));
+        model.setCurrentWedding("Existing Wedding"); // Set an existing wedding
 
         CreateWeddingCommand command = new CreateWeddingCommand("New Wedding");
 

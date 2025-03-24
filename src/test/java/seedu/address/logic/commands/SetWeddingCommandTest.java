@@ -37,12 +37,13 @@ public class SetWeddingCommandTest {
     public void execute_setWedding_failure() {
         // First, set an existing wedding
         Wedding existingWedding = new Wedding("Existing Wedding");
+        model.addWedding(existingWedding);
         model.setCurrentWedding(existingWedding);
 
         // Then, attempt to set a **different** wedding, which should fail
         SetWeddingCommand command = new SetWeddingCommand("New Wedding");
 
         assertThrows(CommandException.class, () -> command.execute(model),
-                "A different wedding exists. Delete the current wedding first.");
+                "Requested wedding does not exist in the app.");
     }
 }

@@ -43,7 +43,8 @@ public class DeletePersonFromTableCommandTest {
             new Rsvp(Rsvp.Status.YES),
             null);
 
-        currentWedding.getRsvpList().add(guest);
+        currentWedding.addPerson(guest);
+        currentWedding.addPersonToTable(guest, 1);
     }
 
     @Test

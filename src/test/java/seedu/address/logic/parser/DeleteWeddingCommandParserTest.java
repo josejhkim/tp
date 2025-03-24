@@ -21,7 +21,7 @@ public class DeleteWeddingCommandParserTest {
         DeleteWeddingCommand command = parser.parse(validArgs);
 
         // ✅ Remove the argument since DeleteWeddingCommand takes no arguments
-        assertEquals(new DeleteWeddingCommand(), command);
+        assertEquals(new DeleteWeddingCommand("Default Wedding"), command);
     }
 
     @Test

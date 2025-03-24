@@ -69,6 +69,6 @@ public class AddPersonCommand extends Command {
 
     @Override
     public String toString() {
-        return "seedu.address.logic.commands.AddCommand{toAdd=" + person + "}";
+        return "seedu.address.logic.commands.AddPersonCommand{toAdd=" + person + "}";
     }
 }

@@ -38,9 +38,6 @@ public class ModelManager implements Model {
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
 
-        if (addressBook.getCurrentWedding() != null) {
-            setCurrentWedding(addressBook.getCurrentWedding());
-        }
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         filteredTables = new FilteredList<>(this.addressBook.getTableList());
     }
@@ -239,6 +236,7 @@ public class ModelManager implements Model {
         addressBook.setCurrentWedding(wedding);
     }
 
+    @Override
     public void setCurrentWedding(String weddingName) {
         addressBook.setCurrentWeddingByName(weddingName);
     }
@@ -258,7 +256,7 @@ public class ModelManager implements Model {
 
         ModelManager otherModelManager = (ModelManager) other;
         return addressBook.equals(otherModelManager.addressBook)
-                && userPrefs.equals(otherModelManager.userPrefs)
-                && filteredPersons.equals(otherModelManager.filteredPersons);
+            && userPrefs.equals(otherModelManager.userPrefs)
+            && filteredPersons.equals(otherModelManager.filteredPersons);
     }
 }

@@ -10,7 +10,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.table.Table;
-import seedu.address.model.table.UniqueWeddingList;
+import seedu.address.model.table.UniqueTableList;
 import seedu.address.model.wedding.Wedding;
 
 
@@ -23,7 +23,8 @@ public class DeleteTableCommandTest {
     @BeforeEach
     public void setUp() {
         model = new ModelManager();
-        model.setCurrentWedding(new Wedding("Test Wedding"));
+        model.addWedding(new Wedding("Test Wedding"));
+        model.setCurrentWedding("Test Wedding");
     }
     @Test
     public void execute_validTable_deletionSuccessful() throws CommandException {
@@ -31,8 +32,7 @@ public class DeleteTableCommandTest {
         Wedding wedding = model.getCurrentWedding();
         System.out.println("DEBUG: Wedding: " + (wedding == null ? "null" : wedding.getName()));
 
-        UniqueWeddingList tableList = model.getCurrentWedding().getTableList();
-
+        UniqueTableList tableList = model.getCurrentWedding().getTableList();
 
         System.out.println("DEBUG: TableList: " + (tableList == null ? "null" : "initialized"));
 
@@ -41,7 +41,7 @@ public class DeleteTableCommandTest {
         DeleteTableCommand command = new DeleteTableCommand(1);
         CommandResult result = command.execute(model);
 
-        String expectedMessage = "Table deleted: Table{ID=1, Capacity=8, Person Names=[]}";
+        String expectedMessage = "Table deleted: 1";
         assertEquals(expectedMessage, result.getFeedbackToUser());
 
         // Ensure the table was deleted

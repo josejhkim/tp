@@ -7,9 +7,10 @@ import java.util.NoSuchElementException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.RsvpList;
+import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.table.exceptions.TableNotFoundException;
+import seedu.address.model.wedding.Wedding;
 
 /**
  * Represents a unique list of tables in a wedding.
@@ -26,6 +27,16 @@ public class UniqueTableList implements Iterable<Table> {
     private final ObservableList<Table> internalList = FXCollections.observableArrayList();
     private final ObservableList<Table> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
+
+    public UniqueTableList() {
+
+    }
+
+    public UniqueTableList(UniqueTableList other) {
+        for (Table t : other) {
+            addTable(new Table(t));
+        }
+    }
 
     /**
      * Checks if a table with the same identity as {@code toCheck} exists in the list.
@@ -80,12 +91,12 @@ public class UniqueTableList implements Iterable<Table> {
      * @param tableId The ID of the table to find.
      * @return An {@code Optional} containing the table if found, otherwise an empty {@code Optional}.
      */
-    public Table findTable(int tableId) {
+    public Table findTable(int tableId) throws TableNotFoundException {
         try {
             return internalList.stream().filter(table -> table.getTableId() == tableId)
                 .findFirst().get();
         } catch (NoSuchElementException nsee) {
-            return null;
+            throw new TableNotFoundException();
         }
     }
 
@@ -126,19 +137,19 @@ public class UniqueTableList implements Iterable<Table> {
             throw new TableNotFoundException();
         }
 
-        RsvpList newList = new RsvpList();
+        UniquePersonList personList = new UniquePersonList();
 
         for (Person g : table.getGuests()) {
-            newList.add(g);
+            personList.add(g);
         }
 
-        newList.add(guest);
+        personList.add(guest);
 
-        if (newList.size() >= table.getCapacity()) {
+        if (personList.size() >= table.getCapacity()) {
             throw new IllegalArgumentException("Table is full.");
         }
 
-        Table updatedTable = new Table(table.getTableId(), table.getCapacity(), newList);
+        Table updatedTable = new Table(table.getTableId(), table.getCapacity(), personList);
         internalList.set(internalList.indexOf(table), updatedTable);
     }
 
@@ -162,13 +173,13 @@ public class UniqueTableList implements Iterable<Table> {
             throw new TableNotFoundException();
         }
 
-        RsvpList rsvpList = new RsvpList();
+        UniquePersonList personList = new UniquePersonList();
 
         table.getGuests().stream()
                 .filter(g -> !g.equals(guest))
-                .forEach(g -> rsvpList.add(g));
+                .forEach(g -> personList.add(g));
 
-        Table updatedTable = new Table(table.getTableId(), table.getCapacity(), rsvpList);
+        Table updatedTable = new Table(table.getTableId(), table.getCapacity(), personList);
         internalList.set(internalList.indexOf(table), updatedTable);
     }
 
@@ -194,6 +205,19 @@ public class UniqueTableList implements Iterable<Table> {
      */
     public ObservableList<Table> asUnmodifiableObservableList() {
         return internalUnmodifiableList;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        }
+        if (!(other instanceof UniqueTableList)) {
+            return false;
+        }
+        UniqueTableList otherUniqueTableList = (UniqueTableList) other;
+
+        return internalList.equals(otherUniqueTableList.internalList);
     }
 
     public int size() {

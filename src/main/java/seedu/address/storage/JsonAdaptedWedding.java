@@ -29,7 +29,7 @@ class JsonAdaptedWedding {
         this.name = source.getName();
 
         // Convert all guests from RsvpList
-        this.guests = source.getRsvpList().getAllGuests().stream()
+        this.guests = source.getUniquePersonList().asUnmodifiableObservableList().stream()
                 .map(JsonAdaptedPerson::new)
                 .collect(Collectors.toList());
 
@@ -45,7 +45,7 @@ class JsonAdaptedWedding {
 
         // Restore guests
         for (JsonAdaptedPerson jGuest : guests) {
-            wedding.getRsvpList().add(jGuest.toModelType());
+            wedding.addPerson(jGuest.toModelType());
         }
 
         // Restore tables

@@ -5,7 +5,6 @@ import java.util.Objects;
 
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.RsvpList;
 import seedu.address.model.person.UniquePersonList;
 
 /**
@@ -57,6 +56,16 @@ public final class Table {
         this.tableId = tableId;
         this.capacity = capacity;
         this.uniquePersonList = uniquePersonList;
+    }
+
+    public Table(Table t) {
+        this.tableId = t.tableId;
+        this.capacity = t.capacity;
+        this.uniquePersonList = new UniquePersonList();
+        for (Person p : t.uniquePersonList) {
+            Person toAdd = new Person(p, this);
+            this.uniquePersonList.add(toAdd);
+        }
     }
 
     /**

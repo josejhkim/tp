@@ -9,6 +9,7 @@ import java.util.NoSuchElementException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.wedding.exceptions.DuplicateWeddingException;
 import seedu.address.model.wedding.exceptions.WeddingNotFoundException;
@@ -85,7 +86,7 @@ public class UniqueWeddingList implements Iterable<Wedding> {
      */
     public Wedding findWeddingByName(String weddingName) {
         try {
-            return internalList.stream().filter(wedding -> wedding.getName() == weddingName)
+            return internalList.stream().filter(wedding -> wedding.getName().equals(weddingName))
                 .findFirst().get();
         } catch (NoSuchElementException nsee) {
             return null;
@@ -186,6 +187,10 @@ public class UniqueWeddingList implements Iterable<Wedding> {
         return internalUnmodifiableList;
     }
 
+    public List<Wedding> getAllWeddings() {
+        return internalUnmodifiableList;
+    }
+
     public int size() {
         return internalList.size();
     }
@@ -199,5 +204,20 @@ public class UniqueWeddingList implements Iterable<Wedding> {
             }
         }
         return true;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof UniqueWeddingList)) {
+            return false;
+        }
+
+        UniqueWeddingList otherWeddingList = (UniqueWeddingList) other;
+        return internalList.equals(otherWeddingList.internalList);
     }
 }

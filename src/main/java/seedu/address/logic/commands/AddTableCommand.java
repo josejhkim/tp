@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.table.Table;
+import seedu.address.model.table.exceptions.TableNotFoundException;
 import seedu.address.model.wedding.Wedding;
 
 /**
@@ -40,14 +41,17 @@ public class AddTableCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-
-        if (model.getTable(tableId) != null) {
+        try {
+            Table t = model.getTable(tableId);
             throw new CommandException(MESSAGE_DUPLICATE_TABLE);
+
+        } catch (TableNotFoundException tnfe) {
+
+            Table table = new Table(tableId, capacity);
+            model.addTable(table);
+
+            return new CommandResult(String.format(MESSAGE_SUCCESS, tableId, capacity));
         }
 
-        Table table = new Table(tableId, capacity);
-        model.addTable(table);
-
-        return new CommandResult(String.format(MESSAGE_SUCCESS, tableId, capacity));
     }
 }

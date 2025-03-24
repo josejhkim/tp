@@ -5,7 +5,6 @@ import java.util.Objects;
 
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.RsvpList;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.table.Table;
@@ -17,7 +16,6 @@ import seedu.address.model.table.exceptions.TableNotFoundException;
  */
 public class Wedding {
     private final String name;
-    private final RsvpList rsvpList;
     private final UniquePersonList uniquePersonList;
     private final UniqueTableList tableList; // All tables for seating
     /**
@@ -27,17 +25,18 @@ public class Wedding {
      */
     public Wedding(String name) {
         this.name = name;
-        this.rsvpList = new RsvpList();
         this.uniquePersonList = new UniquePersonList();
         this.tableList = new UniqueTableList();
     }
 
-    public String getName() {
-        return name;
+    public Wedding(Wedding wedding) {
+        this.name = wedding.name;
+        this.uniquePersonList = new UniquePersonList(wedding.uniquePersonList);
+        this.tableList = new UniqueTableList(wedding.tableList);
     }
 
-    public RsvpList getRsvpList() {
-        return rsvpList;
+    public String getName() {
+        return name;
     }
 
     public UniquePersonList getUniquePersonList() {
@@ -168,9 +167,10 @@ public class Wedding {
             return false;
         }
         Wedding otherWedding = (Wedding) other;
-        return Objects.equals(name, otherWedding.name)
-            && Objects.equals(uniquePersonList, otherWedding.uniquePersonList)
-            && Objects.equals(tableList, otherWedding.tableList);
+
+        return name.equals(otherWedding.name)
+            && uniquePersonList.equals(otherWedding.uniquePersonList)
+            && tableList.equals(otherWedding.tableList);
     }
 
     @Override

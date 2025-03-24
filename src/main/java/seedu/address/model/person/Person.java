@@ -64,6 +64,17 @@ public class Person {
         this.table = Optional.ofNullable(table);
     }
 
+    public Person(Person other) {
+        this.name = other.getName();
+        this.phone = other.getPhone();
+        this.email = other.getEmail();
+        this.address = other.getAddress();
+        this.tags.addAll(other.getTags());
+        this.dietaryRestriction = other.getDietaryRestriction();
+        this.rsvp = other.getRsvp();
+        this.table = other.getTable();
+    }
+
     public Name getName() {
         return name;
     }
@@ -107,7 +118,8 @@ public class Person {
      * @return The string representation for the table id
      */
     public String getTableIdString() {
-        return table.map(Table::toString).orElse("Unassigned");
+        return table.map(t -> String.valueOf(t.getTableId()))
+            .orElse("Unassigned");
     }
 
     /**
@@ -153,8 +165,8 @@ public class Person {
                 && email.equals(otherPerson.email)
                 && address.equals(otherPerson.address)
                 && tags.equals(otherPerson.tags)
-                && Objects.equals(dietaryRestriction, otherPerson.dietaryRestriction)
-                && rsvp == otherPerson.rsvp;
+                && dietaryRestriction.equals(otherPerson.dietaryRestriction)
+                && rsvp.equals(otherPerson.rsvp);
     }
 
     @Override

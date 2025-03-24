@@ -5,6 +5,6 @@ package seedu.address.model.wedding.exceptions;
  */
 public class WeddingNotFoundException extends RuntimeException {
     public WeddingNotFoundException() {
-        super("Requested table does not exist in the list.");
+        super("Requested wedding does not exist in the app.");
     }
 }

@@ -12,6 +12,7 @@ import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.table.Table;
 import seedu.address.model.wedding.UniqueWeddingList;
 import seedu.address.model.wedding.Wedding;
+import seedu.address.model.wedding.exceptions.WeddingNotFoundException;
 
 /**
  * Wraps all data at the address-book level
@@ -19,32 +20,29 @@ import seedu.address.model.wedding.Wedding;
  */
 public class AddressBook implements ReadOnlyAddressBook {
 
-    private Wedding wedding;
-
     private Wedding currentWedding;
 
-    private UniqueWeddingList uniqueWeddingList;
-    /*
-     * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
-     * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
-     *
-     * Note that non-static init blocks are not recommended to use. There are other ways to avoid duplication
-     *   among constructors.
-     */
-    {
-        currentWedding = new Wedding("Wedding");
-        uniqueWeddingList = new UniqueWeddingList();
-    }
+    private UniqueWeddingList uniqueWeddingList = new UniqueWeddingList();
+//    /*
+//     * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
+//     * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
+//     *
+//     * Note that non-static init blocks are not recommended to use. There are other ways to avoid duplication
+//     *   among constructors.
+//     */
+//    {
+//        uniqueWeddingList = new UniqueWeddingList();
+//    }
 
     public AddressBook() {
         this.currentWedding = new Wedding("Wedding");
+        this.addWedding(this.currentWedding);
     }
 
     /**
      * Creates an AddressBook using the Persons in the {@code toBeCopied}
      */
     public AddressBook(ReadOnlyAddressBook toBeCopied) {
-        this();
         resetData(toBeCopied);
     }
 
@@ -67,7 +65,13 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void resetData(ReadOnlyAddressBook newData) {
         requireNonNull(newData);
 
+        uniqueWeddingList = new UniqueWeddingList();
+
         setWeddings(newData.getWeddingList());
+
+        if (newData.getCurrentWedding() != null) {
+            setCurrentWeddingByName(newData.getCurrentWedding().getName());
+        }
     }
 
     //=========== Weddings ================================================================================
@@ -87,6 +91,9 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void setCurrentWedding(Wedding wedding) {
         requireNonNull(wedding);
+        if (this.uniqueWeddingList.findWeddingByName(wedding.getName()) == null) {
+            throw new WeddingNotFoundException();
+        }
         this.currentWedding = wedding;
     }
 
@@ -104,18 +111,22 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     public void deleteWedding(Wedding wedding) {
-        if (uniqueWeddingList.size() > 0) {
+        if (uniqueWeddingList.size() > 1) {
             uniqueWeddingList.deleteWedding(wedding);
 
             if (wedding.equals(this.currentWedding)) {
                 this.currentWedding = uniqueWeddingList.asUnmodifiableObservableList().
                     stream().findAny().get();
             }
+            return;
         }
 
-        Wedding defaultWedding = new Wedding("Wedding");
-        uniqueWeddingList.addWedding(wedding);
-        setCurrentWedding(wedding);
+        if (uniqueWeddingList.size() == 1) {
+            uniqueWeddingList.deleteWedding(wedding);
+            Wedding defaultWedding = new Wedding("Wedding");
+            uniqueWeddingList.addWedding(wedding);
+            setCurrentWedding(wedding);
+        }
     }
 
     public void deleteCurrentWedding() {
@@ -131,7 +142,11 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Checks if a wedding exists.
      */
     public boolean hasWedding() {
-        return wedding != null;
+        return currentWedding != null;
+    }
+
+    public boolean hasWedding(Wedding wedding) {
+        return uniqueWeddingList.contains(wedding);
     }
 
     public void setWedding(Wedding wedding, Wedding target) {
@@ -139,11 +154,14 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     public void setWeddings(List<Wedding> weddings) {
-        this.uniqueWeddingList.setWeddings(weddings);
+        for (Wedding wedding : weddings) {
+            Wedding toBeAdded = new Wedding(wedding);
+            this.uniqueWeddingList.addWedding(toBeAdded);
+        }
     }
 
     public void setWeddings(UniqueWeddingList uniqueWeddingList) {
-        this.uniqueWeddingList.setWeddings(uniqueWeddingList);
+        setWeddings(uniqueWeddingList.asUnmodifiableObservableList());
     }
 
     //=========== Persons ================================================================================
