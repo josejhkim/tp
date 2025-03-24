@@ -29,6 +29,14 @@ public class FilterGuestCommand extends Command {
     public static final String MESSAGE_INVALID_DIETARY_RESTRICTION = "Please enter a valid dietary restriction.";
     final Predicate<Person> combinedPredicate;
 
+    /**
+     * Constructs a FilterGuestCommand with the specified dietary and RSVP filters.
+     * At least one of the filters must be non-null.
+     *
+     * @param dietaryFilter the dietary restriction filter to apply; may be null
+     * @param rsvpFilter the RSVP filter to apply; may be null
+     * @throws IllegalArgumentException if both filters are null
+     */
     public FilterGuestCommand(DietaryRestrictionFilter dietaryFilter, RsvpFilter rsvpFilter) {
         if (dietaryFilter == null && rsvpFilter == null) {
             throw new IllegalArgumentException("At least one filter must be provided.");
