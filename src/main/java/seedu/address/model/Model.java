@@ -16,7 +16,8 @@ import seedu.address.model.wedding.Wedding;
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
-    Predicate<Person> PREDICATE_SHOW_ALL_GUESTS = unused -> true;
+    Predicate<Table> PREDICATE_SHOW_ALL_TABLES = unused -> true;
+
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -94,6 +95,7 @@ public interface Model {
     void updateFilteredPersonList(Predicate<Person> predicate);
 
     //=========== Table ==================================================================================
+    ObservableList<Table> getFilteredTableList();
 
     void addTable(Table table);
 

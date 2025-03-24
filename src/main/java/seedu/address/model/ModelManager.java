@@ -24,8 +24,8 @@ public class ModelManager implements Model {
 
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
-    private final FilteredList<Person> filteredPersons;
-    private final FilteredList<Table> filteredTables;
+    private FilteredList<Person> filteredPersons;
+    private FilteredList<Table> filteredTables;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -115,7 +115,6 @@ public class ModelManager implements Model {
     @Override
     public void setPerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
-
         addressBook.setPerson(target, editedPerson);
     }
 
@@ -141,6 +140,16 @@ public class ModelManager implements Model {
         filteredPersons.setPredicate(predicate);
     }
 
+    @Override
+    public ObservableList<Table> getFilteredTableList() {
+        return filteredTables;
+    }
+
+    public void updateFilteredTableList(Predicate<Table> predicate) {
+        requireNonNull(predicate);
+        filteredTables.setPredicate(predicate);
+    }
+
     //=========== Tables ================================================================================
 
     public void addTable(Table table) {
@@ -164,7 +173,6 @@ public class ModelManager implements Model {
     @Override
     public void setTable(Table target, Table editedTable) {
         requireAllNonNull(target, editedTable);
-
         addressBook.setTable(target, editedTable);
     }
 
@@ -234,11 +242,19 @@ public class ModelManager implements Model {
     public void setCurrentWedding(Wedding wedding) {
         requireNonNull(wedding);
         addressBook.setCurrentWedding(wedding);
+        filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        filteredTables = new FilteredList<>(this.addressBook.getTableList());
+        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        updateFilteredTableList(PREDICATE_SHOW_ALL_TABLES);
     }
 
     @Override
     public void setCurrentWedding(String weddingName) {
         addressBook.setCurrentWeddingByName(weddingName);
+        filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        filteredTables = new FilteredList<>(this.addressBook.getTableList());
+        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        updateFilteredTableList(PREDICATE_SHOW_ALL_TABLES);
     }
 
     //=========== Other Utils ================================================================================
