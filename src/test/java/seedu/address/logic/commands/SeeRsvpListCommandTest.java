@@ -41,7 +41,7 @@ public class SeeRsvpListCommandTest {
             new Rsvp(Rsvp.Status.YES),
             null);
 
-        model.getCurrentWedding().addGuest(guest);
+        model.addPerson(guest);
         SeeRsvpListCommand command = new SeeRsvpListCommand();
 
         CommandResult result = command.execute(model);

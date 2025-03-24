@@ -30,8 +30,8 @@ public class DeletePersonCommandTest {
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
-        Person personToDelete = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-        DeletePersonCommand deletePersonCommand = new DeletePersonCommand(INDEX_FIRST_PERSON);
+        Person personToDelete = model.getFilteredPersonList().get(0);
+        DeletePersonCommand deletePersonCommand = new DeletePersonCommand(Index.fromOneBased(1));
 
         String expectedMessage = String.format(DeletePersonCommand.MESSAGE_DELETE_PERSON_SUCCESS,
                 Messages.format(personToDelete));
@@ -60,6 +60,7 @@ public class DeletePersonCommandTest {
         String expectedMessage = String.format(DeletePersonCommand.MESSAGE_DELETE_PERSON_SUCCESS,
                 Messages.format(personToDelete));
         AddressBook ab = new AddressBook();
+        ab.addWedding(model.getCurrentWedding());
         ab.setCurrentWedding(model.getCurrentWedding());
         Model expectedModel = new ModelManager(ab, new UserPrefs());
         expectedModel.deletePerson(personToDelete);

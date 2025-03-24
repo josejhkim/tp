@@ -48,7 +48,7 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_deleteWedding() throws Exception {
         DeleteWeddingCommand command = (DeleteWeddingCommand) parser.parseCommand(DeleteWeddingCommand.COMMAND_WORD);
-        assertEquals(new DeleteWeddingCommand(), command);
+        assertEquals(new DeleteWeddingCommand("Default Wedding"), command);
     }
 
 

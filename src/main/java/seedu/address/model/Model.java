@@ -134,6 +134,8 @@ public interface Model {
      * Sets the current wedding.
      */
     void setCurrentWedding(Wedding wedding);
+
+    void setCurrentWedding(String weddingName);
     /**
      * Returns the current wedding.
      */

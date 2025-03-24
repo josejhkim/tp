@@ -30,6 +30,16 @@ public class UniquePersonList implements Iterable<Person> {
     private final ObservableList<Person> internalUnmodifiableList =
         FXCollections.unmodifiableObservableList(internalList);
 
+    public UniquePersonList() {
+
+    }
+
+    public UniquePersonList(UniquePersonList other) {
+        for (Person p : other) {
+            add(new Person(p));
+        }
+    }
+
     /**
      * Returns true if the list contains an equivalent person as the given argument.
      */
@@ -80,6 +90,8 @@ public class UniquePersonList implements Iterable<Person> {
             throw new PersonNotFoundException();
         }
     }
+
+
 
     /**
      * Returns the person with the given name.
@@ -175,6 +187,10 @@ public class UniquePersonList implements Iterable<Person> {
 
     public int size() {
         return internalList.size();
+    }
+
+    public boolean isEmpty() {
+        return internalList.size() <= 0;
     }
 
     /**

@@ -63,7 +63,9 @@ public class AddPersonToTableCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
-        model.deletePersonFromTable(personToAdd, tableToBeAdded);
+        if (personToAdd.getTable().isPresent()) {
+            model.deletePersonFromTable(personToAdd, personToAdd.getTable().get());
+        }
 
         model.setPerson(personToAdd, addedPerson);
 

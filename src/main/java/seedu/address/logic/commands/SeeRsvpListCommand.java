@@ -4,7 +4,6 @@ import java.util.List;
 
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.RsvpList;
 
 /**
  * Command to see the RSVP list of the current wedding.
@@ -16,8 +15,7 @@ public class SeeRsvpListCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) {
-        RsvpList rsvpList = model.getCurrentWedding().getRsvpList();
-        List<Person> guests = rsvpList.getAllGuests();
+        List<Person> guests = model.getFilteredPersonList();
         StringBuilder result = new StringBuilder();
         for (Person guest : guests) {
             result.append(guest.toString()).append("\n");

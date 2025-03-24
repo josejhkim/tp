@@ -42,7 +42,7 @@ public class AddPersonToTableCommandTest {
                 DietaryRestriction.TypicalRestriction.NONE),
             new Rsvp(Rsvp.Status.YES), null);
 
-        currentWedding.getRsvpList().add(guest);
+        currentWedding.addPerson(guest);
     }
 
     @Test

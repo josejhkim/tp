@@ -22,7 +22,10 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.table.Table;
 import seedu.address.model.wedding.Wedding;
 import seedu.address.testutil.PersonBuilder;
 
@@ -50,8 +53,10 @@ public class AddPersonCommandTest {
 
         assertEquals(String.format(AddPersonCommand.MESSAGE_SUCCESS, validPerson),
             commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validPerson).toString(), ((ModelStubAcceptingPersonAdded) model)
-            .getCurrentWedding().getRsvpList().toString());
+
+        UniquePersonList kkk = model.getCurrentWedding().getUniquePersonList();
+        assertEquals(Arrays.asList(validPerson).toString(), model
+            .getCurrentWedding().getUniquePersonList().toString());
     }
 
     @Test
@@ -146,6 +151,71 @@ public class AddPersonCommandTest {
         }
 
         @Override
+        public Person findPersonByName(Name name) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addTable(Table table) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteTable(Table table) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteTable(int tableId) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addPersonToTable(Person p, int tableId) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addPersonToTable(Person p, Table table) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deletePersonFromTable(Person p, int tableId) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deletePersonFromTable(Person p, Table table) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setTable(Table target, Table editedTable) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Table getTable(int tableId) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteWedding(Wedding wedding) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteWedding(String weddingName) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setCurrentWedding(String weddingName) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean hasPerson(Person person) {
             throw new AssertionError("This method should not be called.");
         }
@@ -202,7 +272,7 @@ public class AddPersonCommandTest {
             requireNonNull(person);
             this.person = person;
             Wedding addingWedding = new Wedding("john and jane");
-            addingWedding.addGuest(this.person); // Ensure a wedding is set
+            addingWedding.addPerson(this.person); // Ensure a wedding is set
             setCurrentWedding(addingWedding); // Ensure a wedding is set
         }
 
@@ -232,6 +302,7 @@ public class AddPersonCommandTest {
         @Override
         public void addPerson(Person person) {
             requireNonNull(person);
+            getCurrentWedding().addPerson(person);
             personsAdded.add(person);
         }
 
