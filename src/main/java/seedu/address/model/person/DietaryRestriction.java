@@ -1,22 +1,17 @@
-package seedu.address.model.person.category;
+package seedu.address.model.person;
 
 import java.util.Objects;
 
 /**
  * Represents a Person's dietary restriction in the address book.
  */
-public class DietaryRestriction implements Category {
+public class DietaryRestriction {
     /**
      * Enum to represent typical dietary restrictions.
      */
     public enum TypicalRestriction {
         VEGETARIAN, VEGAN, HALAL, SHELLFISH, PEANUTS, EGGS, FISH,
         SOY, SESAME, NONE;
-
-        @Override
-        public String toString() {
-            return super.toString();
-        }
     }
 
     private final TypicalRestriction typicalRestriction;

@@ -1,16 +1,15 @@
 package seedu.address.model.table;
 
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.table.exceptions.TableNotFoundException;
-import seedu.address.model.wedding.Wedding;
 
 /**
  * Represents a unique list of tables in a wedding.
@@ -28,10 +27,18 @@ public class UniqueTableList implements Iterable<Table> {
     private final ObservableList<Table> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
 
+    /**
+     * Creates a new empty UniqueTableList.
+     */
     public UniqueTableList() {
 
     }
 
+    /**
+     * Creates a new UniqueTableList containing copies of the Tables in the given list.
+     *
+     * @param other The UniqueTableList to copy tables from
+     */
     public UniqueTableList(UniqueTableList other) {
         for (Table t : other) {
             addTable(new Table(t));
@@ -48,6 +55,11 @@ public class UniqueTableList implements Iterable<Table> {
         return internalList.stream().anyMatch(toCheck::isSameTable);
     }
 
+    /**
+     * Returns an iterator over the tables in this list.
+     *
+     * @return An iterator over tables in this list.
+     */
     public Iterator<Table> iterator() {
         return internalList.iterator();
     }
@@ -81,6 +93,11 @@ public class UniqueTableList implements Iterable<Table> {
         throw new TableNotFoundException();
     }
 
+    /**
+     * Deletes a table from the list.
+     *
+     * @param table The table to be deleted.
+     */
     public void deleteTable(Table table) {
         internalList.remove(table);
     }
@@ -100,6 +117,12 @@ public class UniqueTableList implements Iterable<Table> {
         }
     }
 
+    /**
+     * Finds a table in the list with the same table ID as the provided table.
+     *
+     * @param table The table containing the ID to find.
+     * @return The table if found, otherwise null.
+     */
     public Table findTable(Table table) {
         try {
             return internalList.stream().filter(t -> t.getTableId() == table.getTableId())
@@ -153,6 +176,12 @@ public class UniqueTableList implements Iterable<Table> {
         internalList.set(internalList.indexOf(table), updatedTable);
     }
 
+    /**
+     * Assigns a guest to a specified table.
+     *
+     * @param table The table to assign the guest to.
+     * @param guest The guest to be assigned.
+     */
     public void assignGuestToTable(Table table, Person guest) {
         assignGuestToTable(table.getTableId(), guest);
     }
@@ -183,6 +212,15 @@ public class UniqueTableList implements Iterable<Table> {
         internalList.set(internalList.indexOf(table), updatedTable);
     }
 
+    /**
+     * Sets a target table to an edited table with the same identity.
+     * The target table must exist in the list.
+     *
+     * @param target The table to be replaced.
+     * @param editedTable The edited version of the table.
+     * @throws TableNotFoundException if the target table is not found.
+     * @throws DuplicatePersonException if the edited table is a duplicate of an existing table.
+     */
     public void setTable(Table target, Table editedTable) {
         requireAllNonNull(target, editedTable);
 
@@ -197,6 +235,7 @@ public class UniqueTableList implements Iterable<Table> {
 
         internalList.set(index, editedTable);
     }
+
     /**
      * Returns the list of tables as an unmodifiable {@code ObservableList}.
      * This ensures that the list cannot be modified externally.
@@ -220,6 +259,11 @@ public class UniqueTableList implements Iterable<Table> {
         return internalList.equals(otherUniqueTableList.internalList);
     }
 
+    /**
+     * Returns the number of tables in this list.
+     *
+     * @return The number of tables in this list.
+     */
     public int size() {
         return internalList.size();
     }

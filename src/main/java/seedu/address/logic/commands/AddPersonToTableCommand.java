@@ -10,7 +10,6 @@ import seedu.address.model.Model;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.table.Table;
-import seedu.address.model.wedding.Wedding;
 
 /**
  * Adds the guest to the specified table.
