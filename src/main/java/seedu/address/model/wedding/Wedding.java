@@ -1,7 +1,8 @@
 package seedu.address.model.wedding;
 
-import java.util.Objects;
 import static java.util.Objects.requireNonNull;
+
+import java.util.Objects;
 
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
