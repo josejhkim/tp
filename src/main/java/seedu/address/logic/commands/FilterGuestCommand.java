@@ -24,10 +24,7 @@ public class FilterGuestCommand extends Command {
             + "Example: " + COMMAND_WORD + " d/" + DietaryRestriction.TypicalRestriction.values()[0].toString()
             + " r/" + DietaryRestriction.TypicalRestriction.values()[0].toString();
 
-    public static final String MESSAGE_WEDDING_NOT_FOUND = "Wedding not found.";
     public static final String MESSAGE_SUCCESS = "Here are your filtered guests.";
-    public static final String MESSAGE_INVALID_RSVP_STATUS = "Please enter a valid RSVP status.";
-    public static final String MESSAGE_INVALID_DIETARY_RESTRICTION = "Please enter a valid dietary restriction.";
     final Predicate<Person> combinedPredicate;
 
     /**
@@ -39,9 +36,6 @@ public class FilterGuestCommand extends Command {
      * @throws IllegalArgumentException if both filters are null
      */
     public FilterGuestCommand(DietaryRestrictionFilter dietaryFilter, RsvpFilter rsvpFilter) {
-        if (dietaryFilter == null && rsvpFilter == null) {
-            throw new IllegalArgumentException("At least one filter must be provided.");
-        }
 
         Predicate<Person> predicate = person -> true;
         if (dietaryFilter != null) {
