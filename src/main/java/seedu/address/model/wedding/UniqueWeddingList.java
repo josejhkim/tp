@@ -31,13 +31,12 @@ public class UniqueWeddingList implements Iterable<Wedding> {
         FXCollections.unmodifiableObservableList(internalList);
 
     /**
-     * Checks if a wedding with the same identity as {@code toCheck} exists in the list.
-     *
-     * @param toCheck The wedding to check.
-     * @return {@code true} if the wedding exists, otherwise {@code false}.
+     * Returns true if the list contains an equivalent wedding as the given argument.
      */
     public boolean contains(Wedding toCheck) {
-        return internalList.stream().anyMatch(toCheck::isSameWedding);
+        requireNonNull(toCheck);
+        return internalList.stream()
+                .anyMatch(wedding -> wedding.isSameWedding(toCheck));
     }
 
     public Iterator<Wedding> iterator() {

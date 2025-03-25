@@ -35,8 +35,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 //    }
 
     public AddressBook() {
-        this.currentWedding = new Wedding("Wedding");
-        this.addWedding(this.currentWedding);
+        
     }
 
     /**
@@ -65,12 +64,25 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void resetData(ReadOnlyAddressBook newData) {
         requireNonNull(newData);
 
+        // Create a new wedding list to avoid issues with default wedding
         uniqueWeddingList = new UniqueWeddingList();
+        
+        // Add all weddings from newData, ensuring no duplicates
+        for (Wedding wedding : newData.getWeddingList()) {
+            if (!hasWedding(wedding)) {
+                Wedding toBeAdded = new Wedding(wedding);
+                this.uniqueWeddingList.addWedding(toBeAdded);
+            }
+        }
 
-        setWeddings(newData.getWeddingList());
-
-        if (newData.getCurrentWedding() != null) {
-            setCurrentWeddingByName(newData.getCurrentWedding().getName());
+        // Set current wedding if available
+        if (newData.getCurrentWedding() != null && !uniqueWeddingList.asUnmodifiableObservableList().isEmpty()) {
+            try {
+                setCurrentWeddingByName(newData.getCurrentWedding().getName());
+            } catch (WeddingNotFoundException e) {
+                // If the wedding name doesn't exist, set to first wedding
+                setCurrentWedding(uniqueWeddingList.asUnmodifiableObservableList().get(0));
+            }
         }
     }
 
@@ -124,8 +136,8 @@ public class AddressBook implements ReadOnlyAddressBook {
         if (uniqueWeddingList.size() == 1) {
             uniqueWeddingList.deleteWedding(wedding);
             Wedding defaultWedding = new Wedding("Wedding");
-            uniqueWeddingList.addWedding(wedding);
-            setCurrentWedding(wedding);
+            uniqueWeddingList.addWedding(defaultWedding);
+            setCurrentWedding(defaultWedding);
         }
     }
 

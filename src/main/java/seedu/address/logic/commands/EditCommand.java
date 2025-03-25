@@ -6,6 +6,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DIETARY_RESTRICTION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_RSVP;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.Collections;
@@ -46,10 +48,14 @@ public class EditCommand extends Command {
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
-            + "[" + PREFIX_TAG + "TAG]...\n"
+            + "[" + PREFIX_TAG + "TAG]... "
+            + "[" + PREFIX_DIETARY_RESTRICTION + "DIETARY_RESTRICTION] "
+            + "[" + PREFIX_RSVP + "RSVP]\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
-            + PREFIX_EMAIL + "johndoe@example.com";
+            + PREFIX_EMAIL + "johndoe@example.com "
+            + PREFIX_DIETARY_RESTRICTION + "VEGETARIAN "
+            + PREFIX_RSVP + "YES";
 
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
@@ -170,7 +176,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, address, tags);
+            return CollectionUtil.isAnyNonNull(name, phone, email, address, tags, dietaryRestriction, rsvp);
         }
 
         public void setName(Name name) {
@@ -201,14 +207,14 @@ public class EditCommand extends Command {
             this.address = address;
         }
 
-        private void setRsvp(Rsvp rsvp) {
+        public void setRsvp(Rsvp rsvp) {
             this.rsvp = rsvp;
         }
         public Optional<Rsvp> getRsvp() {
             return Optional.ofNullable(rsvp);
         }
 
-        private void setDietaryRestriction(DietaryRestriction dietaryRestriction) {
+        public void setDietaryRestriction(DietaryRestriction dietaryRestriction) {
             this.dietaryRestriction = dietaryRestriction;
         }
 

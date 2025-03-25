@@ -1,6 +1,7 @@
 package seedu.address.ui;
 
 import java.util.Comparator;
+import java.util.Optional;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -8,6 +9,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.person.Person;
+import seedu.address.model.table.Table;
 
 /**
  * An UI component that displays information of a {@code Person}.
@@ -40,6 +42,13 @@ public class PersonCard extends UiPart<Region> {
     private Label email;
     @FXML
     private FlowPane tags;
+    @FXML
+    private Label dietaryRestriction;
+    @FXML
+    private Label rsvp;
+    @FXML
+    private Label table;
+    
 
     /**
      * Creates a {@code PersonCode} with the given {@code Person} and index to display.
@@ -55,5 +64,14 @@ public class PersonCard extends UiPart<Region> {
         person.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        dietaryRestriction.setText(person.getDietaryRestriction().toString());
+        rsvp.setText(person.getRsvp().getStatus().toString());
+
+        // Replace incorrect type check with proper Optional handling
+        if (person.getTable().isPresent()) {
+            table.setText(person.getTable().get().toString());
+        } else {
+            table.setText("No table assigned");
+        }
     }
 }

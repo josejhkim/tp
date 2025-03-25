@@ -183,6 +183,13 @@ public class Wedding {
         return "Wedding{name='" + name + "', people= " + uniquePersonList + '}';
     }
 
+    /**
+     * Checks if this wedding is the same as another wedding.
+     * Two weddings are considered the same if they have the same name.
+     *
+     * @param otherWedding The wedding to compare with.
+     * @return true if both weddings have the same name, false otherwise.
+     */
     public boolean isSameWedding(Wedding otherWedding) {
         if (otherWedding == this) {
             return true;
