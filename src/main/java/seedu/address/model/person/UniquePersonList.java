@@ -29,6 +29,7 @@ public class UniquePersonList implements Iterable<Person> {
     private final ObservableList<Person> internalUnmodifiableList =
         FXCollections.unmodifiableObservableList(internalList);
 
+
     /**
      * Constructs an empty UniquePersonList.
      */

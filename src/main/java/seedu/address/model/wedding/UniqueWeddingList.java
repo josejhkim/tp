@@ -74,11 +74,11 @@ public class UniqueWeddingList implements Iterable<Wedding> {
     }
 
     /**
-    * Deletes a wedding from the list by its name.
-    *
-    * @param weddingName The name of the wedding to delete.
-    * @throws WeddingNotFoundException if the wedding is not found.
-    */
+     * Deletes a wedding from the list by its name.
+     *
+     * @param weddingName The name of the wedding to be deleted.
+     * @throws WeddingNotFoundException if the wedding with the given name does not exist.
+     */
     public void deleteWeddingByName(String weddingName) {
         Wedding wedding = findWeddingByName(weddingName);
         deleteWedding(wedding);
