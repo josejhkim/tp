@@ -166,10 +166,11 @@ public class ParserUtil {
 
     /**
      * Parses a {@code String tableId} into a {@code int tableId}.
+     * Leading and trailing whitespaces will be trimmed.
      *
      * @param tableId A string representation of the table id
      * @return An integer representation of the table id
-     * @throws ParseException
+     * @throws ParseException if the specified table id is invalid (not a non-zero unsigned integer)
      */
     public static int parseTableId(String tableId) throws ParseException {
         String trimmedTableId = tableId.trim();
@@ -180,6 +181,14 @@ public class ParserUtil {
         return Integer.parseInt(trimmedTableId);
     }
 
+    /**
+     * Parses a {@code String weddingName} into a {@code String}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @param weddingName A string representation of the wedding name
+     * @return A trimmed string representation of the wedding name
+     * @throws ParseException if the given wedding name is invalid
+     */
     public static String parseWeddingName(String weddingName) throws ParseException {
         String trimmedWeddingName = weddingName.trim();
 

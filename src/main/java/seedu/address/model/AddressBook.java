@@ -15,8 +15,7 @@ import seedu.address.model.wedding.Wedding;
 import seedu.address.model.wedding.exceptions.WeddingNotFoundException;
 
 /**
- * Wraps all data at the address-book level Duplicates are not allowed (by
- * .isSamePerson comparison)
+ * Wraps all data at the address-book level Duplicates are not allowed (by .isSamePerson comparison)
  */
 public class AddressBook implements ReadOnlyAddressBook {
 
@@ -54,8 +53,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Replaces the contents of the person list with {@code persons}.
-     * {@code persons} must not contain duplicate persons.
+     * Replaces the contents of the person list with {@code persons}. {@code persons} must not contain duplicate
+     * persons.
      */
     public void setPersons(UniquePersonList persons) {
         this.currentWedding.setPersons(persons);
@@ -89,10 +88,21 @@ public class AddressBook implements ReadOnlyAddressBook {
     // =========== Weddings
     // ================================================================================
 
+    /**
+     * Adds a wedding to the address book.
+     * The wedding must not already exist in the address book.
+     *
+     * @param wedding The wedding to be added
+     */
     public void addWedding(Wedding wedding) {
         this.uniqueWeddingList.addWedding(wedding);
     }
 
+    /**
+     * Creates a new wedding with the given name and adds it to the address book.
+     *
+     * @param weddingName The name of the wedding to be created
+     */
     public void createWedding(String weddingName) {
         Wedding newWedding = new Wedding(weddingName);
         addWedding(newWedding);
@@ -121,6 +131,14 @@ public class AddressBook implements ReadOnlyAddressBook {
         return this.currentWedding;
     }
 
+    /**
+     * Deletes the specified wedding from the address book.
+     * If there is more than one wedding and the deleted wedding is the current wedding,
+     * another wedding will be set as current.
+     * If there is only one wedding, the current wedding will be set to null after deletion.
+     *
+     * @param wedding The wedding to be deleted
+     */
     public void deleteWedding(Wedding wedding) {
         if (uniqueWeddingList.size() > 1) {
             uniqueWeddingList.deleteWedding(wedding);
@@ -133,22 +151,36 @@ public class AddressBook implements ReadOnlyAddressBook {
 
         if (uniqueWeddingList.size() == 1) {
             uniqueWeddingList.deleteWedding(wedding);
-           
+
             setCurrentWedding(null);
         }
     }
 
+    /**
+     * Deletes the current wedding from the address book.
+     * Delegates to deleteWedding method with the current wedding as parameter.
+     */
     public void deleteCurrentWedding() {
         deleteWedding(currentWedding);
     }
 
+    /**
+     * Deletes a wedding by its name from the address book.
+     * First finds the wedding with the matching name, then deletes it.
+     * If the wedding with the given name is not found, a WeddingNotFoundException will be thrown.
+     *
+     * @param weddingName The name of the wedding to be deleted
+     * @throws WeddingNotFoundException if no wedding with the given name exists
+     */
     public void deleteWeddingByName(String weddingName) {
         Wedding weddingWithMatchingName = uniqueWeddingList.findWeddingByName(weddingName);
         deleteWedding(weddingWithMatchingName);
     }
 
     /**
-     * Checks if a wedding exists.
+     * Checks if a wedding currently exists in the address book.
+     *
+     * @return true if a current wedding exists, false otherwise
      */
     public boolean hasWedding() {
         return currentWedding != null;
@@ -177,8 +209,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     // ================================================================================
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in
-     * the address book.
+     * Returns true if a person with the same identity as {@code person} exists in the address book.
      */
     public boolean hasPerson(Person person) {
         requireNonNull(person);
@@ -186,8 +217,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Adds a person to the address book. The person must not already exist in the
-     * address book.
+     * Adds a person to the address book. The person must not already exist in the address book.
      */
     public void addPerson(Person person) {
         // Old implementation
@@ -196,10 +226,9 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Replaces the given person {@code target} in the list with
-     * {@code editedPerson}. {@code target} must exist in the address book. The
-     * person identity of {@code editedPerson} must not be the same as another
-     * existing person in the address book.
+     * Replaces the given person {@code target} in the list with {@code editedPerson}. {@code target} must exist in the
+     * address book. The person identity of {@code editedPerson} must not be the same as another existing person in the
+     * address book.
      */
     public void setPerson(Person target, Person editedPerson) {
         requireNonNull(editedPerson);
@@ -207,8 +236,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Removes {@code key} from this {@code AddressBook}. {@code key} must exist in
-     * the address book.
+     * Removes {@code key} from this {@code AddressBook}. {@code key} must exist in the address book.
      */
     public void deletePerson(Person key) {
         currentWedding.deletePerson(key);

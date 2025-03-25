@@ -15,8 +15,8 @@ import seedu.address.model.table.Table;
 import seedu.address.model.tag.Tag;
 
 /**
- * Represents a Person in the address book. Guarantees: details are present and
- * not null, field values are validated, immutable.
+ * Represents a Person in the address book. Guarantees: details are present and not null, field values are validated,
+ * immutable.
  */
 public class Person {
 
@@ -50,6 +50,8 @@ public class Person {
     }
 
     /**
+     * Creates a new Person by copying attributes from an existing guest and assigning them to a specific table.
+     *
      * @param guest A guest object to copy attributes from
      * @param table A table object that this guest is assigned to
      */
@@ -66,6 +68,12 @@ public class Person {
         this.table = Optional.ofNullable(table);
     }
 
+    /**
+     * Creates a new Person that is a copy of another Person. All attributes are copied from the other Person, including
+     * any table assignment.
+     *
+     * @param other The Person object to copy from
+     */
     public Person(Person other) {
         requireAllNonNull(other.name, other.phone, other.email, other.address, other.tags, other.dietaryRestriction,
                 other.rsvp);
@@ -79,38 +87,72 @@ public class Person {
         this.table = other.getTable();
     }
 
+    /**
+     * Returns the name of this person.
+     *
+     * @return The name of this person
+     */
     public Name getName() {
         return name;
     }
 
+    /**
+     * Returns the phone number of this person.
+     *
+     * @return The phone number of this person
+     */
     public Phone getPhone() {
         return phone;
     }
 
+    /**
+     * Returns the email address of this person.
+     *
+     * @return The email address of this person
+     */
     public Email getEmail() {
         return email;
     }
 
+    /**
+     * Returns the residential address of this person.
+     *
+     * @return The residential address of this person
+     */
     public Address getAddress() {
         return address;
     }
 
+    /**
+     * Returns the dietary restriction of this person.
+     *
+     * @return The dietary restriction of this person
+     */
     public DietaryRestriction getDietaryRestriction() {
         return dietaryRestriction;
     }
 
+    /**
+     * Returns the RSVP status of this person.
+     *
+     * @return The RSVP status of this person
+     */
     public Rsvp getRsvp() {
         return rsvp;
     }
 
+    /**
+     * Returns the table assignment of this person.
+     *
+     * @return The table assignment of this person
+     */
     public Optional<Table> getTable() {
         return table;
     }
 
     /**
-     * Get the id for the table this guest is sitting at. Return -1 if the guest is
-     * unassigned to a table.
-     * 
+     * Get the id for the table this guest is sitting at. Return -1 if the guest is unassigned to a table.
+     *
      * @return The id of the table for this guest or -1 if unassigned
      */
     public int getTableId() {
@@ -118,9 +160,8 @@ public class Person {
     }
 
     /**
-     * Get the string representation for the table id. Return "Unassigned" if the
-     * guest is unassigned to a table.
-     * 
+     * Get the string representation for the table id. Return "Unassigned" if the guest is unassigned to a table.
+     *
      * @return The string representation for the table id
      */
     public String getTableIdString() {
@@ -128,8 +169,7 @@ public class Person {
     }
 
     /**
-     * Returns an immutable tag set, which throws
-     * {@code UnsupportedOperationException} if modification is attempted.
+     * Returns an immutable tag set, which throws {@code UnsupportedOperationException} if modification is attempted.
      */
 
     public Set<Tag> getTags() {
@@ -137,8 +177,7 @@ public class Person {
     }
 
     /**
-     * Returns true if both persons have the same name. This defines a weaker notion
-     * of equality between two persons.
+     * Returns true if both persons have the same name. This defines a weaker notion of equality between two persons.
      */
     public boolean isSamePerson(Person otherPerson) {
         if (otherPerson == this) {
@@ -149,8 +188,8 @@ public class Person {
     }
 
     /**
-     * Returns true if both persons have the same identity and data fields. This
-     * defines a stronger notion of equality between two persons.
+     * Returns true if both persons have the same identity and data fields. This defines a stronger notion of equality
+     * between two persons.
      */
     @Override
     public boolean equals(Object other) {

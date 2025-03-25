@@ -6,7 +6,6 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.table.Table;
 import seedu.address.model.table.exceptions.TableNotFoundException;
-import seedu.address.model.wedding.Wedding;
 
 /**
  * Represents a command to add a table to the wedding seating plan.

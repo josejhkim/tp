@@ -37,9 +37,7 @@ class JsonSerializableAddressBook {
      * @param source future changes to this will not affect the created {@code JsonSerializableAddressBook}.
      */
     public JsonSerializableAddressBook(ReadOnlyAddressBook source) {
-        weddings.addAll(source.getWeddingList().stream()
-            .map(JsonAdaptedWedding::new)
-            .collect(Collectors.toList()));
+        weddings.addAll(source.getWeddingList().stream().map(JsonAdaptedWedding::new).collect(Collectors.toList()));
     }
 
     /**
@@ -50,13 +48,13 @@ class JsonSerializableAddressBook {
     public AddressBook toModelType() throws IllegalValueException {
         // Create a completely empty AddressBook to avoid any default weddings
         AddressBook addressBook = new AddressBook();
-        
+
         // Clear all existing weddings (including the default Wedding)
         // We want to start with a completely clean slate
         for (Wedding wedding : addressBook.getWeddingList()) {
             addressBook.deleteWedding(wedding);
         }
-        
+
         // Add all weddings from JSON
         for (JsonAdaptedWedding jsonAdaptedWedding : weddings) {
             Wedding wedding = jsonAdaptedWedding.toModelType();
