@@ -16,6 +16,7 @@ import seedu.address.model.person.UniquePersonList;
 public final class Table {
 
     public static final String ID_CONSTRAINTS = "The table ID should be a positive integer";
+    public static final String CAPACITY_CONSTRAINTS = "The table capacity should be a positive integer";
     public static final int MAX_CAPACITY = 10000;
 
     /** The unique identifier for the table. */
@@ -35,9 +36,13 @@ public final class Table {
      * @throws IllegalArgumentException if {@code tableId} or {@code capacity} is not positive.
      */
     public Table(int tableId, int capacity) {
-        if (tableId <= 0 || capacity <= 0) {
-            throw new IllegalArgumentException("Table ID and capacity must be positive integers.");
+        if (tableId <= 0) {
+            throw new IllegalArgumentException(ID_CONSTRAINTS);
         }
+        if (capacity <= 0) {
+            throw new IllegalArgumentException(CAPACITY_CONSTRAINTS);
+        }
+
         this.tableId = tableId;
         this.capacity = capacity;
         this.uniquePersonList = new UniquePersonList();
@@ -52,12 +57,16 @@ public final class Table {
      * @throws IllegalArgumentException if {@code tableId} or {@code capacity} is not positive.
      */
     public Table(int tableId, int capacity, UniquePersonList uniquePersonList) {
-        if (tableId <= 0 || capacity <= 0) {
-            throw new IllegalArgumentException("Table ID and capacity must be positive integers.");
+        if (tableId <= 0) {
+            throw new IllegalArgumentException(ID_CONSTRAINTS);
         }
+        if (capacity <= 0) {
+            throw new IllegalArgumentException(CAPACITY_CONSTRAINTS);
+        }
+
         this.tableId = tableId;
         this.capacity = capacity;
-        this.uniquePersonList = uniquePersonList;
+        this.uniquePersonList = new UniquePersonList(uniquePersonList);
     }
 
     /**
@@ -69,11 +78,7 @@ public final class Table {
     public Table(Table t) {
         this.tableId = t.tableId;
         this.capacity = t.capacity;
-        this.uniquePersonList = new UniquePersonList();
-        for (Person p : t.uniquePersonList) {
-            Person toAdd = new Person(p, this);
-            this.uniquePersonList.add(toAdd);
-        }
+        this.uniquePersonList = new UniquePersonList(t.uniquePersonList);
     }
 
     /**
@@ -102,7 +107,7 @@ public final class Table {
         this.uniquePersonList.delete(p);
     }
 
-    public ObservableList<Person> getGuests() {
+    public ObservableList<Person> getPersons() {
         return this.uniquePersonList.asUnmodifiableObservableList();
     }
 
@@ -112,7 +117,7 @@ public final class Table {
      *
      * @return A list of guest names assigned to the table.
      */
-    public List<Name> getGuestNames() {
+    public List<Name> getPersonsNames() {
         return this.uniquePersonList.getAllPersonsNames();
     }
 
