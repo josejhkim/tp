@@ -138,7 +138,7 @@ public class UniqueTableList implements Iterable<Table> {
      * @param tableId The ID of the table to check.
      * @return {@code true} if the table exists, otherwise {@code false}.
      */
-    public boolean hasTable(int tableId) {
+    public boolean hasTableById(int tableId) {
         return internalList.stream().anyMatch(table -> table.getTableId() == tableId);
     }
 
