@@ -145,6 +145,7 @@ public class ModelManager implements Model {
         return filteredTables;
     }
 
+    @Override
     public void updateFilteredTableList(Predicate<Table> predicate) {
         requireNonNull(predicate);
         filteredTables.setPredicate(predicate);

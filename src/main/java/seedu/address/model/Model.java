@@ -97,6 +97,8 @@ public interface Model {
     //=========== Table ==================================================================================
     ObservableList<Table> getFilteredTableList();
 
+    void updateFilteredTableList(Predicate<Table> predicate);
+
     void addTable(Table table);
 
     void deleteTable(Table table);
