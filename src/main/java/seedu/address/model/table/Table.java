@@ -3,6 +3,7 @@ package seedu.address.model.table;
 import java.util.List;
 import java.util.Objects;
 
+import javafx.collections.ObservableList;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
@@ -101,8 +102,8 @@ public final class Table {
         this.uniquePersonList.delete(p);
     }
 
-    public List<Person> getGuests() {
-        return this.uniquePersonList.getAllPersons();
+    public ObservableList<Person> getGuests() {
+        return this.uniquePersonList.asUnmodifiableObservableList();
     }
 
     /**

@@ -128,7 +128,7 @@ public class UniquePersonList implements Iterable<Person> {
      * @throws CommandException if no person with the given phone number exists in the list
      */
     public Person findPersonByName(Phone phone) throws CommandException {
-        return getAllPersons().stream()
+        return asUnmodifiableObservableList().stream()
             .filter(guest -> guest.getPhone().equals(phone))
             .findFirst()
             .orElseThrow(() -> new CommandException(
@@ -165,19 +165,12 @@ public class UniquePersonList implements Iterable<Person> {
         return internalUnmodifiableList;
     }
 
-    /*
-     * Returns all guests in the RSVP list.
-     */
-    public List<Person> getAllPersons() {
-        return internalUnmodifiableList;
-    }
-
     /**
      * Returns all guests' names in the RSVP list.
      * @return List of all guests' names in the RSVP list
      */
     public List<Name> getAllPersonsNames() {
-        return getAllPersons().stream()
+        return asUnmodifiableObservableList().stream()
             .map(person -> person.getName())
             .collect(Collectors.toUnmodifiableList());
     }
