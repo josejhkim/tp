@@ -58,6 +58,7 @@ public class CreateWeddingCommand extends Command {
 
         // No existing wedding, proceed to create a new one
         Wedding newWedding = new Wedding(weddingName);
+        model.addWedding(newWedding);
         model.setCurrentWedding(newWedding);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, weddingName));

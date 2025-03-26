@@ -54,7 +54,7 @@ public class AddPersonToTableCommand extends Command {
         requireNonNull(model);
 
         Person personToAdd = model.findPersonByName(guestName);
-        Table tableToBeAdded = model.getTable(newTableId);
+        Table tableToBeAdded = model.getTableById(newTableId);
 
         Person addedPerson = new Person(personToAdd, tableToBeAdded);
 

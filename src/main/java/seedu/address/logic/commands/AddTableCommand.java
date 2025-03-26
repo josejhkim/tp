@@ -41,7 +41,7 @@ public class AddTableCommand extends Command {
         requireNonNull(model);
 
         try {
-            Table t = model.getTable(tableId);
+            Table t = model.getTableById(tableId);
             throw new CommandException(MESSAGE_DUPLICATE_TABLE);
 
         } catch (TableNotFoundException tnfe) {

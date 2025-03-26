@@ -24,7 +24,7 @@ public class DeleteTableCommandTest {
     public void setUp() {
         model = new ModelManager();
         model.addWedding(new Wedding("Test Wedding"));
-        model.setCurrentWedding("Test Wedding");
+        model.setCurrentWeddingByName("Test Wedding");
     }
     @Test
     public void execute_validTable_deletionSuccessful() throws CommandException {

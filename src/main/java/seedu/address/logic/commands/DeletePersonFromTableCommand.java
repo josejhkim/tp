@@ -58,7 +58,7 @@ public class DeletePersonFromTableCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
-        model.deletePersonFromTable(guestToRemove, oldTableId);
+        model.deletePersonFromTableById(guestToRemove, oldTableId);
         model.setPerson(guestToRemove, removedPerson);
 
         return new CommandResult(String.format(MESSAGE_REMOVED_GUEST_FROM_TABLE_SUCCESS,

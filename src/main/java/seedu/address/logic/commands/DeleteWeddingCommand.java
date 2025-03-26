@@ -26,7 +26,7 @@ public class DeleteWeddingCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        model.deleteWedding(weddingName);
+        model.deleteWeddingByName(weddingName);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, weddingName));
     }

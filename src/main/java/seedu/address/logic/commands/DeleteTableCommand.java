@@ -31,7 +31,7 @@ public class DeleteTableCommand extends Command {
         requireNonNull(model);
 
         try {
-            model.deleteTable(tableId);
+            model.deleteTableById(tableId);
         } catch (TableNotFoundException tnfe) {
             throw new CommandException(String.format(MESSAGE_TABLE_NOT_FOUND, tableId));
         }

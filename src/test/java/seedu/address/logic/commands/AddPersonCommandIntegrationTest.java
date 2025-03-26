@@ -29,7 +29,7 @@ public class AddPersonCommandIntegrationTest {
     public void execute_newPerson_success() {
         Person validPerson = new PersonBuilder().build();
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-        expectedModel.setCurrentWedding("John and Jane");
+        expectedModel.setCurrentWeddingByName("John and Jane");
         expectedModel.addPerson(validPerson);
 
         assertCommandSuccess(new AddPersonCommand(validPerson), model,

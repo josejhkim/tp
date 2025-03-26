@@ -167,7 +167,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void deleteTable(int tableId) {
+    public void deleteTableById(int tableId) {
         addressBook.deleteTable(tableId);
     }
 
@@ -183,7 +183,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void addPersonToTable(Person p, int tableId) {
+    public void addPersonToTableById(Person p, int tableId) {
         addressBook.addPersonToTable(p, tableId);
     }
 
@@ -193,12 +193,12 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void deletePersonFromTable(Person p, int tableId) {
+    public void deletePersonFromTableById(Person p, int tableId) {
         addressBook.deletePersonFromTable(p, tableId);
     }
 
     @Override
-    public Table getTable(int tableId) {
+    public Table getTableById(int tableId) {
         return addressBook.getTable(tableId);
     }
 
@@ -215,10 +215,8 @@ public class ModelManager implements Model {
         addressBook.addWedding(wedding);
     }
 
-    /**
-     * Deletes a Wedding from the system. All related associations are deleted
-     */
-    public void deleteWedding() {
+    @Override
+    public void deleteCurrentWedding() {
         addressBook.deleteCurrentWedding();
     }
 
@@ -228,7 +226,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void deleteWedding(String weddingName) {
+    public void deleteWeddingByName(String weddingName) {
         addressBook.deleteWeddingByName(weddingName);
     }
 
@@ -250,7 +248,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void setCurrentWedding(String weddingName) {
+    public void setCurrentWeddingByName(String weddingName) {
         addressBook.setCurrentWeddingByName(weddingName);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         filteredTables = new FilteredList<>(this.addressBook.getTableList());

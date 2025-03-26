@@ -167,12 +167,12 @@ public class AddPersonCommandTest {
         }
 
         @Override
-        public void deleteTable(int tableId) {
+        public void deleteTableById(int tableId) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void addPersonToTable(Person p, int tableId) {
+        public void addPersonToTableById(Person p, int tableId) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -182,7 +182,7 @@ public class AddPersonCommandTest {
         }
 
         @Override
-        public void deletePersonFromTable(Person p, int tableId) {
+        public void deletePersonFromTableById(Person p, int tableId) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -197,7 +197,12 @@ public class AddPersonCommandTest {
         }
 
         @Override
-        public Table getTable(int tableId) {
+        public Table getTableById(int tableId) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteCurrentWedding() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -207,17 +212,12 @@ public class AddPersonCommandTest {
         }
 
         @Override
-        public void deleteWedding(String weddingName) {
+        public void deleteWeddingByName(String weddingName) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void deleteWedding() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setCurrentWedding(String weddingName) {
+        public void setCurrentWeddingByName(String weddingName) {
             throw new AssertionError("This method should not be called.");
         }
 

@@ -315,7 +315,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * @return true if the table exists, false otherwise
      */
     public boolean hasTable(int tableId) {
-        return currentWedding.hasTable(tableId);
+        return currentWedding.hasTableById(tableId);
     }
 
     /**
@@ -342,7 +342,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * @param tableId the ID of the table to delete
      */
     public void deleteTable(int tableId) {
-        currentWedding.deleteTable(tableId);
+        currentWedding.deleteTableById(tableId);
     }
 
     /**
@@ -373,7 +373,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * @param tableId the ID of the Table to add the person to
      */
     public void addPersonToTable(Person p, int tableId) {
-        this.currentWedding.addPersonToTable(p, tableId);
+        this.currentWedding.addPersonToTableById(p, tableId);
     }
 
     /**
@@ -393,7 +393,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * @param tableId the ID of the Table to delete the person from
      */
     public void deletePersonFromTable(Person p, int tableId) {
-        this.currentWedding.deletePersonFromTable(p, tableId);
+        this.currentWedding.deletePersonFromTableById(p, tableId);
     }
 
     /**
@@ -403,7 +403,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * @return the Table with the matching ID
      */
     public Table getTable(int tableId) {
-        return currentWedding.getTable(tableId);
+        return currentWedding.getTableById(tableId);
     }
 
     // =========== Utils

@@ -103,19 +103,19 @@ public interface Model {
 
     void deleteTable(Table table);
 
-    void deleteTable(int tableId);
+    void deleteTableById(int tableId);
 
     void addPersonToTable(Person p, Table table);
 
-    void addPersonToTable(Person p, int tableId);
+    void addPersonToTableById(Person p, int tableId);
 
     void deletePersonFromTable(Person p, Table table);
 
-    void deletePersonFromTable(Person p, int tableId);
+    void deletePersonFromTableById(Person p, int tableId);
 
     void setTable(Table target, Table editedTable);
 
-    Table getTable(int tableId);
+    Table getTableById(int tableId);
 
     //=========== Wedding ==================================================================================
     /**
@@ -124,22 +124,22 @@ public interface Model {
      */
     void addWedding(Wedding wedding);
 
+    void deleteCurrentWedding();
+
     /**
      * Deletes the given wedding.
      * The wedding must exist in the address book.
      */
-    void deleteWedding();
+    void deleteWedding(Wedding wedding);
 
-    public void deleteWedding(Wedding wedding);
-
-    public void deleteWedding(String weddingName);
+    void deleteWeddingByName(String weddingName);
 
     /**
      * Sets the current wedding.
      */
     void setCurrentWedding(Wedding wedding);
 
-    void setCurrentWedding(String weddingName);
+    void setCurrentWeddingByName(String weddingName);
     /**
      * Returns the current wedding.
      */

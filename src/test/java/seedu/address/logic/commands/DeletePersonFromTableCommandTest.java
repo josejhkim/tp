@@ -44,7 +44,7 @@ public class DeletePersonFromTableCommandTest {
             null);
 
         currentWedding.addPerson(guest);
-        currentWedding.addPersonToTable(guest, 1);
+        currentWedding.addPersonToTableById(guest, 1);
     }
 
     @Test
