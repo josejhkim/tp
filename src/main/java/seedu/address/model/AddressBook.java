@@ -263,8 +263,6 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Adds a person to the address book. The person must not already exist in the address book.
      */
     public void addPerson(Person person) {
-        // Old implementation
-        requireNonNull(person);
         currentWedding.addPerson(person);
     }
 
@@ -420,6 +418,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         return currentWedding.getUniquePersonList().asUnmodifiableObservableList();
     }
 
+    @Override
     public ObservableList<Table> getTableList() {
         return currentWedding.getTableList().asUnmodifiableObservableList();
     }

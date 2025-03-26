@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.person.Person;
+import seedu.address.model.table.Table;
 import seedu.address.model.wedding.Wedding;
 
 /**
@@ -14,7 +15,7 @@ public interface ReadOnlyAddressBook {
      * This list will not contain any duplicate persons.
      */
     ObservableList<Person> getPersonList();
-
+    ObservableList<Table> getTableList();
     ObservableList<Wedding> getWeddingList();
 
     // Returns the single wedding, or null if none

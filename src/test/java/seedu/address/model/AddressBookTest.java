@@ -18,6 +18,7 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.person.Person;
+import seedu.address.model.table.Table;
 import seedu.address.model.wedding.UniqueWeddingList;
 import seedu.address.model.wedding.Wedding;
 import seedu.address.testutil.PersonBuilder;
@@ -102,6 +103,7 @@ public class AddressBookTest {
         private final Wedding wedding = new Wedding("test-wedding");
 
         private final ObservableList<Person> persons = FXCollections.observableArrayList();
+        private final ObservableList<Table> tables = FXCollections.observableArrayList();
 
         AddressBookStub(Collection<Person> persons) {
             this.persons.setAll(persons);
@@ -111,6 +113,11 @@ public class AddressBookTest {
         @Override
         public ObservableList<Person> getPersonList() {
             return persons;
+        }
+
+        @Override
+        public ObservableList<Table> getTableList() {
+            return tables;
         }
 
         @Override
