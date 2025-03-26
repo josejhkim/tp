@@ -93,6 +93,34 @@ public class ModelManager implements Model {
         return addressBook;
     }
 
+    //=========== Filtered Person List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Person> getFilteredPersonList() {
+        return filteredPersons;
+    }
+
+    @Override
+    public void updateFilteredPersonList(Predicate<Person> predicate) {
+        requireNonNull(predicate);
+        filteredPersons.setPredicate(predicate);
+    }
+
+    @Override
+    public ObservableList<Table> getFilteredTableList() {
+        return filteredTables;
+    }
+
+    @Override
+    public void updateFilteredTableList(Predicate<Table> predicate) {
+        requireNonNull(predicate);
+        filteredTables.setPredicate(predicate);
+    }
+
     //=========== Persons ================================================================================
 
     @Override
@@ -123,42 +151,11 @@ public class ModelManager implements Model {
         return addressBook.findPersonByName(name);
     }
 
-    //=========== Filtered Person List Accessors =============================================================
-
-    /**
-     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
-     * {@code versionedAddressBook}
-     */
-    @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return filteredPersons;
-    }
-
-    @Override
-    public void updateFilteredPersonList(Predicate<Person> predicate) {
-        requireNonNull(predicate);
-        filteredPersons.setPredicate(predicate);
-    }
-
-    @Override
-    public ObservableList<Table> getFilteredTableList() {
-        return filteredTables;
-    }
-
-    @Override
-    public void updateFilteredTableList(Predicate<Table> predicate) {
-        requireNonNull(predicate);
-        filteredTables.setPredicate(predicate);
-    }
-
     //=========== Tables ================================================================================
 
+    @Override
     public void addTable(Table table) {
         addressBook.addTable(table);
-    }
-
-    public boolean hasTable(Table table) {
-        return addressBook.hasTable(table);
     }
 
     @Override
@@ -233,6 +230,7 @@ public class ModelManager implements Model {
     /**
      * Returns the current Wedding.
      */
+    @Override
     public Wedding getCurrentWedding() {
         return addressBook.getCurrentWedding();
     }
