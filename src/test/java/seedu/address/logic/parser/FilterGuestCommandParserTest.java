@@ -16,8 +16,8 @@ import seedu.address.model.person.Rsvp;
 import seedu.address.model.person.Rsvp.Status;
 import seedu.address.model.person.RsvpFilter;
 
-public class FilterGuestParserTest {
-    private final FilterGuestParser parser = new FilterGuestParser();
+public class FilterGuestCommandParserTest {
+    private final FilterGuestCommandParser parser = new FilterGuestCommandParser();
     private final Rsvp rsvpYes = new Rsvp(Status.YES);
     private final RsvpFilter rsvpYesFilter = new RsvpFilter(rsvpYes);
     private final DietaryRestriction dietaryRestrictionNone = new DietaryRestriction(TypicalRestriction.NONE);

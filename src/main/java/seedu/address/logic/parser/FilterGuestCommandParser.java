@@ -16,7 +16,7 @@ import seedu.address.model.person.RsvpFilter;
 /**
  * Parses input arguments and creates a new FilterGuestCommand object.
  */
-public class FilterGuestParser implements Parser<FilterGuestCommand> {
+public class FilterGuestCommandParser implements Parser<FilterGuestCommand> {
 
     @Override
     public FilterGuestCommand parse(String args) throws ParseException {
