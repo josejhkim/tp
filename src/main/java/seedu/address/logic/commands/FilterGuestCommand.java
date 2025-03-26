@@ -8,9 +8,10 @@ import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.DietaryRestriction;
+import seedu.address.model.person.DietaryRestriction.TypicalRestriction;
 import seedu.address.model.person.DietaryRestrictionFilter;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.Rsvp.Status;
 import seedu.address.model.person.RsvpFilter;
 
 /**
@@ -21,10 +22,12 @@ public class FilterGuestCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all guest(s) belonging to filtered request.\n"
             + "Please pick at least one of the categories (Dietary restriction / RSVP) to filter by.\n"
             + "Parameters: [d/DIETARY_RESTRICTION_FIELD] [r/RSVP_FIELD]\n"
-            + "Example: " + COMMAND_WORD + " d/" + DietaryRestriction.TypicalRestriction.values()[0].toString()
-            + " r/" + DietaryRestriction.TypicalRestriction.values()[0].toString();
+            + "Example: " + COMMAND_WORD + " d/" + TypicalRestriction.values()[0].toString()
+            + " r/" + Status.values()[0].toString();
 
     public static final String MESSAGE_SUCCESS = "Here are your filtered guests.";
+    final Predicate<Person> dietaryRestrictionFilter;
+    final Predicate<Person> rsvpFilter;
     final Predicate<Person> combinedPredicate;
 
     /**
@@ -36,6 +39,9 @@ public class FilterGuestCommand extends Command {
      * @throws IllegalArgumentException if both filters are null
      */
     public FilterGuestCommand(DietaryRestrictionFilter dietaryFilter, RsvpFilter rsvpFilter) {
+
+        this.dietaryRestrictionFilter = dietaryFilter;
+        this.rsvpFilter = rsvpFilter;
 
         Predicate<Person> predicate = person -> true;
         if (dietaryFilter != null) {
@@ -67,7 +73,8 @@ public class FilterGuestCommand extends Command {
         }
 
         FilterGuestCommand otherFilterGuestCommand = (FilterGuestCommand) other;
-        return combinedPredicate.equals(otherFilterGuestCommand.combinedPredicate);
+        return java.util.Objects.equals(this.dietaryRestrictionFilter, otherFilterGuestCommand.dietaryRestrictionFilter)
+            && java.util.Objects.equals(this.rsvpFilter, otherFilterGuestCommand.rsvpFilter);
     }
 
     /**
