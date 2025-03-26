@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.table.exceptions.TableFullException;
 
 /**
  * Represents a seating table in a wedding.
@@ -100,6 +101,10 @@ public final class Table {
     }
 
     public void addPerson(Person p) {
+        if (getSize() == getCapacity()) {
+            throw new TableFullException();
+        }
+
         this.uniquePersonList.add(p);
     }
 
