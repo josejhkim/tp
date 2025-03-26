@@ -33,7 +33,7 @@ public class Wedding {
     }
 
     /**
-     * Constructs a copy of the given wedding.
+     * Constructs a deep copy of the given wedding.
      *
      * @param wedding The wedding to be copied.
      */
@@ -70,8 +70,7 @@ public class Wedding {
         return tableList;
     }
 
-    // =========== Persons
-    // ================================================================================
+    // =========== Persons =====================================================
 
     /**
      * Adds a person to the wedding's guest list.
@@ -107,8 +106,6 @@ public class Wedding {
      * @param replacement The new person list to replace the existing one.
      */
     public void setPersons(UniquePersonList replacement) {
-        requireNonNull(replacement);
-
         this.uniquePersonList.setPersons(replacement);
     }
 
@@ -133,8 +130,7 @@ public class Wedding {
         return uniquePersonList.contains(person);
     }
 
-    // =========== Tables
-    // ================================================================================
+    // =========== Tables =====================================================
 
     /**
      * Adds a table to the wedding's seating arrangement.
@@ -159,7 +155,7 @@ public class Wedding {
      *
      * @param tableId The ID of the table to delete.
      */
-    public void deleteTable(int tableId) {
+    public void deleteTableById(int tableId) {
         Table table = tableList.findTableById(tableId);
         deleteTable(table);
     }
@@ -180,7 +176,7 @@ public class Wedding {
      * @param tableId The ID of the table to find.
      * @return The table with the matching ID if found.
      */
-    public Table findTable(int tableId) {
+    public Table findTableById(int tableId) {
         return tableList.findTableById(tableId);
     }
 
@@ -200,7 +196,7 @@ public class Wedding {
      * @param tableId The ID of the table to check.
      * @return True if a table with the specified ID exists, false otherwise.
      */
-    public boolean hasTable(int tableId) {
+    public boolean hasTableById(int tableId) {
         return tableList.hasTableById(tableId);
     }
 
@@ -220,7 +216,7 @@ public class Wedding {
      * @param tableId The ID of the table to get.
      * @return The table with the matching ID.
      */
-    public Table getTable(int tableId) {
+    public Table getTableById(int tableId) {
         return tableList.findTableById(tableId);
     }
 
@@ -229,14 +225,9 @@ public class Wedding {
      *
      * @param p The person to be assigned.
      * @param table The table to assign the person to.
-     * @throws TableNotFoundException If the table does not exist.
      */
     public void addPersonToTable(Person p, Table table) {
-        if (tableList.findTable(table) == null) {
-            throw new TableNotFoundException();
-        }
-
-        table.addPerson(p);
+        tableList.addPersonToTable(p, table);
     }
 
     /**
@@ -244,16 +235,9 @@ public class Wedding {
      *
      * @param p The person to be assigned.
      * @param tableId The ID of the table to assign the person to.
-     * @throws TableNotFoundException If no table with the specified ID exists.
      */
-    public void addPersonToTable(Person p, int tableId) {
-        Table table = tableList.findTableById(tableId);
-
-        if (table == null) {
-            throw new TableNotFoundException();
-        }
-
-        table.addPerson(p);
+    public void addPersonToTableById(Person p, int tableId) {
+        tableList.addPersonToTableById(p, tableId);
     }
 
     /**
@@ -264,11 +248,7 @@ public class Wedding {
      * @throws TableNotFoundException If the table does not exist.
      */
     public void deletePersonFromTable(Person p, Table table) {
-        if (tableList.findTable(table) == null) {
-            throw new TableNotFoundException();
-        }
-
-        table.deletePerson(p);
+        tableList.deletePersonFromTable(p, table);
     }
 
     /**
@@ -278,18 +258,11 @@ public class Wedding {
      * @param tableId The ID of the table to remove the person from.
      * @throws TableNotFoundException If no table with the specified ID exists.
      */
-    public void deletePersonFromTable(Person p, int tableId) {
-        Table table = tableList.findTableById(tableId);
-
-        if (table == null) {
-            throw new TableNotFoundException();
-        }
-
-        table.deletePerson(p);
+    public void deletePersonFromTableById(Person p, int tableId) {
+        tableList.deletePersonFromTableById(p, tableId);
     }
 
-    // =========== Utils
-    // ================================================================================
+    // =========== Utils ======================================================
 
     /**
      * Checks if two weddings are equal.
