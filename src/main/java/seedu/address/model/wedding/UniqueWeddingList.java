@@ -53,9 +53,12 @@ public class UniqueWeddingList implements Iterable<Wedding> {
      * @throws IllegalArgumentException if a wedding with the same ID already exists.
      */
     public void addWedding(Wedding toAdd) {
+        requireNonNull(toAdd);
+
         if (contains(toAdd)) {
             throw new IllegalArgumentException("Wedding with name " + toAdd.getName() + " already exists.");
         }
+
         internalList.add(toAdd);
     }
 
@@ -66,11 +69,11 @@ public class UniqueWeddingList implements Iterable<Wedding> {
      * @throws WeddingNotFoundException if the wedding does not exist.
      */
     public void deleteWedding(Wedding wedding) {
-        if (wedding != null) {
-            internalList.remove(wedding);
-            return;
+        requireNonNull(wedding);
+
+        if (!internalList.remove(wedding)) {
+            throw new WeddingNotFoundException();
         }
-        throw new WeddingNotFoundException();
     }
 
     /**
@@ -80,6 +83,8 @@ public class UniqueWeddingList implements Iterable<Wedding> {
      * @throws WeddingNotFoundException if the wedding with the given name does not exist.
      */
     public void deleteWeddingByName(String weddingName) {
+        requireNonNull(weddingName);
+
         Wedding wedding = findWeddingByName(weddingName);
         deleteWedding(wedding);
     }
@@ -88,13 +93,15 @@ public class UniqueWeddingList implements Iterable<Wedding> {
      * Finds a wedding in the list by its ID.
      *
      * @param weddingName The ID of the wedding to find.
-     * @return An {@code Optional} containing the wedding if found, otherwise an empty {@code Optional}.
+     * @return The wedding from the list if found.
+     * @throws WeddingNotFoundException if no matching wedding is found.
+     *
      */
     public Wedding findWeddingByName(String weddingName) {
         try {
             return internalList.stream().filter(wedding -> wedding.getName().equals(weddingName)).findFirst().get();
         } catch (NoSuchElementException nsee) {
-            return null;
+            throw new WeddingNotFoundException();
         }
     }
 
@@ -103,10 +110,14 @@ public class UniqueWeddingList implements Iterable<Wedding> {
      *
      * @param wedding The wedding to find.
      * @return The wedding from the list if found.
-     * @throws NoSuchElementException if no matching wedding is found.
+     * @throws WeddingNotFoundException if no matching wedding is found.
      */
     public Wedding findWedding(Wedding wedding) {
-        return internalList.stream().filter(w -> w.equals(wedding)).findFirst().get();
+        try {
+            return internalList.stream().filter(w -> w.equals(wedding)).findFirst().get();
+        } catch (NoSuchElementException nsee) {
+            throw new WeddingNotFoundException();
+        }
     }
 
     /**
@@ -115,8 +126,14 @@ public class UniqueWeddingList implements Iterable<Wedding> {
      * @param weddingName The ID of the wedding to check.
      * @return {@code true} if the wedding exists, otherwise {@code false}.
      */
-    public boolean hasWeddingWithGivenName(String weddingName) {
+    public boolean hasWeddingByName(String weddingName) {
+        requireNonNull(weddingName);
         return internalList.stream().anyMatch(wedding -> wedding.getName() == weddingName);
+    }
+
+    public boolean hasWedding(Wedding wedding) {
+        requireNonNull(wedding);
+        return internalList.contains(wedding);
     }
 
     /**
@@ -132,7 +149,7 @@ public class UniqueWeddingList implements Iterable<Wedding> {
 
         int index = internalList.indexOf(target);
         if (index == -1) {
-            throw new PersonNotFoundException();
+            throw new WeddingNotFoundException();
         }
 
         if (!target.isSameWedding(editedWedding) && contains(editedWedding)) {
@@ -179,7 +196,7 @@ public class UniqueWeddingList implements Iterable<Wedding> {
      * @throws WeddingNotFoundException if the wedding does not exist.
      * @throws IllegalArgumentException if the guest is not found or the wedding is full.
      */
-    public void assignGuestToWedding(String weddingName, Person guest) {
+    public void assignGuestToWeddingByName(String weddingName, Person guest) {
         Wedding wedding = findWeddingByName(weddingName);
         if (wedding == null) {
             throw new WeddingNotFoundException();
@@ -198,7 +215,7 @@ public class UniqueWeddingList implements Iterable<Wedding> {
      * @param guest The guest to be added.
      * @throws WeddingNotFoundException if the wedding does not exist.
      */
-    public void deleteGuestFromWedding(String weddingName, Person guest) {
+    public void deleteGuestFromWeddingByName(String weddingName, Person guest) {
         Wedding wedding = findWeddingByName(weddingName);
         if (wedding == null) {
             throw new WeddingNotFoundException();
