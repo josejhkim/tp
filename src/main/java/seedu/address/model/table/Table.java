@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.table.exceptions.TableFullException;
 
 /**
@@ -109,6 +110,10 @@ public final class Table {
     }
 
     public void deletePerson(Person p) {
+        if (!uniquePersonList.contains(p)) {
+            throw new PersonNotFoundException();
+        }
+
         this.uniquePersonList.delete(p);
     }
 
