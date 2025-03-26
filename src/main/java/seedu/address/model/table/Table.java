@@ -111,6 +111,10 @@ public final class Table {
         return this.uniquePersonList.asUnmodifiableObservableList();
     }
 
+    public int getSize() {
+        return this.uniquePersonList.size();
+    }
+
     /**
      * Returns an immutable list of persons' names assigned to this table.
      *
