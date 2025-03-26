@@ -10,7 +10,7 @@ import seedu.address.model.person.UniquePersonList;
 
 /**
  * Represents a seating table in a wedding.
- * Each table has a unique ID, a seating capacity, and a list of assigned guest names.
+ * Each table has a unique ID, a seating capacity, and a list of assigned persons.
  * This class is immutable, meaning once a table is created, its properties cannot be modified.
  */
 public final class Table {
@@ -29,7 +29,7 @@ public final class Table {
 
     /**
      * Constructs a new {@code Table} with the given ID and capacity.
-     * This constructor initializes an empty guest list.
+     * This constructor initializes an empty person list.
      *
      * @param tableId  The unique identifier for the table. Must be a positive integer.
      * @param capacity The seating capacity of the table. Must be a positive integer.
@@ -107,17 +107,16 @@ public final class Table {
         this.uniquePersonList.delete(p);
     }
 
-    public ObservableList<Person> getPersons() {
+    public ObservableList<Person> getAllPersons() {
         return this.uniquePersonList.asUnmodifiableObservableList();
     }
 
     /**
-     * Returns an immutable list of guest names assigned to this table.
-     * This is an alias for {@code getGuestIds()} to improve readability.
+     * Returns an immutable list of persons' names assigned to this table.
      *
-     * @return A list of guest names assigned to the table.
+     * @return A list of all persons' names assigned to the table.
      */
-    public List<Name> getPersonsNames() {
+    public List<Name> getAllPersonsNames() {
         return this.uniquePersonList.getAllPersonsNames();
     }
 
@@ -132,7 +131,7 @@ public final class Table {
     }
 
     /**
-     * Returns a string representation of this table, showing its ID, capacity, and assigned guest names.
+     * Returns a string representation of this table, showing its ID, capacity, and assigned person names.
      *
      * @return A string representation of the table.
      */
@@ -144,7 +143,7 @@ public final class Table {
 
     /**
      * Compares this table to another object for equality.
-     * Two tables are considered equal if they have the same table ID, capacity, and guest list.
+     * Two tables are considered equal if they have the same table ID, capacity, and person list.
      *
      * @param other The object to compare.
      * @return {@code true} if both tables are equal, otherwise {@code false}.
@@ -163,7 +162,7 @@ public final class Table {
     }
 
     /**
-     * Returns a hash code for this table, based on its ID, capacity, and guest list.
+     * Returns a hash code for this table, based on its ID, capacity, and person list.
      *
      * @return The hash code.
      */
