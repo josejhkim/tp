@@ -45,7 +45,7 @@ public class FilterGuestCommandTest {
     private final DietaryRestrictionFilter nonePredicate = new DietaryRestrictionFilter(new DietaryRestriction(NONE));
     private final DietaryRestrictionFilter eggPredicate = new DietaryRestrictionFilter(new DietaryRestriction(EGGS));
     private final RsvpFilter noPredicate = new RsvpFilter(new Rsvp(NO));
-    private final RsvpFilter noReponsePredicate = new RsvpFilter(new Rsvp(NO_RESPONSE));
+    private final RsvpFilter noResponsePredicate = new RsvpFilter(new Rsvp(NO_RESPONSE));
 
     @Test
     public void equals() {
@@ -75,8 +75,8 @@ public class FilterGuestCommandTest {
     @Test
     public void execute_filterOnRsvp_noPersonFound() throws CommandException {
         String expectedMessage = String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
-        FilterGuestCommand command = new FilterGuestCommand(null, noReponsePredicate);
-        expectedModel.updateFilteredPersonList(noReponsePredicate);
+        FilterGuestCommand command = new FilterGuestCommand(null, noResponsePredicate);
+        expectedModel.updateFilteredPersonList(noResponsePredicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(List.of(), model.getFilteredPersonList());
     }

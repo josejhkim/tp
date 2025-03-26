@@ -84,13 +84,6 @@ public class AddressBookTest {
     public void getPersonList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> addressBook.getPersonList().remove(0));
     }
-    //    To rewrite
-    //    @Test
-    //    public void toStringMethod() {
-    //        String expected = AddressBook.class.getCanonicalName() + "{persons=" + addressBook.getPersonList() + "}";
-    //        assertEquals(expected, addressBook.toString());
-    //    }
-
 
     /**
      * A stub ReadOnlyAddressBook whose persons list can violate interface constraints.

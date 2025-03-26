@@ -1,7 +1,8 @@
 package seedu.address.model;
 
-import java.util.List;
 import static java.util.Objects.requireNonNull;
+
+import java.util.List;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.ToStringBuilder;
@@ -48,13 +49,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Replaces the contents of the person list with {@code persons}.
-     * {@code persons} must not contain duplicate persons.
-     *
-     * @param persons the UniquePersonList to set
-     * Replaces the contents of the person list with {@code persons}. {@code persons} must not contain duplicate
-     * persons.
-     */
+    * Replaces the contents of the person list with {@code persons}.
+    * {@code persons} must not contain duplicate persons.
+    *
+    * @param persons the UniquePersonList to set
+    */
     public void setPersons(UniquePersonList persons) {
         this.currentWedding.setPersons(persons);
     }
@@ -88,12 +87,6 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     // =========== Weddings
     // ================================================================================
-
-    /**
-     * Adds a wedding to the address book.
-     *
-     * @param wedding the Wedding to be added
-     */
     /**
      * Adds a wedding to the address book.
      * The wedding must not already exist in the address book.
@@ -104,11 +97,6 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.uniqueWeddingList.addWedding(wedding);
     }
 
-    /**
-     * Creates a new wedding with the specified name and adds it to the address book.
-     *
-     * @param weddingName the name of the new wedding
-     */
     /**
      * Creates a new wedding with the given name and adds it to the address book.
      *
