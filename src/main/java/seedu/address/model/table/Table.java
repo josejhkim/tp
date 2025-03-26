@@ -43,10 +43,11 @@ public final class Table {
     }
 
     /**
-     * Constructs a new {@code Table} with the given ID, capacity, and assigned guest names.
+     * Constructs a new {@code Table} with the given ID, capacity, and assigned persons.
      *
-     * @param tableId  The unique identifier for the table. Must be a positive integer.
+     * @param tableId The unique identifier for the table. Must be a positive integer.
      * @param capacity The seating capacity of the table. Must be a positive integer.
+     * @param uniquePersonList The list of persons assigned to this table.
      * @throws IllegalArgumentException if {@code tableId} or {@code capacity} is not positive.
      */
     public Table(int tableId, int capacity, UniquePersonList uniquePersonList) {
@@ -59,11 +60,10 @@ public final class Table {
     }
 
     /**
-     * Constructs a new {@code Table} by copying the table ID and capacity from another table,
-     * and creating a deep copy of its guest list. Each {@code Person} in the new guest list
-     * is associated with this new table instance.
+     * Copy constructor that creates a deep copy of the provided table.
+     * All persons in the original table will be copied and assigned to this new table.
      *
-     * @param t The table to copy from.
+     * @param t The table to be copied. Cannot be null.
      */
     public Table(Table t) {
         this.tableId = t.tableId;

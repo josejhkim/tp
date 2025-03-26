@@ -1,8 +1,7 @@
 package seedu.address.model;
 
-import static java.util.Objects.requireNonNull;
-
 import java.util.List;
+import static java.util.Objects.requireNonNull;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.ToStringBuilder;
@@ -15,24 +14,23 @@ import seedu.address.model.wedding.Wedding;
 import seedu.address.model.wedding.exceptions.WeddingNotFoundException;
 
 /**
- * Wraps all data at the address-book level
- * Duplicates are not allowed (by .isSamePerson comparison)
+ * Wraps all data at the address-book level Duplicates are not allowed (by .isSamePerson comparison)
  */
 public class AddressBook implements ReadOnlyAddressBook {
 
     /**
      * Manages the list of weddings in the address book.
      */
-    private UniqueWeddingList uniqueWeddingList;
-
     private Wedding currentWedding;
 
     /**
      * Initializes the address book with a default wedding and sets it as the current wedding.
      */
+    private UniqueWeddingList uniqueWeddingList = new UniqueWeddingList();
+
+
     public AddressBook() {
-        this.currentWedding = new Wedding("Wedding");
-        this.addWedding(this.currentWedding);
+
     }
 
     /**
@@ -54,6 +52,8 @@ public class AddressBook implements ReadOnlyAddressBook {
      * {@code persons} must not contain duplicate persons.
      *
      * @param persons the UniquePersonList to set
+     * Replaces the contents of the person list with {@code persons}. {@code persons} must not contain duplicate
+     * persons.
      */
     public void setPersons(UniquePersonList persons) {
         this.currentWedding.setPersons(persons);
@@ -67,21 +67,38 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void resetData(ReadOnlyAddressBook newData) {
         requireNonNull(newData);
 
+        // Create a new wedding list to avoid issues with default wedding
         uniqueWeddingList = new UniqueWeddingList();
 
-        setWeddings(newData.getWeddingList());
+        // Add all weddings from newData, ensuring no duplicates
+        for (Wedding wedding : newData.getWeddingList()) {
+            if (!hasWedding(wedding)) {
+                Wedding toBeAdded = new Wedding(wedding);
+                this.uniqueWeddingList.addWedding(toBeAdded);
+            }
+        }
 
-        if (newData.getCurrentWedding() != null) {
+        // Set current wedding if available
+        if (newData.getCurrentWedding() != null && !uniqueWeddingList.asUnmodifiableObservableList().isEmpty()) {
+
             setCurrentWeddingByName(newData.getCurrentWedding().getName());
+
         }
     }
 
-    //=========== Weddings ================================================================================
+    // =========== Weddings
+    // ================================================================================
 
     /**
      * Adds a wedding to the address book.
      *
      * @param wedding the Wedding to be added
+     */
+    /**
+     * Adds a wedding to the address book.
+     * The wedding must not already exist in the address book.
+     *
+     * @param wedding The wedding to be added
      */
     public void addWedding(Wedding wedding) {
         this.uniqueWeddingList.addWedding(wedding);
@@ -92,20 +109,20 @@ public class AddressBook implements ReadOnlyAddressBook {
      *
      * @param weddingName the name of the new wedding
      */
+    /**
+     * Creates a new wedding with the given name and adds it to the address book.
+     *
+     * @param weddingName The name of the wedding to be created
+     */
     public void createWedding(String weddingName) {
         Wedding newWedding = new Wedding(weddingName);
         addWedding(newWedding);
     }
 
     /**
-     * Sets the active wedding in the address book.
-     * Replaces any existing wedding.
-     *
-     * @param wedding the Wedding to set as current
-     * @throws WeddingNotFoundException if the wedding does not exist in the address book
+     * Sets the active wedding in the address book. Replaces any existing wedding.
      */
     public void setCurrentWedding(Wedding wedding) {
-        requireNonNull(wedding);
         if (this.uniqueWeddingList.findWeddingByName(wedding.getName()) == null) {
             throw new WeddingNotFoundException();
         }
@@ -134,9 +151,11 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     /**
      * Deletes the specified wedding from the address book.
-     * If it is the current wedding, it sets the current wedding to another one if available.
+     * If there is more than one wedding and the deleted wedding is the current wedding,
+     * another wedding will be set as current.
+     * If there is only one wedding, the current wedding will be set to null after deletion.
      *
-     * @param wedding the Wedding to delete
+     * @param wedding The wedding to be deleted
      */
     public void deleteWedding(Wedding wedding) {
         if (uniqueWeddingList.size() > 1) {
@@ -150,23 +169,26 @@ public class AddressBook implements ReadOnlyAddressBook {
 
         if (uniqueWeddingList.size() == 1) {
             uniqueWeddingList.deleteWedding(wedding);
-            Wedding defaultWedding = new Wedding("Wedding");
-            uniqueWeddingList.addWedding(wedding);
-            setCurrentWedding(wedding);
+
+            setCurrentWedding(null);
         }
     }
 
     /**
      * Deletes the current wedding from the address book.
+     * Delegates to deleteWedding method with the current wedding as parameter.
      */
     public void deleteCurrentWedding() {
         deleteWedding(currentWedding);
     }
 
     /**
-     * Deletes a wedding by its name.
+     * Deletes a wedding by its name from the address book.
+     * First finds the wedding with the matching name, then deletes it.
+     * If the wedding with the given name is not found, a WeddingNotFoundException will be thrown.
      *
-     * @param weddingName the name of the wedding to delete
+     * @param weddingName The name of the wedding to be deleted
+     * @throws WeddingNotFoundException if no wedding with the given name exists
      */
     public void deleteWeddingByName(String weddingName) {
         Wedding weddingWithMatchingName = uniqueWeddingList.findWeddingByName(weddingName);
@@ -174,9 +196,9 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Checks if a wedding exists.
+     * Checks if a wedding currently exists in the address book.
      *
-     * @return true if a wedding exists, false otherwise
+     * @return true if a current wedding exists, false otherwise
      */
     public boolean hasWedding() {
         return currentWedding != null;
@@ -223,7 +245,8 @@ public class AddressBook implements ReadOnlyAddressBook {
         setWeddings(uniqueWeddingList.asUnmodifiableObservableList());
     }
 
-    //=========== Persons ================================================================================
+    // =========== Persons
+    // ================================================================================
 
     /**
      * Returns true if a person with the same identity as {@code person} exists in the address book.
@@ -237,23 +260,18 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Adds a person to the address book.
-     * The person must not already exist in the address book.
-     *
-     * @param person the Person to add
+     * Adds a person to the address book. The person must not already exist in the address book.
      */
     public void addPerson(Person person) {
+        // Old implementation
         requireNonNull(person);
         currentWedding.addPerson(person);
     }
 
     /**
-     * Replaces the given person {@code target} in the list with {@code editedPerson}.
-     * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
-     *
-     * @param target the Person to be replaced
-     * @param editedPerson the new Person to replace the target
+     * Replaces the given person {@code target} in the list with {@code editedPerson}. {@code target} must exist in the
+     * address book. The person identity of {@code editedPerson} must not be the same as another existing person in the
+     * address book.
      */
     public void setPerson(Person target, Person editedPerson) {
         requireNonNull(editedPerson);
@@ -261,10 +279,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Removes {@code key} from this {@code AddressBook}.
-     * {@code key} must exist in the address book.
-     *
-     * @param key the Person to remove
+     * Removes {@code key} from this {@code AddressBook}. {@code key} must exist in the address book.
      */
     public void deletePerson(Person key) {
         currentWedding.deletePerson(key);
@@ -280,7 +295,8 @@ public class AddressBook implements ReadOnlyAddressBook {
         return currentWedding.findPersonByName(name);
     }
 
-    //=========== Tables ================================================================================
+    // =========== Tables
+    // ================================================================================
 
     /**
      * Checks if a table exists in the current wedding.
@@ -390,13 +406,12 @@ public class AddressBook implements ReadOnlyAddressBook {
         return currentWedding.getTable(tableId);
     }
 
-    //=========== Utils ================================================================================
+    // =========== Utils
+    // ================================================================================
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this)
-                .add("weddings", uniqueWeddingList)
-                .add("current wedding", currentWedding)
+        return new ToStringBuilder(this).add("weddings", uniqueWeddingList).add("current wedding", currentWedding)
                 .toString();
     }
 
@@ -424,7 +439,6 @@ public class AddressBook implements ReadOnlyAddressBook {
         return uniqueWeddingList.equals(otherAddressBook.uniqueWeddingList);
 
     }
-
 
     @Override
     public int hashCode() {

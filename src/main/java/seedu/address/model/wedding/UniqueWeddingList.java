@@ -1,14 +1,13 @@
 package seedu.address.model.wedding;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-
 import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
+import static java.util.Objects.requireNonNull;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.wedding.exceptions.DuplicateWeddingException;
@@ -17,8 +16,8 @@ import seedu.address.model.wedding.exceptions.WeddingNotFoundException;
 /**
  * Represents a unique list of weddings in a wedding.
  * <p>
- * This class ensures that weddings remain unique within the list.
- * It provides methods for adding, deleting, searching, and managing guests within weddings.
+ * This class ensures that weddings remain unique within the list. It provides methods for adding, deleting, searching,
+ * and managing guests within weddings.
  * </p>
  * <p>
  * This list does not allow duplicate weddings based on {@code Wedding#isSameWedding(Wedding)}.
@@ -27,17 +26,15 @@ import seedu.address.model.wedding.exceptions.WeddingNotFoundException;
 public class UniqueWeddingList implements Iterable<Wedding> {
 
     private final ObservableList<Wedding> internalList = FXCollections.observableArrayList();
-    private final ObservableList<Wedding> internalUnmodifiableList =
-        FXCollections.unmodifiableObservableList(internalList);
+    private final ObservableList<Wedding> internalUnmodifiableList = FXCollections
+            .unmodifiableObservableList(internalList);
 
     /**
-     * Checks if a wedding with the same identity as {@code toCheck} exists in the list.
-     *
-     * @param toCheck The wedding to check.
-     * @return {@code true} if the wedding exists, otherwise {@code false}.
+     * Returns true if the list contains an equivalent wedding as the given argument.
      */
     public boolean contains(Wedding toCheck) {
-        return internalList.stream().anyMatch(toCheck::isSameWedding);
+        requireNonNull(toCheck);
+        return internalList.stream().anyMatch(wedding -> wedding.isSameWedding(toCheck));
     }
 
     /**
@@ -50,8 +47,7 @@ public class UniqueWeddingList implements Iterable<Wedding> {
     }
 
     /**
-     * Adds a new wedding to the list.
-     * Ensures that the wedding does not already exist in the list.
+     * Adds a new wedding to the list. Ensures that the wedding does not already exist in the list.
      *
      * @param toAdd The wedding to add.
      * @throws IllegalArgumentException if a wedding with the same ID already exists.
@@ -78,11 +74,11 @@ public class UniqueWeddingList implements Iterable<Wedding> {
     }
 
     /**
-    * Deletes a wedding from the list by its name.
-    *
-    * @param weddingName The name of the wedding to delete.
-    * @throws WeddingNotFoundException if the wedding is not found.
-    */
+     * Deletes a wedding from the list by its name.
+     *
+     * @param weddingName The name of the wedding to be deleted.
+     * @throws WeddingNotFoundException if the wedding with the given name does not exist.
+     */
     public void deleteWeddingByName(String weddingName) {
         Wedding wedding = findWeddingByName(weddingName);
         deleteWedding(wedding);
@@ -96,8 +92,7 @@ public class UniqueWeddingList implements Iterable<Wedding> {
      */
     public Wedding findWeddingByName(String weddingName) {
         try {
-            return internalList.stream().filter(wedding -> wedding.getName().equals(weddingName))
-                .findFirst().get();
+            return internalList.stream().filter(wedding -> wedding.getName().equals(weddingName)).findFirst().get();
         } catch (NoSuchElementException nsee) {
             return null;
         }
@@ -111,8 +106,7 @@ public class UniqueWeddingList implements Iterable<Wedding> {
      * @throws NoSuchElementException if no matching wedding is found.
      */
     public Wedding findWedding(Wedding wedding) {
-        return internalList.stream().filter(w -> w.equals(wedding))
-            .findFirst().get();
+        return internalList.stream().filter(w -> w.equals(wedding)).findFirst().get();
     }
 
     /**
@@ -176,11 +170,11 @@ public class UniqueWeddingList implements Iterable<Wedding> {
     /**
      * Assigns a guest to a wedding based on their name.
      * <p>
-     * The method ensures that the wedding exists and that the guest is present in the RSVP list.
-     * If the wedding is full, an exception is thrown.
+     * The method ensures that the wedding exists and that the guest is present in the RSVP list. If the wedding is
+     * full, an exception is thrown.
      * </p>
      *
-     * @param weddingName  The ID of the wedding.
+     * @param weddingName The ID of the wedding.
      * @param guest The new guest to be added in this wedding.
      * @throws WeddingNotFoundException if the wedding does not exist.
      * @throws IllegalArgumentException if the guest is not found or the wedding is full.
@@ -200,8 +194,8 @@ public class UniqueWeddingList implements Iterable<Wedding> {
      * The method finds the specified wedding, removes the guest, and updates the wedding list.
      * </p>
      *
-     * @param weddingName  The ID of the wedding.
-     * @param guest  The guest to be added.
+     * @param weddingName The ID of the wedding.
+     * @param guest The guest to be added.
      * @throws WeddingNotFoundException if the wedding does not exist.
      */
     public void deleteGuestFromWedding(String weddingName, Person guest) {
@@ -214,8 +208,8 @@ public class UniqueWeddingList implements Iterable<Wedding> {
     }
 
     /**
-     * Returns the list of weddings as an unmodifiable {@code ObservableList}.
-     * This ensures that the list cannot be modified externally.
+     * Returns the list of weddings as an unmodifiable {@code ObservableList}. This ensures that the list cannot be
+     * modified externally.
      *
      * @return An unmodifiable list of weddings.
      */

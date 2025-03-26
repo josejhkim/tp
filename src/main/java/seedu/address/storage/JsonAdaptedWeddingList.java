@@ -20,8 +20,7 @@ class JsonAdaptedWeddingList {
 
     public JsonAdaptedWeddingList(UniqueWeddingList source) {
         // Convert all weddings from RsvpList
-        this.weddings = source.asUnmodifiableObservableList().stream()
-                .map(JsonAdaptedWedding::new)
+        this.weddings = source.asUnmodifiableObservableList().stream().map(JsonAdaptedWedding::new)
                 .collect(Collectors.toList());
     }
 

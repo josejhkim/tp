@@ -1,20 +1,19 @@
 package seedu.address.model.person;
 
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.table.Table;
 import seedu.address.model.tag.Tag;
 
 /**
- * Represents a Person in the address book.
- * Guarantees: details are present and not null, field values are validated, immutable.
+ * Represents a Person in the address book. Guarantees: details are present and not null, field values are validated,
+ * immutable.
  */
 public class Person {
 
@@ -35,10 +34,8 @@ public class Person {
      * Every field must be present and not null.
      */
     public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags,
-                  DietaryRestriction dietaryRestriction,
-                  Rsvp rsvp, Optional<Table> table) {
-        requireAllNonNull(name, phone, email, address, tags, dietaryRestriction,
-            rsvp);
+            DietaryRestriction dietaryRestriction, Rsvp rsvp, Optional<Table> table) {
+        requireAllNonNull(name, phone, email, address, tags, dietaryRestriction, rsvp);
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -50,10 +47,14 @@ public class Person {
     }
 
     /**
+     * Creates a new Person by copying attributes from an existing guest and assigning them to a specific table.
+     *
      * @param guest A guest object to copy attributes from
      * @param table A table object that this guest is assigned to
      */
     public Person(Person guest, Table table) {
+        requireAllNonNull(guest.name, guest.phone, guest.email, guest.address, guest.tags, guest.dietaryRestriction,
+                guest.rsvp);
         this.name = guest.getName();
         this.phone = guest.getPhone();
         this.email = guest.getEmail();
@@ -65,12 +66,14 @@ public class Person {
     }
 
     /**
-     * Constructs a new {@code Person} by copying all attributes from another {@code Person}.
-     * This is a deep copy where the new object has the same values but is a separate instance.
+     * Creates a new Person that is a copy of another Person. All attributes are copied from the other Person, including
+     * any table assignment.
      *
-     * @param other The {@code Person} instance to copy from.
+     * @param other The Person object to copy from
      */
     public Person(Person other) {
+        requireAllNonNull(other.name, other.phone, other.email, other.address, other.tags, other.dietaryRestriction,
+                other.rsvp);
         this.name = other.getName();
         this.phone = other.getPhone();
         this.email = other.getEmail();
@@ -81,37 +84,72 @@ public class Person {
         this.table = other.getTable();
     }
 
+    /**
+     * Returns the name of this person.
+     *
+     * @return The name of this person
+     */
     public Name getName() {
         return name;
     }
 
+    /**
+     * Returns the phone number of this person.
+     *
+     * @return The phone number of this person
+     */
     public Phone getPhone() {
         return phone;
     }
 
+    /**
+     * Returns the email address of this person.
+     *
+     * @return The email address of this person
+     */
     public Email getEmail() {
         return email;
     }
 
+    /**
+     * Returns the residential address of this person.
+     *
+     * @return The residential address of this person
+     */
     public Address getAddress() {
         return address;
     }
 
+    /**
+     * Returns the dietary restriction of this person.
+     *
+     * @return The dietary restriction of this person
+     */
     public DietaryRestriction getDietaryRestriction() {
         return dietaryRestriction;
     }
 
+    /**
+     * Returns the RSVP status of this person.
+     *
+     * @return The RSVP status of this person
+     */
     public Rsvp getRsvp() {
         return rsvp;
     }
 
+    /**
+     * Returns the table assignment of this person.
+     *
+     * @return The table assignment of this person
+     */
     public Optional<Table> getTable() {
         return table;
     }
 
     /**
-     * Get the id for the table this guest is sitting at.
-     * Return -1 if the guest is unassigned to a table.
+     * Get the id for the table this guest is sitting at. Return -1 if the guest is unassigned to a table.
+     *
      * @return The id of the table for this guest or -1 if unassigned
      */
     public int getTableId() {
@@ -119,18 +157,16 @@ public class Person {
     }
 
     /**
-     * Get the string representation for the table id.
-     * Return "Unassigned" if the guest is unassigned to a table.
+     * Get the string representation for the table id. Return "Unassigned" if the guest is unassigned to a table.
+     *
      * @return The string representation for the table id
      */
     public String getTableIdString() {
-        return table.map(t -> String.valueOf(t.getTableId()))
-            .orElse("Unassigned");
+        return table.map(t -> String.valueOf(t.getTableId())).orElse("Unassigned");
     }
 
     /**
-     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
-     * if modification is attempted.
+     * Returns an immutable tag set, which throws {@code UnsupportedOperationException} if modification is attempted.
      */
 
     public Set<Tag> getTags() {
@@ -138,21 +174,19 @@ public class Person {
     }
 
     /**
-     * Returns true if both persons have the same name.
-     * This defines a weaker notion of equality between two persons.
+     * Returns true if both persons have the same name. This defines a weaker notion of equality between two persons.
      */
     public boolean isSamePerson(Person otherPerson) {
         if (otherPerson == this) {
             return true;
         }
 
-        return otherPerson != null
-                && otherPerson.getName().equals(getName());
+        return otherPerson != null && otherPerson.getName().equals(getName());
     }
 
     /**
-     * Returns true if both persons have the same identity and data fields.
-     * This defines a stronger notion of equality between two persons.
+     * Returns true if both persons have the same identity and data fields. This defines a stronger notion of equality
+     * between two persons.
      */
     @Override
     public boolean equals(Object other) {
@@ -166,13 +200,9 @@ public class Person {
         }
 
         Person otherPerson = (Person) other;
-        return name.equals(otherPerson.name)
-                && phone.equals(otherPerson.phone)
-                && email.equals(otherPerson.email)
-                && address.equals(otherPerson.address)
-                && tags.equals(otherPerson.tags)
-                && dietaryRestriction.equals(otherPerson.dietaryRestriction)
-                && rsvp.equals(otherPerson.rsvp);
+        return name.equals(otherPerson.name) && phone.equals(otherPerson.phone) && email.equals(otherPerson.email)
+                && address.equals(otherPerson.address) && tags.equals(otherPerson.tags)
+                && dietaryRestriction.equals(otherPerson.dietaryRestriction) && rsvp.equals(otherPerson.rsvp);
     }
 
     @Override
@@ -183,16 +213,9 @@ public class Person {
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this)
-            .add("name", name)
-            .add("phone", phone)
-            .add("email", email)
-            .add("address", address)
-            .add("tags", tags)
-            .add("dietaryRestriction", dietaryRestriction)
-            .add("rsvp", rsvp)
-            .add("table", table.map(Table::toString).orElse("Unassigned"))
-            .toString();
+        return new ToStringBuilder(this).add("name", name).add("phone", phone).add("email", email)
+                .add("address", address).add("tags", tags).add("dietaryRestriction", dietaryRestriction)
+                .add("rsvp", rsvp).add("table", table.map(Table::toString).orElse("Unassigned")).toString();
     }
 
 }

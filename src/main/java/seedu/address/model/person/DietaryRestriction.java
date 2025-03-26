@@ -12,11 +12,6 @@ public class DietaryRestriction {
     public enum TypicalRestriction {
         VEGETARIAN, VEGAN, HALAL, SHELLFISH, PEANUTS, EGGS, FISH,
         SOY, SESAME, NONE;
-
-        @Override
-        public String toString() {
-            return super.toString();
-        }
     }
 
     private final TypicalRestriction typicalRestriction;
