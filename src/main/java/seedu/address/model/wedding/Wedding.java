@@ -201,7 +201,7 @@ public class Wedding {
      * @return True if a table with the specified ID exists, false otherwise.
      */
     public boolean hasTable(int tableId) {
-        return tableList.hasTable(tableId);
+        return tableList.hasTableById(tableId);
     }
 
     /**
