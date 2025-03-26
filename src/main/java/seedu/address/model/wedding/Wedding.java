@@ -160,7 +160,7 @@ public class Wedding {
      * @param tableId The ID of the table to delete.
      */
     public void deleteTable(int tableId) {
-        Table table = tableList.findTable(tableId);
+        Table table = tableList.findTableById(tableId);
         deleteTable(table);
     }
 
@@ -181,7 +181,7 @@ public class Wedding {
      * @return The table with the matching ID if found.
      */
     public Table findTable(int tableId) {
-        return tableList.findTable(tableId);
+        return tableList.findTableById(tableId);
     }
 
     /**
@@ -221,7 +221,7 @@ public class Wedding {
      * @return The table with the matching ID.
      */
     public Table getTable(int tableId) {
-        return tableList.findTable(tableId);
+        return tableList.findTableById(tableId);
     }
 
     /**
@@ -247,7 +247,7 @@ public class Wedding {
      * @throws TableNotFoundException If no table with the specified ID exists.
      */
     public void addPersonToTable(Person p, int tableId) {
-        Table table = tableList.findTable(tableId);
+        Table table = tableList.findTableById(tableId);
 
         if (table == null) {
             throw new TableNotFoundException();
@@ -279,7 +279,7 @@ public class Wedding {
      * @throws TableNotFoundException If no table with the specified ID exists.
      */
     public void deletePersonFromTable(Person p, int tableId) {
-        Table table = tableList.findTable(tableId);
+        Table table = tableList.findTableById(tableId);
 
         if (table == null) {
             throw new TableNotFoundException();
