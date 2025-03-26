@@ -1,6 +1,7 @@
 package seedu.address.model.table;
 
 import java.util.Iterator;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 import javafx.collections.FXCollections;
@@ -162,7 +163,7 @@ public class UniqueTableList implements Iterable<Table> {
      * @param person The new person to be added in this table.
      * @throws TableNotFoundException if the table does not exist.
      */
-    public void addPersonToTableById(int tableId, Person person) {
+    public void addPersonToTableById(Person person, int tableId) {
         requireAllNonNull(tableId, person);
 
         Table table = findTableById(tableId);
@@ -170,7 +171,7 @@ public class UniqueTableList implements Iterable<Table> {
             throw new TableNotFoundException();
         }
         
-        addPersonToTable(table, person);
+        addPersonToTable(person, table);
     }
 
     /**
@@ -182,7 +183,7 @@ public class UniqueTableList implements Iterable<Table> {
      * @param person The person to be assigned.
      * @throws TableNotFoundException if the table does not exist.
      */
-    public void addPersonToTable(Table table, Person person) {
+    public void addPersonToTable(Person person, Table table) {
         requireAllNonNull(table, person);
 
         if (!hasTable(table)) {
@@ -203,7 +204,7 @@ public class UniqueTableList implements Iterable<Table> {
      * @param person  The person to be added.
      * @throws TableNotFoundException if the table does not exist.
      */
-    public void deletePersonFromTableById(int tableId, Person person) {
+    public void deletePersonFromTableById(Person person, int tableId) {
         requireAllNonNull(tableId, person);
 
         Table table = findTableById(tableId);
@@ -212,10 +213,10 @@ public class UniqueTableList implements Iterable<Table> {
             throw new TableNotFoundException();
         }
 
-        deletePersonFromTable(table, person);
+        deletePersonFromTable(person, table);
     }
 
-    public void deletePersonFromTable(Table table, Person person) {
+    public void deletePersonFromTable(Person person, Table table) {
         requireAllNonNull(table, person);
 
         if (!hasTable(table)) {
@@ -253,6 +254,18 @@ public class UniqueTableList implements Iterable<Table> {
     }
 
     /**
+     * Replaces the contents of this list with {@code tables}.
+     * {@code tables} must not contain duplicate persons.
+     */
+    public void setTables(List<Table> tables) {
+        requireAllNonNull(tables);
+        if (!tablesAreUnique(tables)) {
+            throw new DuplicatePersonException();
+        }
+        internalList.setAll(tables);
+    }
+
+    /**
      * Returns the list of tables as an unmodifiable {@code ObservableList}.
      * This ensures that the list cannot be modified externally.
      *
@@ -282,5 +295,19 @@ public class UniqueTableList implements Iterable<Table> {
      */
     public int size() {
         return internalList.size();
+    }
+
+    /**
+     * Returns true if {@code tables} contains only unique persons.
+     */
+    private boolean tablesAreUnique(List<Table> tables) {
+        for (int i = 0; i < tables.size() - 1; i++) {
+            for (int j = i + 1; j < tables.size(); j++) {
+                if (tables.get(i).isSameTable(tables.get(j))) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 }
