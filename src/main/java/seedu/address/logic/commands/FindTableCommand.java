@@ -49,7 +49,7 @@ public class FindTableCommand extends Command {
         }
 
         return new CommandResult(String.format(MESSAGE_SUCCESS,
-                table.getTableId(), table.getCapacity(), table.getGuests().size()));
+                table.getTableId(), table.getCapacity(), table.getAllPersons().size()));
     }
 
     @Override

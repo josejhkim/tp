@@ -162,7 +162,7 @@ public class UniqueTableList implements Iterable<Table> {
 
         UniquePersonList personList = new UniquePersonList();
 
-        for (Person g : table.getGuests()) {
+        for (Person g : table.getAllPersons()) {
             personList.add(g);
         }
 
@@ -204,7 +204,7 @@ public class UniqueTableList implements Iterable<Table> {
 
         UniquePersonList personList = new UniquePersonList();
 
-        table.getGuests().stream()
+        table.getAllPersons().stream()
                 .filter(g -> !g.equals(guest))
                 .forEach(g -> personList.add(g));
 

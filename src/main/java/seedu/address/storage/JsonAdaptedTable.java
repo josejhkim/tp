@@ -38,7 +38,7 @@ public class JsonAdaptedTable {
     public JsonAdaptedTable(Table source) {
         this.tableId = source.getTableId();
         this.capacity = source.getCapacity();
-        this.guests = source.getGuests().stream()
+        this.guests = source.getAllPersons().stream()
             .map(JsonAdaptedPerson::new)
             .collect(Collectors.toList());
     }
