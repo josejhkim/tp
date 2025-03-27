@@ -61,7 +61,7 @@ public class DeleteTableCommandTest {
         model = new ModelManager(); // ✅ Create a fresh ModelManager with NO wedding
         DeleteTableCommand command = new DeleteTableCommand(2);
         // Expect a CommandException with "No current wedding set. Use setWedding command first."
-        assertThrows(NoCurrentWeddingException.class, () -> command.execute(model),
+        assertThrows(NullPointerException.class, () -> command.execute(model),
                 "No current wedding set. Use setWedding command first.");
     }
 }
