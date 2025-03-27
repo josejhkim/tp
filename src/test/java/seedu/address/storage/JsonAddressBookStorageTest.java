@@ -6,13 +6,11 @@ import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.HOON;
 import static seedu.address.testutil.TypicalPersons.IDA;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook2;
 
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
@@ -53,16 +51,16 @@ public class JsonAddressBookStorageTest {
         assertThrows(DataLoadingException.class, () -> readAddressBook("notJsonFormatAddressBook.json"));
     }
 
-//    To be rewritten later
-//    @Test
-//    public void readAddressBook_invalidPersonAddressBook_throwDataLoadingException() {
-//        assertThrows(DataLoadingException.class, () -> readAddressBook("invalidPersonAddressBook.json"));
-//    }
-//
-//    @Test
-//    public void readAddressBook_invalidAndValidPersonAddressBook_throwDataLoadingException() {
-//        assertThrows(DataLoadingException.class, () -> readAddressBook("invalidAndValidPersonAddressBook.json"));
-//    }
+    //To be rewritten later
+    //@Test
+    //public void readAddressBook_invalidPersonAddressBook_throwDataLoadingException() {
+    //    assertThrows(DataLoadingException.class, () -> readAddressBook("invalidPersonAddressBook.json"));
+    //}
+    //
+    //@Test
+    //public void readAddressBook_invalidAndValidPersonAddressBook_throwDataLoadingException() {
+    //    assertThrows(DataLoadingException.class, () -> readAddressBook("invalidAndValidPersonAddressBook.json"));
+    //}
 
     @Test
     public void readAndSaveAddressBook_allInOrder_success() throws Exception {
@@ -79,9 +77,9 @@ public class JsonAddressBookStorageTest {
 
         // Modify data, overwrite exiting file, and read back
 
-        Person new_hoon = new Person(HOON, -1);
-        original.addPerson(new_hoon);
-        original.addPersonToTable(new_hoon, 2);
+        Person newHoon = new Person(HOON, -1);
+        original.addPerson(newHoon);
+        original.addPersonToTable(newHoon, 2);
         original.deletePerson(ALICE);
         jsonAddressBookStorage.saveAddressBook(original, filePath);
         readBack = jsonAddressBookStorage.readAddressBook(filePath).get();
@@ -90,9 +88,9 @@ public class JsonAddressBookStorageTest {
         assertEquals(original, ret);
 
         // Save and read without specifying file path
-        Person new_ida = new Person(IDA, -1);
-        original.addPerson(new_ida);
-        original.addPersonToTable(new_ida, 3);
+        Person newIda = new Person(IDA, -1);
+        original.addPerson(newIda);
+        original.addPersonToTable(newIda, 3);
         jsonAddressBookStorage.saveAddressBook(original); // file path not specified
         readBack = jsonAddressBookStorage.readAddressBook().get(); // file path not specified
         ret = new AddressBook(readBack);

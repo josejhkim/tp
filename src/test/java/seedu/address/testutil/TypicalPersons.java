@@ -8,8 +8,6 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -103,25 +101,25 @@ public class TypicalPersons {
         ab.addTable(t3);
 
         ab.addPerson(ALICE);
-        Person new_benson = new Person(BENSON, -1);
-        Person new_carl = new Person(CARL, -1);
-        ab.addPerson(new_benson);
-        ab.addPerson(new_carl);
-        ab.addPersonToTable(new_benson, 2);
-        ab.addPersonToTable(new_carl, 3);
+        Person newBenson = new Person(BENSON, -1);
+        Person newCarl = new Person(CARL, -1);
+        ab.addPerson(newBenson);
+        ab.addPerson(newCarl);
+        ab.addPersonToTable(newBenson, 2);
+        ab.addPersonToTable(newCarl, 3);
 
-//        ab.addWedding(new Wedding("Jack and Jill"));
-//        ab.setCurrentWeddingByName("Jack and Jill");
-//        Person new_daniel = new Person(DANIEL, null);
-//        Person new_elle = new Person(ELLE, null);
-//        ab.addPerson(new_daniel);
-//        ab.addPerson(new_elle);
-//        ab.addTable(new Table(4, 5));
-//        ab.addTable(new Table(5, 5));
-//        ab.addPersonToTable(new_daniel, 4);
-//        ab.addPersonToTable(new_elle, 5);
-//
-//        ab.setCurrentWeddingByName("John and Jane");
+        //ab.addWedding(new Wedding("Jack and Jill"));
+        //ab.setCurrentWeddingByName("Jack and Jill");
+        //Person new_daniel = new Person(DANIEL, null);
+        //Person new_elle = new Person(ELLE, null);
+        //ab.addPerson(new_daniel);
+        //ab.addPerson(new_elle);
+        //ab.addTable(new Table(4, 5));
+        //ab.addTable(new Table(5, 5));
+        //ab.addPersonToTable(new_daniel, 4);
+        //ab.addPersonToTable(new_elle, 5);
+        //
+        //ab.setCurrentWeddingByName("John and Jane");
         return ab;
     }
 

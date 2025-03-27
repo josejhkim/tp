@@ -13,6 +13,9 @@ public class AddressBookBuilder {
 
     private AddressBook addressBook;
 
+    /**
+     * Creates an addressbook with a test wedding
+     */
     public AddressBookBuilder() {
         addressBook = new AddressBook();
         addressBook.addWedding(new Wedding("Test"));
