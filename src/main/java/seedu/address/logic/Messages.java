@@ -53,7 +53,7 @@ public class Messages {
                 .append("; RSVP: ")
                 .append(person.getRsvp())
                 .append("; Table: ")
-                .append(person.getTableId());
+                .append(person.getTableIdString());
         person.getTags().forEach(builder::append);
         return builder.toString();
     }

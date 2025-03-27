@@ -13,7 +13,9 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.table.Table;
+import seedu.address.model.table.UniqueTableList;
 import seedu.address.model.wedding.Wedding;
 
 /**
@@ -38,12 +40,20 @@ public class ModelManager implements Model {
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
 
-        filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
-        filteredTables = new FilteredList<>(this.addressBook.getTableList());
+        this.filteredPersons = new FilteredList<>(new UniquePersonList().asUnmodifiableObservableList());
+        this.filteredTables = new FilteredList<>(new UniqueTableList().asUnmodifiableObservableList());
+
+        if (addressBook.hasCurrentWedding()) {
+            this.filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+            this.filteredTables = new FilteredList<>(this.addressBook.getTableList());
+        }
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this.addressBook = new AddressBook();
+        this.userPrefs = new UserPrefs();
+        this.filteredPersons = new FilteredList<>(new UniquePersonList().asUnmodifiableObservableList());
+        this.filteredTables = new FilteredList<>(new UniqueTableList().asUnmodifiableObservableList());
     }
 
     //=========== UserPrefs ==================================================================================

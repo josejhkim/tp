@@ -35,14 +35,14 @@ public class AddPersonToTableCommandTest {
         model.addWedding(currentWedding);
         model.setCurrentWedding(currentWedding);
         Table table = new Table(1, 10);
-        currentWedding.getTableList().addTable(table);
+        model.addTable(table);
 
         Person guest = new Person(name, new Phone("12345678"), new Email("johndoe@example.com"),
             new Address("123 Street"), new HashSet<>(), new DietaryRestriction(
                 DietaryRestriction.TypicalRestriction.NONE),
-            new Rsvp(Rsvp.Status.YES), null);
+            new Rsvp(Rsvp.Status.YES));
 
-        currentWedding.addPerson(guest);
+        model.addPerson(guest);
     }
 
     @Test

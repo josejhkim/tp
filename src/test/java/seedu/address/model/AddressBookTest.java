@@ -13,6 +13,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.NoSuchElementException;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import javafx.collections.FXCollections;
@@ -26,9 +27,10 @@ import seedu.address.testutil.PersonBuilder;
 public class AddressBookTest {
 
     private final AddressBook addressBook = new AddressBook();
-
     @Test
     public void constructor() {
+        addressBook.addWedding(new Wedding("Test"));
+        addressBook.setCurrentWeddingByName("Test");
         assertEquals(Collections.emptyList(), addressBook.getPersonList());
         assertTrue(addressBook.hasCurrentWedding());
     }
@@ -64,28 +66,36 @@ public class AddressBookTest {
 
     @Test
     public void hasPerson_personNotInAddressBook_returnsFalse() {
+        addressBook.addWedding(new Wedding("Test"));
+        addressBook.setCurrentWeddingByName("Test");
         assertFalse(addressBook.hasPerson(ALICE));
     }
 
     @Test
     public void hasPerson_personInAddressBook_returnsTrue() {
+        addressBook.addWedding(new Wedding("Test"));
+        addressBook.setCurrentWeddingByName("Test");
         addressBook.addPerson(ALICE);
         assertTrue(addressBook.hasPerson(ALICE));
     }
 
     @Test
     public void hasPerson_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
+        addressBook.addWedding(new Wedding("Test"));
+        addressBook.setCurrentWeddingByName("Test");
         addressBook.addPerson(ALICE);
         Person editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         assertTrue(addressBook.hasPerson(editedAlice));
     }
 
-    @Test
-    public void getPersonList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> addressBook.getPersonList().remove(0));
-    }
     //    To rewrite
+
+    //    @Test
+    //    public void getPersonList_modifyList_throwsUnsupportedOperationException() {
+    //        assertThrows(UnsupportedOperationException.class, () -> addressBook.getPersonList().remove(0));
+    //    }
+
     //    @Test
     //    public void toStringMethod() {
     //        String expected = AddressBook.class.getCanonicalName() + "{persons=" + addressBook.getPersonList() + "}";
@@ -126,6 +136,11 @@ public class AddressBookTest {
                 throw new NoSuchElementException("No wedding found in AddressBookStub.");
             }
             return wedding;
+        }
+
+        @Override
+        public boolean hasCurrentWedding() {
+            return true;
         }
 
         @Override

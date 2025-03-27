@@ -7,6 +7,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.exceptions.NoCurrentWeddingException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.table.Table;
@@ -59,9 +60,8 @@ public class DeleteTableCommandTest {
     public void execute_noCurrentWedding_throwsCommandException() {
         model = new ModelManager(); // ✅ Create a fresh ModelManager with NO wedding
         DeleteTableCommand command = new DeleteTableCommand(2);
-
         // Expect a CommandException with "No current wedding set. Use setWedding command first."
-        assertThrows(CommandException.class, () -> command.execute(model),
+        assertThrows(NoCurrentWeddingException.class, () -> command.execute(model),
                 "No current wedding set. Use setWedding command first.");
     }
 }

@@ -39,7 +39,7 @@ public class SeeRsvpListCommandTest {
             new HashSet<>(),
             new DietaryRestriction(DietaryRestriction.TypicalRestriction.NONE),
             new Rsvp(Rsvp.Status.YES),
-            null);
+            -1);
 
         model.addPerson(guest);
         SeeRsvpListCommand command = new SeeRsvpListCommand();

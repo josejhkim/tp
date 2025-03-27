@@ -20,5 +20,5 @@ public interface ReadOnlyAddressBook {
 
     // Returns the single wedding, or null if none
     Wedding getCurrentWedding();
-
+    boolean hasCurrentWedding();
 }

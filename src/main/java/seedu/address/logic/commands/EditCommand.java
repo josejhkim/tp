@@ -104,9 +104,9 @@ public class EditCommand extends Command {
                 .orElse(personToEdit.getDietaryRestriction());
 
         Rsvp updatedRsvp = editPersonDescriptor.getRsvp().orElse(personToEdit.getRsvp());
-        Optional<Table> updatedTable = personToEdit.getTable();
+        int updatedTableId = personToEdit.getTableId();
         return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags,
-                updatedDietaryRestriction, updatedRsvp, updatedTable);
+                updatedDietaryRestriction, updatedRsvp, updatedTableId);
     }
 
     @Override

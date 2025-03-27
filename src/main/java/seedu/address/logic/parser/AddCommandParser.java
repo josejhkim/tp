@@ -60,7 +60,7 @@ public class AddCommandParser implements Parser<AddPersonCommand> {
         Rsvp rsvp = ParserUtil.parseRsvp(
             argMultimap.getValue(PREFIX_RSVP).get());
 
-        Person guest = new Person(name, phone, email, address, tagList, dietaryRestriction, rsvp, null);
+        Person guest = new Person(name, phone, email, address, tagList, dietaryRestriction, rsvp, -1);
 
         return new AddPersonCommand(guest);
     }

@@ -54,29 +54,15 @@ public class AddPersonToTableCommand extends Command {
         requireNonNull(model);
 
         Person personToAdd = model.findPersonByName(guestName);
-        Table tableToBeAdded = model.getTableById(newTableId);
 
-        Person addedPerson = new Person(personToAdd, tableToBeAdded);
-
-        if (!personToAdd.equals(addedPerson) && model.hasPerson(addedPerson)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+        if (personToAdd.isSeated()) {
+            model.deletePersonFromTableById(personToAdd, personToAdd.getTableId());
         }
 
-        if (personToAdd.getTable().isPresent()) {
-            model.deletePersonFromTable(personToAdd, personToAdd.getTable().get());
-        }
-
-        model.setPerson(personToAdd, addedPerson);
+        model.addPersonToTableById(personToAdd, newTableId);
 
         return new CommandResult(String.format(MESSAGE_ADD_GUEST_TO_TABLE_SUCCESS,
-            addedPerson.getName().fullName, newTableId));
-    }
-
-
-    private static Person createAddedGuest(Person guestToAdd, Table table) throws CommandException {
-        Person addedGuest = new Person(guestToAdd, table);
-
-        return addedGuest;
+            personToAdd.getName().fullName, newTableId));
     }
 
     @Override

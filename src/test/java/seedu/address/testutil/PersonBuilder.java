@@ -36,7 +36,7 @@ public class PersonBuilder {
     private Set<Tag> tags;
     private DietaryRestriction dietaryRestriction;
     private Rsvp rsvp;
-    private Optional<Table> table;
+    private int tableId;
 
     /**
      * Creates a {@code PersonBuilder} with the default details.
@@ -47,7 +47,7 @@ public class PersonBuilder {
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
         tags = new HashSet<>();
-        table = Optional.empty();
+        tableId = -1;
         rsvp = new Rsvp(Rsvp.Status.YES);
         dietaryRestriction = DEFAULT_DIETARY_RESTRICTIONS;
     }
@@ -61,7 +61,7 @@ public class PersonBuilder {
         email = personToCopy.getEmail();
         address = personToCopy.getAddress();
         tags = new HashSet<>(personToCopy.getTags());
-        table = personToCopy.getTable();
+        tableId = personToCopy.getTableId();
         dietaryRestriction = personToCopy.getDietaryRestriction();
         rsvp = personToCopy.getRsvp();
     }
@@ -109,7 +109,7 @@ public class PersonBuilder {
      * Sets the {@code Table} of the {@code Person} that we are building.
      */
     public PersonBuilder withTable(int tableId, int capacity) {
-        this.table = Optional.of(new Table(tableId, capacity));
+        this.tableId = tableId;
         return this;
     }
 
@@ -132,6 +132,6 @@ public class PersonBuilder {
      */
     public Person build() {
         return new Person(name, phone, email, address, tags, dietaryRestriction, rsvp,
-            table);
+            tableId);
     }
 }

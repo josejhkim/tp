@@ -227,7 +227,18 @@ public class Wedding {
      * @param table The table to assign the person to.
      */
     public void addPersonToTable(Person p, Table table) {
-        tableList.addPersonToTable(p, table);
+        if (!hasPerson(p)) {
+            throw new PersonNotFoundException();
+        }
+
+        if (p.isSeated()) {
+            deletePersonFromTable(p, table);
+        }
+
+        Person seatedPerson = new Person(p, table.getTableId());
+
+        tableList.addPersonToTable(seatedPerson, table);
+        this.uniquePersonList.setPerson(p, seatedPerson);
     }
 
     /**
@@ -237,7 +248,8 @@ public class Wedding {
      * @param tableId The ID of the table to assign the person to.
      */
     public void addPersonToTableById(Person p, int tableId) {
-        tableList.addPersonToTableById(p, tableId);
+        Table t = findTableById(tableId);
+        addPersonToTable(p, t);
     }
 
     /**
@@ -248,7 +260,11 @@ public class Wedding {
      * @throws TableNotFoundException If the table does not exist.
      */
     public void deletePersonFromTable(Person p, Table table) {
+        if (!hasPerson(p)) {
+            throw new PersonNotFoundException();
+        }
         tableList.deletePersonFromTable(p, table);
+        this.uniquePersonList.setPerson(p, new Person(p, -1));
     }
 
     /**
@@ -280,7 +296,8 @@ public class Wedding {
         }
         Wedding otherWedding = (Wedding) other;
 
-        return name.equals(otherWedding.name) && uniquePersonList.equals(otherWedding.uniquePersonList)
+        return name.equals(otherWedding.name)
+                && uniquePersonList.equals(otherWedding.uniquePersonList)
                 && tableList.equals(otherWedding.tableList);
     }
 

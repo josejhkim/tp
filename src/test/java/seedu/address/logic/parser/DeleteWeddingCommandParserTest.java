@@ -17,8 +17,7 @@ public class DeleteWeddingCommandParserTest {
 
     @Test
     public void parse_validArgs_returnsDeleteWeddingCommand() throws Exception {
-        String validArgs = "Wedding ID";
-        DeleteWeddingCommand command = parser.parse(validArgs);
+        DeleteWeddingCommand command = parser.parse("Default Wedding");
 
         // ✅ Remove the argument since DeleteWeddingCommand takes no arguments
         assertEquals(new DeleteWeddingCommand("Default Wedding"), command);

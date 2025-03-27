@@ -17,7 +17,7 @@ public class AddPersonToTableCommandParserTest {
     public void parse_allFieldsPresent_success() throws Exception {
         try {
             AddPersonToTableCommand command = parser.parse(
-                " n/John Doe tableId/ 1");
+                " n/ John Doe tableId/ 1");
             System.out.println(command);
             System.out.println(new AddPersonToTableCommand(name, 1));
             assert(new AddPersonToTableCommand(name, 1).equals(command));

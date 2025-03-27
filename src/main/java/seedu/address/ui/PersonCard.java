@@ -63,8 +63,8 @@ public class PersonCard extends UiPart<Region> {
         rsvp.setText(person.getRsvp().getStatus().toString());
 
         // Replace incorrect type check with proper Optional handling
-        if (person.getTable().isPresent()) {
-            table.setText(person.getTable().get().toString());
+        if (person.isSeated()) {
+            table.setText(person.getTableIdString());
         } else {
             table.setText("No table assigned");
         }

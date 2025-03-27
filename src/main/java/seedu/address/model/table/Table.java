@@ -1,12 +1,16 @@
 package seedu.address.model.table;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.List;
 import java.util.Objects;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.exceptions.PersonAlreadySeatedException;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.table.exceptions.TableFullException;
 
@@ -106,6 +110,10 @@ public final class Table {
             throw new TableFullException();
         }
 
+        if (uniquePersonList.contains(p)) {
+            throw new PersonAlreadySeatedException();
+        }
+
         this.uniquePersonList.add(p);
     }
 
@@ -119,6 +127,29 @@ public final class Table {
 
     public ObservableList<Person> getAllPersons() {
         return this.uniquePersonList.asUnmodifiableObservableList();
+    }
+
+    public void setPerson(Person target, Person editedPerson) {
+        uniquePersonList.setPerson(target, editedPerson);
+    }
+
+    /**
+     * Replaces the contents of this list with the contents of the given UniquePersonList.
+     *
+     * @param replacement The UniquePersonList containing the replacement persons
+     */
+    public void setPersons(UniquePersonList replacement) {
+        requireNonNull(replacement);
+        this.uniquePersonList.setPersons(replacement);
+    }
+
+    /**
+     * Replaces the contents of this list with {@code persons}.
+     * {@code persons} must not contain duplicate persons.
+     */
+    public void setPersons(List<Person> persons) {
+        requireAllNonNull(persons);
+        this.uniquePersonList.setPersons(persons);
     }
 
     public int getSize() {

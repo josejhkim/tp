@@ -148,13 +148,13 @@ class JsonAdaptedPerson {
         }
         final Rsvp modelRsvp = new Rsvp(statusEnum);
 
-        Optional<Table> modelTable = Optional.empty();
+        int tableId = -1;
         if (!table.equals("Unassigned")) {
-            modelTable = Optional.of(new Table(Integer.parseInt(table), Table.MAX_CAPACITY));
+            tableId = Integer.parseInt(table);
         }
 
         return new Person(modelName, modelPhone, modelEmail, modelAddress, modelTags,
-            modelDietaryRestriction, modelRsvp, modelTable);
+            modelDietaryRestriction, modelRsvp, tableId);
     }
 
     @Override

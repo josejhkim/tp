@@ -26,9 +26,6 @@ class JsonSerializableAddressBook {
     /**
      * Constructs a {@code JsonSerializableAddressBook} with the given weddings.
      */
-    /**
-     * Constructs a {@code JsonSerializableAddressBook} with the given weddings.
-     */
     @JsonCreator
     public JsonSerializableAddressBook(@JsonProperty("weddings") List<JsonAdaptedWedding> weddings) {
         this.weddings.addAll(weddings != null ? weddings : new ArrayList<>());
@@ -67,16 +64,16 @@ class JsonSerializableAddressBook {
             addressBook.addWedding(wedding);
         }
 
-        // If there are no weddings in the JSON but we removed the default wedding,
-        // create a new default wedding to ensure the application has at least one wedding
-        if (weddings.isEmpty()) {
-            Wedding defaultWedding = new Wedding("Wedding");
-            addressBook.addWedding(defaultWedding);
-            addressBook.setCurrentWedding(defaultWedding);
-        } else {
-            // Set the first wedding as the current one
-            addressBook.setCurrentWedding(addressBook.getWeddingList().get(0));
-        }
+//        // If there are no weddings in the JSON but we removed the default wedding,
+//        // create a new default wedding to ensure the application has at least one wedding
+//        if (weddings.isEmpty()) {
+//            Wedding defaultWedding = new Wedding("Wedding");
+//            addressBook.addWedding(defaultWedding);
+//            addressBook.setCurrentWedding(defaultWedding);
+//        } else {
+//            // Set the first wedding as the current one
+//            addressBook.setCurrentWedding(addressBook.getWeddingList().get(0));
+//        }
 
         return addressBook;
     }

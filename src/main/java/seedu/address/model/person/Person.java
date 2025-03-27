@@ -28,13 +28,30 @@ public class Person {
 
     private final DietaryRestriction dietaryRestriction;
     private final Rsvp rsvp;
-    private final Optional<Table> table;
+    // Value of -1 denotes an unseated person
+    private final int tableId;
 
     /**
      * Every field must be present and not null.
      */
     public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags,
-            DietaryRestriction dietaryRestriction, Rsvp rsvp, Optional<Table> table) {
+            DietaryRestriction dietaryRestriction, Rsvp rsvp, int tableId) {
+        requireAllNonNull(name, phone, email, address, tags, dietaryRestriction, rsvp, tableId);
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
+        this.tags.addAll(tags);
+        this.dietaryRestriction = dietaryRestriction;
+        this.rsvp = rsvp;
+        this.tableId = tableId;
+    }
+
+    /**
+     * Constructor for person with unassigned table
+     */
+    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags,
+                  DietaryRestriction dietaryRestriction, Rsvp rsvp) {
         requireAllNonNull(name, phone, email, address, tags, dietaryRestriction, rsvp);
         this.name = name;
         this.phone = phone;
@@ -43,16 +60,16 @@ public class Person {
         this.tags.addAll(tags);
         this.dietaryRestriction = dietaryRestriction;
         this.rsvp = rsvp;
-        this.table = table != null ? table : Optional.empty();
+        this.tableId = -1;
     }
 
     /**
      * Creates a new Person by copying attributes from an existing guest and assigning them to a specific table.
      *
      * @param guest A guest object to copy attributes from
-     * @param table A table object that this guest is assigned to
+     * @param tableId A table object that this guest is assigned to
      */
-    public Person(Person guest, Table table) {
+    public Person(Person guest, int tableId) {
         requireAllNonNull(guest.name, guest.phone, guest.email, guest.address, guest.tags, guest.dietaryRestriction,
                 guest.rsvp);
         this.name = guest.getName();
@@ -62,7 +79,7 @@ public class Person {
         this.tags.addAll(guest.getTags());
         this.dietaryRestriction = guest.getDietaryRestriction();
         this.rsvp = guest.getRsvp();
-        this.table = Optional.ofNullable(table);
+        this.tableId = tableId;
     }
 
     /**
@@ -81,7 +98,7 @@ public class Person {
         this.tags.addAll(other.getTags());
         this.dietaryRestriction = other.getDietaryRestriction();
         this.rsvp = other.getRsvp();
-        this.table = other.getTable();
+        this.tableId = other.getTableId();
     }
 
     /**
@@ -143,26 +160,20 @@ public class Person {
      *
      * @return The table assignment of this person
      */
-    public Optional<Table> getTable() {
-        return table;
-    }
-
-    /**
-     * Get the id for the table this guest is sitting at. Return -1 if the guest is unassigned to a table.
-     *
-     * @return The id of the table for this guest or -1 if unassigned
-     */
     public int getTableId() {
-        return this.table.map(Table::getTableId).orElse(-1);
+        return tableId;
     }
 
+    public boolean isSeated() {
+        return tableId > -1;
+    }
     /**
      * Get the string representation for the table id. Return "Unassigned" if the guest is unassigned to a table.
      *
      * @return The string representation for the table id
      */
     public String getTableIdString() {
-        return table.map(t -> String.valueOf(t.getTableId())).orElse("Unassigned");
+        return tableId == -1 ? "Unassigned" : String.valueOf(tableId);
     }
 
     /**
@@ -202,7 +213,8 @@ public class Person {
         Person otherPerson = (Person) other;
         return name.equals(otherPerson.name) && phone.equals(otherPerson.phone) && email.equals(otherPerson.email)
                 && address.equals(otherPerson.address) && tags.equals(otherPerson.tags)
-                && dietaryRestriction.equals(otherPerson.dietaryRestriction) && rsvp.equals(otherPerson.rsvp);
+                && dietaryRestriction.equals(otherPerson.dietaryRestriction) && rsvp.equals(otherPerson.rsvp)
+                && getTableId() == otherPerson.getTableId();
     }
 
     @Override
@@ -215,7 +227,7 @@ public class Person {
     public String toString() {
         return new ToStringBuilder(this).add("name", name).add("phone", phone).add("email", email)
                 .add("address", address).add("tags", tags).add("dietaryRestriction", dietaryRestriction)
-                .add("rsvp", rsvp).add("table", table.map(Table::toString).orElse("Unassigned")).toString();
+                .add("rsvp", rsvp).add("table", getTableIdString()).toString();
     }
 
 }

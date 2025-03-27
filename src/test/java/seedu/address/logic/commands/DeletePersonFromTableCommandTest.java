@@ -41,7 +41,7 @@ public class DeletePersonFromTableCommandTest {
             new HashSet<>(),
             new DietaryRestriction(DietaryRestriction.TypicalRestriction.NONE),
             new Rsvp(Rsvp.Status.YES),
-            null);
+            -1);
 
         currentWedding.addPerson(guest);
         currentWedding.addPersonToTableById(guest, 1);

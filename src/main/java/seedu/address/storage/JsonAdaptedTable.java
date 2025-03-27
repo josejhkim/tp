@@ -17,19 +17,18 @@ import seedu.address.model.table.Table;
 public class JsonAdaptedTable {
     private final int tableId;
     private final int capacity;
-    private final List<JsonAdaptedPerson> guests;
+    private final List<JsonAdaptedPerson> guests = new ArrayList<>();
 
     /**
      * Constructs a {@code Table} with the given person details.
      */
     @JsonCreator
     public JsonAdaptedTable(@JsonProperty("tableId") int tableId,
-                            @JsonProperty("capacity") int capacity,
-                            @JsonProperty("guests") List<JsonAdaptedPerson> guests) {
+                            @JsonProperty("capacity") int capacity) {
 
         this.tableId = tableId;
         this.capacity = capacity;
-        this.guests = (guests != null) ? guests : new ArrayList<>();
+//        this.guests = new ArrayList<>();
     }
 
     /**
@@ -38,9 +37,9 @@ public class JsonAdaptedTable {
     public JsonAdaptedTable(Table source) {
         this.tableId = source.getTableId();
         this.capacity = source.getCapacity();
-        this.guests = source.getAllPersons().stream()
-            .map(JsonAdaptedPerson::new)
-            .collect(Collectors.toList());
+//        this.guests = source.getAllPersons().stream()
+//            .map(JsonAdaptedPerson::new)
+//            .collect(Collectors.toList());
     }
 
     /**
@@ -51,9 +50,10 @@ public class JsonAdaptedTable {
     public Table toModelType() throws IllegalValueException {
         UniquePersonList personList = new UniquePersonList();
 
-        for (JsonAdaptedPerson g : guests) {
-            personList.add(g.toModelType());
-        }
+//        for (JsonAdaptedPerson g : guests) {
+//            personList.add(g.toModelType());
+//        }
+
         Table table = new Table(tableId, capacity, personList);
         return table;
     }

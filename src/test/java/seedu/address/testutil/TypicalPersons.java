@@ -19,6 +19,7 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.person.DietaryRestriction;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Rsvp;
+import seedu.address.model.table.Table;
 import seedu.address.model.wedding.Wedding;
 
 /**
@@ -30,19 +31,19 @@ public class TypicalPersons {
         .withAddress("123, Jurong West Ave 6, #08-111").withEmail("alice@example.com")
         .withPhone("94351253").withRsvp(Rsvp.Status.YES)
         .withDietaryRestriction(DietaryRestriction.TypicalRestriction.NONE)
-        .withTags("friends").build();
+        .build();
     public static final Person BENSON = new PersonBuilder().withName("Benson Meier")
         .withAddress("311, Clementi Ave 2, #02-25").withEmail("johnd@example.com")
         .withPhone("98765432").withTable(2, 5).withRsvp(Rsvp.Status.NO)
         .withDietaryRestriction(DietaryRestriction.TypicalRestriction.VEGETARIAN)
-        .withTags("owesMoney", "friends").build();
+        .build();
     public static final Person CARL = new PersonBuilder().withName("Carl Kurz").withPhone("95352563")
         .withEmail("heinz@example.com").withAddress("wall street").withTable(3, 5)
         .withRsvp(Rsvp.Status.YES).withDietaryRestriction(DietaryRestriction.TypicalRestriction.NONE).build();
     public static final Person DANIEL = new PersonBuilder().withName("Daniel Meier").withPhone("87652533")
         .withEmail("cornelia@example.com").withAddress("10th street").withTable(4, 5)
         .withRsvp(Rsvp.Status.YES).withDietaryRestriction(DietaryRestriction.TypicalRestriction.HALAL)
-        .withTags("friends").build();
+        .build();
     public static final Person ELLE = new PersonBuilder().withName("Elle Meyer").withPhone("9482224")
         .withEmail("werner@example.com").withAddress("michegan ave").withTable(5, 5)
         .withRsvp(Rsvp.Status.NO).withDietaryRestriction(DietaryRestriction.TypicalRestriction.NONE).build();
@@ -65,11 +66,11 @@ public class TypicalPersons {
     public static final Person AMY = new PersonBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY)
         .withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY)
         .withRsvp(Rsvp.Status.YES).withDietaryRestriction(DietaryRestriction.TypicalRestriction.NONE)
-        .withTags(VALID_TAG_FRIEND).build();
+        .build();
     public static final Person BOB = new PersonBuilder().withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
         .withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
         .withRsvp(Rsvp.Status.NO).withDietaryRestriction(DietaryRestriction.TypicalRestriction.NONE)
-        .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+        .build();
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
@@ -85,6 +86,42 @@ public class TypicalPersons {
         for (Person person : getTypicalPersons()) {
             ab.addPerson(person);
         }
+        return ab;
+    }
+
+    public static AddressBook getTypicalAddressBook2() {
+        AddressBook ab = new AddressBook();
+
+        ab.addWedding(new Wedding("John and Jane"));
+        ab.setCurrentWeddingByName("John and Jane");
+
+        Table t1 = new Table(1, 5);
+        Table t2 = new Table(2, 5);
+        Table t3 = new Table(3, 5);
+        ab.addTable(t1);
+        ab.addTable(t2);
+        ab.addTable(t3);
+
+        ab.addPerson(ALICE);
+        Person new_benson = new Person(BENSON, -1);
+        Person new_carl = new Person(CARL, -1);
+        ab.addPerson(new_benson);
+        ab.addPerson(new_carl);
+        ab.addPersonToTable(new_benson, 2);
+        ab.addPersonToTable(new_carl, 3);
+
+//        ab.addWedding(new Wedding("Jack and Jill"));
+//        ab.setCurrentWeddingByName("Jack and Jill");
+//        Person new_daniel = new Person(DANIEL, null);
+//        Person new_elle = new Person(ELLE, null);
+//        ab.addPerson(new_daniel);
+//        ab.addPerson(new_elle);
+//        ab.addTable(new Table(4, 5));
+//        ab.addTable(new Table(5, 5));
+//        ab.addPersonToTable(new_daniel, 4);
+//        ab.addPersonToTable(new_elle, 5);
+//
+//        ab.setCurrentWeddingByName("John and Jane");
         return ab;
     }
 

@@ -11,7 +11,7 @@ import seedu.address.model.Model;
 public class DeleteWeddingCommand extends Command {
     public static final String COMMAND_WORD = "deleteWedding";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Deletes the current wedding.\n"
-            + "Example: " + COMMAND_WORD + " weddingName/ Jon's Wedding";
+            + "Example: " + COMMAND_WORD + " Jon's Wedding";
 
     public static final String MESSAGE_SUCCESS = "Wedding deleted: %1$s";
     public static final String MESSAGE_NO_WEDDING = "No wedding exists to delete.";

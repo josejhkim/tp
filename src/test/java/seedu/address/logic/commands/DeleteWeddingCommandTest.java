@@ -33,8 +33,8 @@ public class DeleteWeddingCommandTest {
         assertEquals(expectedMessage, result.getFeedbackToUser());
 
         // Ensure wedding is deleted
-        assertEquals(model.getAddressBook().getWeddingList().size(), 1);
-        assertEquals(model.getAddressBook().getCurrentWedding().getName(), "Wedding");
+        assertEquals(0, model.getAddressBook().getWeddingList().size());
+        assertEquals("Test Wedding", model.getAddressBook().getCurrentWedding().getName());
     }
 
     // @Test

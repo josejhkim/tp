@@ -24,7 +24,7 @@ public class WeddingOverviewCommandTest {
         // Explicitly initialize TableList and RsvpList
         testWedding = new Wedding("John and Jane's Wedding");
 
-
+        model.addWedding(testWedding);
         model.setCurrentWedding(testWedding);
     }
 
