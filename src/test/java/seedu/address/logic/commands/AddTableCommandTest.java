@@ -21,7 +21,8 @@ public class AddTableCommandTest {
     @BeforeEach
     public void setUp() {
         model = new ModelManager();
-        model.setCurrentWedding(new Wedding("Test Wedding"));
+        model.addWedding(new Wedding("Test Wedding"));
+        model.setCurrentWeddingByName("Test Wedding");
     }
 
     @Test

@@ -5,10 +5,9 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.person.Guest;
+import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
+import seedu.address.model.table.Table;
 import seedu.address.model.wedding.Wedding;
 
 /**
@@ -17,7 +16,8 @@ import seedu.address.model.wedding.Wedding;
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
-    Predicate<Guest> PREDICATE_SHOW_ALL_GUESTS = unused -> true;
+    Predicate<Table> PREDICATE_SHOW_ALL_TABLES = unused -> true;
+
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -57,6 +57,8 @@ public interface Model {
     /** Returns the AddressBook */
     ReadOnlyAddressBook getAddressBook();
 
+    //=========== Person ==================================================================================
+
     /**
      * Returns true if a person with the same identity as {@code person} exists in the address book.
      */
@@ -74,6 +76,8 @@ public interface Model {
      */
     void addPerson(Person person);
 
+    Person findPersonByName(Name name);
+
     /**
      * Replaces the given person {@code target} with {@code editedPerson}.
      * {@code target} must exist in the address book.
@@ -90,28 +94,54 @@ public interface Model {
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
 
+    //=========== Table ==================================================================================
+    ObservableList<Table> getFilteredTableList();
+
+    void updateFilteredTableList(Predicate<Table> predicate);
+
+    void addTable(Table table);
+
+    void deleteTable(Table table);
+
+    void deleteTableById(int tableId);
+
+    void addPersonToTable(Person p, Table table);
+
+    void addPersonToTableById(Person p, int tableId);
+
+    void deletePersonFromTable(Person p, Table table);
+
+    void deletePersonFromTableById(Person p, int tableId);
+
+    void setTable(Table target, Table editedTable);
+
+    Table getTableById(int tableId);
+
+    //=========== Wedding ==================================================================================
     /**
      * Adds the given wedding.
      * {@code wedding} must not already exist in the address book.
      */
     void addWedding(Wedding wedding);
 
+    void deleteCurrentWedding();
+
     /**
      * Deletes the given wedding.
      * The wedding must exist in the address book.
      */
-    void deleteWedding();
+    void deleteWedding(Wedding wedding);
+
+    void deleteWeddingByName(String weddingName);
 
     /**
      * Sets the current wedding.
      */
     void setCurrentWedding(Wedding wedding);
+
+    void setCurrentWeddingByName(String weddingName);
     /**
      * Returns the current wedding.
      */
     Wedding getCurrentWedding();
-    /**
-     * Finds given guest to the current wedding according to phone number.
-     */
-    Guest findGuestByPhone(Wedding wedding, Phone phone) throws CommandException;
 }

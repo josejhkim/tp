@@ -7,8 +7,6 @@ import java.util.List;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.table.Table;
-import seedu.address.model.table.UniqueTableList;
-import seedu.address.model.wedding.Wedding;
 
 /**
  * Lists all tables in the current wedding.
@@ -35,15 +33,8 @@ public class GetAllTablesCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        // Get the current wedding
-        Wedding currentWedding = model.getCurrentWedding();
-        if (currentWedding == null) {
-            throw new CommandException(MESSAGE_NO_CURRENT_WEDDING);
-        }
-
-        // Get all tables
-        UniqueTableList tableList = currentWedding.getTableList();
-        List<Table> tables = tableList.asUnmodifiableObservableList();
+        List<Table> tables = model.getCurrentWedding().getTableList()
+            .asUnmodifiableObservableList();
 
         // Handle case where no tables exist
         if (tables.isEmpty()) {
@@ -54,7 +45,7 @@ public class GetAllTablesCommand extends Command {
         StringBuilder result = new StringBuilder();
         for (Table table : tables) {
             result.append(String.format("Table ID: %d | Capacity: %d | Guests: %d\n",
-                    table.getTableId(), table.getCapacity(), table.getGuests().size()));
+                    table.getTableId(), table.getCapacity(), table.getAllPersons().size()));
         }
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, result.toString().trim()));
