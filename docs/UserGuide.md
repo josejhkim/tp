@@ -298,7 +298,7 @@ Action                 | Format, Examples
 **Set Wedding**        | `setWedding WEDDINGNAME`<br>e.g., `setWedding John & Jane Wedding`<br>e.g., `setWedding Smith Wedding`
 **Wedding Overview**   | `weddingOverview`
 **Add Person**          | `addGuest n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS d/DIETARY_RESTRICTION r/RSVP`<br>e.g., `addGuest n/John Doe p/12345678 e/johndoe@example.com a/123 Street d/None r/YES`
-**Delete Person**       | `deleteGuest [n/NAME] [p/PHONE_NUMBER]`<br>e.g., `deleteGuest p/12341234`<br>e.g., `deleteGuest n/Johnny Wang`
+**Delete Person**       | `deleteGuest [n/NAME] [p/PHONE_NUMBER]`<br>e.g., `deleteGuest p/12341234`<br>e.g., `deleteGuest n/Johnny Wang` 
 **Add Table**          | `addTable tableID/TABLEID CAPACITY`<br>e.g., `addTable tableID/12 8`
 **Delete Table**       | `deleteTable tableID/TABLEID`<br>e.g., `deleteTable tableID/12`
 **List Tables**        | `getTables`
