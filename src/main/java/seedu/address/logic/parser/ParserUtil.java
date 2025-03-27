@@ -1,8 +1,9 @@
 package seedu.address.logic.parser;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.Collection;
 import java.util.HashSet;
-import static java.util.Objects.requireNonNull;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
@@ -164,11 +165,10 @@ public class ParserUtil {
 
     /**
      * Parses a {@code String tableId} into a {@code int tableId}.
-     * Leading and trailing whitespaces will be trimmed.
      *
      * @param tableId A string representation of the table id
      * @return An integer representation of the table id
-     * @throws ParseException if the specified table id is invalid (not a non-zero unsigned integer)
+     * @throws ParseException
      */
     public static int parseTableId(String tableId) throws ParseException {
         String trimmedTableId = tableId.trim();
@@ -180,12 +180,12 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String weddingName} into a {@code String}.
-     * Leading and trailing whitespaces will be trimmed.
+     * Parses a {@code String weddingName} and returns the trimmed version.
+     * Leading and trailing whitespaces will be removed.
      *
-     * @param weddingName A string representation of the wedding name
-     * @return A trimmed string representation of the wedding name
-     * @throws ParseException if the given wedding name is invalid
+     * @param weddingName The input wedding name string to be parsed.
+     * @return A trimmed {@code String} representing the wedding name.
+     * @throws ParseException if the input is {@code null}.
      */
     public static String parseWeddingName(String weddingName) throws ParseException {
         String trimmedWeddingName = weddingName.trim();

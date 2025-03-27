@@ -1,11 +1,8 @@
 package seedu.address.logic.parser;
 
-import java.util.stream.Stream;
-
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import seedu.address.logic.commands.CreateWeddingCommand;
 import seedu.address.logic.commands.DeleteWeddingCommand;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_WEDDING_NAME;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 

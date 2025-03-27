@@ -1,14 +1,18 @@
 package seedu.address.model.table;
 
+import static java.util.Objects.requireNonNull;
+
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
 import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
 import seedu.address.model.person.Person;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.table.exceptions.TableNotFoundException;
@@ -170,7 +174,7 @@ public class UniqueTableList implements Iterable<Table> {
         if (table == null) {
             throw new TableNotFoundException();
         }
-        
+
         addPersonToTable(person, table);
     }
 
@@ -189,7 +193,7 @@ public class UniqueTableList implements Iterable<Table> {
         if (!hasTable(table)) {
             throw new TableNotFoundException();
         }
-        
+
         table.addPerson(person);
 
         Table updatedTable = new Table(table);

@@ -1,13 +1,14 @@
 package seedu.address.model;
 
-import java.util.List;
 import static java.util.Objects.requireNonNull;
+
+import java.util.List;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.ToStringBuilder;
-import seedu.address.model.exceptions.NoCurrentWeddingException;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.table.Table;
 import seedu.address.model.wedding.UniqueWeddingList;
 import seedu.address.model.wedding.Wedding;
@@ -48,6 +49,16 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+    * Replaces the contents of the person list with {@code persons}.
+    * {@code persons} must not contain duplicate persons.
+    *
+    * @param persons the UniquePersonList to set
+    */
+    public void setPersons(UniquePersonList persons) {
+        this.currentWedding.setPersons(persons);
+    }
+
+    /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      *
      * @param newData the new data to reset to
@@ -74,13 +85,8 @@ public class AddressBook implements ReadOnlyAddressBook {
         }
     }
 
-    // =========== Weddings ==========================================================
-
-    /**
-     * Adds a wedding to the address book.
-     *
-     * @param wedding the Wedding to be added
-     */
+    // =========== Weddings
+    // ================================================================================
     /**
      * Adds a wedding to the address book.
      * The wedding must not already exist in the address book.
@@ -91,11 +97,6 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.uniqueWeddingList.addWedding(wedding);
     }
 
-    /**
-     * Creates a new wedding with the specified name and adds it to the address book.
-     *
-     * @param weddingName the name of the new wedding
-     */
     /**
      * Creates a new wedding with the given name and adds it to the address book.
      *
@@ -138,9 +139,6 @@ public class AddressBook implements ReadOnlyAddressBook {
      * @return the current Wedding
      */
     public Wedding getCurrentWedding() {
-        if (this.currentWedding == null) {
-            throw new NoCurrentWeddingException();
-        }
         return this.currentWedding;
     }
 

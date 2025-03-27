@@ -20,6 +20,7 @@ import seedu.address.logic.commands.DeleteTableCommand;
 import seedu.address.logic.commands.DeleteWeddingCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
+import seedu.address.logic.commands.FilterGuestCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.FindTableCommand;
 import seedu.address.logic.commands.GetAllTablesCommand;
@@ -120,13 +121,15 @@ public class AddressBookParser {
         case GetAllTablesCommand.COMMAND_WORD:
             return new GetAllTablesCommandParser().parse(arguments);
 
+        case FilterGuestCommand.COMMAND_WORD:
+            return new FilterGuestCommandParser().parse(arguments);
 
         case FindTableCommand.COMMAND_WORD:
             return new FindTableCommandParser().parse(arguments);
+
         default:
             logger.finer("This user input caused a ParseException: " + userInput);
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
     }
-
 }

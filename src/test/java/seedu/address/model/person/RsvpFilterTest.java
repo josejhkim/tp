@@ -16,12 +16,10 @@ public class RsvpFilterTest {
     private Rsvp accepted;
     private Rsvp declined;
     private Rsvp noResponse;
-    private Status yesStatus = Status.YES;
-    private Status noStatus = Status.NO;
-    private Status noResponseStatus = Status.NO_RESPONSE;
+    private final Status yesStatus = Status.YES;
+    private final Status noStatus = Status.NO;
+    private final Status noResponseStatus = Status.NO_RESPONSE;
     private RsvpFilter acceptedFilter;
-    private RsvpFilter declinedFilter;
-    private RsvpFilter noResponseFilter;
 
     @BeforeEach
     public void setUp() {
@@ -30,8 +28,6 @@ public class RsvpFilterTest {
         declined = new Rsvp(noStatus);
         noResponse = new Rsvp(noResponseStatus);
         acceptedFilter = new RsvpFilter(accepted);
-        declinedFilter = new RsvpFilter(declined);
-        noResponseFilter = new RsvpFilter(noResponse);
     }
 
     @Test
@@ -46,10 +42,10 @@ public class RsvpFilterTest {
         assertEquals(acceptedFilter, acceptedFilterCopy);
 
         // Different types -> returns false
-        assertNotEquals(acceptedFilter, 1);
+        assertNotEquals(1, acceptedFilter);
 
         // Null -> returns false
-        assertNotEquals(acceptedFilter, null);
+        assertNotEquals(null, acceptedFilter);
 
         // Different RSVP -> returns false
         assertNotEquals(acceptedFilter, declinedFilter);
