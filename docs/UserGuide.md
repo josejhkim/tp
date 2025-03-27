@@ -166,6 +166,24 @@ an identifier and **not both**.
 - Running `weddingOverview`, taking a look at the guest list, followed by `deleteGuest n/Johnny Wang` deletes the
 guest with the name `Johnny Wang`
 
+### Filtering Guests : `filterGuest`
+
+Filters the guest list based on **dietary restrictions**, **RSVP status**, or both.
+
+**Format:**  
+`filterGuest [d/DIETARY_RESTRICTION] [r/RSVP]`
+
+- Filters guests using the provided dietary restriction and/or RSVP status.
+- You **must provide at least one** of the two fields: `d/` for dietary restriction or `r/` for RSVP.
+- Parameters can be used individually or together.
+- Accepted dietary restrictions include: `None`, `Vegetarian`, `Vegan`, `Gluten-Free`, `Halal`, `Kosher` (see app for full list).
+- Accepted RSVP statuses: `YES`, `NO`, `MAYBE`.
+
+**Examples:**
+- `filterGuest d/Vegetarian` shows all guests with a vegetarian dietary preference.
+- `filterGuest r/YES` shows all guests who RSVP’d "YES".
+- `filterGuest d/Vegan r/NO` shows guests who are vegan and RSVP’d "NO".
+
 
 ### Adding a Table : `addTable`
 
