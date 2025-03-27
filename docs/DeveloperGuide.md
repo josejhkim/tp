@@ -328,7 +328,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Extensions:**
 
-2a. **Missing Wedding Name** 
+2a. **Missing Wedding Name**
    2a1. If the user issues the command without providing a wedding name, WeddingHero displays an error message indicating that the wedding name is required.
    2a2. WeddingHero prompts the user to re-enter the command with the correct format.
    2a3. Upon receiving the correct input, the process resumes at step 3.
@@ -399,7 +399,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 2b. **Invalid Email address**
     2c1. If the user enters an invalid email address (e.g. joe@).
-    2c2. WeddingHero displays an error message, informing user the requirements for a valid email address.  
+    2c2. WeddingHero displays an error message, informing user the requirements for a valid email address.
     2c3. Once valid input is provided, the process resumes at step 3.
 
 3c. **Duplicate Person**
@@ -429,12 +429,12 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 3a. **Alternative Identifier: Phone Number**
     3a1. Instead of using the guest name, the user issues the delete command with a phone number identifier (e.g., `deleteGuest p/81231234`).
-    3a2. WeddingHero searches for a guest matching the provided phone number. 
+    3a2. WeddingHero searches for a guest matching the provided phone number.
     3a3. WeddingHero then proceeds to step 5 of the MSS.
 
 3b. **Missing Identifier Tag**
     3b1. The user issues the delete command without using the required identifier tag (e.g., `deleteGuest John Doe` without `n/` or `p/`).
-    3b2. WeddingHero detects the missing tag and displays an error message instructing the user to use the correct identifier format. 
+    3b2. WeddingHero detects the missing tag and displays an error message instructing the user to use the correct identifier format.
     3b3. WeddingHero prompts the user to re-enter the command with either of the proper tags.
     3b4. If the user re-enters the command with a valid identifier, the process resumes at step 4.
 
@@ -512,8 +512,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
    2a3. Once the correct input is provided, the process resumes at step 3.
 
 2b. **Table Not Found**
-   2b1. If WeddingHero is unable to locate a table matching the provided ID, it informs the user that no matching table was found.  
-   2b2. WeddingHero prompts the user to either re-enter a valid table ID. 
+   2b1. If WeddingHero is unable to locate a table matching the provided ID, it informs the user that no matching table was found.
+   2b2. WeddingHero prompts the user to either re-enter a valid table ID.
    2b3. If the user provides a valid table ID, the process resumes at step 3. Otherwise, use case ends.
 
 ---
