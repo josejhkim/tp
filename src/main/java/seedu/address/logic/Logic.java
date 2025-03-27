@@ -37,7 +37,7 @@ public interface Logic {
     ObservableList<Table> getFilteredTableList();
 
     /**
-     * Returns the user prefs' address book file path.
+     * Returns the user  prefs' address book file path.
      */
     Path getAddressBookFilePath();
 
