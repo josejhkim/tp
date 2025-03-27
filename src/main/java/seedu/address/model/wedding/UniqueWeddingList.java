@@ -132,6 +132,11 @@ public class UniqueWeddingList implements Iterable<Wedding> {
         return internalList.stream().anyMatch(wedding -> wedding.getName() == weddingName);
     }
 
+    /**
+     * Checks if the given wedding object is in this wedding list
+     * @param wedding to check if it exists in this list
+     * @return boolean value denoting whether the given wedding exists or not
+     */
     public boolean hasWedding(Wedding wedding) {
         requireNonNull(wedding);
         return internalList.contains(wedding);

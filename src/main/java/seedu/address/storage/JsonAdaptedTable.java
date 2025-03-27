@@ -2,7 +2,6 @@ package seedu.address.storage;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -28,7 +27,7 @@ public class JsonAdaptedTable {
 
         this.tableId = tableId;
         this.capacity = capacity;
-//        this.guests = new ArrayList<>();
+        // this.guests = new ArrayList<>();
     }
 
     /**
@@ -37,9 +36,6 @@ public class JsonAdaptedTable {
     public JsonAdaptedTable(Table source) {
         this.tableId = source.getTableId();
         this.capacity = source.getCapacity();
-//        this.guests = source.getAllPersons().stream()
-//            .map(JsonAdaptedPerson::new)
-//            .collect(Collectors.toList());
     }
 
     /**
@@ -49,10 +45,6 @@ public class JsonAdaptedTable {
      */
     public Table toModelType() throws IllegalValueException {
         UniquePersonList personList = new UniquePersonList();
-
-//        for (JsonAdaptedPerson g : guests) {
-//            personList.add(g.toModelType());
-//        }
 
         Table table = new Table(tableId, capacity, personList);
         return table;

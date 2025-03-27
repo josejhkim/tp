@@ -49,6 +49,9 @@ public class ModelManager implements Model {
         }
     }
 
+    /**
+     * Creates a blank new ModelManager.
+     */
     public ModelManager() {
         this.addressBook = new AddressBook();
         this.userPrefs = new UserPrefs();

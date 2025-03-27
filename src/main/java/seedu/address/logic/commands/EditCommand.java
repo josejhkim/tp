@@ -30,7 +30,6 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Rsvp;
-import seedu.address.model.table.Table;
 import seedu.address.model.tag.Tag;
 
 /**

@@ -2,6 +2,7 @@ package seedu.address.model.table;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
 import java.util.List;
 import java.util.Objects;
 
@@ -10,7 +11,6 @@ import seedu.address.model.exceptions.PersonAlreadySeatedException;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
-import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.table.exceptions.TableFullException;
 
@@ -105,6 +105,10 @@ public final class Table {
         return capacity;
     }
 
+    /**
+     * Adds the given person to this table.
+     * @param p Person to add to this table
+     */
     public void addPerson(Person p) {
         if (getSize() == getCapacity()) {
             throw new TableFullException();
@@ -117,6 +121,11 @@ public final class Table {
         this.uniquePersonList.add(p);
     }
 
+    /**
+     * Deletes the given person from this table
+     * if the person exists in this table.
+     * @param p Person to delete from this table
+     */
     public void deletePerson(Person p) {
         if (!uniquePersonList.contains(p)) {
             throw new PersonNotFoundException();

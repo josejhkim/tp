@@ -1,10 +1,10 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
 import seedu.address.logic.commands.CreateWeddingCommand;
 import seedu.address.logic.commands.DeleteWeddingCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-
 
 /**
  * Parses input arguments and creates a new DeleteWeddingCommand object

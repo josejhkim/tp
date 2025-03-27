@@ -1,7 +1,6 @@
 package seedu.address.model.table;
 
 import static java.util.Objects.requireNonNull;
-
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
@@ -10,10 +9,7 @@ import java.util.NoSuchElementException;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
 import seedu.address.model.person.Person;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.table.exceptions.TableNotFoundException;
 
@@ -145,6 +141,11 @@ public class UniqueTableList implements Iterable<Table> {
         }
     }
 
+    /**
+     * Returns whether the given table is within this table list.
+     * @param table to check if it exists
+     * @return boolean value for whether the given table exists in the list
+     */
     public boolean hasTable(Table table) {
         requireNonNull(table);
         return internalList.contains(table);
@@ -220,6 +221,12 @@ public class UniqueTableList implements Iterable<Table> {
         deletePersonFromTable(person, table);
     }
 
+    /**
+     * Deletes the given person from the given table
+     * if the person exists in the given table.
+     * @param person to be deleted
+     * @param table to be deleted from
+     */
     public void deletePersonFromTable(Person person, Table table) {
         requireAllNonNull(table, person);
 
