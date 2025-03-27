@@ -11,10 +11,11 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.person.Guest;
+import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
+import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.table.Table;
+import seedu.address.model.table.UniqueTableList;
 import seedu.address.model.wedding.Wedding;
 
 /**
@@ -25,9 +26,8 @@ public class ModelManager implements Model {
 
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
-    private final FilteredList<Person> filteredPersons;
-
-    private Wedding currentWedding;
+    private FilteredList<Person> filteredPersons;
+    private FilteredList<Table> filteredTables;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -39,15 +39,24 @@ public class ModelManager implements Model {
 
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
 
-        if (addressBook.getWedding() != null) {
-            setCurrentWedding(addressBook.getWedding());
+        this.filteredPersons = new FilteredList<>(new UniquePersonList().asUnmodifiableObservableList());
+        this.filteredTables = new FilteredList<>(new UniqueTableList().asUnmodifiableObservableList());
+
+        if (addressBook.hasCurrentWedding()) {
+            this.filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+            this.filteredTables = new FilteredList<>(this.addressBook.getTableList());
         }
     }
 
+    /**
+     * Creates a blank new ModelManager.
+     */
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this.addressBook = new AddressBook();
+        this.userPrefs = new UserPrefs();
+        this.filteredPersons = new FilteredList<>(new UniquePersonList().asUnmodifiableObservableList());
+        this.filteredTables = new FilteredList<>(new UniqueTableList().asUnmodifiableObservableList());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -97,30 +106,6 @@ public class ModelManager implements Model {
         return addressBook;
     }
 
-    @Override
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return addressBook.hasPerson(person);
-    }
-
-    @Override
-    public void deletePerson(Person target) {
-        addressBook.removePerson(target);
-    }
-
-    @Override
-    public void addPerson(Person person) {
-        addressBook.addPerson(person);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-    }
-
-    @Override
-    public void setPerson(Person target, Person editedPerson) {
-        requireAllNonNull(target, editedPerson);
-
-        addressBook.setPerson(target, editedPerson);
-    }
-
     //=========== Filtered Person List Accessors =============================================================
 
     /**
@@ -138,51 +123,151 @@ public class ModelManager implements Model {
         filteredPersons.setPredicate(predicate);
     }
 
+    @Override
+    public ObservableList<Table> getFilteredTableList() {
+        return filteredTables;
+    }
 
+    @Override
+    public void updateFilteredTableList(Predicate<Table> predicate) {
+        requireNonNull(predicate);
+        filteredTables.setPredicate(predicate);
+    }
+
+    //=========== Persons ================================================================================
+
+    @Override
+    public boolean hasPerson(Person person) {
+        requireNonNull(person);
+        return addressBook.hasPerson(person);
+    }
+
+    @Override
+    public void deletePerson(Person target) {
+        addressBook.deletePerson(target);
+    }
+
+    @Override
+    public void addPerson(Person person) {
+        addressBook.addPerson(person);
+        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+    }
+
+    @Override
+    public void setPerson(Person target, Person editedPerson) {
+        requireAllNonNull(target, editedPerson);
+        addressBook.setPerson(target, editedPerson);
+    }
+
+    @Override
+    public Person findPersonByName(Name name) {
+        return addressBook.findPersonByName(name);
+    }
+
+    //=========== Tables ================================================================================
+
+    @Override
+    public void addTable(Table table) {
+        addressBook.addTable(table);
+    }
+
+    @Override
+    public void deleteTable(Table table) {
+        addressBook.deleteTable(table);
+    }
+
+    @Override
+    public void deleteTableById(int tableId) {
+        addressBook.deleteTable(tableId);
+    }
+
+    @Override
+    public void setTable(Table target, Table editedTable) {
+        requireAllNonNull(target, editedTable);
+        addressBook.setTable(target, editedTable);
+    }
+
+    @Override
+    public void addPersonToTable(Person p, Table table) {
+        addressBook.addPersonToTable(p, table);
+    }
+
+    @Override
+    public void addPersonToTableById(Person p, int tableId) {
+        addressBook.addPersonToTable(p, tableId);
+    }
+
+    @Override
+    public void deletePersonFromTable(Person p, Table table) {
+        addressBook.deletePersonFromTable(p, table);
+    }
+
+    @Override
+    public void deletePersonFromTableById(Person p, int tableId) {
+        addressBook.deletePersonFromTable(p, tableId);
+    }
+
+    @Override
+    public Table getTableById(int tableId) {
+        return addressBook.getTable(tableId);
+    }
+
+    //=========== Wedding ================================================================================
     /**
      * Adds a Wedding to the system. Only one Wedding can exist at a time.
      */
     @Override
     public void addWedding(Wedding wedding) {
         requireNonNull(wedding);
-        if (addressBook.getWedding() != null) {
-            throw new IllegalStateException("A wedding already exists. Cannot create another.");
-        }
-        addressBook.setWedding(wedding);
+        //        if (addressBook.getWedding() != null) {
+        //            throw new IllegalStateException("A wedding already exists. Cannot create another.");
+        //        }
+        addressBook.addWedding(wedding);
     }
 
-    /**
-     * Deletes a Wedding from the system. All related associations are deleted
-     */
-    public void deleteWedding() {
-        addressBook.removeWedding();
-        this.currentWedding = null;
+    @Override
+    public void deleteCurrentWedding() {
+        addressBook.deleteCurrentWedding();
+    }
+
+    @Override
+    public void deleteWedding(Wedding wedding) {
+        addressBook.deleteWedding(wedding);
+    }
+
+    @Override
+    public void deleteWeddingByName(String weddingName) {
+        addressBook.deleteWeddingByName(weddingName);
     }
 
     /**
      * Returns the current Wedding.
      */
+    @Override
     public Wedding getCurrentWedding() {
-        return addressBook.getWedding();
+        return addressBook.getCurrentWedding();
     }
-
 
     @Override
     public void setCurrentWedding(Wedding wedding) {
-        if (wedding == null) {
-            logger.warning("Attempted to set wedding to null.");
-            this.currentWedding = null;
-            return;
-        }
         requireNonNull(wedding);
-        addressBook.setWedding(wedding);
-        this.currentWedding = wedding;
+        addressBook.setCurrentWedding(wedding);
+        filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        filteredTables = new FilteredList<>(this.addressBook.getTableList());
+        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        updateFilteredTableList(PREDICATE_SHOW_ALL_TABLES);
     }
 
     @Override
-    public Guest findGuestByPhone(Wedding wedding, Phone phone) throws CommandException {
-        return wedding.getRsvpList().getGuestByPhone(phone);
+    public void setCurrentWeddingByName(String weddingName) {
+        addressBook.setCurrentWeddingByName(weddingName);
+        filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        filteredTables = new FilteredList<>(this.addressBook.getTableList());
+        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        updateFilteredTableList(PREDICATE_SHOW_ALL_TABLES);
     }
+
+    //=========== Other Utils ================================================================================
 
     @Override
     public boolean equals(Object other) {
@@ -197,7 +282,7 @@ public class ModelManager implements Model {
 
         ModelManager otherModelManager = (ModelManager) other;
         return addressBook.equals(otherModelManager.addressBook)
-                && userPrefs.equals(otherModelManager.userPrefs)
-                && filteredPersons.equals(otherModelManager.filteredPersons);
+            && userPrefs.equals(otherModelManager.userPrefs)
+            && filteredPersons.equals(otherModelManager.filteredPersons);
     }
 }

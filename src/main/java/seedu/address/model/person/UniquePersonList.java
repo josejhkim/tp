@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -26,7 +27,26 @@ public class UniquePersonList implements Iterable<Person> {
 
     private final ObservableList<Person> internalList = FXCollections.observableArrayList();
     private final ObservableList<Person> internalUnmodifiableList =
-            FXCollections.unmodifiableObservableList(internalList);
+        FXCollections.unmodifiableObservableList(internalList);
+
+    /**
+     * Constructs an empty UniquePersonList.
+     */
+    public UniquePersonList() {
+
+    }
+
+    /**
+     * Constructs a UniquePersonList containing the persons in the given list.
+     * The persons are added as deep copies of the original persons.
+     *
+     * @param other The UniquePersonList to copy from
+     */
+    public UniquePersonList(UniquePersonList other) {
+        for (Person p : other) {
+            add(new Person(p));
+        }
+    }
 
     /**
      * Returns true if the list contains an equivalent person as the given argument.
@@ -46,6 +66,32 @@ public class UniquePersonList implements Iterable<Person> {
             throw new DuplicatePersonException();
         }
         internalList.add(toAdd);
+    }
+
+    /**
+     * Removes the equivalent person from the list.
+     * The person must exist in the list.
+     *
+     * @param toRemove The person to be removed from the list
+     * @throws PersonNotFoundException if the person does not exist in the list
+     */
+    public void delete(Person toRemove) {
+        requireNonNull(toRemove);
+        if (!internalList.remove(toRemove)) {
+            throw new PersonNotFoundException();
+        }
+    }
+
+    /**
+     * Remove the person with the given name from the list.
+     * The person with the given name must exist in the list.
+     * @param toRemoveName The name of the person to be removed from the list
+     * @throws PersonNotFoundException if the person with the name does not exist in the list
+     */
+    public void deletePersonByName(Name toRemoveName) {
+        requireNonNull(toRemoveName);
+        Person p = findPersonByName(toRemoveName);
+        delete(p);
     }
 
     /**
@@ -69,16 +115,10 @@ public class UniquePersonList implements Iterable<Person> {
     }
 
     /**
-     * Removes the equivalent person from the list.
-     * The person must exist in the list.
+     * Replaces the contents of this list with the contents of the given UniquePersonList.
+     *
+     * @param replacement The UniquePersonList containing the replacement persons
      */
-    public void remove(Person toRemove) {
-        requireNonNull(toRemove);
-        if (!internalList.remove(toRemove)) {
-            throw new PersonNotFoundException();
-        }
-    }
-
     public void setPersons(UniquePersonList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
@@ -93,7 +133,6 @@ public class UniquePersonList implements Iterable<Person> {
         if (!personsAreUnique(persons)) {
             throw new DuplicatePersonException();
         }
-
         internalList.setAll(persons);
     }
 
@@ -103,6 +142,33 @@ public class UniquePersonList implements Iterable<Person> {
     public ObservableList<Person> asUnmodifiableObservableList() {
         return internalUnmodifiableList;
     }
+
+    /**
+     * Returns all guests' names in the RSVP list.
+     * @return List of all guests' names in the RSVP list
+     */
+    public List<Name> getAllPersonsNames() {
+        return asUnmodifiableObservableList().stream()
+            .map(person -> person.getName())
+            .collect(Collectors.toUnmodifiableList());
+    }
+
+    /**
+     * Returns the person with the given name.
+     * The person must exist in the list.
+     *
+     * @param name The name of the person to find
+     * @return The person with the given name
+     * @throws PersonNotFoundException if no person with the given name exists in the list
+     */
+    public Person findPersonByName(Name name) throws PersonNotFoundException {
+        requireNonNull(name);
+        return internalList.stream()
+            .filter(person -> person.getName().equals(name))
+            .findFirst()
+            .orElseThrow(PersonNotFoundException::new);
+    }
+
 
     @Override
     public Iterator<Person> iterator() {
@@ -132,6 +198,24 @@ public class UniquePersonList implements Iterable<Person> {
     @Override
     public String toString() {
         return internalList.toString();
+    }
+
+    /**
+     * Returns the number of persons in the list.
+     *
+     * @return The number of persons in the list
+     */
+    public int size() {
+        return internalList.size();
+    }
+
+    /**
+     * Returns true if the list contains no persons.
+     *
+     * @return True if the list is empty, false otherwise
+     */
+    public boolean isEmpty() {
+        return internalList.size() <= 0;
     }
 
     /**

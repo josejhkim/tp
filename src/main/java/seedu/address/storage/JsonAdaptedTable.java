@@ -2,13 +2,12 @@ package seedu.address.storage;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.person.RsvpList;
+import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.table.Table;
 
 /**
@@ -17,19 +16,18 @@ import seedu.address.model.table.Table;
 public class JsonAdaptedTable {
     private final int tableId;
     private final int capacity;
-    private final List<JsonAdaptedGuest> guests;
+    private final List<JsonAdaptedPerson> guests = new ArrayList<>();
 
     /**
      * Constructs a {@code Table} with the given person details.
      */
     @JsonCreator
     public JsonAdaptedTable(@JsonProperty("tableId") int tableId,
-                            @JsonProperty("capacity") int capacity,
-                            @JsonProperty("guests") List<JsonAdaptedGuest> guests) {
+                            @JsonProperty("capacity") int capacity) {
 
         this.tableId = tableId;
         this.capacity = capacity;
-        this.guests = (guests != null) ? guests : new ArrayList<>();
+        // this.guests = new ArrayList<>();
     }
 
     /**
@@ -38,9 +36,6 @@ public class JsonAdaptedTable {
     public JsonAdaptedTable(Table source) {
         this.tableId = source.getTableId();
         this.capacity = source.getCapacity();
-        this.guests = source.getGuests().stream()
-            .map(JsonAdaptedGuest::new)
-            .collect(Collectors.toList());
     }
 
     /**
@@ -49,11 +44,9 @@ public class JsonAdaptedTable {
      * @throws IllegalValueException if there were any data constraints violated in the adapted table.
      */
     public Table toModelType() throws IllegalValueException {
-        RsvpList rsvpList = new RsvpList();
-        for (JsonAdaptedGuest g : guests) {
-            rsvpList.add(g.toModelType());
-        }
-        Table table = new Table(tableId, capacity, rsvpList);
+        UniquePersonList personList = new UniquePersonList();
+
+        Table table = new Table(tableId, capacity, personList);
         return table;
     }
 }

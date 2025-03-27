@@ -1,28 +1,52 @@
 package seedu.address.model.table;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
+import java.util.Iterator;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.person.Guest;
-import seedu.address.model.person.RsvpList;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.table.exceptions.TableNotFoundException;
 
 /**
  * Represents a unique list of tables in a wedding.
  * <p>
  * This class ensures that tables remain unique within the list.
- * It provides methods for adding, deleting, searching, and managing guests within tables.
+ * It provides methods for adding, deleting, searching, and managing persons within tables.
  * </p>
  * <p>
  * This list does not allow duplicate tables based on {@code Table#isSameTable(Table)}.
  * </p>
  */
-public class UniqueTableList {
+public class UniqueTableList implements Iterable<Table> {
 
     private final ObservableList<Table> internalList = FXCollections.observableArrayList();
     private final ObservableList<Table> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
+
+    /**
+     * Creates a new empty UniqueTableList.
+     */
+    public UniqueTableList() {
+
+    }
+
+    /**
+     * Creates a new UniqueTableList containing copies of the Tables in the given list.
+     *
+     * @param other The UniqueTableList to copy tables from
+     */
+    public UniqueTableList(UniqueTableList other) {
+        requireNonNull(other);
+        for (Table t : other) {
+            addTable(new Table(t));
+        }
+    }
 
     /**
      * Checks if a table with the same identity as {@code toCheck} exists in the list.
@@ -31,7 +55,17 @@ public class UniqueTableList {
      * @return {@code true} if the table exists, otherwise {@code false}.
      */
     public boolean contains(Table toCheck) {
+        requireNonNull(toCheck);
         return internalList.stream().anyMatch(toCheck::isSameTable);
+    }
+
+    /**
+     * Returns an iterator over the tables in this list.
+     *
+     * @return An iterator over tables in this list.
+     */
+    public Iterator<Table> iterator() {
+        return internalList.iterator();
     }
 
     /**
@@ -42,6 +76,7 @@ public class UniqueTableList {
      * @throws IllegalArgumentException if a table with the same ID already exists.
      */
     public void addTable(Table toAdd) {
+        requireNonNull(toAdd);
         if (contains(toAdd)) {
             throw new IllegalArgumentException("Table with ID " + toAdd.getTableId() + " already exists.");
         }
@@ -54,7 +89,8 @@ public class UniqueTableList {
      * @param tableId The ID of the table to be deleted.
      * @throws TableNotFoundException if the table does not exist.
      */
-    public void deleteTable(int tableId) {
+    public void deleteTableById(int tableId) {
+        requireNonNull(tableId);
         Table table = findTableById(tableId);
         if (table != null) {
             internalList.remove(table);
@@ -64,18 +100,55 @@ public class UniqueTableList {
     }
 
     /**
+     * Deletes a table from the list.
+     *
+     * @param table The table to be deleted.
+     */
+    public void deleteTable(Table table) {
+        requireNonNull(table);
+        internalList.remove(table);
+    }
+
+    /**
      * Finds a table in the list by its ID.
      *
      * @param tableId The ID of the table to find.
      * @return An {@code Optional} containing the table if found, otherwise an empty {@code Optional}.
      */
-    public Table findTableById(int tableId) {
+    public Table findTableById(int tableId) throws TableNotFoundException {
+        requireNonNull(tableId);
         try {
             return internalList.stream().filter(table -> table.getTableId() == tableId)
                 .findFirst().get();
         } catch (NoSuchElementException nsee) {
+            throw new TableNotFoundException();
+        }
+    }
+
+    /**
+     * Finds a table in the list with the same table ID as the provided table.
+     *
+     * @param table The table containing the ID to find.
+     * @return The table if found, otherwise null.
+     */
+    public Table findTable(Table table) {
+        requireNonNull(table);
+        try {
+            return internalList.stream().filter(t -> t.getTableId() == table.getTableId())
+                .findFirst().get();
+        } catch (NoSuchElementException nsee) {
             return null;
         }
+    }
+
+    /**
+     * Returns whether the given table is within this table list.
+     * @param table to check if it exists
+     * @return boolean value for whether the given table exists in the list
+     */
+    public boolean hasTable(Table table) {
+        requireNonNull(table);
+        return internalList.contains(table);
     }
 
     /**
@@ -84,68 +157,123 @@ public class UniqueTableList {
      * @param tableId The ID of the table to check.
      * @return {@code true} if the table exists, otherwise {@code false}.
      */
-    public boolean hasTable(int tableId) {
+    public boolean hasTableById(int tableId) {
         return internalList.stream().anyMatch(table -> table.getTableId() == tableId);
     }
 
     /**
-     * Assigns a guest to a table based on their name.
-     * <p>
-     * The method ensures that the table exists and that the guest is present in the RSVP list.
-     * If the table is full, an exception is thrown.
-     * </p>
+     * Assigns a person to a table based on the table id.
      *
      * @param tableId  The ID of the table.
-     * @param guest The new guest to be added in this table.
+     * @param person The new person to be added in this table.
      * @throws TableNotFoundException if the table does not exist.
-     * @throws IllegalArgumentException if the guest is not found or the table is full.
      */
-    public void assignGuestToTable(int tableId, Guest guest) {
+    public void addPersonToTableById(Person person, int tableId) {
+        requireAllNonNull(tableId, person);
+
         Table table = findTableById(tableId);
         if (table == null) {
             throw new TableNotFoundException();
         }
 
-        RsvpList newList = new RsvpList();
+        addPersonToTable(person, table);
+    }
 
-        for (Guest g : table.getGuests()) {
-            newList.add(g);
+    /**
+     * Assigns a person to a specified table.
+     * Updates the internal list as adding a person to a table should techincally
+     * 'update' the table.
+     *
+     * @param table The table to assign the person to.
+     * @param person The person to be assigned.
+     * @throws TableNotFoundException if the table does not exist.
+     */
+    public void addPersonToTable(Person person, Table table) {
+        requireAllNonNull(table, person);
+
+        if (!hasTable(table)) {
+            throw new TableNotFoundException();
         }
 
-        newList.add(guest);
+        table.addPerson(person);
 
-        if (newList.size() >= table.getCapacity()) {
-            throw new IllegalArgumentException("Table is full.");
-        }
+        Table updatedTable = new Table(table);
 
-        Table updatedTable = new Table(table.getTableId(), table.getCapacity(), newList);
         internalList.set(internalList.indexOf(table), updatedTable);
     }
 
     /**
-     * Removes a guest from a table.
-     * <p>
-     * The method finds the specified table, removes the guest, and updates the table list.
-     * </p>
+     * Removes a person from a table.
      *
      * @param tableId  The ID of the table.
-     * @param guest  The guest to be added.
+     * @param person  The person to be added.
      * @throws TableNotFoundException if the table does not exist.
      */
-    public void removeGuestFromTable(int tableId, Guest guest) {
+    public void deletePersonFromTableById(Person person, int tableId) {
+        requireAllNonNull(tableId, person);
+
         Table table = findTableById(tableId);
+
         if (table == null) {
             throw new TableNotFoundException();
         }
 
-        RsvpList rsvpList = new RsvpList();
+        deletePersonFromTable(person, table);
+    }
 
-        table.getGuests().stream()
-                .filter(g -> !g.equals(guest))
-                .forEach(g -> rsvpList.add(g));
+    /**
+     * Deletes the given person from the given table
+     * if the person exists in the given table.
+     * @param person to be deleted
+     * @param table to be deleted from
+     */
+    public void deletePersonFromTable(Person person, Table table) {
+        requireAllNonNull(table, person);
 
-        Table updatedTable = new Table(table.getTableId(), table.getCapacity(), rsvpList);
+        if (!hasTable(table)) {
+            throw new TableNotFoundException();
+        }
+
+        table.deletePerson(person);
+
+        Table updatedTable = new Table(table);
         internalList.set(internalList.indexOf(table), updatedTable);
+    }
+
+    /**
+     * Sets a target table to an edited table with the same identity.
+     * The target table must exist in the list.
+     *
+     * @param target The table to be replaced.
+     * @param editedTable The edited version of the table.
+     * @throws TableNotFoundException if the target table is not found.
+     * @throws DuplicatePersonException if the edited table is a duplicate of an existing table.
+     */
+    public void setTable(Table target, Table editedTable) {
+        requireAllNonNull(target, editedTable);
+
+        int index = internalList.indexOf(target);
+        if (index == -1) {
+            throw new TableNotFoundException();
+        }
+
+        if (!target.isSameTable(editedTable) && contains(editedTable)) {
+            throw new DuplicatePersonException();
+        }
+
+        internalList.set(index, editedTable);
+    }
+
+    /**
+     * Replaces the contents of this list with {@code tables}.
+     * {@code tables} must not contain duplicate persons.
+     */
+    public void setTables(List<Table> tables) {
+        requireAllNonNull(tables);
+        if (!tablesAreUnique(tables)) {
+            throw new DuplicatePersonException();
+        }
+        internalList.setAll(tables);
     }
 
     /**
@@ -156,5 +284,41 @@ public class UniqueTableList {
      */
     public ObservableList<Table> asUnmodifiableObservableList() {
         return internalUnmodifiableList;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        }
+        if (!(other instanceof UniqueTableList)) {
+            return false;
+        }
+        UniqueTableList otherUniqueTableList = (UniqueTableList) other;
+
+        return internalList.equals(otherUniqueTableList.internalList);
+    }
+
+    /**
+     * Returns the number of tables in this list.
+     *
+     * @return The number of tables in this list.
+     */
+    public int size() {
+        return internalList.size();
+    }
+
+    /**
+     * Returns true if {@code tables} contains only unique persons.
+     */
+    private boolean tablesAreUnique(List<Table> tables) {
+        for (int i = 0; i < tables.size() - 1; i++) {
+            for (int j = i + 1; j < tables.size(); j++) {
+                if (tables.get(i).isSameTable(tables.get(j))) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 }

@@ -2,6 +2,7 @@ package seedu.address.testutil;
 
 import seedu.address.model.AddressBook;
 import seedu.address.model.person.Person;
+import seedu.address.model.wedding.Wedding;
 
 /**
  * A utility class to help with building Addressbook objects.
@@ -12,8 +13,13 @@ public class AddressBookBuilder {
 
     private AddressBook addressBook;
 
+    /**
+     * Creates an addressbook with a test wedding
+     */
     public AddressBookBuilder() {
         addressBook = new AddressBook();
+        addressBook.addWedding(new Wedding("Test"));
+        addressBook.setCurrentWeddingByName("Test");
     }
 
     public AddressBookBuilder(AddressBook addressBook) {

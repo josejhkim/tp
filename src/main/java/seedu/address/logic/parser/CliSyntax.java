@@ -18,4 +18,5 @@ public class CliSyntax {
     public static final Prefix PREFIX_FIELD = new Prefix("f/");
     public static final Prefix PREFIX_TABLE_ID = new Prefix("tableId/");
     public static final Prefix PREFIX_CAPACITY = new Prefix("capacity/");
+    public static final Prefix PREFIX_WEDDING_NAME = new Prefix("weddingName/");
 }

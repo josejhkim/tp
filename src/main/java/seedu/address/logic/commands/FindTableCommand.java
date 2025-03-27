@@ -5,8 +5,6 @@ import static java.util.Objects.requireNonNull;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.table.Table;
-import seedu.address.model.table.UniqueTableList;
-import seedu.address.model.wedding.Wedding;
 
 /**
  * Finds and displays a table by its ID.
@@ -44,23 +42,14 @@ public class FindTableCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        // Ensure a wedding is set
-        Wedding currentWedding = model.getCurrentWedding();
-        if (currentWedding == null) {
-            throw new CommandException(MESSAGE_NO_CURRENT_WEDDING);
-        }
+        Table table = model.getTableById(tableId);
 
-        // Get table list
-        UniqueTableList tableList = currentWedding.getTableList();
-
-        // Find table safely using Optional
-        Table table = tableList.findTableById(tableId);
         if (table == null) {
             throw new CommandException(String.format(MESSAGE_TABLE_NOT_FOUND, tableId));
         }
 
         return new CommandResult(String.format(MESSAGE_SUCCESS,
-                table.getTableId(), table.getCapacity(), table.getGuests().size()));
+                table.getTableId(), table.getCapacity(), table.getAllPersons().size()));
     }
 
     @Override

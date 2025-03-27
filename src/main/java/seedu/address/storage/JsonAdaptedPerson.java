@@ -3,6 +3,7 @@ package seedu.address.storage;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -10,11 +11,15 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.logic.parser.ParserUtil;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Address;
+import seedu.address.model.person.DietaryRestriction;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Rsvp;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -28,15 +33,23 @@ class JsonAdaptedPerson {
     private final String phone;
     private final String email;
     private final String address;
-    private final List<JsonAdaptedTag> tags = new ArrayList<>();
 
+    private final List<JsonAdaptedTag> tags = new ArrayList<>();
+    private final String dietaryRestriction;
+    private final String rsvp;
+    private final String table;
     /**
-     * Constructs a {@code JsonAdaptedPerson} with the given person details.
+     * Constructs a {@code JsonAdaptedGuest} with the given guest details.
      */
     @JsonCreator
-    public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
-            @JsonProperty("email") String email, @JsonProperty("address") String address,
-            @JsonProperty("tags") List<JsonAdaptedTag> tags) {
+    public JsonAdaptedPerson(@JsonProperty("name") String name,
+                             @JsonProperty("phone") String phone,
+                             @JsonProperty("email") String email,
+                             @JsonProperty("address") String address,
+                             @JsonProperty("tags") List<JsonAdaptedTag> tags,
+                             @JsonProperty("dietaryRestriction") String dietaryRestriction,
+                             @JsonProperty("rsvp") String rsvp,
+                             @JsonProperty("table") String table) {
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -44,32 +57,37 @@ class JsonAdaptedPerson {
         if (tags != null) {
             this.tags.addAll(tags);
         }
+        this.dietaryRestriction = dietaryRestriction;
+        this.rsvp = rsvp;
+        this.table = table;
     }
 
     /**
      * Converts a given {@code Person} into this class for Jackson use.
      */
     public JsonAdaptedPerson(Person source) {
-        name = source.getName().fullName;
-        phone = source.getPhone().value;
-        email = source.getEmail().value;
-        address = source.getAddress().value;
-        tags.addAll(source.getTags().stream()
-                .map(JsonAdaptedTag::new)
-                .collect(Collectors.toList()));
+        this.name = source.getName().fullName;
+        this.phone = source.getPhone().value;
+        this.email = source.getEmail().value;
+        this.address = source.getAddress().value;
+        this.dietaryRestriction = source.getDietaryRestriction().toString();
+        this.tags.addAll(source.getTags().stream()
+            .map(JsonAdaptedTag::new)
+            .collect(Collectors.toList()));
+        this.rsvp = source.getRsvp().toString();
+        this.table = source.getTableIdString();
     }
 
     /**
-     * Converts this Jackson-friendly adapted person object into the model's {@code Person} object.
+     * Converts this Jackson-friendly adapted guest object into the model's {@code Person} object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted person.
+     * @throws IllegalValueException if there were any data constraints violated in the adapted guest.
      */
     public Person toModelType() throws IllegalValueException {
         final List<Tag> personTags = new ArrayList<>();
         for (JsonAdaptedTag tag : tags) {
             personTags.add(tag.toModelType());
         }
-
         if (name == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
         }
@@ -103,7 +121,62 @@ class JsonAdaptedPerson {
         final Address modelAddress = new Address(address);
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelTags);
+
+        if (dietaryRestriction == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                DietaryRestriction.class.getSimpleName()));
+        }
+        final DietaryRestriction modelDietaryRestriction;
+        try {
+            modelDietaryRestriction = ParserUtil.parseDietaryRestriction(dietaryRestriction);
+        } catch (ParseException e) {
+            throw new IllegalValueException(e.getMessage());
+        }
+
+        if (rsvp == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                Rsvp.class.getSimpleName()));
+        }
+
+        final Rsvp.Status statusEnum;
+        try {
+            statusEnum = Rsvp.Status.valueOf(rsvp.toUpperCase()); // Converts String to Enum
+        } catch (IllegalArgumentException e) {
+            throw new IllegalValueException("Invalid RSVP status: " + rsvp);
+        }
+        final Rsvp modelRsvp = new Rsvp(statusEnum);
+
+        int tableId = -1;
+        if (!table.equals("Unassigned")) {
+            tableId = Integer.parseInt(table);
+        }
+
+        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelTags,
+            modelDietaryRestriction, modelRsvp, tableId);
     }
 
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        }
+        if (!(other instanceof JsonAdaptedPerson)) {
+            return false;
+        }
+        JsonAdaptedPerson otherGuest = (JsonAdaptedPerson) other;
+        return Objects.equals(name, otherGuest.name)
+            && Objects.equals(phone, otherGuest.phone)
+            && Objects.equals(email, otherGuest.email)
+            && Objects.equals(address, otherGuest.address)
+            && Objects.equals(dietaryRestriction, otherGuest.dietaryRestriction)
+            && Objects.equals(rsvp, otherGuest.rsvp)
+            && Objects.equals(table, otherGuest.table);
+    }
+
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, phone, email, address,
+            dietaryRestriction, rsvp, table);
+    }
 }

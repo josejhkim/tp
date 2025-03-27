@@ -4,9 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.table.Table;
-import seedu.address.model.table.UniqueTableList;
-import seedu.address.model.wedding.Wedding;
+import seedu.address.model.table.exceptions.TableNotFoundException;
 
 /**
  * Deletes a table from the current wedding.
@@ -32,20 +30,13 @@ public class DeleteTableCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        Wedding currentWedding = model.getCurrentWedding();
-        if (currentWedding == null) {
-            throw new CommandException(MESSAGE_NO_CURRENT_WEDDING);
-        }
-
-        UniqueTableList tableList = currentWedding.getTableList();
-        Table table = tableList.findTableById(tableId);
-        if (table == null) {
+        try {
+            model.deleteTableById(tableId);
+        } catch (TableNotFoundException tnfe) {
             throw new CommandException(String.format(MESSAGE_TABLE_NOT_FOUND, tableId));
         }
 
-        tableList.deleteTable(tableId);
-
-        return new CommandResult(String.format(MESSAGE_SUCCESS, table));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, tableId));
     }
 
 
