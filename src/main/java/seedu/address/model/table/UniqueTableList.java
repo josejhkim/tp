@@ -12,6 +12,7 @@ import javafx.collections.ObservableList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.table.exceptions.TableNotFoundException;
+import seedu.address.model.UniqueList;
 
 /**
  * Represents a unique list of tables in a wedding.
@@ -23,7 +24,7 @@ import seedu.address.model.table.exceptions.TableNotFoundException;
  * This list does not allow duplicate tables based on {@code Table#isSameTable(Table)}.
  * </p>
  */
-public class UniqueTableList implements Iterable<Table> {
+public class UniqueTableList implements Iterable<Table>, UniqueList<Table> {
 
     private final ObservableList<Table> internalList = FXCollections.observableArrayList();
     private final ObservableList<Table> internalUnmodifiableList =
@@ -308,13 +309,25 @@ public class UniqueTableList implements Iterable<Table> {
         return internalList.size();
     }
 
-    /**
-     * Clear the internal storage of all items.
-     * Useful for JavaFX GUI when choosing to display a different wedding info.
-     */
+
+    @Override
+    public Iterable<Table> getListItems() {
+        return this;
+    }
+
+    @Override
     public void clear() {
         this.internalList.clear();
         this.internalUnmodifiableList.clear();
+    }
+
+    @Override
+    public void loadData(UniqueList<Table> other) {
+        this.clear();
+
+        for (Table t : other.getListItems()) {
+            this.addTable(t);
+        }
     }
 
     /**

@@ -10,6 +10,7 @@ import java.util.stream.Stream;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.UniqueList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.wedding.exceptions.DuplicateWeddingException;
@@ -25,7 +26,7 @@ import seedu.address.model.wedding.exceptions.WeddingNotFoundException;
  * This list does not allow duplicate weddings based on {@code Wedding#isSameWedding(Wedding)}.
  * </p>
  */
-public class UniqueWeddingList implements Iterable<Wedding> {
+public class UniqueWeddingList implements Iterable<Wedding>, UniqueList<Wedding> {
 
     private final ObservableList<Wedding> internalList = FXCollections.observableArrayList();
     private final ObservableList<Wedding> internalUnmodifiableList = FXCollections
@@ -258,13 +259,24 @@ public class UniqueWeddingList implements Iterable<Wedding> {
         return internalList.size();
     }
 
-    /**
-     * Clear the internal storage of all items.
-     * Useful for JavaFX GUI when choosing to display a different wedding info.
-     */
+    @Override
+    public Iterable<Wedding> getListItems() {
+        return this;
+    }
+
+    @Override
     public void clear() {
         this.internalList.clear();
         this.internalUnmodifiableList.clear();
+    }
+
+    @Override
+    public void loadData(UniqueList<Wedding> other) {
+        this.clear();
+
+        for (Wedding w : other.getListItems()) {
+            this.addWedding(w);
+        }
     }
 
     /**
