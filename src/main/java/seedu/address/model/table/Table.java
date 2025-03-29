@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Objects;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.exceptions.PersonAlreadySeatedException;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
@@ -110,15 +109,16 @@ public final class Table {
      * @param p Person to add to this table
      */
     public void addPerson(Person p) {
-        if (getSize() == getCapacity()) {
-            throw new TableFullException();
-        }
+        Person newPerson = new Person(p, tableId);
 
         if (uniquePersonList.contains(p)) {
-            throw new PersonAlreadySeatedException();
+            setPerson(p, newPerson);
+        } else {
+            if (getSize() == getCapacity()) {
+                throw new TableFullException();
+            }
+            this.uniquePersonList.add(p);
         }
-
-        this.uniquePersonList.add(p);
     }
 
     /**
@@ -181,7 +181,7 @@ public final class Table {
      * @return {@code true} if both tables have the same ID, otherwise {@code false}.
      */
     public boolean isSameTable(Table otherTable) {
-        return otherTable != null && this.tableId == otherTable.tableId;
+        return otherTable != null && this.tableId == otherTable.tableId && this.capacity == otherTable.capacity;
     }
 
     /**
