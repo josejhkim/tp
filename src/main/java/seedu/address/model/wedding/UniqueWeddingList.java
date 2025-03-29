@@ -6,6 +6,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.stream.Stream;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -100,7 +101,11 @@ public class UniqueWeddingList implements Iterable<Wedding> {
      */
     public Wedding findWeddingByName(String weddingName) {
         try {
-            return internalList.stream().filter(wedding -> wedding.getName().equals(weddingName)).findFirst().get();
+            Wedding t1 = internalList.stream().findFirst().get();
+            boolean abcd = t1.getName().equals(weddingName);
+            Stream<Wedding> t = internalList.stream().filter(wedding -> wedding.getName().equals(weddingName));
+            Wedding w = t.findFirst().get();
+            return w;
         } catch (NoSuchElementException nsee) {
             throw new WeddingNotFoundException();
         }
@@ -251,6 +256,15 @@ public class UniqueWeddingList implements Iterable<Wedding> {
 
     public int size() {
         return internalList.size();
+    }
+
+    /**
+     * Clear the internal storage of all items.
+     * Useful for JavaFX GUI when choosing to display a different wedding info.
+     */
+    public void clear() {
+        this.internalList.clear();
+        this.internalUnmodifiableList.clear();
     }
 
     /**

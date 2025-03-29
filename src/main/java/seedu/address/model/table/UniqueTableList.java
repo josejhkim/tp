@@ -309,6 +309,15 @@ public class UniqueTableList implements Iterable<Table> {
     }
 
     /**
+     * Clear the internal storage of all items.
+     * Useful for JavaFX GUI when choosing to display a different wedding info.
+     */
+    public void clear() {
+        this.internalList.clear();
+        this.internalUnmodifiableList.clear();
+    }
+
+    /**
      * Returns true if {@code tables} contains only unique persons.
      */
     private boolean tablesAreUnique(List<Table> tables) {
