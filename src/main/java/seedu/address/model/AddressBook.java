@@ -10,6 +10,7 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.table.Table;
+import seedu.address.model.table.UniqueTableList;
 import seedu.address.model.wedding.UniqueWeddingList;
 import seedu.address.model.wedding.Wedding;
 import seedu.address.model.wedding.exceptions.WeddingNotFoundException;
@@ -27,11 +28,14 @@ public class AddressBook implements ReadOnlyAddressBook {
     /**
      * Initializes the address book with a default wedding and sets it as the current wedding.
      */
-    private UniqueWeddingList uniqueWeddingList = new UniqueWeddingList();
-
+    private final UniqueWeddingList uniqueWeddingList;
+    private final UniquePersonList personList;
+    private final UniqueTableList tableList;
 
     public AddressBook() {
-
+        uniqueWeddingList = new UniqueWeddingList();
+        personList = new UniquePersonList();
+        tableList = new UniqueTableList();
     }
 
     /**
@@ -40,6 +44,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * @param toBeCopied the ReadOnlyAddressBook to copy from
      */
     public AddressBook(ReadOnlyAddressBook toBeCopied) {
+        this();
         resetData(toBeCopied);
     }
 
@@ -66,9 +71,6 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void resetData(ReadOnlyAddressBook newData) {
         requireNonNull(newData);
 
-        // Create a new wedding list to avoid issues with default wedding
-        uniqueWeddingList = new UniqueWeddingList();
-
         // Add all weddings from newData, ensuring no duplicates
         for (Wedding wedding : newData.getWeddingList()) {
             if (!hasWedding(wedding)) {
@@ -79,9 +81,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
         // Set current wedding if available
         if (newData.hasCurrentWedding() && !uniqueWeddingList.asUnmodifiableObservableList().isEmpty()) {
-
             setCurrentWeddingByName(newData.getCurrentWedding().getName());
-
         }
     }
 
@@ -118,6 +118,9 @@ public class AddressBook implements ReadOnlyAddressBook {
         }
 
         this.currentWedding = wedding;
+
+        personList.loadData(wedding.getUniquePersonList());
+        tableList.loadData(wedding.getTableList());
     }
 
     /**
@@ -140,6 +143,10 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public Wedding getCurrentWedding() {
         return this.currentWedding;
+    }
+
+    public Wedding getWeddingByName(String weddingName) {
+        return this.uniqueWeddingList.findWeddingByName(weddingName);
     }
 
     /**
@@ -243,13 +250,14 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public boolean hasPerson(Person person) {
         requireNonNull(person);
-        return getCurrentWedding().hasPerson(person);
+        return personList.contains(person) && getCurrentWedding().hasPerson(person);
     }
 
     /**
      * Adds a person to the address book. The person must not already exist in the address book.
      */
     public void addPerson(Person person) {
+        personList.add(person);
         getCurrentWedding().addPerson(person);
     }
 
@@ -259,6 +267,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * address book.
      */
     public void setPerson(Person target, Person editedPerson) {
+        personList.setPerson(target, editedPerson);
         getCurrentWedding().setPerson(target, editedPerson);
     }
 
@@ -266,6 +275,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Removes {@code key} from this {@code AddressBook}. {@code key} must exist in the address book.
      */
     public void deletePerson(Person key) {
+        personList.delete(key);
         getCurrentWedding().deletePerson(key);
     }
 
@@ -288,7 +298,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * @return true if the table exists, false otherwise
      */
     public boolean hasTable(Table table) {
-        return getCurrentWedding().hasTable(table);
+        return this.tableList.hasTable(table) && getCurrentWedding().hasTable(table);
     }
 
     /**
@@ -298,7 +308,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * @return true if the table exists, false otherwise
      */
     public boolean hasTable(int tableId) {
-        return getCurrentWedding().hasTableById(tableId);
+        return this.tableList.hasTableById(tableId) && getCurrentWedding().hasTableById(tableId);
     }
 
     /**
@@ -307,6 +317,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * @param table the Table to add
      */
     public void addTable(Table table) {
+        tableList.addTable(table);
         getCurrentWedding().addTable(table);
     }
 
@@ -316,6 +327,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * @param table the Table to delete
      */
     public void deleteTable(Table table) {
+        tableList.deleteTable(table);
         getCurrentWedding().deleteTable(table);
     }
 
@@ -325,6 +337,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * @param tableId the ID of the table to delete
      */
     public void deleteTable(int tableId) {
+        tableList.deleteTableById(tableId);
         getCurrentWedding().deleteTableById(tableId);
     }
 
@@ -336,6 +349,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void setTable(Table target, Table editedTable) {
         requireNonNull(editedTable);
+        tableList.setTable(target, editedTable);
         getCurrentWedding().setTable(target, editedTable);
     }
 
@@ -346,7 +360,10 @@ public class AddressBook implements ReadOnlyAddressBook {
      * @param table the Table to add the person to
      */
     public void addPersonToTable(Person p, Table table) {
+        int tableId = table.getTableId();
         this.getCurrentWedding().addPersonToTable(p, table);
+        personList.setPerson(p, new Person(p, tableId));
+        this.getCurrentWedding().deletePersonFromTable(p, table);
     }
 
     /**
@@ -356,7 +373,8 @@ public class AddressBook implements ReadOnlyAddressBook {
      * @param tableId the ID of the Table to add the person to
      */
     public void addPersonToTable(Person p, int tableId) {
-        this.getCurrentWedding().addPersonToTableById(p, tableId);
+        Table t = this.tableList.findTableById(tableId);
+        addPersonToTable(p, t);
     }
 
     /**
@@ -366,7 +384,9 @@ public class AddressBook implements ReadOnlyAddressBook {
      * @param table the Table to delete the person from
      */
     public void deletePersonFromTable(Person p, Table table) {
+        personList.setPerson(p, new Person(p, -1));
         this.getCurrentWedding().deletePersonFromTable(p, table);
+        tableList.setTable(table, this.currentWedding.getTableById(table.getTableId()));
     }
 
     /**
@@ -376,7 +396,8 @@ public class AddressBook implements ReadOnlyAddressBook {
      * @param tableId the ID of the Table to delete the person from
      */
     public void deletePersonFromTable(Person p, int tableId) {
-        this.getCurrentWedding().deletePersonFromTableById(p, tableId);
+        Table tableWithId = this.getCurrentWedding().getTableById(tableId);
+        deletePersonFromTable(p, tableWithId);
     }
 
     /**
@@ -399,12 +420,12 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     @Override
     public ObservableList<Person> getPersonList() {
-        return getCurrentWedding().getUniquePersonList().asUnmodifiableObservableList();
+        return this.personList.asUnmodifiableObservableList();
     }
 
     @Override
     public ObservableList<Table> getTableList() {
-        return getCurrentWedding().getTableList().asUnmodifiableObservableList();
+        return this.tableList.asUnmodifiableObservableList();
     }
 
     @Override
