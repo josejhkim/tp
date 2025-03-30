@@ -13,9 +13,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.table.Table;
-import seedu.address.model.table.UniqueTableList;
 import seedu.address.model.wedding.Wedding;
 
 /**
@@ -26,8 +24,8 @@ public class ModelManager implements Model {
 
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
-    private FilteredList<Person> filteredPersons;
-    private FilteredList<Table> filteredTables;
+    private final FilteredList<Person> filteredPersons;
+    private final FilteredList<Table> filteredTables;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -40,13 +38,8 @@ public class ModelManager implements Model {
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
 
-        this.filteredPersons = new FilteredList<>(new UniquePersonList().asUnmodifiableObservableList());
-        this.filteredTables = new FilteredList<>(new UniqueTableList().asUnmodifiableObservableList());
-
-        if (addressBook.hasCurrentWedding()) {
-            this.filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
-            this.filteredTables = new FilteredList<>(this.addressBook.getTableList());
-        }
+        this.filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        this.filteredTables = new FilteredList<>(this.addressBook.getTableList());
     }
 
     /**
@@ -55,8 +48,8 @@ public class ModelManager implements Model {
     public ModelManager() {
         this.addressBook = new AddressBook();
         this.userPrefs = new UserPrefs();
-        this.filteredPersons = new FilteredList<>(new UniquePersonList().asUnmodifiableObservableList());
-        this.filteredTables = new FilteredList<>(new UniqueTableList().asUnmodifiableObservableList());
+        this.filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        this.filteredTables = new FilteredList<>(this.addressBook.getTableList());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -249,23 +242,21 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public Wedding getWeddingByName(String weddingName) {
+        return addressBook.getWeddingByName(weddingName);
+    }
+
+    @Override
     public void setCurrentWedding(Wedding wedding) {
         requireNonNull(wedding);
         addressBook.setCurrentWedding(wedding);
-        filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
-        filteredTables = new FilteredList<>(this.addressBook.getTableList());
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        updateFilteredTableList(PREDICATE_SHOW_ALL_TABLES);
     }
 
     @Override
     public void setCurrentWeddingByName(String weddingName) {
         addressBook.setCurrentWeddingByName(weddingName);
-        filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
-        filteredTables = new FilteredList<>(this.addressBook.getTableList());
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        updateFilteredTableList(PREDICATE_SHOW_ALL_TABLES);
     }
+
 
     //=========== Other Utils ================================================================================
 

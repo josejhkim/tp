@@ -111,7 +111,7 @@ public class UniqueTableListTest {
 
     @Test
     public void setTables_duplicateTables_throwsException() {
-        List<Table> listWithDuplicates = Arrays.asList(table1, new Table(1, 5));
+        List<Table> listWithDuplicates = Arrays.asList(table1, new Table(1, 2));
         assertThrows(DuplicatePersonException.class, () -> uniqueTableList.setTables(listWithDuplicates));
     }
 

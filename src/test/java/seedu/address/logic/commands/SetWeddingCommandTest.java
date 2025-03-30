@@ -1,11 +1,10 @@
 package seedu.address.logic.commands;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.wedding.Wedding;
@@ -39,11 +38,10 @@ public class SetWeddingCommandTest {
         Wedding existingWedding = new Wedding("Existing Wedding");
         model.addWedding(existingWedding);
         model.setCurrentWedding(existingWedding);
-
         // Then, attempt to set a **different** wedding, which should fail
         SetWeddingCommand command = new SetWeddingCommand("New Wedding");
-
-        assertThrows(CommandException.class, () -> command.execute(model),
-                "Requested wedding does not exist in the app.");
+        CommandResult result = command.execute(model);
+        assertEquals(String.format(SetWeddingCommand.MESSAGE_WEDDING_MISSING, "New Wedding"),
+                result.getFeedbackToUser());
     }
 }

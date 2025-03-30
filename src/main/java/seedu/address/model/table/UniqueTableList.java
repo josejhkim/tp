@@ -9,6 +9,7 @@ import java.util.NoSuchElementException;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.UniqueList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.table.exceptions.TableNotFoundException;
@@ -23,7 +24,7 @@ import seedu.address.model.table.exceptions.TableNotFoundException;
  * This list does not allow duplicate tables based on {@code Table#isSameTable(Table)}.
  * </p>
  */
-public class UniqueTableList implements Iterable<Table> {
+public class UniqueTableList implements Iterable<Table>, UniqueList<Table> {
 
     private final ObservableList<Table> internalList = FXCollections.observableArrayList();
     private final ObservableList<Table> internalUnmodifiableList =
@@ -77,7 +78,8 @@ public class UniqueTableList implements Iterable<Table> {
      */
     public void addTable(Table toAdd) {
         requireNonNull(toAdd);
-        if (contains(toAdd)) {
+
+        if (hasTableById(toAdd.getTableId())) {
             throw new IllegalArgumentException("Table with ID " + toAdd.getTableId() + " already exists.");
         }
         internalList.add(toAdd);
@@ -194,10 +196,10 @@ public class UniqueTableList implements Iterable<Table> {
         if (!hasTable(table)) {
             throw new TableNotFoundException();
         }
-
-        table.addPerson(person);
-
+        boolean k = hasTable(table);
         Table updatedTable = new Table(table);
+
+        updatedTable.addPerson(person);
 
         internalList.set(internalList.indexOf(table), updatedTable);
     }
@@ -230,14 +232,16 @@ public class UniqueTableList implements Iterable<Table> {
     public void deletePersonFromTable(Person person, Table table) {
         requireAllNonNull(table, person);
 
-        int index = internalList.indexOf(table);
+        Table tableWithSameId = findTableById(table.getTableId());
+        int index = internalList.indexOf(tableWithSameId);
+
         if (index == -1) {
             throw new TableNotFoundException();
         }
 
-        table.deletePerson(person);
+        tableWithSameId.deletePerson(person);
 
-        Table updatedTable = new Table(table);
+        Table updatedTable = new Table(tableWithSameId);
         internalList.set(index, updatedTable);
     }
 
@@ -253,12 +257,13 @@ public class UniqueTableList implements Iterable<Table> {
     public void setTable(Table target, Table editedTable) {
         requireAllNonNull(target, editedTable);
 
-        int index = internalList.indexOf(target);
+        Table tableWithSameId = findTableById(target.getTableId());
+        int index = internalList.indexOf(tableWithSameId);
         if (index == -1) {
             throw new TableNotFoundException();
         }
 
-        if (!target.isSameTable(editedTable) && contains(editedTable)) {
+        if (!tableWithSameId.isSameTable(editedTable) && contains(editedTable)) {
             throw new DuplicatePersonException();
         }
 
@@ -307,6 +312,27 @@ public class UniqueTableList implements Iterable<Table> {
      */
     public int size() {
         return internalList.size();
+    }
+
+
+    @Override
+    public Iterable<Table> getListItems() {
+        return this;
+    }
+
+    @Override
+    public void clear() {
+        this.internalList.clear();
+        this.internalUnmodifiableList.clear();
+    }
+
+    @Override
+    public void loadData(UniqueList<Table> other) {
+        this.clear();
+
+        for (Table t : other.getListItems()) {
+            this.addTable(t);
+        }
     }
 
     /**

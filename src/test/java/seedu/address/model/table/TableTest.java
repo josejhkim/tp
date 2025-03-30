@@ -12,7 +12,6 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import seedu.address.model.exceptions.PersonAlreadySeatedException;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.table.exceptions.TableFullException;
@@ -48,11 +47,12 @@ public class TableTest {
         assertTrue(table.getAllPersons().contains(person1));
     }
 
-    @Test
-    public void addPerson_duplicatePerson_throwsPersonAlreadySeatedException() {
-        table.addPerson(person1);
-        assertThrows(PersonAlreadySeatedException.class, () -> table.addPerson(person1));
-    }
+    // currently not needed as adding a person that's already seated at that table doesn't do anything
+    //    @Test
+    //    public void addPerson_duplicatePerson_throwsPersonAlreadySeatedException() {
+    //        table.addPerson(person1);
+    //        assertThrows(PersonAlreadySeatedException.class, () -> table.addPerson(person1));
+    //    }
 
     @Test
     public void addPerson_tableFull_throwsTableFullException() {

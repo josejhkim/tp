@@ -52,29 +52,10 @@ public class DeletePersonFromTableCommand extends Command {
 
         Person guestToRemove = model.findPersonByName(guestName);
 
-        Person removedPerson = createRemovedPerson(guestToRemove);
-
-        //if (!guestToRemove.equals(removedPerson) && model.hasPerson(removedPerson)) {
-        //    throw new CommandException(MESSAGE_DUPLICATE_PERSON);
-        //}
-
         model.deletePersonFromTableById(guestToRemove, oldTableId);
-        model.setPerson(guestToRemove, removedPerson);
 
         return new CommandResult(String.format(MESSAGE_REMOVED_GUEST_FROM_TABLE_SUCCESS,
-            removedPerson.getName().fullName, oldTableId));
-    }
-
-    /**
-     * Creates a new Person object from the given guest object
-     * to replace it in the wedding object.
-     * @param guestToRemove The guest object to remove from the table
-     * @return A new copy of the guest object to replace the previous one
-     * @throws CommandException
-     */
-    private static Person createRemovedPerson(Person guestToRemove)
-            throws CommandException {
-        return new Person(guestToRemove, -1);
+            guestToRemove.getName().fullName, oldTableId));
     }
 
     @Override

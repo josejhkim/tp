@@ -166,6 +166,7 @@ public class Person {
     public boolean isSeated() {
         return tableId > -1;
     }
+
     /**
      * Get the string representation for the table id. Return "Unassigned" if the guest is unassigned to a table.
      *

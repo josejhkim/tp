@@ -144,4 +144,6 @@ public interface Model {
      * Returns the current wedding.
      */
     Wedding getCurrentWedding();
+
+    Wedding getWeddingByName(String weddingName);
 }

@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.UniqueList;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 
@@ -23,7 +24,7 @@ import seedu.address.model.person.exceptions.PersonNotFoundException;
  *
  * @see Person#isSamePerson(Person)
  */
-public class UniquePersonList implements Iterable<Person> {
+public class UniquePersonList implements Iterable<Person>, UniqueList<Person> {
 
     private final ObservableList<Person> internalList = FXCollections.observableArrayList();
     private final ObservableList<Person> internalUnmodifiableList =
@@ -77,7 +78,10 @@ public class UniquePersonList implements Iterable<Person> {
      */
     public void delete(Person toRemove) {
         requireNonNull(toRemove);
-        if (!internalList.remove(toRemove)) {
+
+        // Do a double check just in case
+        Person matchingPerson = this.findPersonByName(toRemove.getName());
+        if (!internalList.remove(matchingPerson)) {
             throw new PersonNotFoundException();
         }
     }
@@ -102,12 +106,14 @@ public class UniquePersonList implements Iterable<Person> {
     public void setPerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
 
-        int index = internalList.indexOf(target);
+        Person targetWithSameName = findPersonByName(target.getName());
+        int index = internalList.indexOf(targetWithSameName);
+
         if (index == -1) {
             throw new PersonNotFoundException();
         }
 
-        if (!target.isSamePerson(editedPerson) && contains(editedPerson)) {
+        if (!targetWithSameName.isSamePerson(editedPerson) && contains(editedPerson)) {
             throw new DuplicatePersonException();
         }
 
@@ -216,6 +222,27 @@ public class UniquePersonList implements Iterable<Person> {
      */
     public boolean isEmpty() {
         return internalList.size() <= 0;
+    }
+
+
+    @Override
+    public Iterable<Person> getListItems() {
+        return this;
+    }
+
+    @Override
+    public void clear() {
+        this.internalList.clear();
+        this.internalUnmodifiableList.clear();
+    }
+
+    @Override
+    public void loadData(UniqueList<Person> other) {
+        this.clear();
+
+        for (Person p : other.getListItems()) {
+            this.add(p);
+        }
     }
 
     /**
