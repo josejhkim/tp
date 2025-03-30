@@ -29,6 +29,7 @@ public class AddTableCommandTest {
     public void execute_validTable_addSuccessful() throws CommandException {
         AddTableCommand addTableCommand = new AddTableCommand(1, 8);
         CommandResult result = addTableCommand.execute(model);
+
         String expectedMessage = String.format("Table added: Table ID: %d, Capacity: %d", 1, 8);
         assertEquals(expectedMessage, result.getFeedbackToUser());
 
@@ -42,14 +43,12 @@ public class AddTableCommandTest {
 
     @Test
     public void execute_duplicateTable_throwsCommandException() throws CommandException {
-        // Add table with ID=1
         AddTableCommand cmd1 = new AddTableCommand(1, 8);
         cmd1.execute(model);
 
-        // Attempt to add the same ID again
         AddTableCommand cmd2 = new AddTableCommand(1, 10);
-        assertThrows(CommandException.class, () -> cmd2.execute(model),
-                "A table with ID 1 already exists!");
+        CommandException thrown = assertThrows(CommandException.class, () -> cmd2.execute(model));
+        assertEquals("A table with this ID already exists.", thrown.getMessage());
     }
 
     // @Test
@@ -57,7 +56,19 @@ public class AddTableCommandTest {
     //     model.setCurrentWedding(null);
     //     AddTableCommand cmd = new AddTableCommand(2, 6);
     //
-    //     assertThrows(CommandException.class, () -> cmd.execute(model),
-    //             "No current wedding set. Use setWedding command first.");
+    //     CommandException thrown = assertThrows(CommandException.class, () -> cmd.execute(model));
+    //     assertEquals("No wedding is currently set. Use `setWedding` first.", thrown.getMessage());
     // }
+
+    @Test
+    public void execute_invalidCapacity_throwsIllegalArgumentException() {
+        AddTableCommand cmd = new AddTableCommand(3, -5);
+        assertThrows(IllegalArgumentException.class, () -> cmd.execute(model));
+    }
+
+    @Test
+    public void execute_zeroTableId_throwsIllegalArgumentException() {
+        AddTableCommand cmd = new AddTableCommand(0, 5);
+        assertThrows(IllegalArgumentException.class, () -> cmd.execute(model));
+    }
 }

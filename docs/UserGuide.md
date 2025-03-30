@@ -166,6 +166,24 @@ an identifier and **not both**.
 - Running `weddingOverview`, taking a look at the guest list, followed by `deleteGuest n/Johnny Wang` deletes the
 guest with the name `Johnny Wang`
 
+### Filtering Guests : `filterGuest`
+
+Filters the guest list based on **dietary restrictions**, **RSVP status**, or both.
+
+**Format:**  
+`filterGuest [d/DIETARY_RESTRICTION] [r/RSVP]`
+
+- Filters guests using the provided dietary restriction and/or RSVP status.
+- You **must provide at least one** of the two fields: `d/` for dietary restriction or `r/` for RSVP.
+- Parameters can be used individually or together.
+- Accepted dietary restrictions include: `None`, `Vegetarian`, `Vegan`, `Gluten-Free`, `Halal`, `Kosher` (see app for full list).
+- Accepted RSVP statuses: `YES`, `NO`, `MAYBE`.
+
+**Examples:**
+- `filterGuest d/Vegetarian` shows all guests with a vegetarian dietary preference.
+- `filterGuest r/YES` shows all guests who RSVP’d "YES".
+- `filterGuest d/Vegan r/NO` shows guests who are vegan and RSVP’d "NO".
+
 
 ### Adding a Table : `addTable`
 
@@ -280,7 +298,7 @@ Action                 | Format, Examples
 **Set Wedding**        | `setWedding WEDDINGNAME`<br>e.g., `setWedding John & Jane Wedding`<br>e.g., `setWedding Smith Wedding`
 **Wedding Overview**   | `weddingOverview`
 **Add Person**          | `addGuest n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS d/DIETARY_RESTRICTION r/RSVP`<br>e.g., `addGuest n/John Doe p/12345678 e/johndoe@example.com a/123 Street d/None r/YES`
-**Delete Person**       | `deleteGuest [n/NAME] [p/PHONE_NUMBER]`<br>e.g., `deleteGuest p/12341234`<br>e.g., `deleteGuest n/Johnny Wang`
+**Delete Person**       | `deleteGuest [n/NAME] [p/PHONE_NUMBER]`<br>e.g., `deleteGuest p/12341234`<br>e.g., `deleteGuest n/Johnny Wang` 
 **Add Table**          | `addTable tableID/TABLEID CAPACITY`<br>e.g., `addTable tableID/12 8`
 **Delete Table**       | `deleteTable tableID/TABLEID`<br>e.g., `deleteTable tableID/12`
 **List Tables**        | `getTables`

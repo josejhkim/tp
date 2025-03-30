@@ -231,14 +231,15 @@ public class UniqueTableList implements Iterable<Table>, UniqueList<Table> {
     public void deletePersonFromTable(Person person, Table table) {
         requireAllNonNull(table, person);
 
-        if (!hasTable(table)) {
+        int index = internalList.indexOf(table);
+        if (index == -1) {
             throw new TableNotFoundException();
         }
 
         table.deletePerson(person);
 
         Table updatedTable = new Table(table);
-        internalList.set(internalList.indexOf(table), updatedTable);
+        internalList.set(index, updatedTable);
     }
 
     /**
