@@ -2,7 +2,6 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.wedding.Wedding;
 import seedu.address.model.wedding.exceptions.WeddingNotFoundException;
@@ -44,22 +43,6 @@ public class SetWeddingCommand extends Command {
         } catch (WeddingNotFoundException wnfe) {
             return new CommandResult(String.format(MESSAGE_WEDDING_MISSING, weddingName));
         }
-
-
-        //  Allow setting a new wedding if none exists
-//        if (existingWedding == null) {
-//            Wedding newWedding = new Wedding(weddingName);
-//            model.setCurrentWedding(newWedding);
-//            return new CommandResult(String.format(MESSAGE_SUCCESS, weddingName));
-//        }
-
-        //  If the same wedding is already set, return a message
-//        if (existingWedding.getName().equals(weddingName)) {
-//            return new CommandResult(String.format(MESSAGE_WEDDING_ALREADY_SET, weddingName));
-//        }
-
-        // If a **different** wedding exists, prevent setting a new one
-//        throw new CommandException(MESSAGE_WEDDING_ALREADY_EXISTS);
     }
 
     @Override

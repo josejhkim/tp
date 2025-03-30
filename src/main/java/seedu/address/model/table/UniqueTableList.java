@@ -9,10 +9,10 @@ import java.util.NoSuchElementException;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.UniqueList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.table.exceptions.TableNotFoundException;
-import seedu.address.model.UniqueList;
 
 /**
  * Represents a unique list of tables in a wedding.
