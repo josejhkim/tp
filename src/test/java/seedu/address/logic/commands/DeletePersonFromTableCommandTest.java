@@ -30,9 +30,9 @@ public class DeletePersonFromTableCommandTest {
         model = new ModelManager();
         Wedding currentWedding = new Wedding("John and Jane's Wedding");
         model.addWedding(currentWedding);
-        model.setCurrentWedding(currentWedding);
+        model.setCurrentWeddingByName("John and Jane's Wedding");
         Table table = new Table(1, 10);
-        currentWedding.getTableList().addTable(table);
+        model.addTable(table);
 
         Person guest = new Person(name,
             new Phone("12345678"),
@@ -43,8 +43,8 @@ public class DeletePersonFromTableCommandTest {
             new Rsvp(Rsvp.Status.YES),
             -1);
 
-        currentWedding.addPerson(guest);
-        currentWedding.addPersonToTableById(guest, 1);
+        model.addPerson(guest);
+        model.addPersonToTableById(guest, 1);
     }
 
     @Test
@@ -54,6 +54,7 @@ public class DeletePersonFromTableCommandTest {
 
         CommandResult result = command.execute(model);
 
+        boolean k = true;
         assertEquals(String.format(DeletePersonFromTableCommand.MESSAGE_REMOVED_GUEST_FROM_TABLE_SUCCESS,
                 name.fullName, 1),
             result.getFeedbackToUser());

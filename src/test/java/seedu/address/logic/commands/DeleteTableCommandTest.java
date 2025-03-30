@@ -30,13 +30,7 @@ public class DeleteTableCommandTest {
     public void execute_validTable_deletionSuccessful() throws CommandException {
         // 🔥 Add Debugging
         Wedding wedding = model.getCurrentWedding();
-        System.out.println("DEBUG: Wedding: " + (wedding == null ? "null" : wedding.getName()));
-
-        UniqueTableList tableList = model.getCurrentWedding().getTableList();
-
-        System.out.println("DEBUG: TableList: " + (tableList == null ? "null" : "initialized"));
-
-        tableList.addTable(new Table(1, 8));
+        model.addTable(new Table(1, 8));
 
         DeleteTableCommand command = new DeleteTableCommand(1);
         CommandResult result = command.execute(model);
@@ -45,7 +39,7 @@ public class DeleteTableCommandTest {
         assertEquals(expectedMessage, result.getFeedbackToUser());
 
         // Ensure the table was deleted
-        assertEquals(0, tableList.asUnmodifiableObservableList().size());
+        assertEquals(0, model.getCurrentWedding().getTableList().size());
     }
 
     @Test
@@ -60,7 +54,7 @@ public class DeleteTableCommandTest {
         model = new ModelManager(); // ✅ Create a fresh ModelManager with NO wedding
         DeleteTableCommand command = new DeleteTableCommand(2);
         // Expect a CommandException with "No current wedding set. Use setWedding command first."
-        assertThrows(NullPointerException.class, () -> command.execute(model),
+        assertThrows(CommandException.class, () -> command.execute(model),
                 "No current wedding set. Use setWedding command first.");
     }
 }

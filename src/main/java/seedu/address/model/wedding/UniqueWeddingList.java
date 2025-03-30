@@ -101,15 +101,8 @@ public class UniqueWeddingList implements Iterable<Wedding>, UniqueList<Wedding>
      *
      */
     public Wedding findWeddingByName(String weddingName) {
-        try {
-            Wedding t1 = internalList.stream().findFirst().get();
-            boolean abcd = t1.getName().equals(weddingName);
-            Stream<Wedding> t = internalList.stream().filter(wedding -> wedding.getName().equals(weddingName));
-            Wedding w = t.findFirst().get();
-            return w;
-        } catch (NoSuchElementException nsee) {
-            throw new WeddingNotFoundException();
-        }
+        return internalList.stream().filter(wedding -> wedding.getName().equals(weddingName))
+            .findFirst().orElseThrow(WeddingNotFoundException::new);
     }
 
     /**

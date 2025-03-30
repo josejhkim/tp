@@ -131,6 +131,7 @@ public final class Table {
             throw new PersonNotFoundException();
         }
 
+        // Do a name check just in case
         this.uniquePersonList.delete(p);
     }
 

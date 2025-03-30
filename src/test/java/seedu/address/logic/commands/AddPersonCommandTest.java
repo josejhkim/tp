@@ -270,6 +270,11 @@ public class AddPersonCommandTest {
         public Wedding getCurrentWedding() {
             return currentWedding;
         }
+
+        @Override
+        public Wedding getWeddingByName(String weddingName) {
+            return null;
+        }
     }
 
     /**

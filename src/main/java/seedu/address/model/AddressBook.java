@@ -32,6 +32,10 @@ public class AddressBook implements ReadOnlyAddressBook {
     private final UniquePersonList personList;
     private final UniqueTableList tableList;
 
+    /**
+     * Initializes the AddressBook object
+     * with blank UniqueLists
+     */
     public AddressBook() {
         uniqueWeddingList = new UniqueWeddingList();
         personList = new UniquePersonList();
@@ -361,9 +365,9 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void addPersonToTable(Person p, Table table) {
         int tableId = table.getTableId();
-        this.getCurrentWedding().addPersonToTable(p, table);
+        getCurrentWedding().addPersonToTable(p, table);
         personList.setPerson(p, new Person(p, tableId));
-        this.getCurrentWedding().deletePersonFromTable(p, table);
+        tableList.setTable(table, getCurrentWedding().getTableById(tableId));
     }
 
     /**

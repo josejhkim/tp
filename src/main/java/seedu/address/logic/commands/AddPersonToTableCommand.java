@@ -16,7 +16,7 @@ import seedu.address.model.person.Person;
  */
 public class AddPersonToTableCommand extends Command {
 
-    public static final String COMMAND_WORD = "addGuestToTable";
+    public static final String COMMAND_WORD = "addPersonToTable";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
         + ": Adds the guest identified by name "

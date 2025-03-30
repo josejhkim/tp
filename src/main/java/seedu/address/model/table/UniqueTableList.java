@@ -195,10 +195,10 @@ public class UniqueTableList implements Iterable<Table>, UniqueList<Table> {
         if (!hasTable(table)) {
             throw new TableNotFoundException();
         }
-
-        table.addPerson(person);
-
+        boolean k = hasTable(table);
         Table updatedTable = new Table(table);
+
+        updatedTable.addPerson(person);
 
         internalList.set(internalList.indexOf(table), updatedTable);
     }
@@ -253,12 +253,13 @@ public class UniqueTableList implements Iterable<Table>, UniqueList<Table> {
     public void setTable(Table target, Table editedTable) {
         requireAllNonNull(target, editedTable);
 
-        int index = internalList.indexOf(target);
+        Table tableWithSameId = findTableById(target.getTableId());
+        int index = internalList.indexOf(tableWithSameId);
         if (index == -1) {
             throw new TableNotFoundException();
         }
 
-        if (!target.isSameTable(editedTable) && contains(editedTable)) {
+        if (!tableWithSameId.isSameTable(editedTable) && contains(editedTable)) {
             throw new DuplicatePersonException();
         }
 

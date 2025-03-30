@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import javafx.collections.FXCollections;
@@ -79,7 +80,10 @@ public class UniquePersonList implements Iterable<Person>, UniqueList<Person> {
      */
     public void delete(Person toRemove) {
         requireNonNull(toRemove);
-        if (!internalList.remove(toRemove)) {
+
+        // Do a double check just in case
+        Person matchingPerson = this.findPersonByName(toRemove.getName());
+        if (!internalList.remove(matchingPerson)) {
             throw new PersonNotFoundException();
         }
     }
@@ -104,12 +108,14 @@ public class UniquePersonList implements Iterable<Person>, UniqueList<Person> {
     public void setPerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
 
-        int index = internalList.indexOf(target);
+        Person targetWithSameName = findPersonByName(target.getName());
+        int index = internalList.indexOf(targetWithSameName);
+
         if (index == -1) {
             throw new PersonNotFoundException();
         }
 
-        if (!target.isSamePerson(editedPerson) && contains(editedPerson)) {
+        if (!targetWithSameName.isSamePerson(editedPerson) && contains(editedPerson)) {
             throw new DuplicatePersonException();
         }
 
