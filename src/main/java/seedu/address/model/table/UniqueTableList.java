@@ -78,7 +78,8 @@ public class UniqueTableList implements Iterable<Table>, UniqueList<Table> {
      */
     public void addTable(Table toAdd) {
         requireNonNull(toAdd);
-        if (contains(toAdd)) {
+
+        if (hasTableById(toAdd.getTableId())) {
             throw new IllegalArgumentException("Table with ID " + toAdd.getTableId() + " already exists.");
         }
         internalList.add(toAdd);
@@ -231,14 +232,16 @@ public class UniqueTableList implements Iterable<Table>, UniqueList<Table> {
     public void deletePersonFromTable(Person person, Table table) {
         requireAllNonNull(table, person);
 
-        int index = internalList.indexOf(table);
+        Table tableWithSameId = findTableById(table.getTableId());
+        int index = internalList.indexOf(tableWithSameId);
+
         if (index == -1) {
             throw new TableNotFoundException();
         }
 
-        table.deletePerson(person);
+        tableWithSameId.deletePerson(person);
 
-        Table updatedTable = new Table(table);
+        Table updatedTable = new Table(tableWithSameId);
         internalList.set(index, updatedTable);
     }
 

@@ -48,11 +48,12 @@ public class TableTest {
         assertTrue(table.getAllPersons().contains(person1));
     }
 
-    @Test
-    public void addPerson_duplicatePerson_throwsPersonAlreadySeatedException() {
-        table.addPerson(person1);
-        assertThrows(PersonAlreadySeatedException.class, () -> table.addPerson(person1));
-    }
+    // currently not needed as adding a person that's already seated at that table doesn't do anything
+    //    @Test
+    //    public void addPerson_duplicatePerson_throwsPersonAlreadySeatedException() {
+    //        table.addPerson(person1);
+    //        assertThrows(PersonAlreadySeatedException.class, () -> table.addPerson(person1));
+    //    }
 
     @Test
     public void addPerson_tableFull_throwsTableFullException() {
