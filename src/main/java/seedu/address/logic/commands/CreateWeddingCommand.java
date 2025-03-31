@@ -19,8 +19,7 @@ public class CreateWeddingCommand extends Command {
             + "Example: " + COMMAND_WORD + " John and Jane's Wedding";
 
     public static final String MESSAGE_SUCCESS = "New wedding created: %1$s";
-    public static final String MESSAGE_EXISTING_WEDDING = "A wedding already exists. "
-            + "Please delete the current wedding before creating a new one.";
+    public static final String MESSAGE_EXISTING_WEDDING = "A wedding with the name '%s' already exists.";
     public static final String MESSAGE_INVALID_NAME = "Wedding name cannot be empty or just spaces.";
 
     private final String weddingName;
@@ -52,14 +51,13 @@ public class CreateWeddingCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (model.getCurrentWedding() != null) {
-            throw new CommandException(MESSAGE_EXISTING_WEDDING);
+        if (model.hasWeddingWithName(weddingName)) {
+            throw new CommandException(String.format(MESSAGE_EXISTING_WEDDING, weddingName));
         }
 
         // No existing wedding, proceed to create a new one
         Wedding newWedding = new Wedding(weddingName);
         model.addWedding(newWedding);
-        model.setCurrentWedding(newWedding);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, weddingName));
     }

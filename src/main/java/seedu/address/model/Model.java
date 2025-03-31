@@ -115,7 +115,7 @@ public interface Model {
 
     void setTable(Table target, Table editedTable);
 
-    Table getTableById(int tableId);
+    Table findTableById(int tableId);
 
     boolean hasTable(int tableId);
 
@@ -149,5 +149,7 @@ public interface Model {
      */
     Wedding getCurrentWedding();
 
-    Wedding getWeddingByName(String weddingName);
+    Wedding findWeddingByName(String weddingName);
+
+    boolean hasWeddingWithName(String weddingName);
 }

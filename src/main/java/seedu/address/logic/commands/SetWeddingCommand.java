@@ -23,11 +23,21 @@ public class SetWeddingCommand extends Command {
             "The wedding is already set to: %1$s";
     public static final String MESSAGE_WEDDING_MISSING =
         "There is no wedding with the name: %s";
+    public static final String MESSAGE_INVALID_NAME = "Wedding name cannot be empty or just spaces.";
 
 
     private final String weddingName;
 
+    /**
+     * Instantiates the command with the given wedding name.
+     * The wedding name should contain a non-empty string.
+     * @param weddingName
+     */
     public SetWeddingCommand(String weddingName) {
+        requireNonNull(weddingName, "Wedding name cannot be null");
+        if (weddingName.trim().isEmpty()) {
+            throw new IllegalArgumentException(MESSAGE_INVALID_NAME);
+        }
         this.weddingName = weddingName;
     }
 
@@ -36,9 +46,9 @@ public class SetWeddingCommand extends Command {
         requireNonNull(model);
 
         try {
-            Wedding existingWedding = model.getWeddingByName(weddingName.strip());
+            Wedding existingWedding = model.findWeddingByName(weddingName.strip());
             model.setCurrentWedding(existingWedding);
-            return new CommandResult(String.format(MESSAGE_SUCCESS, weddingName));
+            return new CommandResult(String.format(MESSAGE_SUCCESS, existingWedding.getName()));
 
         } catch (WeddingNotFoundException wnfe) {
             return new CommandResult(String.format(MESSAGE_WEDDING_MISSING, weddingName));

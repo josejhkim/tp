@@ -100,7 +100,9 @@ public class UniqueWeddingList implements Iterable<Wedding>, UniqueList<Wedding>
      *
      */
     public Wedding findWeddingByName(String weddingName) {
-        return internalList.stream().filter(wedding -> wedding.getName().equals(weddingName))
+        String weddingNameLower = weddingName.toLowerCase();
+
+        return internalList.stream().filter(wedding -> wedding.getNameLower().equals(weddingNameLower))
             .findFirst().orElseThrow(WeddingNotFoundException::new);
     }
 
@@ -127,7 +129,12 @@ public class UniqueWeddingList implements Iterable<Wedding>, UniqueList<Wedding>
      */
     public boolean hasWeddingByName(String weddingName) {
         requireNonNull(weddingName);
-        return internalList.stream().anyMatch(wedding -> wedding.getName() == weddingName);
+        try {
+            findWeddingByName(weddingName);
+            return true;
+        } catch (WeddingNotFoundException wnfe) {
+            return false;
+        }
     }
 
     /**
@@ -202,6 +209,7 @@ public class UniqueWeddingList implements Iterable<Wedding>, UniqueList<Wedding>
      */
     public void assignGuestToWeddingByName(String weddingName, Person guest) {
         Wedding wedding = findWeddingByName(weddingName);
+
         if (wedding == null) {
             throw new WeddingNotFoundException();
         }
@@ -221,6 +229,7 @@ public class UniqueWeddingList implements Iterable<Wedding>, UniqueList<Wedding>
      */
     public void deleteGuestFromWeddingByName(String weddingName, Person guest) {
         Wedding wedding = findWeddingByName(weddingName);
+
         if (wedding == null) {
             throw new WeddingNotFoundException();
         }

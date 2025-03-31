@@ -9,6 +9,8 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
+import seedu.address.model.table.Table;
+import seedu.address.model.table.exceptions.TableNotFoundException;
 
 /**
  * Adds the guest to the specified table.
@@ -32,7 +34,8 @@ public class AddPersonToTableCommand extends Command {
         + PREFIX_TABLE_ID + "2";
 
     public static final String MESSAGE_ADD_GUEST_TO_TABLE_SUCCESS = "Added Person: %s to Table: %d";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This guest already exists in the address book.";
+    public static final String MESSAGE_TABLE_NOT_FOUND = "Table with id %d not found!";
+
 
     private final Name guestName;
     private final int newTableId;
@@ -51,17 +54,22 @@ public class AddPersonToTableCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        try {
+            Person personToAdd = model.findPersonByName(guestName);
+            Table table = model.findTableById(newTableId);
 
-        Person personToAdd = model.findPersonByName(guestName);
+            if (personToAdd.isSeated()) {
+                model.deletePersonFromTableById(personToAdd, personToAdd.getTableId());
+            }
 
-        if (personToAdd.isSeated()) {
-            model.deletePersonFromTableById(personToAdd, personToAdd.getTableId());
+            model.addPersonToTableById(personToAdd, newTableId);
+
+            return new CommandResult(String.format(MESSAGE_ADD_GUEST_TO_TABLE_SUCCESS,
+                personToAdd.getName().fullName, newTableId));
+        } catch (TableNotFoundException tnfe) {
+            throw new CommandException(String.format(MESSAGE_TABLE_NOT_FOUND, newTableId));
         }
 
-        model.addPersonToTableById(personToAdd, newTableId);
-
-        return new CommandResult(String.format(MESSAGE_ADD_GUEST_TO_TABLE_SUCCESS,
-            personToAdd.getName().fullName, newTableId));
     }
 
     @Override

@@ -15,6 +15,7 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.table.Table;
 import seedu.address.model.wedding.Wedding;
+import seedu.address.model.wedding.exceptions.WeddingNotFoundException;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -207,8 +208,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Table getTableById(int tableId) {
-        return addressBook.getTable(tableId);
+    public Table findTableById(int tableId) {
+        return addressBook.getTableById(tableId);
     }
 
     //=========== Wedding ================================================================================
@@ -248,7 +249,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Wedding getWeddingByName(String weddingName) {
+    public Wedding findWeddingByName(String weddingName) {
         return addressBook.getWeddingByName(weddingName);
     }
 
@@ -268,6 +269,14 @@ public class ModelManager implements Model {
         return addressBook.hasCurrentWedding();
     }
 
+    public boolean hasWeddingWithName(String weddingName) {
+        try {
+            Wedding weddingWithName = findWeddingByName(weddingName);
+            return true;
+        } catch (WeddingNotFoundException wnfe) {
+            return false;
+        }
+    }
 
 
     //=========== Other Utils ================================================================================
