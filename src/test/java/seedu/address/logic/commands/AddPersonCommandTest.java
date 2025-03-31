@@ -182,6 +182,11 @@ public class AddPersonCommandTest {
         }
 
         @Override
+        public boolean hasTable(int id) {
+            return true;
+        }
+
+        @Override
         public void deletePersonFromTableById(Person p, int tableId) {
             throw new AssertionError("This method should not be called.");
         }
@@ -275,6 +280,11 @@ public class AddPersonCommandTest {
         public Wedding getWeddingByName(String weddingName) {
             return null;
         }
+
+        @Override
+        public boolean hasCurrentWedding() {
+            return true;
+        }
     }
 
     /**
@@ -325,6 +335,7 @@ public class AddPersonCommandTest {
         public ReadOnlyAddressBook getAddressBook() {
             return new AddressBook();
         }
+
     }
 
 }

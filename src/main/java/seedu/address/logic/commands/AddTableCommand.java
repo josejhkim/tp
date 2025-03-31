@@ -36,21 +36,43 @@ public class AddTableCommand extends Command {
         this.capacity = capacity;
     }
 
+    // @Override
+    // public CommandResult execute(Model model) throws CommandException {
+    //     requireNonNull(model);
+    //
+    //     try {
+    //         Table t = model.getTableById(tableId);
+    //         throw new CommandException(MESSAGE_DUPLICATE_TABLE);
+    //
+    //     } catch (TableNotFoundException tnfe) {
+    //
+    //         Table table = new Table(tableId, capacity);
+    //         model.addTable(table);
+    //
+    //         return new CommandResult(String.format(MESSAGE_SUCCESS, tableId, capacity));
+    //     }
+    //
+    // }
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        try {
-            Table t = model.getTableById(tableId);
-            throw new CommandException(MESSAGE_DUPLICATE_TABLE);
-
-        } catch (TableNotFoundException tnfe) {
-
-            Table table = new Table(tableId, capacity);
-            model.addTable(table);
-
-            return new CommandResult(String.format(MESSAGE_SUCCESS, tableId, capacity));
+        if (!model.hasCurrentWedding()) {
+            throw new CommandException(MESSAGE_NO_WEDDING);
         }
 
+        if (model.hasTable(tableId)) {
+            throw new CommandException(MESSAGE_DUPLICATE_TABLE);
+        }
+
+        try {
+            Table table = new Table(tableId, capacity);
+            model.addTable(table);
+            return new CommandResult(String.format(MESSAGE_SUCCESS, tableId, capacity));
+        } catch (IllegalArgumentException e) {
+            throw new CommandException("Invalid table: " + e.getMessage());
+        }
     }
+
+
 }

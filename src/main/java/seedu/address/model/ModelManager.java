@@ -181,6 +181,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean hasTable(int tableId) {
+        return addressBook.hasTable(tableId);
+    }
+
+
+    @Override
     public void addPersonToTable(Person p, Table table) {
         addressBook.addPersonToTable(p, table);
     }
@@ -256,6 +262,12 @@ public class ModelManager implements Model {
     public void setCurrentWeddingByName(String weddingName) {
         addressBook.setCurrentWeddingByName(weddingName);
     }
+
+    @Override
+    public boolean hasCurrentWedding() {
+        return addressBook.hasCurrentWedding();
+    }
+
 
 
     //=========== Other Utils ================================================================================
