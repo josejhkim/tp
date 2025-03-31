@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -34,7 +35,7 @@ public class DeleteWeddingCommandTest {
 
         // Ensure wedding is deleted
         assertEquals(0, model.getAddressBook().getWeddingList().size());
-        assertEquals("Test Wedding", model.getAddressBook().getCurrentWedding().getName());
+        assertThrows(NullPointerException.class, () -> model.getAddressBook().getCurrentWedding().getName());
     }
 
     // @Test

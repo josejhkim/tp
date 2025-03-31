@@ -168,6 +168,12 @@ public class AddressBook implements ReadOnlyAddressBook {
         }
 
         uniqueWeddingList.deleteWedding(wedding);
+
+        if (wedding == currentWedding) {
+            personList.clear();
+            tableList.clear();
+            currentWedding = null;
+        }
     }
 
     /**
@@ -367,7 +373,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         int tableId = table.getTableId();
         getCurrentWedding().addPersonToTable(p, table);
         personList.setPerson(p, new Person(p, tableId));
-        tableList.setTable(table, getCurrentWedding().getTableById(tableId));
+        tableList.setTable(table, getCurrentWedding().findTableById(tableId));
     }
 
     /**
@@ -390,7 +396,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void deletePersonFromTable(Person p, Table table) {
         personList.setPerson(p, new Person(p, -1));
         this.getCurrentWedding().deletePersonFromTable(p, table);
-        tableList.setTable(table, this.currentWedding.getTableById(table.getTableId()));
+        tableList.setTable(table, this.currentWedding.findTableById(table.getTableId()));
     }
 
     /**
@@ -400,7 +406,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * @param tableId the ID of the Table to delete the person from
      */
     public void deletePersonFromTable(Person p, int tableId) {
-        Table tableWithId = this.getCurrentWedding().getTableById(tableId);
+        Table tableWithId = this.getCurrentWedding().findTableById(tableId);
         deletePersonFromTable(p, tableWithId);
     }
 
@@ -410,8 +416,8 @@ public class AddressBook implements ReadOnlyAddressBook {
      * @param tableId the ID of the table to retrieve
      * @return the Table with the matching ID
      */
-    public Table getTable(int tableId) {
-        return getCurrentWedding().getTableById(tableId);
+    public Table getTableById(int tableId) {
+        return getCurrentWedding().findTableById(tableId);
     }
 
     // =========== Utils ======================================================

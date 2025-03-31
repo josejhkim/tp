@@ -197,7 +197,7 @@ public class AddPersonCommandTest {
         }
 
         @Override
-        public Table getTableById(int tableId) {
+        public Table findTableById(int tableId) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -272,8 +272,13 @@ public class AddPersonCommandTest {
         }
 
         @Override
-        public Wedding getWeddingByName(String weddingName) {
-            return null;
+        public Wedding findWeddingByName(String weddingName) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasWeddingWithName(String weddingName) {
+            throw new AssertionError("This method should not be called.");
         }
     }
 

@@ -50,6 +50,10 @@ public class Wedding {
         return name;
     }
 
+    public String getNameLower() {
+        return name.toLowerCase();
+    }
+
     /**
      * Returns the list of unique persons in this wedding.
      *
@@ -209,16 +213,6 @@ public class Wedding {
     }
 
     /**
-     * Returns the table with the specified ID.
-     *
-     * @param tableId The ID of the table to get.
-     * @return The table with the matching ID.
-     */
-    public Table getTableById(int tableId) {
-        return tableList.findTableById(tableId);
-    }
-
-    /**
      * Assigns a person to a specific table.
      *
      * @param p The person to be assigned.
@@ -294,7 +288,10 @@ public class Wedding {
         }
         Wedding otherWedding = (Wedding) other;
 
-        return name.equals(otherWedding.name)
+        String weddingNameLower = name.toLowerCase();
+        String otherWeddingNameLower = otherWedding.name.toLowerCase();
+
+        return weddingNameLower.equals(otherWeddingNameLower)
                 && uniquePersonList.equals(otherWedding.uniquePersonList)
                 && tableList.equals(otherWedding.tableList);
     }
@@ -331,6 +328,6 @@ public class Wedding {
             return true;
         }
 
-        return otherWedding != null && otherWedding.getName().equals(getName());
+        return otherWedding != null && otherWedding.getNameLower().equals(getNameLower());
     }
 }
