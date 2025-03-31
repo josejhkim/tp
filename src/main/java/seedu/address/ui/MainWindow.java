@@ -4,10 +4,12 @@ import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
@@ -35,6 +37,7 @@ public class MainWindow extends UiPart<Stage> {
     private TableListPanel tableListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private WeddingName weddingName;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -53,6 +56,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane statusbarPlaceholder;
+
+    @FXML
+    private StackPane weddingNamePlaceholder;
 
     /**
      * Creates a {@code MainWindow} with the given {@code Stage} and {@code Logic}.
@@ -128,6 +134,22 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        // Initialize wedding name with binding to model
+        weddingName = new WeddingName();
+        weddingNamePlaceholder.getChildren().add(weddingName.getRoot());
+        
+        // Bind the wedding name to the property in logic
+        weddingName.bindWeddingName(logic.weddingNameProperty());
+    }
+
+    /**
+     * Updates the displayed wedding name.
+     * @param newName the name to display
+     */
+    public void updateWeddingName(String newName) {
+        weddingName.setWeddingName(newName);
+        logger.info("Updated wedding name to: " + newName);
     }
 
     /**

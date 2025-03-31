@@ -2,6 +2,7 @@ package seedu.address.logic;
 
 import java.nio.file.Path;
 
+import javafx.beans.property.ReadOnlyStringProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.CommandResult;
@@ -10,6 +11,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.person.Person;
 import seedu.address.model.table.Table;
+import seedu.address.model.wedding.Wedding;
 
 /**
  * API of the Logic component
@@ -50,4 +52,10 @@ public interface Logic {
      * Set the user prefs' GUI settings.
      */
     void setGuiSettings(GuiSettings guiSettings);
+
+    /** Returns the wedding name property for binding */
+    ReadOnlyStringProperty weddingNameProperty();
+    
+    /** Returns the current wedding */
+    Wedding getCurrentWedding();
 }

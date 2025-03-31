@@ -59,12 +59,12 @@ public class PersonCard extends UiPart<Region> {
         email.setText(person.getEmail().value);
         person.getTags().stream().sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
-        dietaryRestriction.setText(person.getDietaryRestriction().toString());
-        rsvp.setText(person.getRsvp().getStatus().toString());
+        dietaryRestriction.setText("Dietary restriction: " + person.getDietaryRestriction().toString());
+        rsvp.setText("RSVP Status: " + person.getRsvp().getStatus().toString());
 
         // Replace incorrect type check with proper Optional handling
         if (person.isSeated()) {
-            table.setText(person.getTableIdString());
+            table.setText("TableId: " + person.getTableIdString());
         } else {
             table.setText("No table assigned");
         }
