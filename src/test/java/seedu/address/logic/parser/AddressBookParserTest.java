@@ -22,9 +22,9 @@ import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.GetRsvpListCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
-import seedu.address.logic.commands.SeeRsvpListCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
@@ -63,7 +63,7 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_seeRsvpList() throws Exception {
-        assertTrue(parser.parseCommand(SeeRsvpListCommand.COMMAND_WORD) instanceof SeeRsvpListCommand);
+        assertTrue(parser.parseCommand(GetRsvpListCommand.COMMAND_WORD) instanceof GetRsvpListCommand);
     }
     // Existing tests..
 
