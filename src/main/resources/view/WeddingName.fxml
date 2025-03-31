@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.geometry.Insets?>
+
+<HBox id="weddingNameBox" fx:id="weddingNameBox" styleClass="wedding-name-box" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+  <padding>
+    <Insets top="10" right="10" bottom="10" left="10" />
+  </padding>
+  <Label fx:id="weddingNameLabel" styleClass="wedding-name-value" text="Wedding Name: Not Set" />
+</HBox>
