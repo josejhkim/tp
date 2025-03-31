@@ -268,7 +268,7 @@ public class ModelManager implements Model {
     public boolean hasCurrentWedding() {
         return addressBook.hasCurrentWedding();
     }
-
+    @Override
     public boolean hasWeddingWithName(String weddingName) {
         try {
             Wedding weddingWithName = findWeddingByName(weddingName);
