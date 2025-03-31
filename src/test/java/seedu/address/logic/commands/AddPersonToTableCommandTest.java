@@ -21,7 +21,6 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Rsvp;
 import seedu.address.model.table.Table;
-import seedu.address.model.table.exceptions.TableNotFoundException;
 import seedu.address.model.wedding.Wedding;
 
 public class AddPersonToTableCommandTest {
@@ -58,6 +57,6 @@ public class AddPersonToTableCommandTest {
     @Test
     public void execute_addGuestToTable_failure() throws CommandException {
         AddPersonToTableCommand command = new AddPersonToTableCommand(name, 3);
-        assertThrows(TableNotFoundException.class, () -> command.execute(model));
+        assertThrows(CommandException.class, () -> command.execute(model));
     }
 }

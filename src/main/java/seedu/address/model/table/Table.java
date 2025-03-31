@@ -135,6 +135,38 @@ public final class Table {
         this.uniquePersonList.delete(p);
     }
 
+    /**
+     * Finds the given person from this table's person list
+     * @param person
+     * @return The resulting person from this table's person list if exists
+     */
+    public Person findPerson(Person person) {
+        return this.uniquePersonList.findPersonByName(person.getName());
+    }
+
+    /**
+     * Finds the person with the given name from this table's person list
+     * @param name
+     * @return The resulting person from this table's person list if exists
+     */
+    public Person findPersonByName(Name name) {
+        return this.uniquePersonList.findPersonByName(name);
+    }
+
+    /**
+     * Checks whether or not a person with the given name sits at this table.
+     * @param name
+     * @return Boolean value for whether a person with the given name sits here
+     */
+    public boolean hasPersonByName(Name name) {
+        try {
+            findPersonByName(name);
+            return true;
+        } catch (PersonNotFoundException pnfe) {
+            return false;
+        }
+    }
+
     public ObservableList<Person> getAllPersons() {
         return this.uniquePersonList.asUnmodifiableObservableList();
     }

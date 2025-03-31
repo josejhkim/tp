@@ -175,6 +175,20 @@ public class UniquePersonList implements Iterable<Person>, UniqueList<Person> {
             .orElseThrow(PersonNotFoundException::new);
     }
 
+    /**
+     * Checks if person with the given name exists in the list
+     * @param name
+     * @return boolean value representing if the person with the given name exists
+     */
+    public boolean hasPersonByName(Name name) {
+        try {
+            findPersonByName(name);
+            return true;
+        } catch (PersonNotFoundException pnfe) {
+            return false;
+        }
+    }
+
 
     @Override
     public Iterator<Person> iterator() {

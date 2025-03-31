@@ -8,6 +8,7 @@ import java.util.HashSet;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.person.Address;
@@ -18,7 +19,6 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Rsvp;
 import seedu.address.model.table.Table;
-import seedu.address.model.table.exceptions.TableNotFoundException;
 import seedu.address.model.wedding.Wedding;
 
 public class DeletePersonFromTableCommandTest {
@@ -64,6 +64,6 @@ public class DeletePersonFromTableCommandTest {
     public void execute_deleteGuestFromTable_failure() {
         AddPersonToTableCommand command = new AddPersonToTableCommand(name, 3);
 
-        assertThrows(TableNotFoundException.class, () -> command.execute(model));
+        assertThrows(CommandException.class, () -> command.execute(model));
     }
 }

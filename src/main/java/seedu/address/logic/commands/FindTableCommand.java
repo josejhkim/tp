@@ -42,7 +42,7 @@ public class FindTableCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        Table table = model.getTableById(tableId);
+        Table table = model.findTableById(tableId);
 
         if (table == null) {
             throw new CommandException(String.format(MESSAGE_TABLE_NOT_FOUND, tableId));

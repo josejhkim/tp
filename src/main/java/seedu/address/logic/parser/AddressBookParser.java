@@ -71,7 +71,7 @@ public class AddressBookParser {
             return new WeddingOverviewCommand();
 
         case SetWeddingCommand.COMMAND_WORD:
-            return new SetWeddingCommand(arguments);
+            return new SetWeddingCommandParser().parse(arguments);
 
         case DeleteWeddingCommand.COMMAND_WORD:
             return new DeleteWeddingCommandParser().parse(arguments);
