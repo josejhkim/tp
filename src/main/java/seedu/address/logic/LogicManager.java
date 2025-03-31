@@ -112,11 +112,6 @@ public class LogicManager implements Logic {
         return weddingNameProperty;
     }
 
-    @Override
-    public Wedding getCurrentWedding() {
-        return model.getCurrentWedding();
-    }
-
     /**
      * Updates the wedding name property based on the current wedding in the model
      */

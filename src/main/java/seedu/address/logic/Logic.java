@@ -11,7 +11,6 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.person.Person;
 import seedu.address.model.table.Table;
-import seedu.address.model.wedding.Wedding;
 
 /**
  * API of the Logic component
@@ -56,6 +55,4 @@ public interface Logic {
     /** Returns the wedding name property for binding */
     ReadOnlyStringProperty weddingNameProperty();
 
-    /** Returns the current wedding */
-    Wedding getCurrentWedding();
 }
