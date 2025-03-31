@@ -15,12 +15,12 @@ import seedu.address.model.person.Rsvp.Status;
 import seedu.address.model.person.RsvpFilter;
 
 /**
- * Command to filter guests based on dietary restrictions and/or RSVP status .
+ * Command to filter guests based on dietary restrictions or RSVP status or None.
  */
 public class FilterGuestCommand extends Command {
     public static final String COMMAND_WORD = "filterGuest";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all guest(s) belonging to filtered request.\n"
-            + "Please pick at least one of the categories (Dietary restriction / RSVP) to filter by.\n"
+            + "Please pick the categories (Dietary restriction / RSVP) to filter by, or none to get unfiltered list.\n"
             + "Parameters: [d/DIETARY_RESTRICTION_FIELD] [r/RSVP_FIELD]\n"
             + "Example: " + COMMAND_WORD + " d/" + TypicalRestriction.values()[0].toString()
             + " r/" + Status.values()[0].toString();
@@ -36,7 +36,6 @@ public class FilterGuestCommand extends Command {
      *
      * @param dietaryFilter the dietary restriction filter to apply; may be null
      * @param rsvpFilter the RSVP filter to apply; may be null
-     * @throws IllegalArgumentException if both filters are null
      */
     public FilterGuestCommand(DietaryRestrictionFilter dietaryFilter, RsvpFilter rsvpFilter) {
 
@@ -56,7 +55,6 @@ public class FilterGuestCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        requireNonNull(combinedPredicate);
         model.updateFilteredPersonList(combinedPredicate);
         return new CommandResult(
                 String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredPersonList().size()));

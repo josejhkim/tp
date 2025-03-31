@@ -1,9 +1,7 @@
 package seedu.address.logic.parser;
 
-import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.CommandTestUtil.DIETARY_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.RSVP_DESC_AMY;
-import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
 import org.junit.jupiter.api.Test;
@@ -25,9 +23,9 @@ public class FilterGuestCommandParserTest {
             new DietaryRestrictionFilter(dietaryRestrictionNone);
 
     @Test
-    public void parse_noFilter_throwsParseException() {
-        assertParseFailure(parser, "", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                FilterGuestCommand.MESSAGE_USAGE));
+    public void parse_noFilter() {
+        FilterGuestCommand expectedCommand = new FilterGuestCommand(null, null);
+        assertParseSuccess(parser, "", expectedCommand);
     }
 
     @Test

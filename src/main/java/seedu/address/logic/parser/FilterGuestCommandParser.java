@@ -25,10 +25,6 @@ public class FilterGuestCommandParser implements Parser<FilterGuestCommand> {
 
         ArgumentMultimap argumentMultimap = ArgumentTokenizer.tokenize(args, PREFIX_DIETARY_RESTRICTION, PREFIX_RSVP);
 
-        if (!anyPrefixesPresent(argumentMultimap, PREFIX_DIETARY_RESTRICTION, PREFIX_RSVP)) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterGuestCommand.MESSAGE_USAGE));
-        }
-
         if (argumentMultimap.getValue(PREFIX_DIETARY_RESTRICTION).isPresent()) {
             DietaryRestriction dietaryRestriction = ParserUtil.parseDietaryRestriction(
                     argumentMultimap.getValue(PREFIX_DIETARY_RESTRICTION).get());
