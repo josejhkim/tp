@@ -196,7 +196,6 @@ public class UniqueTableList implements Iterable<Table>, UniqueList<Table> {
         if (!hasTable(table)) {
             throw new TableNotFoundException();
         }
-        boolean k = hasTable(table);
         Table updatedTable = new Table(table);
 
         updatedTable.addPerson(person);

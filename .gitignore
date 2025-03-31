@@ -24,5 +24,7 @@ docs/_site/
 docs/_markbind/logs/
 
 .vscode/
-
+*.class
+.class
 .qodo
+/bin

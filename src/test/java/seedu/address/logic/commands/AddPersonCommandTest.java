@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 
+import java.beans.PropertyChangeListener;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -287,8 +288,17 @@ public class AddPersonCommandTest {
         }
 
         @Override
+
         public boolean hasCurrentWedding() {
             return true;
+        }
+        public void addPropertyChangeListener(PropertyChangeListener listener) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void removePropertyChangeListener(PropertyChangeListener listener) {
+            throw new AssertionError("This method should not be called.");
         }
     }
 

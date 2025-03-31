@@ -30,7 +30,7 @@ public class AddPersonToTableCommand extends Command {
         + "[" + PREFIX_NAME + "NAME] "
         + "[" + PREFIX_TABLE_ID + "TABLE ID]\n"
         + "Example: " + COMMAND_WORD
-        + PREFIX_NAME + "John Doe"
+        + PREFIX_NAME + "John Doe "
         + PREFIX_TABLE_ID + "2";
 
     public static final String MESSAGE_ADD_GUEST_TO_TABLE_SUCCESS = "Added Person: %s to Table: %d";

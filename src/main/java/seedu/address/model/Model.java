@@ -1,5 +1,6 @@
 package seedu.address.model;
 
+import java.beans.PropertyChangeListener;
 import java.nio.file.Path;
 import java.util.function.Predicate;
 
@@ -150,6 +151,18 @@ public interface Model {
     Wedding getCurrentWedding();
 
     Wedding findWeddingByName(String weddingName);
+
+    /**
+     * Adds a property change listener to listen for model events
+     * @param listener the listener to add
+     */
+    void addPropertyChangeListener(PropertyChangeListener listener);
+
+    /**
+     * Removes a property change listener
+     * @param listener the listener to remove
+     */
+    void removePropertyChangeListener(PropertyChangeListener listener);
 
     boolean hasWeddingWithName(String weddingName);
 }
