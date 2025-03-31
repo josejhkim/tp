@@ -25,7 +25,6 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.table.Table;
 import seedu.address.model.wedding.Wedding;
 import seedu.address.testutil.PersonBuilder;
@@ -55,7 +54,6 @@ public class AddPersonCommandTest {
         assertEquals(String.format(AddPersonCommand.MESSAGE_SUCCESS, validPerson),
             commandResult.getFeedbackToUser());
 
-        UniquePersonList kkk = model.getCurrentWedding().getUniquePersonList();
         assertEquals(Arrays.asList(validPerson).toString(), model
             .getCurrentWedding().getUniquePersonList().toString());
     }
