@@ -55,7 +55,7 @@ public interface Logic {
 
     /** Returns the wedding name property for binding */
     ReadOnlyStringProperty weddingNameProperty();
-    
+
     /** Returns the current wedding */
     Wedding getCurrentWedding();
 }

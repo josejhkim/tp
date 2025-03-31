@@ -28,7 +28,7 @@ public class WeddingName extends UiPart<Region> {
         // Bind the label text to the property with formatting
         weddingNameLabel.textProperty().bind(weddingNameProperty.map(name -> "Wedding Name: " + name));
     }
-    
+
     /**
      * Creates a {@code WeddingName} with a specific wedding name.
      */

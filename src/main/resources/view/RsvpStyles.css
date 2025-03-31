@@ -1,0 +1,28 @@
+/* Styling for RSVP status labels */
+.rsvp-status {
+    -fx-padding: 4px 8px;
+    -fx-background-radius: 4px;
+    -fx-border-radius: 4px;
+    -fx-font-size: 13px;
+    -fx-margin: 2px;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.8), 1, 0, 0, 1);
+}
+
+.rsvp-yes {
+    -fx-background-color: #5cb85c;  /* Green */
+    -fx-text-fill: #000000;  /* Changed to black */
+    -fx-border-color: #4cae4c;
+}
+
+.rsvp-no {
+    -fx-background-color: #d9534f;  /* Red */
+    -fx-text-fill: #000000;  /* Changed to black */
+    -fx-border-color: #d43f3a;
+}
+
+.rsvp-no-response {
+    -fx-background-color: #f5f5dc;  /* Beige */
+    -fx-text-fill: #000000;  /* Changed to black */
+    -fx-border-color: #ddd8c0;
+}

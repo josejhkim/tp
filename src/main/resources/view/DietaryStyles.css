@@ -1,0 +1,71 @@
+/* Common styling for all dietary restriction labels */
+.dietary-restriction {
+    -fx-padding: 4px 8px;
+    -fx-background-radius: 4px;
+    -fx-border-radius: 4px;
+    -fx-font-size: 13px;  /* Increased from 11px to 13px */
+    -fx-margin: 2px;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.8), 1, 0, 0, 1);  /* Text outline effect */
+}
+
+/* Specific styling for each dietary restriction type */
+.vegetarian-restriction {
+    -fx-background-color: #a1d99b;
+    -fx-text-fill: #1a5226;
+    -fx-border-color: #74c476;
+}
+
+.vegan-restriction {
+    -fx-background-color: #31a354;
+    -fx-text-fill: white;
+    -fx-border-color: #006d2c;
+}
+
+.halal-restriction {
+    -fx-background-color: #c6dbef;
+    -fx-text-fill: #084594;
+    -fx-border-color: #9ecae1;
+}
+
+.shellfish-restriction {
+    -fx-background-color: #9ecae1;
+    -fx-text-fill: #08306b;
+    -fx-border-color: #6baed6;
+}
+
+.peanuts-restriction {
+    -fx-background-color: #fdae6b;
+    -fx-text-fill: #7f2704;
+    -fx-border-color: #e6550d;
+}
+
+.eggs-restriction {
+    -fx-background-color: #fee8c8;
+    -fx-text-fill: #8c2d04;
+    -fx-border-color: #fdbb84;
+}
+
+.fish-restriction {
+    -fx-background-color: #bdd7e7;
+    -fx-text-fill: #08519c;
+    -fx-border-color: #6baed6;
+}
+
+.soy-restriction {
+    -fx-background-color: #d4b9da;
+    -fx-text-fill: #3f007d;
+    -fx-border-color: #c994c7;
+}
+
+.sesame-restriction {
+    -fx-background-color: #fcc5c0;
+    -fx-text-fill: #67000d;
+    -fx-border-color: #fb6a4a;
+}
+
+.other-restriction {
+    -fx-background-color: #d9d9d9;
+    -fx-text-fill: #636363;
+    -fx-border-color: #bdbdbd;
+}

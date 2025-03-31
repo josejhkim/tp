@@ -1,8 +1,8 @@
 package seedu.address.model;
 
+import java.beans.PropertyChangeListener;
 import java.nio.file.Path;
 import java.util.function.Predicate;
-import java.beans.PropertyChangeListener;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
@@ -153,7 +153,7 @@ public interface Model {
      * @param listener the listener to add
      */
     void addPropertyChangeListener(PropertyChangeListener listener);
-    
+
     /**
      * Removes a property change listener
      * @param listener the listener to remove

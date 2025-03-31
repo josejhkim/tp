@@ -4,12 +4,10 @@ import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
@@ -138,7 +136,7 @@ public class MainWindow extends UiPart<Stage> {
         // Initialize wedding name with binding to model
         weddingName = new WeddingName();
         weddingNamePlaceholder.getChildren().add(weddingName.getRoot());
-        
+
         // Bind the wedding name to the property in logic
         weddingName.bindWeddingName(logic.weddingNameProperty());
     }
