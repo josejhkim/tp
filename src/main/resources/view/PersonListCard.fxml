@@ -21,10 +21,10 @@
     <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
     </columnConstraints>
-    
+
     <!-- Main vertical container -->
     <VBox spacing="8" GridPane.columnIndex="0">
-      
+
       <!-- Top section: Guest name -->
       <VBox alignment="CENTER_LEFT" styleClass="guest-name-box">
         <padding>
@@ -41,7 +41,7 @@
         </HBox>
         <FlowPane fx:id="tags" />
       </VBox>
-      
+
       <!-- Bottom section: Details split into two columns -->
       <HBox spacing="10" minHeight="105">
         <!-- Left column: Contact details -->
@@ -53,9 +53,9 @@
           <Label fx:id="email" styleClass="cell_small_label" text="\$email" />
           <Label fx:id="address" styleClass="cell_small_label" text="\$address" wrapText="true" />
         </VBox>
-        
+
         <!-- Right column: Dietary, RSVP, and Table details in a special box -->
-        <VBox alignment="TOP_LEFT" HBox.hgrow="ALWAYS" minWidth="150" prefWidth="200" 
+        <VBox alignment="TOP_LEFT" HBox.hgrow="ALWAYS" minWidth="150" prefWidth="200"
               styleClass="guest-details-box">
           <padding>
             <Insets top="8" right="8" bottom="8" left="8" />

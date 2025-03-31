@@ -48,14 +48,14 @@
             <Insets />
           </opaqueInsets>
         </StackPane>
-        
+
         <!-- Wedding Name Display -->
         <StackPane fx:id="weddingNamePlaceholder" styleClass="pane-with-border" alignment="CENTER" VBox.vgrow="NEVER">
           <padding>
             <Insets top="5" right="10" bottom="5" left="10" />
           </padding>
         </StackPane>
-        
+
         <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS" fillHeight="true">
           <children>
             <TitledPane fx:id="guests" minWidth="300" HBox.hgrow="ALWAYS" prefHeight="9999" maxHeight="Infinity" collapsible="false" text="All Guests">

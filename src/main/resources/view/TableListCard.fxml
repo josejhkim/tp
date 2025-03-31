@@ -14,7 +14,7 @@
   <padding>
     <Insets top="8" bottom="8" />
   </padding>
-  
+
   <GridPane HBox.hgrow="ALWAYS" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <stylesheets>
       <URL value="@DarkTheme.css" />
@@ -25,10 +25,10 @@
     <columnConstraints>
       <ColumnConstraints hgrow="ALWAYS" minWidth="10" prefWidth="150" />
     </columnConstraints>
-    
+
     <!-- Main vertical container -->
     <VBox spacing="8" GridPane.columnIndex="0">
-      
+
       <!-- Top section: Table details -->
       <VBox alignment="CENTER_LEFT" styleClass="guest-name-box">
         <padding>
@@ -38,12 +38,12 @@
         <Label fx:id="capacity" styleClass="cell_small_label" text="\$capacity" wrapText="true" />
         <Label fx:id="occupancy" styleClass="cell_small_label" text="\$occupancy" wrapText="true" />
       </VBox>
-      
+
       <!-- Bottom section: Split into two columns -->
       <HBox spacing="15" GridPane.hgrow="ALWAYS">
-        
+
         <!-- Left column: Dietary and RSVP info -->
-        <VBox alignment="TOP_LEFT" HBox.hgrow="ALWAYS" minWidth="150" prefWidth="200" 
+        <VBox alignment="TOP_LEFT" HBox.hgrow="ALWAYS" minWidth="150" prefWidth="200"
               styleClass="guest-details-box">
           <padding>
             <Insets top="8" right="8" bottom="8" left="15" />
@@ -57,7 +57,7 @@
             <FlowPane fx:id="rsvpCounts" />
           </VBox>
         </VBox>
-        
+
         <!-- Right column: Guest list -->
         <VBox alignment="TOP_LEFT" HBox.hgrow="ALWAYS" minWidth="150" prefWidth="200">
           <padding>
