@@ -224,7 +224,7 @@ public class Wedding {
         }
 
         if (p.isSeated()) {
-            deletePersonFromTable(p, table);
+            deletePersonFromTableById(p, p.getTableId());
         }
 
         Person seatedPerson = new Person(p, table.getTableId());

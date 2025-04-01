@@ -191,7 +191,7 @@ public class ModelManager implements Model {
 
     @Override
     public void addPersonToTableById(Person p, int tableId) {
-        addressBook.addPersonToTable(p, tableId);
+        addressBook.addPersonToTableById(p, tableId);
     }
 
     @Override

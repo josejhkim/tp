@@ -127,6 +127,9 @@ public final class Table {
      * @param p Person to delete from this table
      */
     public void deletePerson(Person p) {
+        Person newP = new Person(p);
+        boolean askfjlaksd = uniquePersonList.contains(p);
+        boolean aslkfjalskd2 = askfjlaksd;
         if (!uniquePersonList.contains(p)) {
             throw new PersonNotFoundException();
         }

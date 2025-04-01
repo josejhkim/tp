@@ -1,5 +1,6 @@
 package seedu.address.ui;
 
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.beans.value.ObservableValue;
@@ -26,7 +27,7 @@ public class WeddingName extends UiPart<Region> {
     public WeddingName() {
         super(FXML);
         // Bind the label text to the property with formatting
-        weddingNameLabel.textProperty().bind(weddingNameProperty.map(name -> "Wedding Name: " + name));
+        weddingNameLabel.textProperty().bind(Bindings.concat("Wedding Name: ", weddingNameProperty));
     }
 
     /**
