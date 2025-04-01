@@ -8,32 +8,63 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
+<?import java.net.URL?>
 
-<HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
   <GridPane HBox.hgrow="ALWAYS">
+    <stylesheets>
+      <URL value="@DarkTheme.css" />
+      <URL value="@Extensions.css" />
+      <URL value="@DietaryStyles.css" />
+      <URL value="@RsvpStyles.css" />
+    </stylesheets>
     <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
     </columnConstraints>
-    <VBox alignment="CENTER_LEFT" minHeight="105" GridPane.columnIndex="0">
-      <padding>
-        <Insets top="5" right="5" bottom="5" left="15" />
-      </padding>
-      <HBox spacing="0.5" alignment="CENTER_LEFT">
-        <Label fx:id="id" styleClass="cell_big_label">
-          <minWidth>
-            <!-- Ensures that the label text is never truncated -->
-            <Region fx:constant="USE_PREF_SIZE" />
-          </minWidth>
-        </Label>
-        <Label fx:id="name" text="\$first" styleClass="cell_big_label" />
+
+    <!-- Main vertical container -->
+    <VBox spacing="8" GridPane.columnIndex="0">
+
+      <!-- Top section: Guest name -->
+      <VBox alignment="CENTER_LEFT" styleClass="guest-name-box">
+        <padding>
+          <Insets top="8" right="8" bottom="8" left="15" />
+        </padding>
+        <HBox spacing="0.5" alignment="CENTER_LEFT">
+          <Label fx:id="id" styleClass="cell_big_label">
+            <minWidth>
+              <!-- Ensures that the label text is never truncated -->
+              <Region fx:constant="USE_PREF_SIZE" />
+            </minWidth>
+          </Label>
+          <Label fx:id="name" text="\$first" styleClass="cell_big_label" wrapText="true" />
+        </HBox>
+        <FlowPane fx:id="tags" />
+      </VBox>
+
+      <!-- Bottom section: Details split into two columns -->
+      <HBox spacing="10" minHeight="105">
+        <!-- Left column: Contact details -->
+        <VBox alignment="TOP_LEFT" HBox.hgrow="ALWAYS" minWidth="150" prefWidth="200">
+          <padding>
+            <Insets top="0" right="5" bottom="5" left="15" />
+          </padding>
+          <Label fx:id="phone" styleClass="cell_small_label" text="\$phone" />
+          <Label fx:id="email" styleClass="cell_small_label" text="\$email" />
+          <Label fx:id="address" styleClass="cell_small_label" text="\$address" wrapText="true" />
+        </VBox>
+
+        <!-- Right column: Dietary, RSVP, and Table details in a special box -->
+        <VBox alignment="TOP_LEFT" HBox.hgrow="ALWAYS" minWidth="150" prefWidth="200"
+              styleClass="guest-details-box">
+          <padding>
+            <Insets top="8" right="8" bottom="8" left="8" />
+          </padding>
+          <Label fx:id="dietaryRestriction" styleClass="cell_small_label" text="\$dietaryRestriction" />
+          <Label fx:id="rsvp" styleClass="cell_small_label" text="\$rsvp" />
+          <Label fx:id="table" styleClass="cell_small_label" text="\$table" />
+        </VBox>
       </HBox>
-      <FlowPane fx:id="tags" />
-      <Label fx:id="phone" styleClass="cell_small_label" text="\$phone" />
-      <Label fx:id="address" styleClass="cell_small_label" text="\$address" />
-      <Label fx:id="email" styleClass="cell_small_label" text="\$email" />
-      <Label fx:id="dietaryRestriction" styleClass="cell_small_label" text="\$dietaryRestriction" />
-      <Label fx:id="rsvp" styleClass="cell_small_label" text="\$rsvp" />
-      <Label fx:id="table" styleClass="cell_small_label" text="\$table" />
     </VBox>
   </GridPane>
 </HBox>

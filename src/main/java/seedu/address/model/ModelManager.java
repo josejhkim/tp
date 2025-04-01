@@ -3,6 +3,8 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.nio.file.Path;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -27,6 +29,7 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Table> filteredTables;
+    private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -250,14 +253,28 @@ public class ModelManager implements Model {
     @Override
     public void setCurrentWedding(Wedding wedding) {
         requireNonNull(wedding);
+        Wedding oldWedding = addressBook.getCurrentWedding();
         addressBook.setCurrentWedding(wedding);
+        pcs.firePropertyChange("currentWedding", oldWedding, wedding);
     }
 
     @Override
     public void setCurrentWeddingByName(String weddingName) {
+        Wedding oldWedding = addressBook.getCurrentWedding();
         addressBook.setCurrentWeddingByName(weddingName);
+        Wedding newWedding = addressBook.getCurrentWedding();
+        pcs.firePropertyChange("currentWedding", oldWedding, newWedding);
     }
 
+    @Override
+    public void addPropertyChangeListener(PropertyChangeListener listener) {
+        this.pcs.addPropertyChangeListener(listener);
+    }
+
+    @Override
+    public void removePropertyChangeListener(PropertyChangeListener listener) {
+        this.pcs.removePropertyChangeListener(listener);
+    }
     @Override
     public boolean hasWeddingWithName(String weddingName) {
         try {

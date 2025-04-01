@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import java.net.URL?>
+
+<HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+  <padding>
+    <Insets top="8" bottom="8" />
+  </padding>
+
+  <GridPane HBox.hgrow="ALWAYS" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+    <stylesheets>
+      <URL value="@DarkTheme.css" />
+      <URL value="@Extensions.css" />
+      <URL value="@DietaryStyles.css" />
+      <URL value="@RsvpStyles.css" />
+    </stylesheets>
+    <columnConstraints>
+      <ColumnConstraints hgrow="ALWAYS" minWidth="10" prefWidth="150" />
+    </columnConstraints>
+
+    <!-- Main vertical container -->
+    <VBox spacing="8" GridPane.columnIndex="0">
+
+      <!-- Top section: Table details -->
+      <VBox alignment="CENTER_LEFT" styleClass="guest-name-box">
+        <padding>
+          <Insets top="8" right="8" bottom="8" left="15" />
+        </padding>
+        <Label fx:id="tableId" styleClass="cell_big_label" text="\$tableId" wrapText="true" />
+        <Label fx:id="capacity" styleClass="cell_small_label" text="\$capacity" wrapText="true" />
+        <Label fx:id="occupancy" styleClass="cell_small_label" text="\$occupancy" wrapText="true" />
+      </VBox>
+
+      <!-- Bottom section: Split into two columns -->
+      <HBox spacing="15" GridPane.hgrow="ALWAYS">
+
+        <!-- Left column: Dietary and RSVP info -->
+        <VBox alignment="TOP_LEFT" HBox.hgrow="ALWAYS" minWidth="150" prefWidth="200"
+              styleClass="guest-details-box">
+          <padding>
+            <Insets top="8" right="8" bottom="8" left="15" />
+          </padding>
+          <VBox>
+            <Label styleClass="cell_large_label" text="Dietary Restrictions:" wrapText="true" />
+            <FlowPane fx:id="dietaryRestrictions" />
+          </VBox>
+          <VBox>
+            <Label styleClass="cell_large_label" text="RSVP Status:" wrapText="true" />
+            <FlowPane fx:id="rsvpCounts" />
+          </VBox>
+        </VBox>
+
+        <!-- Right column: Guest list -->
+        <VBox alignment="TOP_LEFT" HBox.hgrow="ALWAYS" minWidth="150" prefWidth="200">
+          <padding>
+            <Insets top="0" right="5" bottom="5" left="5" />
+          </padding>
+          <Label styleClass="cell_large_label" text="Guests:" wrapText="true" />
+          <VBox fx:id="persons" spacing="2" />
+        </VBox>
+      </HBox>
+    </VBox>
+  </GridPane>
+</HBox>

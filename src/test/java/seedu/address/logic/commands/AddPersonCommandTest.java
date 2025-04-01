@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 
+import java.beans.PropertyChangeListener;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -24,7 +25,6 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.table.Table;
 import seedu.address.model.wedding.Wedding;
 import seedu.address.testutil.PersonBuilder;
@@ -54,7 +54,6 @@ public class AddPersonCommandTest {
         assertEquals(String.format(AddPersonCommand.MESSAGE_SUCCESS, validPerson),
             commandResult.getFeedbackToUser());
 
-        UniquePersonList kkk = model.getCurrentWedding().getUniquePersonList();
         assertEquals(Arrays.asList(validPerson).toString(), model
             .getCurrentWedding().getUniquePersonList().toString());
     }
@@ -278,6 +277,16 @@ public class AddPersonCommandTest {
 
         @Override
         public boolean hasWeddingWithName(String weddingName) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addPropertyChangeListener(PropertyChangeListener listener) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void removePropertyChangeListener(PropertyChangeListener listener) {
             throw new AssertionError("This method should not be called.");
         }
     }

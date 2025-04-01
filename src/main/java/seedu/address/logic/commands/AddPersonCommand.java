@@ -19,9 +19,6 @@ public class AddPersonCommand extends Command {
         + "n/John Doe p/12345678 e/johndoe@example.com a/123 Street d/None r/YES";
 
     public static final String MESSAGE_SUCCESS = "Person added to wedding: %1$s";
-    public static final String MESSAGE_NO_CURRENT_WEDDING =
-        "No current wedding set. Please set a current wedding first using the setWedding command.";
-
     private final Person person;
     /**
      * Creates an AddGuestCommand to add the specified {@code Person} to the rsvp list in the current wedding.

@@ -32,8 +32,10 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private PersonListPanel personListPanel;
+    private TableListPanel tableListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private WeddingName weddingName;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -45,10 +47,16 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane personListPanelPlaceholder;
 
     @FXML
+    private StackPane tableListPanelPlaceholder;
+
+    @FXML
     private StackPane resultDisplayPlaceholder;
 
     @FXML
     private StackPane statusbarPlaceholder;
+
+    @FXML
+    private StackPane weddingNamePlaceholder;
 
     /**
      * Creates a {@code MainWindow} with the given {@code Stage} and {@code Logic}.
@@ -113,6 +121,9 @@ public class MainWindow extends UiPart<Stage> {
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
+        tableListPanel = new TableListPanel(logic.getFilteredTableList());
+        tableListPanelPlaceholder.getChildren().add(tableListPanel.getRoot());
+
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
@@ -121,6 +132,22 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        // Initialize wedding name with binding to model
+        weddingName = new WeddingName();
+        weddingNamePlaceholder.getChildren().add(weddingName.getRoot());
+
+        // Bind the wedding name to the property in logic
+        weddingName.bindWeddingName(logic.weddingNameProperty());
+    }
+
+    /**
+     * Updates the displayed wedding name.
+     * @param newName the name to display
+     */
+    public void updateWeddingName(String newName) {
+        weddingName.setWeddingName(newName);
+        logger.info("Updated wedding name to: " + newName);
     }
 
     /**
@@ -165,6 +192,10 @@ public class MainWindow extends UiPart<Stage> {
 
     public PersonListPanel getPersonListPanel() {
         return personListPanel;
+    }
+
+    public TableListPanel getTableListPanel() {
+        return tableListPanel;
     }
 
     /**

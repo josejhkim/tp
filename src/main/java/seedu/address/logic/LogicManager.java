@@ -5,6 +5,9 @@ import java.nio.file.AccessDeniedException;
 import java.nio.file.Path;
 import java.util.logging.Logger;
 
+import javafx.beans.property.ReadOnlyStringProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
@@ -17,6 +20,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.person.Person;
 import seedu.address.model.table.Table;
+import seedu.address.model.wedding.Wedding;
 import seedu.address.storage.Storage;
 
 /**
@@ -33,6 +37,7 @@ public class LogicManager implements Logic {
     private final Model model;
     private final Storage storage;
     private final AddressBookParser addressBookParser;
+    private final StringProperty weddingNameProperty = new SimpleStringProperty("");
 
     /**
      * Constructs a {@code LogicManager} with the given {@code Model} and {@code Storage}.
@@ -41,6 +46,16 @@ public class LogicManager implements Logic {
         this.model = model;
         this.storage = storage;
         addressBookParser = new AddressBookParser();
+
+        // Initialize wedding name if available
+        updateWeddingNameProperty();
+
+        // Add listener to update wedding name when model changes
+        model.addPropertyChangeListener(evt -> {
+            if ("currentWedding".equals(evt.getPropertyName())) {
+                updateWeddingNameProperty();
+            }
+        });
     }
 
     @Override
@@ -90,5 +105,22 @@ public class LogicManager implements Logic {
     @Override
     public void setGuiSettings(GuiSettings guiSettings) {
         model.setGuiSettings(guiSettings);
+    }
+
+    @Override
+    public ReadOnlyStringProperty weddingNameProperty() {
+        return weddingNameProperty;
+    }
+
+    /**
+     * Updates the wedding name property based on the current wedding in the model
+     */
+    private void updateWeddingNameProperty() {
+        Wedding currentWedding = model.getCurrentWedding();
+        if (currentWedding != null) {
+            weddingNameProperty.set(currentWedding.getName());
+        } else {
+            weddingNameProperty.set("Not Set");
+        }
     }
 }
