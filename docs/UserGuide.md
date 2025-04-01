@@ -166,24 +166,30 @@ an identifier and **not both**.
 - Running `weddingOverview`, taking a look at the guest list, followed by `deleteGuest n/Johnny Wang` deletes the
 guest with the name `Johnny Wang`
 
-### Filtering Guests : `filterGuest`
+### Filtering Persons: `filterPersons`
 
-Filters the guest list based on **dietary restrictions**, **RSVP status**, or both.
+This command allows you to filter your list of persons by applying dietary restriction and/or RSVP status filters. 
+You can use it to display only those persons who meet the criteria you specify.
 
-**Format:**
-`filterGuest [d/DIETARY_RESTRICTION] [r/RSVP]`
+**Format:** 
+`filterPersons [d/DIETARYRESTRICTION] [r/RSVP]`
 
-- Filters guests using the provided dietary restriction and/or RSVP status.
-- You **must provide at least one** of the two fields: `d/` for dietary restriction or `r/` for RSVP.
-- Parameters can be used individually or together.
-- Accepted dietary restrictions include: `None`, `Vegetarian`, `Vegan`, `Gluten-Free`, `Halal`, `Kosher` (see app for full list).
-- Accepted RSVP statuses: `YES`, `NO`, `MAYBE`.
+- Both parameters are optional for this command.
+- **Dietary Restriction Filter:** Use the prefix `d/` followed by a valid dietary restriction value 
+(e.g., `VEGAN`, `VEGETARIAN`). Include this if you want to filter persons based on dietary needs.
+- **RSVP Filter:** Use the prefix `r/` followed by a valid RSVP status (e.g., `YES`, `NO`). 
+Include this if you want to filter persons by their RSVP response.
+
+You can provide one or both filters to narrow down your list. If no filters are specified, 
+the command returns an unfiltered list of persons belonging to that wedding.
+
+![List of filtered persons based on RSVP - No](images/UG-example-images/filterPersonExample.png)
+<sub>Example output when filtering persons based on RSVP `NO` using command: `filterPersons r/NO`</sub>
 
 **Examples:**
-- `filterGuest d/Vegetarian` shows all guests with a vegetarian dietary preference.
-- `filterGuest r/YES` shows all guests who RSVP’d "YES".
-- `filterGuest d/Vegan r/NO` shows guests who are vegan and RSVP’d "NO".
-
+- Running `filterPersons d/VEGAN r/YES` displays all persons who are vegan and have accepted the invitation.
+- Using `filterPersons d/HALAL` displays all persons with a halal dietary restriction.
+- Running `filterPersons` displays all persons without any filter.
 
 ### Adding a Table : `addTable`
 
