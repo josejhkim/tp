@@ -41,7 +41,7 @@ public class AddressBookParserTest {
     public void parseCommand_createWedding() throws Exception {
         String weddingName = "John and Jane's Wedding";
         CreateWeddingCommand command = (CreateWeddingCommand) parser.parseCommand(
-            CreateWeddingCommand.COMMAND_WORD + " " + PREFIX_NAME +" " + weddingName);
+            CreateWeddingCommand.COMMAND_WORD + " " + PREFIX_NAME + " " + weddingName);
         assertEquals(new CreateWeddingCommand(weddingName), command);
     }
 
