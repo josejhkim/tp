@@ -31,4 +31,10 @@ public class CreateWeddingCommandParserTest {
         String missingPrefixArgs = "John and Jane's Wedding";
         assertThrows(ParseException.class, () -> parser.parse(missingPrefixArgs));
     }
+
+    @Test
+    public void parse_nonEmptyPreamble_throwsParseException() {
+        String nonEmptyPreambleArgs = "preamble " + PREFIX_NAME + "John and Jane's Wedding";
+        assertThrows(ParseException.class, () -> parser.parse(nonEmptyPreambleArgs));
+    }
 }
