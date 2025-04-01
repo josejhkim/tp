@@ -172,7 +172,7 @@ public class ModelManager implements Model {
 
     @Override
     public void deleteTableById(int tableId) {
-        addressBook.deleteTable(tableId);
+        addressBook.deleteTableById(tableId);
     }
 
     @Override
