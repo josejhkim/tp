@@ -33,7 +33,7 @@ public class DeleteTableCommand extends Command {
 
         try {
             model.deleteTableById(tableId);
-        } catch(NoCurrentWeddingException ncwe) {
+        } catch (NoCurrentWeddingException ncwe) {
             throw new CommandException(MESSAGE_NO_CURRENT_WEDDING);
         } catch (TableNotFoundException tnfe) {
             throw new CommandException(String.format(MESSAGE_TABLE_NOT_FOUND, tableId));
