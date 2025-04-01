@@ -15,7 +15,7 @@ public class CreateWeddingCommand extends Command {
     public static final String COMMAND_WORD = "createWedding";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Creates a new wedding.\n"
-            + "Parameters: NAME\n"
+            + "Parameters: n/NAME\n"
             + "Example: " + COMMAND_WORD + " John and Jane's Wedding";
 
     public static final String MESSAGE_SUCCESS = "New wedding created: %1$s";
