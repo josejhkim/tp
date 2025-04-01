@@ -137,7 +137,8 @@ public class ParserUtil {
             Rsvp.Status status = Rsvp.Status.valueOf(trimmedRsvp);
             return new Rsvp(status);
         } catch (IllegalArgumentException e) {
-            throw new ParseException("Invalid RSVP status: " + rsvp + "It should be YES, NO or NO_RESPONSE.");
+            throw new ParseException("Invalid RSVP status: '" + rsvp + "'. It should be Yes, No or No_Response. (case "
+                + "insensitive)");
         }
     }
     /**

@@ -42,10 +42,10 @@ public class SeeRsvpListCommandTest {
             -1);
 
         model.addPerson(guest);
-        SeeRsvpListCommand command = new SeeRsvpListCommand();
+        GetRsvpListCommand command = new GetRsvpListCommand();
 
         CommandResult result = command.execute(model);
 
-        assertEquals(String.format(SeeRsvpListCommand.MESSAGE_SUCCESS, guest), result.getFeedbackToUser());
+        assertEquals(String.format(GetRsvpListCommand.MESSAGE_SUCCESS, guest), result.getFeedbackToUser());
     }
 }

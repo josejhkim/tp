@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.SeeRsvpListCommand;
+import seedu.address.logic.commands.GetRsvpListCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 public class SeeRsvpListCommandParserTest {
@@ -15,8 +15,8 @@ public class SeeRsvpListCommandParserTest {
     @Test
     public void parse_emptyArgs_returnsSeeRsvpListCommand() throws Exception {
         String emptyArgs = "";
-        SeeRsvpListCommand command = parser.parse(emptyArgs);
-        assertEquals(new SeeRsvpListCommand(), command);
+        GetRsvpListCommand command = parser.parse(emptyArgs);
+        assertEquals(new GetRsvpListCommand(), command);
     }
 
     @Test

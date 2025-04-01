@@ -16,7 +16,7 @@ public class AddTableCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a table to the wedding.\n"
             + "Parameters: TABLE_ID CAPACITY\n"
-            + "Example: " + COMMAND_WORD + "tableId/1 capacity/6";
+            + "Example: " + COMMAND_WORD + "tid/1 capacity/6";
 
     public static final String MESSAGE_SUCCESS = "Table added: Table ID: %1$d, Capacity: %2$d";
     public static final String MESSAGE_NO_WEDDING = "No wedding is currently set. Use `setWedding` first.";

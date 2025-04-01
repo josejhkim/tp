@@ -8,7 +8,7 @@ import seedu.address.model.person.Person;
 /**
  * Command to see the RSVP list of the current wedding.
  */
-public class SeeRsvpListCommand extends Command {
+public class GetRsvpListCommand extends Command {
 
     public static final String COMMAND_WORD = "seeRSVPList";
     public static final String MESSAGE_SUCCESS = "RSVP List:\n%1$s";
@@ -25,6 +25,6 @@ public class SeeRsvpListCommand extends Command {
 
     @Override
     public boolean equals(Object other) {
-        return other instanceof SeeRsvpListCommand;
+        return other instanceof GetRsvpListCommand;
     }
 }
