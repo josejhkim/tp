@@ -1,6 +1,5 @@
 package seedu.address.logic.parser;
 
-import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DIETARY_RESTRICTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RSVP;
 
@@ -24,10 +23,6 @@ public class FilterGuestCommandParser implements Parser<FilterGuestCommand> {
         RsvpFilter rsvpFilter = null;
 
         ArgumentMultimap argumentMultimap = ArgumentTokenizer.tokenize(args, PREFIX_DIETARY_RESTRICTION, PREFIX_RSVP);
-
-        if (!anyPrefixesPresent(argumentMultimap, PREFIX_DIETARY_RESTRICTION, PREFIX_RSVP)) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterGuestCommand.MESSAGE_USAGE));
-        }
 
         if (argumentMultimap.getValue(PREFIX_DIETARY_RESTRICTION).isPresent()) {
             DietaryRestriction dietaryRestriction = ParserUtil.parseDietaryRestriction(
