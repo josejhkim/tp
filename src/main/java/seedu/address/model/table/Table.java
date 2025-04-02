@@ -47,7 +47,9 @@ public final class Table {
         if (capacity <= 0) {
             throw new IllegalArgumentException(CAPACITY_CONSTRAINTS);
         }
-
+        if (capacity > MAX_CAPACITY) {
+            throw new IllegalArgumentException("The table capacity exceeds the allowed maximum of " + MAX_CAPACITY);
+        }
         this.tableId = tableId;
         this.capacity = capacity;
         this.uniquePersonList = new UniquePersonList();

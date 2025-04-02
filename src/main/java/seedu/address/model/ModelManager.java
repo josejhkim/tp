@@ -185,6 +185,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean hasTable(int tableId) {
+        return addressBook.hasTable(tableId);
+    }
+
+
+    @Override
     public void addPersonToTable(Person p, Table table) {
         addressBook.addPersonToTable(p, table);
     }
@@ -208,6 +214,12 @@ public class ModelManager implements Model {
     public Table findTableById(int tableId) {
         return addressBook.getTableById(tableId);
     }
+
+    @Override
+    public boolean hasCurrentWedding() {
+        return addressBook.hasCurrentWedding();
+    }
+
 
     //=========== Wedding ================================================================================
     /**
@@ -266,7 +278,6 @@ public class ModelManager implements Model {
         pcs.firePropertyChange("currentWedding", oldWedding, newWedding);
     }
 
-    @Override
     public void addPropertyChangeListener(PropertyChangeListener listener) {
         this.pcs.addPropertyChangeListener(listener);
     }
@@ -284,6 +295,7 @@ public class ModelManager implements Model {
             return false;
         }
     }
+
 
     //=========== Other Utils ================================================================================
 

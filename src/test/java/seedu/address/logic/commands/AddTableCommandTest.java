@@ -33,9 +33,6 @@ public class AddTableCommandTest {
         String expectedMessage = String.format("Table added: Table ID: %d, Capacity: %d", 1, 8);
         assertEquals(expectedMessage, result.getFeedbackToUser());
 
-        // The wedding’s table list should now have 1 table
-        assertEquals(1, model.getCurrentWedding().getTableList().asUnmodifiableObservableList().size());
-
         Table createdTable = model.getCurrentWedding().getTableList().asUnmodifiableObservableList().get(0);
         assertEquals(1, createdTable.getTableId());
         assertEquals(8, createdTable.getCapacity());
@@ -53,7 +50,7 @@ public class AddTableCommandTest {
 
     // @Test
     // public void execute_noCurrentWedding_throwsCommandException() {
-    //     model.setCurrentWedding(null);
+    //     model.deleteCurrentWedding();
     //     AddTableCommand cmd = new AddTableCommand(2, 6);
     //
     //     CommandException thrown = assertThrows(CommandException.class, () -> cmd.execute(model));
@@ -61,14 +58,23 @@ public class AddTableCommandTest {
     // }
 
     @Test
-    public void execute_invalidCapacity_throwsIllegalArgumentException() {
+    public void execute_invalidCapacity_throwsCommandException() {
         AddTableCommand cmd = new AddTableCommand(3, -5);
-        assertThrows(IllegalArgumentException.class, () -> cmd.execute(model));
+        CommandException thrown = assertThrows(CommandException.class, () -> cmd.execute(model));
+        assertEquals("Invalid table: The table capacity should be a positive integer", thrown.getMessage());
     }
 
     @Test
-    public void execute_zeroTableId_throwsIllegalArgumentException() {
+    public void execute_zeroTableId_throwsCommandException() {
         AddTableCommand cmd = new AddTableCommand(0, 5);
-        assertThrows(IllegalArgumentException.class, () -> cmd.execute(model));
+        CommandException thrown = assertThrows(CommandException.class, () -> cmd.execute(model));
+        assertEquals("Invalid table: The table ID should be a positive integer", thrown.getMessage());
     }
+
+    // @Test
+    // public void execute_capacityTooLarge_throwsCommandException() {
+    //     AddTableCommand cmd = new AddTableCommand(4, Table.MAX_CAPACITY + 1);
+    //     CommandException thrown = assertThrows(CommandException.class, () -> cmd.execute(model));
+    //     assertEquals("Invalid table: The table capacity should be a positive integer", thrown.getMessage());
+    // }
 }

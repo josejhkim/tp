@@ -24,11 +24,29 @@ public class AddTableCommandParser implements Parser<AddTableCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_TABLE_ID, PREFIX_CAPACITY);
 
-        int tableId = parseInteger(argMultimap, PREFIX_TABLE_ID, "Table ID");
-        int capacity = parseInteger(argMultimap, PREFIX_CAPACITY, "Capacity");
+        if (argMultimap.getValue(PREFIX_TABLE_ID).isPresent()
+                && argMultimap.getValue(PREFIX_CAPACITY).isPresent()) {
 
-        return new AddTableCommand(tableId, capacity);
+            int tableId = parseInteger(argMultimap, PREFIX_TABLE_ID, "Table ID");
+            int capacity = parseInteger(argMultimap, PREFIX_CAPACITY, "Capacity");
+            return new AddTableCommand(tableId, capacity);
+        }
+
+        // fallback: try positional input like: addTable 3 5
+        String[] tokens = args.trim().split("\\s+");
+        if (tokens.length != 2) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTableCommand.MESSAGE_USAGE));
+        }
+
+        try {
+            int tableId = Integer.parseInt(tokens[0]);
+            int capacity = Integer.parseInt(tokens[1]);
+            return new AddTableCommand(tableId, capacity);
+        } catch (NumberFormatException e) {
+            throw new ParseException("Table ID and capacity must be valid integers.");
+        }
     }
+
 
     /**
      * Parses an integer value from the argument multimap.
@@ -39,6 +57,17 @@ public class AddTableCommandParser implements Parser<AddTableCommand> {
      * @return The parsed integer value.
      * @throws ParseException if the value is missing or not a valid integer.
      */
+    // private int parseInteger(ArgumentMultimap argMultimap, Prefix prefix, String fieldName) throws ParseException {
+    //     if (!argMultimap.getValue(prefix).isPresent()) {
+    //         throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTableCommand.MESSAGE_USAGE));
+    //     }
+    //     try {
+    //         return Integer.parseInt(argMultimap.getValue(prefix).get());
+    //     } catch (NumberFormatException e) {
+    //         throw new ParseException(fieldName + " must be a valid integer.");
+    //     }
+    // }
+
     private int parseInteger(ArgumentMultimap argMultimap, Prefix prefix, String fieldName) throws ParseException {
         if (!argMultimap.getValue(prefix).isPresent()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTableCommand.MESSAGE_USAGE));

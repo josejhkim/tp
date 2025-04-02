@@ -11,14 +11,16 @@ import seedu.address.model.table.exceptions.TableNotFoundException;
  */
 public class DeleteTableCommand extends Command {
     public static final String COMMAND_WORD = "deleteTable";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Deletes a table from the current wedding.\n"
-            + "Parameters: tableId/TABLE_ID\n"
-            + "Example: " + COMMAND_WORD + " tableId/1";
 
-    public static final String MESSAGE_SUCCESS = "Table deleted: %1$s";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Deletes a table from the current wedding.\n"
+            + "Parameters: tableId/TABLE_ID or just the ID\n"
+            + "Example: " + COMMAND_WORD + " tableId/1 or " + COMMAND_WORD + " 1";
+
+    public static final String MESSAGE_SUCCESS = "Table deleted: Table ID %d";
     public static final String MESSAGE_NO_CURRENT_WEDDING =
-            "No current wedding set. Use setWedding command first.";
-    public static final String MESSAGE_TABLE_NOT_FOUND = "Table with ID %d not found.";
+            "No current wedding set. Use 'setWedding' before deleting a table.";
+    public static final String MESSAGE_INVALID_TABLE_ID = "Table ID must be a positive integer.";
+    public static final String MESSAGE_TABLE_NOT_FOUND = "Table with ID %d not found in the current wedding.";
 
     private final int tableId;
 
@@ -30,6 +32,14 @@ public class DeleteTableCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
+        if (!model.hasCurrentWedding()) {
+            throw new CommandException(MESSAGE_NO_CURRENT_WEDDING);
+        }
+
+        if (tableId <= 0) {
+            throw new CommandException(MESSAGE_INVALID_TABLE_ID);
+        }
+
         try {
             model.deleteTableById(tableId);
         } catch (TableNotFoundException tnfe) {
@@ -39,7 +49,6 @@ public class DeleteTableCommand extends Command {
         return new CommandResult(String.format(MESSAGE_SUCCESS, tableId));
     }
 
-
     @Override
     public boolean equals(Object other) {
         return this == other
@@ -47,3 +56,4 @@ public class DeleteTableCommand extends Command {
                 && tableId == ((DeleteTableCommand) other).tableId);
     }
 }
+
