@@ -60,12 +60,10 @@ public class AddTableCommand extends Command {
         if (model.getCurrentWedding() == null) {
             throw new CommandException(MESSAGE_NO_CURRENT_WEDDING);
         }
-        
         // Check for duplicate table ID
         if (model.hasTable(tableId)) {
             throw new CommandException(MESSAGE_DUPLICATE_TABLE);
         }
-        
         try {
             Table table = new Table(tableId, capacity);
             model.addTable(table);
