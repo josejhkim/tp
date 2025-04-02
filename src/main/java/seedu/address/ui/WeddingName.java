@@ -32,6 +32,10 @@ public class WeddingName extends UiPart<Region> {
 
     public WeddingName() {
         super(FXML);
+
+        // Bind the label text to the property with formatting
+        //weddingNameLabel.textProperty().bind(Bindings.concat("Wedding Name: ", weddingNameProperty));
+
         // Correct way to bind with formatting in JavaFX
         weddingNameLabel.textProperty().bind(
                 Bindings.createStringBinding(() -> "Wedding Name: " + weddingNameProperty.get(),

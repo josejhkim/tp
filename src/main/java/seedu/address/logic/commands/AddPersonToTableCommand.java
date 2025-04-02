@@ -9,7 +9,6 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
-import seedu.address.model.table.Table;
 import seedu.address.model.table.exceptions.TableNotFoundException;
 
 /**
@@ -56,11 +55,6 @@ public class AddPersonToTableCommand extends Command {
         requireNonNull(model);
         try {
             Person personToAdd = model.findPersonByName(guestName);
-            Table table = model.findTableById(newTableId);
-
-            if (personToAdd.isSeated()) {
-                model.deletePersonFromTableById(personToAdd, personToAdd.getTableId());
-            }
 
             model.addPersonToTableById(personToAdd, newTableId);
 

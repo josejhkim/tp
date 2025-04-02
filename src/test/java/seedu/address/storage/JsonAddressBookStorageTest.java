@@ -79,7 +79,7 @@ public class JsonAddressBookStorageTest {
 
         Person newHoon = new Person(HOON, -1);
         original.addPerson(newHoon);
-        original.addPersonToTable(newHoon, 2);
+        original.addPersonToTableById(newHoon, 2);
         original.deletePerson(ALICE);
         jsonAddressBookStorage.saveAddressBook(original, filePath);
         readBack = jsonAddressBookStorage.readAddressBook(filePath).get();
@@ -90,7 +90,7 @@ public class JsonAddressBookStorageTest {
         // Save and read without specifying file path
         Person newIda = new Person(IDA, -1);
         original.addPerson(newIda);
-        original.addPersonToTable(newIda, 3);
+        original.addPersonToTableById(newIda, 3);
         jsonAddressBookStorage.saveAddressBook(original); // file path not specified
         readBack = jsonAddressBookStorage.readAddressBook().get(); // file path not specified
         ret = new AddressBook(readBack);

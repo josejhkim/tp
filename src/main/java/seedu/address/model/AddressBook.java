@@ -337,7 +337,14 @@ public class AddressBook implements ReadOnlyAddressBook {
      * @param table the Table to delete
      */
     public void deleteTable(Table table) {
+        for (Person p : table.getAllPersons()) {
+            Person removedFromTable = new Person(p, -1);
+            currentWedding.setPerson(p, removedFromTable);
+            this.personList.setPerson(p, removedFromTable);
+        }
+
         tableList.deleteTable(table);
+
         getCurrentWedding().deleteTable(table);
     }
 
@@ -346,9 +353,9 @@ public class AddressBook implements ReadOnlyAddressBook {
      *
      * @param tableId the ID of the table to delete
      */
-    public void deleteTable(int tableId) {
-        tableList.deleteTableById(tableId);
-        getCurrentWedding().deleteTableById(tableId);
+    public void deleteTableById(int tableId) {
+        Table tableWithId = getTableById(tableId);
+        deleteTable(tableWithId);
     }
 
     /**
@@ -382,7 +389,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * @param p the Person to add
      * @param tableId the ID of the Table to add the person to
      */
-    public void addPersonToTable(Person p, int tableId) {
+    public void addPersonToTableById(Person p, int tableId) {
         Table t = this.tableList.findTableById(tableId);
         addPersonToTable(p, t);
     }

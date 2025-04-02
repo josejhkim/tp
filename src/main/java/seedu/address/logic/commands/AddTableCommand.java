@@ -18,7 +18,8 @@ public class AddTableCommand extends Command {
             + "Example: " + COMMAND_WORD + "tid/1 capacity/6";
 
     public static final String MESSAGE_SUCCESS = "Table added: Table ID: %1$d, Capacity: %2$d";
-    public static final String MESSAGE_NO_WEDDING = "No wedding is currently set. Use `setWedding` first.";
+    public static final String MESSAGE_NO_CURRENT_WEDDING =
+        "No current wedding set. Use setWedding command first.";
     public static final String MESSAGE_DUPLICATE_TABLE = "A table with this ID already exists.";
 
     private final int tableId;
@@ -55,15 +56,14 @@ public class AddTableCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-
-        if (!model.hasCurrentWedding()) {
-            throw new CommandException(MESSAGE_NO_WEDDING);
+        // Check if there's a current wedding
+        if (model.getCurrentWedding() == null) {
+            throw new CommandException(MESSAGE_NO_CURRENT_WEDDING);
         }
-
+        // Check for duplicate table ID
         if (model.hasTable(tableId)) {
             throw new CommandException(MESSAGE_DUPLICATE_TABLE);
         }
-
         try {
             Table table = new Table(tableId, capacity);
             model.addTable(table);
@@ -72,6 +72,5 @@ public class AddTableCommand extends Command {
             throw new CommandException("Invalid table: " + e.getMessage());
         }
     }
-
 
 }

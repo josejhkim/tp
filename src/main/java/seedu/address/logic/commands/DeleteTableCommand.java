@@ -40,6 +40,7 @@ public class DeleteTableCommand extends Command {
             throw new CommandException(MESSAGE_INVALID_TABLE_ID);
         }
 
+
         try {
             model.deleteTableById(tableId);
         } catch (TableNotFoundException tnfe) {
