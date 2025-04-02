@@ -69,4 +69,9 @@ shadowJar {
     archiveFileName = 'addressbook.jar'
 }
 
+run {
+    jvmArgs '-ea'
+}
+
+
 defaultTasks 'clean', 'test'
