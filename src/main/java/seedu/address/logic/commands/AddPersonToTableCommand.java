@@ -9,6 +9,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
+import seedu.address.model.table.exceptions.TableFullException;
 import seedu.address.model.table.exceptions.TableNotFoundException;
 
 /**
@@ -34,6 +35,7 @@ public class AddPersonToTableCommand extends Command {
 
     public static final String MESSAGE_ADD_GUEST_TO_TABLE_SUCCESS = "Added Person: %s to Table: %d";
     public static final String MESSAGE_TABLE_NOT_FOUND = "Table with id %d not found!";
+    public static final String MESSAGE_TABLE_FULL = "Table with ID %d is full!";
 
 
     private final Name guestName;
@@ -60,8 +62,10 @@ public class AddPersonToTableCommand extends Command {
 
             return new CommandResult(String.format(MESSAGE_ADD_GUEST_TO_TABLE_SUCCESS,
                 personToAdd.getName().fullName, newTableId));
-        } catch (TableNotFoundException tnfe) {
+        } catch (TableNotFoundException e) {
             throw new CommandException(String.format(MESSAGE_TABLE_NOT_FOUND, newTableId));
+        } catch (TableFullException e) {
+            throw new CommandException(String.format(MESSAGE_TABLE_FULL, newTableId));
         }
 
     }
