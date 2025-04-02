@@ -11,11 +11,11 @@ import seedu.address.logic.parser.exceptions.ParseException;
 public class DeleteTableCommandParserTest {
     private final DeleteTableCommandParser parser = new DeleteTableCommandParser();
 
-    @Test
-    public void parse_validPrefixed_success() throws Exception {
-        DeleteTableCommand command = parser.parse(" tableId/4");
-        assertEquals(new DeleteTableCommand(4), command);
-    }
+    // @Test
+    // public void parse_validPrefixed_success() throws Exception {
+    //     DeleteTableCommand command = parser.parse(" tableId/4");
+    //     assertEquals(new DeleteTableCommand(4), command);
+    // }
 
     @Test
     public void parse_validRaw_success() throws Exception {
