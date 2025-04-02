@@ -56,19 +56,16 @@ public class AddTableCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-
+        // Check if there's a current wedding
         if (model.getCurrentWedding() == null) {
             throw new CommandException(MESSAGE_NO_CURRENT_WEDDING);
         }
-
-        try {
-            Table t = model.findTableById(tableId);
-            throw new CommandException(MESSAGE_DUPLICATE_TABLE);
-
+        
+        // Check for duplicate table ID
         if (model.hasTable(tableId)) {
             throw new CommandException(MESSAGE_DUPLICATE_TABLE);
         }
-
+        
         try {
             Table table = new Table(tableId, capacity);
             model.addTable(table);
@@ -77,6 +74,5 @@ public class AddTableCommand extends Command {
             throw new CommandException("Invalid table: " + e.getMessage());
         }
     }
-
 
 }
