@@ -118,6 +118,10 @@ public interface Model {
 
     Table findTableById(int tableId);
 
+    boolean hasTable(int tableId);
+
+    boolean hasCurrentWedding();
+
     //=========== Wedding ==================================================================================
     /**
      * Adds the given wedding.

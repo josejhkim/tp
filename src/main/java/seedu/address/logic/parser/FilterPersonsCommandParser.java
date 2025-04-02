@@ -5,7 +5,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_RSVP;
 
 import java.util.stream.Stream;
 
-import seedu.address.logic.commands.FilterGuestCommand;
+import seedu.address.logic.commands.FilterPersonsCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.DietaryRestriction;
 import seedu.address.model.person.DietaryRestrictionFilter;
@@ -13,12 +13,12 @@ import seedu.address.model.person.Rsvp;
 import seedu.address.model.person.RsvpFilter;
 
 /**
- * Parses input arguments and creates a new FilterGuestCommand object.
+ * Parses input arguments and creates a new FilterPersonsCommand object.
  */
-public class FilterGuestCommandParser implements Parser<FilterGuestCommand> {
+public class FilterPersonsCommandParser implements Parser<FilterPersonsCommand> {
 
     @Override
-    public FilterGuestCommand parse(String args) throws ParseException {
+    public FilterPersonsCommand parse(String args) throws ParseException {
         DietaryRestrictionFilter dietaryRestrictionFilter = null;
         RsvpFilter rsvpFilter = null;
 
@@ -35,7 +35,7 @@ public class FilterGuestCommandParser implements Parser<FilterGuestCommand> {
             rsvpFilter = new RsvpFilter(rsvp);
         }
 
-        return new FilterGuestCommand(dietaryRestrictionFilter, rsvpFilter);
+        return new FilterPersonsCommand(dietaryRestrictionFilter, rsvpFilter);
     }
 
     /**

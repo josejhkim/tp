@@ -5,7 +5,6 @@ import static java.util.Objects.requireNonNull;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.table.Table;
-import seedu.address.model.table.exceptions.TableNotFoundException;
 
 /**
  * Represents a command to add a table to the wedding seating plan.
@@ -16,7 +15,7 @@ public class AddTableCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a table to the wedding.\n"
             + "Parameters: TABLE_ID CAPACITY\n"
-            + "Example: " + COMMAND_WORD + "tableId/1 capacity/6";
+            + "Example: " + COMMAND_WORD + "tid/1 capacity/6";
 
     public static final String MESSAGE_SUCCESS = "Table added: Table ID: %1$d, Capacity: %2$d";
     public static final String MESSAGE_NO_CURRENT_WEDDING =
@@ -37,6 +36,23 @@ public class AddTableCommand extends Command {
         this.capacity = capacity;
     }
 
+    // @Override
+    // public CommandResult execute(Model model) throws CommandException {
+    //     requireNonNull(model);
+    //
+    //     try {
+    //         Table t = model.getTableById(tableId);
+    //         throw new CommandException(MESSAGE_DUPLICATE_TABLE);
+    //
+    //     } catch (TableNotFoundException tnfe) {
+    //
+    //         Table table = new Table(tableId, capacity);
+    //         model.addTable(table);
+    //
+    //         return new CommandResult(String.format(MESSAGE_SUCCESS, tableId, capacity));
+    //     }
+    //
+    // }
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
@@ -49,13 +65,18 @@ public class AddTableCommand extends Command {
             Table t = model.findTableById(tableId);
             throw new CommandException(MESSAGE_DUPLICATE_TABLE);
 
-        } catch (TableNotFoundException tnfe) {
-
-            Table table = new Table(tableId, capacity);
-            model.addTable(table);
-
-            return new CommandResult(String.format(MESSAGE_SUCCESS, tableId, capacity));
+        if (model.hasTable(tableId)) {
+            throw new CommandException(MESSAGE_DUPLICATE_TABLE);
         }
 
+        try {
+            Table table = new Table(tableId, capacity);
+            model.addTable(table);
+            return new CommandResult(String.format(MESSAGE_SUCCESS, tableId, capacity));
+        } catch (IllegalArgumentException e) {
+            throw new CommandException("Invalid table: " + e.getMessage());
+        }
     }
+
+
 }

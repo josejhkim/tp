@@ -20,13 +20,13 @@ import seedu.address.logic.commands.DeleteTableCommand;
 import seedu.address.logic.commands.DeleteWeddingCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
-import seedu.address.logic.commands.FilterGuestCommand;
+import seedu.address.logic.commands.FilterPersonsCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.FindTableCommand;
 import seedu.address.logic.commands.GetAllTablesCommand;
+import seedu.address.logic.commands.GetRsvpListCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
-import seedu.address.logic.commands.SeeRsvpListCommand;
 import seedu.address.logic.commands.SetWeddingCommand;
 import seedu.address.logic.commands.WeddingOverviewCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -85,7 +85,7 @@ public class AddressBookParser {
         case CreateWeddingCommand.COMMAND_WORD:
             return new CreateWeddingCommandParser().parse(arguments);
 
-        case SeeRsvpListCommand.COMMAND_WORD:
+        case GetRsvpListCommand.COMMAND_WORD:
             return new SeeRsvpListCommandParser().parse(arguments);
 
         case AddPersonCommand.COMMAND_WORD:
@@ -121,8 +121,8 @@ public class AddressBookParser {
         case GetAllTablesCommand.COMMAND_WORD:
             return new GetAllTablesCommandParser().parse(arguments);
 
-        case FilterGuestCommand.COMMAND_WORD:
-            return new FilterGuestCommandParser().parse(arguments);
+        case FilterPersonsCommand.COMMAND_WORD:
+            return new FilterPersonsCommandParser().parse(arguments);
 
         case FindTableCommand.COMMAND_WORD:
             return new FindTableCommandParser().parse(arguments);

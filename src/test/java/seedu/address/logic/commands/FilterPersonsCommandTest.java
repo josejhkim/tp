@@ -30,10 +30,10 @@ import seedu.address.model.person.RsvpFilter;
 import seedu.address.testutil.TypicalPersons;
 
 /**
- * Contains unit tests for {@code FilterGuestCommand}.
+ * Contains unit tests for {@code FilterPersonsCommand}.
  * The test structure is modeled after the DietaryRestrictionFilterTest.
  */
-public class FilterGuestCommandTest {
+public class FilterPersonsCommandTest {
 
     // Doesn't contain rsvp = NO_RESPONSE and dietary_restriction = EGGS
     private final AddressBook typicalAddressBook = TypicalPersons.getTypicalAddressBook();
@@ -52,9 +52,9 @@ public class FilterGuestCommandTest {
         DietaryRestrictionFilter dietaryFilter = new DietaryRestrictionFilter(new DietaryRestriction(VEGAN));
         RsvpFilter rsvpFilter = new RsvpFilter(new Rsvp(NO));
 
-        FilterGuestCommand command1 = new FilterGuestCommand(dietaryFilter, null);
-        FilterGuestCommand command2 = new FilterGuestCommand(dietaryFilter, null);
-        FilterGuestCommand command3 = new FilterGuestCommand(null, rsvpFilter);
+        FilterPersonsCommand command1 = new FilterPersonsCommand(dietaryFilter, null);
+        FilterPersonsCommand command2 = new FilterPersonsCommand(dietaryFilter, null);
+        FilterPersonsCommand command3 = new FilterPersonsCommand(null, rsvpFilter);
 
         // same object -> returns true
         assertEquals(command1, command1);
@@ -75,7 +75,7 @@ public class FilterGuestCommandTest {
     @Test
     public void execute_filterOnRsvp_noPersonFound() throws CommandException {
         String expectedMessage = String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
-        FilterGuestCommand command = new FilterGuestCommand(null, noResponsePredicate);
+        FilterPersonsCommand command = new FilterPersonsCommand(null, noResponsePredicate);
         expectedModel.updateFilteredPersonList(noResponsePredicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(List.of(), model.getFilteredPersonList());
@@ -84,7 +84,7 @@ public class FilterGuestCommandTest {
     @Test
     public void execute_filterOnRsvp_multiplePersonsFound() throws CommandException {
         String expectedMessage = String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, 2);
-        FilterGuestCommand command = new FilterGuestCommand(null, noPredicate);
+        FilterPersonsCommand command = new FilterPersonsCommand(null, noPredicate);
         expectedModel.updateFilteredPersonList(noPredicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(List.of(BENSON, ELLE), model.getFilteredPersonList());
@@ -93,7 +93,7 @@ public class FilterGuestCommandTest {
     @Test
     public void execute_filterOnDietaryRestriction_noPersonFound() throws CommandException {
         String expectedMessage = String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
-        FilterGuestCommand command = new FilterGuestCommand(eggPredicate, null);
+        FilterPersonsCommand command = new FilterPersonsCommand(eggPredicate, null);
         expectedModel.updateFilteredPersonList(eggPredicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(List.of(), model.getFilteredPersonList());
@@ -102,7 +102,7 @@ public class FilterGuestCommandTest {
     @Test
     public void execute_filterOnDietaryRestriction_multiplePersonsFound() throws CommandException {
         String expectedMessage = String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, 1);
-        FilterGuestCommand command = new FilterGuestCommand(veganPredicate, null);
+        FilterPersonsCommand command = new FilterPersonsCommand(veganPredicate, null);
         expectedModel.updateFilteredPersonList(veganPredicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(List.of(FIONA), model.getFilteredPersonList());
@@ -111,7 +111,7 @@ public class FilterGuestCommandTest {
     @Test
     public void execute_filterOn2Conditions_noPersonFound() throws CommandException {
         String expectedMessage = String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
-        FilterGuestCommand command = new FilterGuestCommand(veganPredicate, noPredicate);
+        FilterPersonsCommand command = new FilterPersonsCommand(veganPredicate, noPredicate);
         expectedModel.updateFilteredPersonList(veganPredicate.and(noPredicate));
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(List.of(), model.getFilteredPersonList());
@@ -120,7 +120,7 @@ public class FilterGuestCommandTest {
     @Test
     public void execute_filterOnDietaryRestrictionAndRsvp_multiplePersonsFound() throws CommandException {
         String expectedMessage = String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, 1);
-        FilterGuestCommand command = new FilterGuestCommand(nonePredicate, noPredicate);
+        FilterPersonsCommand command = new FilterPersonsCommand(nonePredicate, noPredicate);
         expectedModel.updateFilteredPersonList(nonePredicate.and(noPredicate));
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(List.of(ELLE), model.getFilteredPersonList());
@@ -128,7 +128,7 @@ public class FilterGuestCommandTest {
 
     @Test
     public void toStringMethod() {
-        FilterGuestCommand command = new FilterGuestCommand(nonePredicate, noPredicate);
+        FilterPersonsCommand command = new FilterPersonsCommand(nonePredicate, noPredicate);
         String expected = new ToStringBuilder(command)
                 .add("combined predicate", command.combinedPredicate)
                 .toString();

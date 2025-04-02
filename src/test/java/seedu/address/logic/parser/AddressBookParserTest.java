@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
@@ -21,10 +22,11 @@ import seedu.address.logic.commands.DeleteWeddingCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.logic.commands.ExitCommand;
+import seedu.address.logic.commands.FilterPersonsCommand;
 import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.GetRsvpListCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
-import seedu.address.logic.commands.SeeRsvpListCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
@@ -40,7 +42,7 @@ public class AddressBookParserTest {
     public void parseCommand_createWedding() throws Exception {
         String weddingName = "John and Jane's Wedding";
         CreateWeddingCommand command = (CreateWeddingCommand) parser.parseCommand(
-            CreateWeddingCommand.COMMAND_WORD + " " + weddingName);
+            CreateWeddingCommand.COMMAND_WORD + " " + PREFIX_NAME + " " + weddingName);
         assertEquals(new CreateWeddingCommand(weddingName), command);
     }
 
@@ -63,7 +65,7 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_seeRsvpList() throws Exception {
-        assertTrue(parser.parseCommand(SeeRsvpListCommand.COMMAND_WORD) instanceof SeeRsvpListCommand);
+        assertTrue(parser.parseCommand(GetRsvpListCommand.COMMAND_WORD) instanceof GetRsvpListCommand);
     }
     // Existing tests..
 
@@ -85,6 +87,13 @@ public class AddressBookParserTest {
         DeletePersonCommand command = (DeletePersonCommand) parser.parseCommand(
                 DeletePersonCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
         assertEquals(new DeletePersonCommand(INDEX_FIRST_PERSON), command);
+    }
+
+    @Test
+    public void parseCommand_filterPersons() throws Exception {
+        FilterPersonsCommand expectedCommand =
+                (FilterPersonsCommand) parser.parseCommand(FilterPersonsCommand.COMMAND_WORD);
+        assertEquals(new FilterPersonsCommand(null, null), expectedCommand);
     }
 
     @Test
