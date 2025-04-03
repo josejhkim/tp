@@ -6,6 +6,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.exceptions.NoCurrentWeddingException;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.exceptions.DuplicatePersonException;
 
 /**
  * Adds a person to the current wedding.
@@ -41,13 +42,12 @@ public class AddPersonCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        if (model.hasPerson(person)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
-        }
         try {
             model.addPerson(person);
         } catch (NoCurrentWeddingException e) {
             throw new CommandException(MESSAGE_NO_WEDDING);
+        } catch (DuplicatePersonException e) {
+            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
         return new CommandResult(String.format(MESSAGE_SUCCESS, person));
     }

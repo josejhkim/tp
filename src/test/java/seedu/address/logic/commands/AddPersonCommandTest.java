@@ -26,6 +26,7 @@ import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.exceptions.NoCurrentWeddingException;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.table.Table;
 import seedu.address.model.wedding.Wedding;
 import seedu.address.testutil.PersonBuilder;
@@ -330,6 +331,14 @@ public class AddPersonCommandTest {
             requireNonNull(person);
             return this.person.isSamePerson(person);
         }
+        @Override
+        public void addPerson(Person person) {
+            requireNonNull(person);
+            if (hasPerson(person)) {
+                throw new DuplicatePersonException();
+            }
+            getCurrentWedding().addPerson(person);
+        }
     }
 
     /**
@@ -371,10 +380,14 @@ public class AddPersonCommandTest {
         }
         @Override
         public void addPerson(Person person) {
+            requireNonNull(person);
             if (currentWedding == null) {
                 throw new NoCurrentWeddingException();
             }
-            throw new AssertionError("This method should not be called.");
+            if (hasPerson(person)) {
+                throw new DuplicatePersonException();
+            }
+
         }
 
         @Override

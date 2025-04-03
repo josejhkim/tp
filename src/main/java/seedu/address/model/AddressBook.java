@@ -10,6 +10,7 @@ import seedu.address.model.exceptions.NoCurrentWeddingException;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.table.Table;
 import seedu.address.model.table.UniqueTableList;
 import seedu.address.model.wedding.UniqueWeddingList;
@@ -270,6 +271,9 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void addPerson(Person person) {
         if (currentWedding == null) {
             throw new NoCurrentWeddingException();
+        }
+        if (hasPerson(person)) {
+            throw new DuplicatePersonException();
         }
         currentWedding.addPerson(person);
         personList.add(person);
