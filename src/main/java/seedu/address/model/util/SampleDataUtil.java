@@ -13,7 +13,9 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Rsvp;
+import seedu.address.model.table.Table;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.wedding.Wedding;
 
 /**
  * Contains utility methods for populating {@code AddressBook} with sample data.
@@ -49,8 +51,14 @@ public class SampleDataUtil {
 
     public static ReadOnlyAddressBook getSampleAddressBook() {
         AddressBook sampleAb = new AddressBook();
+        sampleAb.addWedding(new Wedding("John and Jane"));
+        sampleAb.setCurrentWeddingByName("John and Jane");
+        sampleAb.addTable(new Table(1, 20));
+        sampleAb.addTable(new Table(2, 20));
+
         for (Person samplePerson : getSamplePersons()) {
             sampleAb.addPerson(samplePerson);
+            sampleAb.addPersonToTableById(samplePerson, 1);
         }
         return sampleAb;
     }
