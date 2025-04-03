@@ -2,6 +2,7 @@ package seedu.address.ui;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.net.URL;
@@ -73,6 +74,11 @@ public class UiPartTest {
     public void constructor_invalidFileName_throwsAssertionError() {
         assertThrows(AssertionError.class, () -> new TestUiPart<Object>(INVALID_FILE_PATH));
         assertThrows(AssertionError.class, () -> new TestUiPart<Object>(INVALID_FILE_PATH, new Object()));
+    }
+
+    @Test
+    public void dummyTest() {
+        assertTrue(true, "This test should always pass");
     }
 
     private URL getTestFileUrl(String testFilePath) {
