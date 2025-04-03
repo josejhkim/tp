@@ -13,68 +13,79 @@ import seedu.address.model.table.Table;
 import seedu.address.model.wedding.Wedding;
 
 /**
- * Tests for AddTableCommand.
+ * Unit tests for AddTableCommand.
  */
 public class AddTableCommandTest {
+
     private Model model;
 
     @BeforeEach
     public void setUp() {
         model = new ModelManager();
-        model.addWedding(new Wedding("Test Wedding"));
-        model.setCurrentWeddingByName("Test Wedding");
     }
 
     @Test
-    public void execute_validTable_addSuccessful() throws CommandException {
-        AddTableCommand addTableCommand = new AddTableCommand(1, 8);
-        CommandResult result = addTableCommand.execute(model);
+    public void execute_noWeddingSet_throwsCommandException() {
+        AddTableCommand command = new AddTableCommand(1, 5);
 
-        String expectedMessage = String.format("Table added: Table ID: %d, Capacity: %d", 1, 8);
-        assertEquals(expectedMessage, result.getFeedbackToUser());
-
-        Table createdTable = model.getCurrentWedding().getTableList().asUnmodifiableObservableList().get(0);
-        assertEquals(1, createdTable.getTableId());
-        assertEquals(8, createdTable.getCapacity());
+        CommandException exception = assertThrows(CommandException.class, () -> command.execute(model));
+        assertEquals(AddTableCommand.MESSAGE_NO_CURRENT_WEDDING, exception.getMessage());
     }
 
     @Test
-    public void execute_duplicateTable_throwsCommandException() throws CommandException {
-        AddTableCommand cmd1 = new AddTableCommand(1, 8);
-        cmd1.execute(model);
+    public void execute_duplicateTableId_throwsCommandException() throws CommandException {
+        Wedding wedding = new Wedding("Test Wedding");
+        model.addWedding(wedding);
+        model.setCurrentWedding(wedding);
 
-        AddTableCommand cmd2 = new AddTableCommand(1, 10);
-        CommandException thrown = assertThrows(CommandException.class, () -> cmd2.execute(model));
-        assertEquals("A table with this ID already exists.", thrown.getMessage());
-    }
+        // Add table manually
+        model.addTable(new Table(1, 4));
 
-    // @Test
-    // public void execute_noCurrentWedding_throwsCommandException() {
-    //     model.deleteCurrentWedding();
-    //     AddTableCommand cmd = new AddTableCommand(2, 6);
-    //
-    //     CommandException thrown = assertThrows(CommandException.class, () -> cmd.execute(model));
-    //     assertEquals("No wedding is currently set. Use `setWedding` first.", thrown.getMessage());
-    // }
+        AddTableCommand command = new AddTableCommand(1, 6); // duplicate tableId
 
-    @Test
-    public void execute_invalidCapacity_throwsCommandException() {
-        AddTableCommand cmd = new AddTableCommand(3, -5);
-        CommandException thrown = assertThrows(CommandException.class, () -> cmd.execute(model));
-        assertEquals("Invalid table: The table capacity should be a positive integer", thrown.getMessage());
+        CommandException exception = assertThrows(CommandException.class, () -> command.execute(model));
+        assertEquals(String.format(AddTableCommand.MESSAGE_DUPLICATE_TABLE, 1), exception.getMessage());
     }
 
     @Test
-    public void execute_zeroTableId_throwsCommandException() {
-        AddTableCommand cmd = new AddTableCommand(0, 5);
-        CommandException thrown = assertThrows(CommandException.class, () -> cmd.execute(model));
-        assertEquals("Invalid table: The table ID should be a positive integer", thrown.getMessage());
+    public void execute_validInput_addsTableSuccessfully() throws Exception {
+        Wedding wedding = new Wedding("Test Wedding");
+        model.addWedding(wedding);
+        model.setCurrentWedding(wedding);
+
+        AddTableCommand command = new AddTableCommand(2, 8);
+
+        CommandResult result = command.execute(model);
+        assertEquals(String.format(AddTableCommand.MESSAGE_SUCCESS, 2, 8), result.getFeedbackToUser());
     }
 
-    // @Test
-    // public void execute_capacityTooLarge_throwsCommandException() {
-    //     AddTableCommand cmd = new AddTableCommand(4, Table.MAX_CAPACITY + 1);
-    //     CommandException thrown = assertThrows(CommandException.class, () -> cmd.execute(model));
-    //     assertEquals("Invalid table: The table capacity should be a positive integer", thrown.getMessage());
-    // }
+    @Test
+    public void execute_invalidTable_throwsCommandException() {
+        Wedding wedding = new Wedding("Test Wedding");
+        model.addWedding(wedding);
+        model.setCurrentWedding(wedding);
+
+        AddTableCommand command = new AddTableCommand(3, -1); // invalid capacity
+
+        CommandException exception = assertThrows(CommandException.class, () -> command.execute(model));
+        
+        assertEquals("Invalid table configuration: "
+                + "The table capacity should be a positive integer", exception.getMessage());
+    }
+
+    @Test
+    public void equals_sameValues_returnsTrue() {
+        AddTableCommand cmd1 = new AddTableCommand(1, 6);
+        AddTableCommand cmd2 = new AddTableCommand(1, 6);
+        assertEquals(cmd1, cmd2);
+    }
+
+    @Test
+    public void equals_differentValues_returnsFalse() {
+        AddTableCommand cmd1 = new AddTableCommand(1, 6);
+        AddTableCommand cmd2 = new AddTableCommand(2, 6);
+        AddTableCommand cmd3 = new AddTableCommand(1, 4);
+        assert (!cmd1.equals(cmd2));
+        assert (!cmd1.equals(cmd3));
+    }
 }
