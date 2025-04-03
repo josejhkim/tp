@@ -17,27 +17,27 @@ import seedu.address.model.person.RsvpFilter;
 /**
  * Command to filter guests based on dietary restrictions or RSVP status or None.
  */
-public class FilterGuestCommand extends Command {
-    public static final String COMMAND_WORD = "filterGuest";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all guest(s) belonging to filtered request.\n"
+public class FilterPersonsCommand extends Command {
+    public static final String COMMAND_WORD = "filterPersons";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all people belonging to filtered request.\n"
             + "Please pick the categories (Dietary restriction / RSVP) to filter by, or none to get unfiltered list.\n"
             + "Parameters: [d/DIETARY_RESTRICTION_FIELD] [r/RSVP_FIELD]\n"
             + "Example: " + COMMAND_WORD + " d/" + TypicalRestriction.values()[0].toString()
             + " r/" + Status.values()[0].toString();
 
-    public static final String MESSAGE_SUCCESS = "Here are your filtered guests.";
+    public static final String MESSAGE_SUCCESS = "Here are the people matching your filter.";
     final Predicate<Person> dietaryRestrictionFilter;
     final Predicate<Person> rsvpFilter;
     final Predicate<Person> combinedPredicate;
 
     /**
-     * Constructs a FilterGuestCommand with the specified dietary and RSVP filters.
+     * Constructs a FilterPersonsCommand with the specified dietary and RSVP filters.
      * At least one of the filters must be non-null.
      *
      * @param dietaryFilter the dietary restriction filter to apply; may be null
      * @param rsvpFilter the RSVP filter to apply; may be null
      */
-    public FilterGuestCommand(DietaryRestrictionFilter dietaryFilter, RsvpFilter rsvpFilter) {
+    public FilterPersonsCommand(DietaryRestrictionFilter dietaryFilter, RsvpFilter rsvpFilter) {
 
         this.dietaryRestrictionFilter = dietaryFilter;
         this.rsvpFilter = rsvpFilter;
@@ -66,17 +66,18 @@ public class FilterGuestCommand extends Command {
             return true;
         }
 
-        if (!(other instanceof FilterGuestCommand)) {
+        if (!(other instanceof FilterPersonsCommand)) {
             return false;
         }
 
-        FilterGuestCommand otherFilterGuestCommand = (FilterGuestCommand) other;
-        return java.util.Objects.equals(this.dietaryRestrictionFilter, otherFilterGuestCommand.dietaryRestrictionFilter)
-            && java.util.Objects.equals(this.rsvpFilter, otherFilterGuestCommand.rsvpFilter);
+        FilterPersonsCommand otherFilterPersonsCommand = (FilterPersonsCommand) other;
+        return java.util.Objects.equals(this.dietaryRestrictionFilter,
+                otherFilterPersonsCommand.dietaryRestrictionFilter)
+            && java.util.Objects.equals(this.rsvpFilter, otherFilterPersonsCommand.rsvpFilter);
     }
 
     /**
-     * Returns a string representation of the FilterGuestCommand.
+     * Returns a string representation of the FilterPersonsCommand.
      *
      * @return The string representation.
      */

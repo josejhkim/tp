@@ -69,6 +69,11 @@ shadowJar {
     archiveFileName = 'WeddingHero.jar'
 }
 
+run {
+    jvmArgs '-ea'
+}
+
+
 defaultTasks 'clean', 'test'
 
 run {

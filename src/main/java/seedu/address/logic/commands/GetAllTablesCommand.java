@@ -33,18 +33,22 @@ public class GetAllTablesCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
+        if (!model.hasCurrentWedding()) {
+            throw new CommandException(MESSAGE_NO_CURRENT_WEDDING);
+        }
         List<Table> tables = model.getCurrentWedding().getTableList()
-            .asUnmodifiableObservableList();
-
-        // Handle case where no tables exist
-        if (tables.isEmpty()) {
+                .asUnmodifiableObservableList();
+        if (tables == null || tables.isEmpty()) {
             return new CommandResult(MESSAGE_NO_TABLES);
         }
 
-        // Format the table list output
         StringBuilder result = new StringBuilder();
         for (Table table : tables) {
-            result.append(String.format("Table ID: %d | Capacity: %d | Guests: %d\n",
+            if (table == null) {
+                continue;
+                // safety check
+            }
+            result.append(String.format("Table ID: %d | Capacity: %d | Guests: %d%n",
                     table.getTableId(), table.getCapacity(), table.getAllPersons().size()));
         }
 

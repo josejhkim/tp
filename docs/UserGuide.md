@@ -26,11 +26,11 @@ your wedding planning tasks more efficiently and precisely than traditional mous
     [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).<br>
     **Window and Linux users:** can find their Java `17` download links
     [here](https://www.oracle.com/java/technologies/downloads/#java17).
-2. Download the latest `.jar` file from [here](https://github.com/se-edu/addressbook-level3/releases).
+2. Download the latest `.jar` file from [here](https://github.com/se-edu/WeddingHero-level3/releases).
 
-3. Copy the file to the folder you want to use as the _home folder_ for your AddressBook.
+3. Copy the file to the folder you want to use as the _home folder_ for your WeddingHero.
 
-4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar addressbook.jar`
+4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar WeddingHero.jar`
 command to run the application.<br>
    A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
    ![Ui](images/Ui.png)
@@ -166,24 +166,30 @@ an identifier and **not both**.
 - Running `weddingOverview`, taking a look at the guest list, followed by `deleteGuest n/Johnny Wang` deletes the
 guest with the name `Johnny Wang`
 
-### Filtering Guests : `filterGuest`
+### Filtering Persons: `filterPersons`
 
-Filters the guest list based on **dietary restrictions**, **RSVP status**, or both.
+This command allows you to filter your list of persons by applying dietary restriction and/or RSVP status filters. 
+You can use it to display only those persons who meet the criteria you specify.
 
-**Format:**
-`filterGuest [d/DIETARY_RESTRICTION] [r/RSVP]`
+**Format:** 
+`filterPersons [d/DIETARYRESTRICTION] [r/RSVP]`
 
-- Filters guests using the provided dietary restriction and/or RSVP status.
-- You **must provide at least one** of the two fields: `d/` for dietary restriction or `r/` for RSVP.
-- Parameters can be used individually or together.
-- Accepted dietary restrictions include: `None`, `Vegetarian`, `Vegan`, `Gluten-Free`, `Halal`, `Kosher` (see app for full list).
-- Accepted RSVP statuses: `YES`, `NO`, `MAYBE`.
+- Both parameters are optional for this command.
+- **Dietary Restriction Filter:** Use the prefix `d/` followed by a valid dietary restriction value 
+(e.g., `VEGAN`, `VEGETARIAN`). Include this if you want to filter persons based on dietary needs.
+- **RSVP Filter:** Use the prefix `r/` followed by a valid RSVP status (e.g., `YES`, `NO`). 
+Include this if you want to filter persons by their RSVP response.
+
+You can provide one or both filters to narrow down your list. If no filters are specified, 
+the command returns an unfiltered list of persons belonging to that wedding.
+
+![List of filtered persons based on RSVP - No](images/UG-example-images/filterPersonExample.png)
+<sub>Example output when filtering persons based on RSVP `NO` using command: `filterPersons r/NO`</sub>
 
 **Examples:**
-- `filterGuest d/Vegetarian` shows all guests with a vegetarian dietary preference.
-- `filterGuest r/YES` shows all guests who RSVP’d "YES".
-- `filterGuest d/Vegan r/NO` shows guests who are vegan and RSVP’d "NO".
-
+- Running `filterPersons d/VEGAN r/YES` displays all persons who are vegan and have accepted the invitation.
+- Using `filterPersons d/HALAL` displays all persons with a halal dietary restriction.
+- Running `filterPersons` displays all persons without any filter.
 
 ### Adding a Table : `addTable`
 
@@ -259,16 +265,17 @@ Format: `exit`
 
 ### Saving the data
 
-AddressBook data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
+WeddingHero data are saved in the hard disk automatically after any command that changes the data. There is no need to 
+save manually.
 
 ### Editing the data file
 
-AddressBook data are saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
+WeddingHero data are saved automatically as a JSON file `[JAR file location]/data/WeddingHero.json`. Advanced users are welcome to update data directly by editing that data file.
 <box type="warning" seamless><br>
 
 **Caution:**
-If your changes to the data file makes its format invalid, AddressBook will discard all data and start with an empty data file at the next run.  Hence, it is recommended to take a backup of the file before editing it.<br>
-Furthermore, certain edits can cause the AddressBook to behave in unexpected ways (e.g., if a value entered is outside the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
+If your changes to the data file makes its format invalid, WeddingHero will discard all data and start with an empty data file at the next run.  Hence, it is recommended to take a backup of the file before editing it.<br>
+Furthermore, certain edits can cause the WeddingHero to behave in unexpected ways (e.g., if a value entered is outside the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 </box>
 
 ### Automatic assignment of guests to tables when guest RSVP status is YES `[coming in v2.0]`
@@ -280,7 +287,7 @@ _Details coming soon ..._
 ## FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous AddressBook home folder.
+**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous WeddingHero home folder.
 
 --------------------------------------------------------------------------------------------------------------------
 

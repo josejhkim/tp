@@ -59,4 +59,30 @@ public class AddPersonToTableCommandTest {
         AddPersonToTableCommand command = new AddPersonToTableCommand(name, 3);
         assertThrows(CommandException.class, () -> command.execute(model));
     }
+
+    @Test
+    public void execute_addGuestToFullTable_failure() {
+        // Create a table with capacity 1
+        Table table = new Table(2, 1);
+        model.addTable(table);
+
+        // Add a person to the table
+        Person firstGuest = new Person(new Name("First Guest"), new Phone("11111111"), new Email("first@example.com"),
+            new Address("123 Street"), new HashSet<>(),
+            new DietaryRestriction(DietaryRestriction.TypicalRestriction.NONE),
+            new Rsvp(Rsvp.Status.YES));
+        model.addPerson(firstGuest);
+        model.addPersonToTableById(firstGuest, 2);
+
+        // Attempt to add another person to the same table
+        Person secondGuest = new Person(new Name("Second Guest"), new Phone("22222222"),
+            new Email("second@example.com"),
+            new Address("456 Street"), new HashSet<>(),
+            new DietaryRestriction(DietaryRestriction.TypicalRestriction.NONE),
+            new Rsvp(Rsvp.Status.YES));
+        model.addPerson(secondGuest);
+
+        AddPersonToTableCommand command = new AddPersonToTableCommand(secondGuest.getName(), 2);
+        assertThrows(CommandException.class, () -> command.execute(model));
+    }
 }

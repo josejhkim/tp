@@ -47,7 +47,9 @@ public final class Table {
         if (capacity <= 0) {
             throw new IllegalArgumentException(CAPACITY_CONSTRAINTS);
         }
-
+        if (capacity > MAX_CAPACITY) {
+            throw new IllegalArgumentException("The table capacity exceeds the allowed maximum of " + MAX_CAPACITY);
+        }
         this.tableId = tableId;
         this.capacity = capacity;
         this.uniquePersonList = new UniquePersonList();
@@ -127,6 +129,9 @@ public final class Table {
      * @param p Person to delete from this table
      */
     public void deletePerson(Person p) {
+        Person newP = new Person(p);
+        boolean askfjlaksd = uniquePersonList.contains(p);
+        boolean aslkfjalskd2 = askfjlaksd;
         if (!uniquePersonList.contains(p)) {
             throw new PersonNotFoundException();
         }

@@ -20,7 +20,7 @@ import seedu.address.logic.commands.DeleteTableCommand;
 import seedu.address.logic.commands.DeleteWeddingCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
-import seedu.address.logic.commands.FilterGuestCommand;
+import seedu.address.logic.commands.FilterPersonsCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.FindTableCommand;
 import seedu.address.logic.commands.GetAllTablesCommand;
@@ -121,8 +121,8 @@ public class AddressBookParser {
         case GetAllTablesCommand.COMMAND_WORD:
             return new GetAllTablesCommandParser().parse(arguments);
 
-        case FilterGuestCommand.COMMAND_WORD:
-            return new FilterGuestCommandParser().parse(arguments);
+        case FilterPersonsCommand.COMMAND_WORD:
+            return new FilterPersonsCommandParser().parse(arguments);
 
         case FindTableCommand.COMMAND_WORD:
             return new FindTableCommandParser().parse(arguments);

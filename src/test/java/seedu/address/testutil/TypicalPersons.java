@@ -105,8 +105,8 @@ public class TypicalPersons {
         Person newCarl = new Person(CARL, -1);
         ab.addPerson(newBenson);
         ab.addPerson(newCarl);
-        ab.addPersonToTable(newBenson, 2);
-        ab.addPersonToTable(newCarl, 3);
+        ab.addPersonToTableById(newBenson, 2);
+        ab.addPersonToTableById(newCarl, 3);
 
         //ab.addWedding(new Wedding("Jack and Jill"));
         //ab.setCurrentWeddingByName("Jack and Jill");
