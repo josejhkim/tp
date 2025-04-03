@@ -24,6 +24,11 @@ public class DeleteTableCommand extends Command {
 
     private final int tableId;
 
+    /**
+     * Creates a DeleteTableCommand to delete the table with the given ID.
+     *
+     * @param tableId ID of the table to delete
+     */
     public DeleteTableCommand(int tableId) {
         this.tableId = tableId;
     }
@@ -39,7 +44,6 @@ public class DeleteTableCommand extends Command {
         if (tableId <= 0) {
             throw new CommandException(MESSAGE_INVALID_TABLE_ID);
         }
-
 
         try {
             model.deleteTableById(tableId);

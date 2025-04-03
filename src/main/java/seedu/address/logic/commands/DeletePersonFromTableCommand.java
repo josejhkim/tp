@@ -28,8 +28,6 @@ public class DeletePersonFromTableCommand extends Command {
         + PREFIX_TABLE_ID + "2";
 
     public static final String MESSAGE_REMOVED_GUEST_FROM_TABLE_SUCCESS = "Deleted Person: %s from Table: %d";
-    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This guest already exists in the address book.";
 
     private final Name guestName;
     private final int oldTableId;

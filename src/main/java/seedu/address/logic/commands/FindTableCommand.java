@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.table.Table;
+import seedu.address.model.table.exceptions.TableNotFoundException;
 
 /**
  * Finds and displays a table by its ID.
@@ -13,9 +14,12 @@ public class FindTableCommand extends Command {
 
     public static final String COMMAND_WORD = "findTable";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds a table by its ID in the current wedding.\n"
-            + "Parameters: tableId/TABLE_ID\n"
-            + "Example: " + COMMAND_WORD + " tableId/1";
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Finds a table by its ID in the current wedding.\n"
+            + "Parameters: [tableId/TABLE_ID] or just the TABLE_ID\n"
+            + "Examples: \n"
+            + "  " + COMMAND_WORD + " tableId/1\n"
+            + "  " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_NO_CURRENT_WEDDING = "No current wedding set. Use createWedding command first.";
     public static final String MESSAGE_TABLE_NOT_FOUND = "Table with ID %d not found.";
@@ -42,15 +46,24 @@ public class FindTableCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        Table table = model.findTableById(tableId);
-
-        if (table == null) {
-            throw new CommandException(String.format(MESSAGE_TABLE_NOT_FOUND, tableId));
+        if (!model.hasCurrentWedding()) {
+            throw new CommandException(MESSAGE_NO_CURRENT_WEDDING);
         }
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS,
-                table.getTableId(), table.getCapacity(), table.getAllPersons().size()));
+        try {
+            Table table = model.findTableById(tableId);
+
+            return new CommandResult(String.format(
+                    MESSAGE_SUCCESS,
+                    table.getTableId(),
+                    table.getCapacity(),
+                    table.getAllPersons().size()));
+        } catch (TableNotFoundException e) {
+            throw new CommandException(String.format(MESSAGE_TABLE_NOT_FOUND, tableId));
+        }
     }
+
+
 
     @Override
     public boolean equals(Object other) {
