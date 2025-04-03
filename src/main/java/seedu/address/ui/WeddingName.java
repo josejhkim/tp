@@ -21,22 +21,9 @@ public class WeddingName extends UiPart<Region> {
     // Observable property to hold wedding name
     private final StringProperty weddingNameProperty = new SimpleStringProperty("Not Set");
 
-    /**
-     * Creates a {@code WeddingName} with the default wedding name.
-     */
-    // public WeddingName() {
-    //     super(FXML);
-    //     // Bind the label text to the property with formatting
-    //     weddingNameLabel.textProperty().bind(weddingNameProperty.map(name -> "Wedding Name: " + name));
-    // }
-
     public WeddingName() {
         super(FXML);
 
-        // Bind the label text to the property with formatting
-        //weddingNameLabel.textProperty().bind(Bindings.concat("Wedding Name: ", weddingNameProperty));
-
-        // Correct way to bind with formatting in JavaFX
         weddingNameLabel.textProperty().bind(
                 Bindings.createStringBinding(() -> "Wedding Name: " + weddingNameProperty.get(),
                         weddingNameProperty
