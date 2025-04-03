@@ -6,13 +6,20 @@ pageNav: 3
 
 # Wedding Hero User Guide
 
-Wedding Hero is a **desktop application** tailored specifically for wedding planners, optimised for fast
-interactions via a **Command Line Interface** (CLI) while still providing the benefits of a clear and intuitive
-**Graphical User Interface** (GUI). Designed to help **professional wedding planners** manage complex wedding details
-efficiently,
-Wedding Hero consolidates **guest lists, seating arrangements, and crucial guest details like dietary information and
-RSVP status** into one centralised dashboard. If you’re comfortable typing quickly, Wedding Hero empowers you to manage
-your wedding planning tasks more efficiently and precisely than traditional mouse-based applications.
+As a wedding planner, you need a tool that keeps pace with your fast-moving schedule. 
+**Wedding Hero** is a desktop application tailored specifically for you. Optimised for rapid interactions through a 
+**Command Line Interface (CLI)**—while still offering the clarity and ease of a **Graphical User Interface (GUI)**
+—this application is built to help you manage complex wedding details with precision.
+
+## Key Features
+
+- **Guest Lists & Seating Arrangements:** Organise and modify with speed.
+- **Crucial Guest Details:** Manage contact information, dietary requirements and RSVP statuses seamlessly.
+- **Multiple Weddings Management:** Keep track of several weddings effortlessly, consolidating details for each event 
+in one centralised dashboard.
+
+If you're comfortable typing quickly, Wedding Hero empowers you to execute your planning tasks more efficiently than 
+traditional mouse-based applications.
 
 <!-- * Table of Contents -->
 <page-nav-print />
@@ -39,13 +46,15 @@ command to run the application.<br>
 open the help window.<br>
    Some example commands you can try:
 
-   * `list` : Lists all contacts.
+   * `createWedding n/ Jack and Jill's Wedding` : Creates a new wedding.
+   
+   * `weddingOverview`: Displays a overview of the wedding, including the number of tables, guests and a list of 
+     persons attending.
 
-   * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact named `John Doe` to the Address Book.
+   * `addPerson n/John Doe p/12345678 e/johndoe@example.com a/123 Street d/None r/YES` : Adds a person named `John Doe` 
+     to the currently set wedding.
 
-   * `delete 3` : Deletes the 3rd contact shown in the current list.
-
-   * `clear` : Deletes all contacts.
+   * `delete 3` : Deletes the 3rd person shown in the currently selected wedding.
 
    * `exit` : Exits the app.
 
@@ -68,11 +77,8 @@ open the help window.<br>
 * Items in square brackets are optional.<br>
   e.g. `deleteGuest [n/NAME] [p/PHONE_NUMBER]` can be used as `deleteGuest [n/NAME]` or `deleteGuest [p/PHONE_NUMBER]`
 
-* Extraneous parameters for commands that do not take in parameters (such as `help`, `weddingOverview`, `exit` and
-  `seeRSVPList`) will be ignored.<br>
-  e.g. if the command specifies `help 123`, it will be interpreted as `help`.
-
-* If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
+* If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple 
+  lines as space characters surrounding line-breaks may be omitted when copied over to the application.
 
 </box>
 
@@ -246,17 +252,6 @@ Finds a table by its ID.
 **Examples:**
 - Running `findTable tableID/12` searches for and displays the table with the ID `12`.
 
-### Showing RSVP List : `seeRSVPList`
-
-Displays the RSVP list for the current active wedding.
-
-**Format:**
-`seeRSVPList`
-
-- Retrieves and displays the RSVP list of the wedding that is currently set as active.
-- No additional arguments are required.
-- Useful for quickly reviewing which guests have responded.
-
 ### Exiting the program : `exit`
 
 Exits the program.
@@ -270,12 +265,15 @@ save manually.
 
 ### Editing the data file
 
-WeddingHero data are saved automatically as a JSON file `[JAR file location]/data/WeddingHero.json`. Advanced users are welcome to update data directly by editing that data file.
+WeddingHero data are saved automatically as a JSON file `[JAR file location]/data/WeddingHero.json`. 
+Advanced users are welcome to update data directly by editing that data file.
 <box type="warning" seamless><br>
 
 **Caution:**
-If your changes to the data file makes its format invalid, WeddingHero will discard all data and start with an empty data file at the next run.  Hence, it is recommended to take a backup of the file before editing it.<br>
-Furthermore, certain edits can cause the WeddingHero to behave in unexpected ways (e.g., if a value entered is outside the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
+If your changes to the data file makes its format invalid, WeddingHero will discard all data and start with an 
+empty data file at the next run.  Hence, it is recommended to take a backup of the file before editing it.<br>
+Furthermore, certain edits can cause the WeddingHero to behave in unexpected ways (e.g., if a value entered is outside 
+the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 </box>
 
 ### Automatic assignment of guests to tables when guest RSVP status is YES `[coming in v2.0]`
@@ -287,28 +285,33 @@ _Details coming soon ..._
 ## FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous WeddingHero home folder.
+**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains 
+the data of your previous WeddingHero home folder.
 
 --------------------------------------------------------------------------------------------------------------------
 
 ## Known issues
-
+No known issues.
 --------------------------------------------------------------------------------------------------------------------
 
 
 ## Command Summary
 
-Action                 | Format, Examples
------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------
-**Help**               | `help`
-**Create Wedding**     | `createWedding WEDDINGNAME`<br>e.g., `createWedding John & Jane Wedding`<br>e.g., `createWedding Smith Family Wedding`
-**Set Wedding**        | `setWedding WEDDINGNAME`<br>e.g., `setWedding John & Jane Wedding`<br>e.g., `setWedding Smith Wedding`
-**Wedding Overview**   | `weddingOverview`
-**Add Person**          | `addGuest n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS d/DIETARY_RESTRICTION r/RSVP`<br>e.g., `addGuest n/John Doe p/12345678 e/johndoe@example.com a/123 Street d/None r/YES`
-**Delete Person**       | `deleteGuest [n/NAME] [p/PHONE_NUMBER]`<br>e.g., `deleteGuest p/12341234`<br>e.g.,`deleteGuest n/Johnny Wang` 
-**Add Table**          | `addTable tableID/TABLEID CAPACITY`<br>e.g., `addTable tableID/12 8`
-**Delete Table**       | `deleteTable tableID/TABLEID`<br>e.g., `deleteTable tableID/12`
-**List Tables**        | `getTables`
-**Find Table**         | `findTable tableID/TABLEID`<br>e.g., `findTable tableID/12`
-**RSVP List**          | `seeRSVPList`
-**Exit**               | `exit`
+| **Action**                | **Format, Examples**                                                                                                                                                 |
+|---------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **createWedding**         | `createWedding n/NAME`<br>Example: `createWedding n/John & Jane Wedding`                                                                                             |
+| **deleteWedding**         | `deleteWedding n/NAME`<br>Example: `deleteWedding n/John & Jane Wedding`                                                                                             |
+| **setWedding**            | `setWedding n/NAME`<br>Example: `setWedding n/Smith Wedding`                                                                                                         |
+| **weddingOverview**       | `weddingOverview`<br>Example: `weddingOverview`                                                                                                                      |
+| **addPerson**             | `addPerson n/NAME p/PHONE e/EMAIL a/ADDRESS d/DIETARY_RESTRICTION r/RSVP`Example: `addPerson n/John Doe p/12345678 e/johndoe@example.com a/123 Street d/Vegan r/YES` |
+| **deletePerson**          | `deletePerson INDEX`<br>Example: `deletePerson 3`                                                                                                                    |
+| **Find**                  | `Find KEYWORD`<br>Example: `Find John`                                                                                                                               |
+| **filterPersons**         | `filterPersons [d/DIETARY_RESTRICTION_FIELD] [r/RSVP_FIELD]`<br>Example: `filterPersons d/Vegan r/YES`                                                               |
+| **addTable**              | `addTable tid/TABLE_ID c/CAPACITY`<br>Example: `addTable tid/1 c/8`                                                                                                  |
+| **addPersonToTable**      | `addPersonToTable n/NAME tid/TABLE_ID`<br>Example: `addPersonToTable n/John Doe tid/1`                                                                               |
+| **deletePersonFromTable** | `deletePersonFromTable n/NAME tid/TABLE_ID`<br>Example: `deletePersonFromTable n/John Doe tid/1`                                                                     |
+| **deleteTable**           | `deleteTable tid/TABLE_ID`<br>Example: `deleteTable tid/1`                                                                                                           |
+| **findTable**             | `findTable [tid/TABLE_ID] [INDEX]`<br>Examples: `findTable tid/1` or `findTable 1`                                                                                   |
+| **getTables**             | `getTables`<br>Example: `getTables`                                                                                                                                  |
+| **Help**                  | `Help`                                                                                                                                                               |
+| **exit**                  | `exit`                                                                                                                                                               |
