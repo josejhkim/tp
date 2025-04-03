@@ -22,7 +22,7 @@
 }
 
 .rsvp-no-response {
-    -fx-background-color: #f5f5dc;  /* Beige */
+    -fx-background-color: #ad00bc;  /* Beige */
     -fx-text-fill: #000000;  /* Changed to black */
     -fx-border-color: #ddd8c0;
 }
