@@ -6,8 +6,8 @@ pageNav: 3
 
 # Wedding Hero User Guide
 
-As a professional wedding planner, you need a tool that keeps pace with your fast-moving schedule. 
-**Wedding Hero** is a desktop application tailored specifically for you. Optimised for rapid interactions through a 
+As a professional wedding planner, you need a tool that keeps pace with your fast-moving schedule.
+**Wedding Hero** is a desktop application tailored specifically for you. Optimised for rapid interactions through a
 **Command Line Interface (CLI)**—while still offering the clarity and ease of a **Graphical User Interface (GUI)**
 —this application is built to help you manage complex wedding details with precision.
 
@@ -15,10 +15,10 @@ As a professional wedding planner, you need a tool that keeps pace with your fas
 
 - **Guest Lists & Seating Arrangements:** Organise and modify with speed.
 - **Crucial Guest Details:** Manage contact information, dietary requirements and RSVP statuses seamlessly.
-- **Multiple Weddings Management:** Keep track of several weddings effortlessly, consolidating details for each event 
-in one centralised dashboard.
+- **Multiple Weddings Management:** Keep track of several weddings effortlessly, consolidating details for each event
+  in one centralised dashboard.
 
-If you're comfortable typing quickly, Wedding Hero empowers you to execute your planning tasks more efficiently than 
+If you're comfortable typing quickly, Wedding Hero empowers you to execute your planning tasks more efficiently than
 traditional mouse-based applications.
 
 #### Guest & RSVP Management
@@ -96,20 +96,20 @@ traditional mouse-based applications.
 
 1. Ensure you have Java `17` or above installed in your Computer.<br>
    **Mac users:** Ensure you have the precise JDK version prescribed
-    [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).<br>
-    **Window and Linux users:** can find their Java `17` download links
-    [here](https://www.oracle.com/java/technologies/downloads/#java17).
+   [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).<br>
+   **Window and Linux users:** can find their Java `17` download links
+   [here](https://www.oracle.com/java/technologies/downloads/#java17).
 2. Download the latest `.jar` file from [here](https://github.com/se-edu/WeddingHero-level3/releases).
 
 3. Copy the file to the folder you want to use as the _home folder_ for your WeddingHero.
 
 4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar WeddingHero.jar`
-command to run the application.<br>
+   command to run the application.<br>
    A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
    ![Ui](images/Ui.png)
 
 5. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will
-open the help window.<br>
+   open the help window.<br>
 - `addPerson n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 d/None r/YES` : Adds a person named John Doe with RSVP status and dietary preference to the active wedding.
 - `deletePerson 3` : Deletes the 3rd person shown in the currently displayed person list.
 - `exit` : Exits the application.
@@ -216,15 +216,15 @@ Creates a new wedding in the wedding planner.
 💡 Tips:
 
 - After using createWedding, remember to set the wedding as active using:
-setWedding John & Jane Wedding
-- Always match spacing exactly when setting or referring to a wedding — "John&JaneWedding" is not the same as "John & Jane Wedding". 
+  setWedding John & Jane Wedding
+- Always match spacing exactly when setting or referring to a wedding — "John&JaneWedding" is not the same as "John & Jane Wedding".
 - Once a wedding is set, any added persons, tables, or edits will apply to that active wedding.
 
 </box>
 
 ### Setting a Wedding : `setWedding`
 
-Sets a specific wedding as the active wedding, enabling modifications such as editing guest lists and other wedding 
+Sets a specific wedding as the active wedding, enabling modifications such as editing guest lists and other wedding
 details.
 
 **Format:**
@@ -232,10 +232,10 @@ details.
 `setWedding WEDDINGNAME`
 ```
 
-- Sets the active wedding context to the wedding with the provided **`WEDDINGNAME`**. 
+- Sets the active wedding context to the wedding with the provided **`WEDDINGNAME`**.
 - Activates a previously created wedding identified by WEDDINGNAME.
--Once set, all person and table operations will apply to this active wedding.
--The WEDDINGNAME must match the name used during createWedding, with correct spacing.
+  -Once set, all person and table operations will apply to this active wedding.
+  -The WEDDINGNAME must match the name used during createWedding, with correct spacing.
 
 
 **Examples:**
@@ -327,7 +327,7 @@ Allowed RSVP values:
 - YES
 - NO
 - NO_RESPONSE (if not yet responded)
-**Examples:**
+  **Examples:**
 ```
 addPerson n/John Doe p/12345678 e/johndoe@example.com a/123 Street d/None r/YES
 addPerson n/Alex Tan p/87654321 e/alex@example.com a/456 Avenue d/Vegan r/NO
@@ -370,9 +370,9 @@ You can use it to display only those persons who meet the criteria you specify.
 ```
 - Both parameters are optional for this command.
 - **Dietary Restriction Filter:** Use the prefix `d/` followed by a valid dietary restriction value
-(e.g., `VEGAN`, `VEGETARIAN`). Include this if you want to filter persons based on dietary needs.
+  (e.g., `VEGAN`, `VEGETARIAN`). Include this if you want to filter persons based on dietary needs.
 - **RSVP Filter:** Use the prefix `r/` followed by a valid RSVP status (e.g., `YES`, `NO`).
-Include this if you want to filter persons by their RSVP response.
+  Include this if you want to filter persons by their RSVP response.
 
 You can provide one or both filters to narrow down your list. If no filters are specified,
 the command returns an unfiltered list of persons belonging to that wedding.
@@ -395,7 +395,7 @@ Displays the RSVP list for the current active wedding.
 - Retrieves and displays the RSVP list of the wedding that is currently set as active.
 - No additional arguments are required.
 - Useful for quickly reviewing which guests have responded.
-- 
+-
 ## Managing Tables
 
 --------------------------------------------------------------------------------------------------------------------
@@ -512,14 +512,14 @@ save manually.
 
 ### Editing the data file
 
-WeddingHero data are saved automatically as a JSON file `[JAR file location]/data/WeddingHero.json`. 
+WeddingHero data are saved automatically as a JSON file `[JAR file location]/data/WeddingHero.json`.
 Advanced users are welcome to update data directly by editing that data file.
 <box type="warning" seamless><br>
 
 **Caution:**
-If your changes to the data file makes its format invalid, WeddingHero will discard all data and start with an 
+If your changes to the data file makes its format invalid, WeddingHero will discard all data and start with an
 empty data file at the next run.  Hence, it is recommended to take a backup of the file before editing it.<br>
-Furthermore, certain edits can cause the WeddingHero to behave in unexpected ways (e.g., if a value entered is outside 
+Furthermore, certain edits can cause the WeddingHero to behave in unexpected ways (e.g., if a value entered is outside
 the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 </box>
 --------------------------------------------------------------------------------------------------------------------
@@ -540,7 +540,7 @@ the acceptable range). Therefore, edit the data file only if you are confident t
 ## FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains 
+**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains
 the data of your previous WeddingHero home folder.
 
 --------------------------------------------------------------------------------------------------------------------
@@ -573,4 +573,6 @@ the data of your previous WeddingHero home folder.
 | **findTable**             | `findTable [tid/TABLE_ID] [INDEX]`<br>Examples: `findTable tid/1` or `findTable 1`                                                                                   |
 | **getTables**             | `getTables`<br>Example: `getTables`                                                                                                                                  |
 | **Help**                  | `Help`                                                                                                                                                               |
-| **exit**                  | `exit`                                                                                                                                                               |
+| **exit**                  | `exit`                                     
+
+
