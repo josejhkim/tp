@@ -13,14 +13,16 @@ public class AddTableCommand extends Command {
 
     public static final String COMMAND_WORD = "addTable";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a table to the wedding.\n"
-            + "Parameters: TABLE_ID CAPACITY\n"
-            + "Example: " + COMMAND_WORD + "tid/1 capacity/6";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a table to the current wedding.\n"
+            + "Parameters: tid/TABLE_ID c/CAPACITY\n"
+            + "Example: " + COMMAND_WORD + " tid/1 c/6";
 
     public static final String MESSAGE_SUCCESS = "Table added: Table ID: %1$d, Capacity: %2$d";
-    public static final String MESSAGE_NO_CURRENT_WEDDING =
-        "No current wedding set. Use setWedding command first.";
-    public static final String MESSAGE_DUPLICATE_TABLE = "A table with this ID already exists.";
+    public static final String MESSAGE_NO_CURRENT_WEDDING = "You must set a wedding before adding tables. "
+            + "Please use the setWedding command.";
+    public static final String MESSAGE_DUPLICATE_TABLE = "A table with ID %1$d already exists. "
+            + "Please choose a different ID.";
+    public static final String MESSAGE_INVALID_TABLE = "Invalid table configuration: %s";
 
     private final int tableId;
     private final int capacity;
@@ -36,41 +38,32 @@ public class AddTableCommand extends Command {
         this.capacity = capacity;
     }
 
-    // @Override
-    // public CommandResult execute(Model model) throws CommandException {
-    //     requireNonNull(model);
-    //
-    //     try {
-    //         Table t = model.getTableById(tableId);
-    //         throw new CommandException(MESSAGE_DUPLICATE_TABLE);
-    //
-    //     } catch (TableNotFoundException tnfe) {
-    //
-    //         Table table = new Table(tableId, capacity);
-    //         model.addTable(table);
-    //
-    //         return new CommandResult(String.format(MESSAGE_SUCCESS, tableId, capacity));
-    //     }
-    //
-    // }
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        // Check if there's a current wedding
+
         if (model.getCurrentWedding() == null) {
             throw new CommandException(MESSAGE_NO_CURRENT_WEDDING);
         }
-        // Check for duplicate table ID
+
         if (model.hasTable(tableId)) {
-            throw new CommandException(MESSAGE_DUPLICATE_TABLE);
+            throw new CommandException(String.format(MESSAGE_DUPLICATE_TABLE, tableId));
         }
+
         try {
             Table table = new Table(tableId, capacity);
             model.addTable(table);
             return new CommandResult(String.format(MESSAGE_SUCCESS, tableId, capacity));
         } catch (IllegalArgumentException e) {
-            throw new CommandException("Invalid table: " + e.getMessage());
+            throw new CommandException(String.format(MESSAGE_INVALID_TABLE, e.getMessage()));
         }
     }
 
+    @Override
+    public boolean equals(Object other) {
+        return this == other
+                || (other instanceof AddTableCommand
+                && tableId == ((AddTableCommand) other).tableId
+                && capacity == ((AddTableCommand) other).capacity);
+    }
 }

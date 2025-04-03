@@ -18,12 +18,12 @@ public class DeleteTableCommandParser implements Parser<DeleteTableCommand> {
     public DeleteTableCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TABLE_ID);
 
-        // ✅ Handle prefixed format: deleteTable tableId/2
+        // Handle prefixed format: deleteTable tableId/2
         if (argMultimap.getValue(PREFIX_TABLE_ID).isPresent()) {
             return parseWithPrefix(argMultimap);
         }
 
-        // ✅ Handle raw format: deleteTable 2
+        // Handle raw format: deleteTable 2
         String[] tokens = args.trim().split("\\s+");
 
         if (tokens.length != 1) {

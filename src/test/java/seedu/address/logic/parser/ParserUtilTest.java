@@ -244,4 +244,41 @@ public class ParserUtilTest {
         Assertions.assertThrows(ParseException.class, () -> ParserUtil.parseDietaryRestriction("invalid"));
     }
 
+    @Test
+    public void parseTableId_validValue_returnsInt() throws Exception {
+        assertEquals(1, ParserUtil.parseTableId("1"));
+        assertEquals(5, ParserUtil.parseTableId("   5   "));
+    }
+
+    @Test
+    public void parseTableId_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseTableId("0"));
+        assertThrows(ParseException.class, () -> ParserUtil.parseTableId("-1"));
+        assertThrows(ParseException.class, () -> ParserUtil.parseTableId("abc"));
+    }
+
+    @Test
+    public void parseWeddingName_validValue_returnsTrimmed() throws Exception {
+        assertEquals("Eva's Wedding", ParserUtil.parseWeddingName("   Eva's Wedding "));
+    }
+
+    @Test
+    public void parseWeddingName_empty_returnsEmptyString() throws Exception {
+        assertEquals("", ParserUtil.parseWeddingName("   "));
+    }
+
+    @Test
+    public void parseCapacity_validValue_returnsInt() throws Exception {
+        assertEquals(10, ParserUtil.parseCapacity("10"));
+        assertEquals(25, ParserUtil.parseCapacity("   25   "));
+    }
+
+    @Test
+    public void parseCapacity_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseCapacity("zero"));
+        assertThrows(ParseException.class, () -> ParserUtil.parseCapacity("-5"));
+        assertThrows(ParseException.class, () -> ParserUtil.parseCapacity("0"));
+    }
+
+
 }

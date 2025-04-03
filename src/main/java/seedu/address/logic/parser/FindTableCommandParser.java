@@ -10,24 +10,33 @@ import seedu.address.logic.parser.exceptions.ParseException;
  */
 public class FindTableCommandParser implements Parser<FindTableCommand> {
 
-    /**
-     * Parses the given {@code String} of arguments in the context of FindTableCommand.
-     * @throws ParseException if the input is invalid.
-     */
+    private static final String PREFIX_TID = "tid/";
+
     @Override
     public FindTableCommand parse(String args) throws ParseException {
-        String trimmedArgs = args.trim().toLowerCase();
+        String trimmedArgs = args.trim();
 
-        // Validate input (must have a number)
-        if (trimmedArgs.isEmpty() || !trimmedArgs.startsWith("tableid/")) {
+        if (trimmedArgs.isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindTableCommand.MESSAGE_USAGE));
         }
 
+        // Force strict format: must start with "tid/" (case insensitive)
+        if (!trimmedArgs.toLowerCase().startsWith(PREFIX_TID)) {
+            throw new ParseException("Invalid format. You must use the prefix 'tid/'. Example: findTable tid/3");
+        }
+
+        String tableIdStr = trimmedArgs.substring(PREFIX_TID.length()).trim();
+
         try {
-            int tableId = Integer.parseInt(trimmedArgs.split("/")[1]); // Extract table ID
+            int tableId = Integer.parseInt(tableIdStr);
+
+            if (tableId <= 0) {
+                throw new ParseException("Table ID must be a positive number.");
+            }
+
             return new FindTableCommand(tableId);
         } catch (NumberFormatException e) {
-            throw new ParseException("Invalid table ID. It must be a number.");
+            throw new ParseException("Invalid table ID. It must be a numeric value.");
         }
     }
 }

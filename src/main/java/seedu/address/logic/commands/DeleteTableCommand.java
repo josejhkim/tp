@@ -13,8 +13,8 @@ public class DeleteTableCommand extends Command {
     public static final String COMMAND_WORD = "deleteTable";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Deletes a table from the current wedding.\n"
-            + "Parameters: tableId/TABLE_ID or just the ID\n"
-            + "Example: " + COMMAND_WORD + " tableId/1 or " + COMMAND_WORD + " 1";
+            + "Parameters: tid/TABLE_ID or just the ID\n"
+            + "Example: " + COMMAND_WORD + " tid/1 or 1";
 
     public static final String MESSAGE_SUCCESS = "Table deleted: Table ID %d";
     public static final String MESSAGE_NO_CURRENT_WEDDING =
@@ -24,6 +24,11 @@ public class DeleteTableCommand extends Command {
 
     private final int tableId;
 
+    /**
+     * Creates a DeleteTableCommand to delete the table with the given ID.
+     *
+     * @param tableId ID of the table to delete
+     */
     public DeleteTableCommand(int tableId) {
         this.tableId = tableId;
     }
@@ -39,7 +44,6 @@ public class DeleteTableCommand extends Command {
         if (tableId <= 0) {
             throw new CommandException(MESSAGE_INVALID_TABLE_ID);
         }
-
 
         try {
             model.deleteTableById(tableId);
