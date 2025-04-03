@@ -68,7 +68,7 @@ public class AddTableCommandTest {
         AddTableCommand command = new AddTableCommand(3, -1); // invalid capacity
 
         CommandException exception = assertThrows(CommandException.class, () -> command.execute(model));
-        
+
         assertEquals("Invalid table configuration: "
                 + "The table capacity should be a positive integer", exception.getMessage());
     }

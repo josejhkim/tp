@@ -14,7 +14,6 @@ public class AddTableCommand extends Command {
     public static final String COMMAND_WORD = "addTable";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a table to the current wedding.\n"
-            + "Precondition: A wedding must be set before using this command.\n"
             + "Parameters: tid/TABLE_ID c/CAPACITY\n"
             + "Example: " + COMMAND_WORD + " tid/1 c/6";
 
