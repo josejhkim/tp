@@ -13,8 +13,8 @@ public class DeleteTableCommand extends Command {
     public static final String COMMAND_WORD = "deleteTable";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Deletes a table from the current wedding.\n"
-            + "Parameters: tableId/TABLE_ID or just the ID\n"
-            + "Example: " + COMMAND_WORD + " tableId/1 or " + COMMAND_WORD + " 1";
+            + "Parameters: tid/TABLE_ID or just the ID\n"
+            + "Example: " + COMMAND_WORD + " tid/1 or 1";
 
     public static final String MESSAGE_SUCCESS = "Table deleted: Table ID %d";
     public static final String MESSAGE_NO_CURRENT_WEDDING =

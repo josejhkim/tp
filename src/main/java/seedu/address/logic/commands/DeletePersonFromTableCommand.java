@@ -48,6 +48,10 @@ public class DeletePersonFromTableCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
+        if (!model.hasCurrentWedding()) {
+            throw new CommandException("No current wedding set. Please use 'setWedding' first.");
+        }
+
         Person guestToRemove = model.findPersonByName(guestName);
 
         model.deletePersonFromTableById(guestToRemove, oldTableId);

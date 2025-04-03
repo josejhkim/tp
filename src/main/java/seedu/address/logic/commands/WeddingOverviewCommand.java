@@ -49,7 +49,7 @@ public class WeddingOverviewCommand extends Command {
         List<Person> guests = model.getFilteredPersonList();
         int guestCount = guests.size();
 
-        // ✅ Format the guest list properly
+
         StringBuilder guestListFormatted = new StringBuilder();
         if (guests.isEmpty()) {
             guestListFormatted.append("No guests added yet.");

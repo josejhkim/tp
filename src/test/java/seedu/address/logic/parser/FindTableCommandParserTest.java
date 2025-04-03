@@ -3,71 +3,81 @@ package seedu.address.logic.parser;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.FindTableCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
-/**
- * Unit tests for FindTableCommandParser.
- */
 public class FindTableCommandParserTest {
-    private final FindTableCommandParser parser = new FindTableCommandParser();
 
-    // Valid test case: with prefix
+    private FindTableCommandParser parser;
+
+    @BeforeEach
+    public void setUp() {
+        parser = new FindTableCommandParser();
+    }
+
     @Test
-    public void parse_validWithPrefix_success() throws Exception {
-        FindTableCommand command = parser.parse("tableId/3");
+    public void parse_validTidLowerCase_success() throws Exception {
+        FindTableCommand command = parser.parse("tid/3");
         assertEquals(new FindTableCommand(3), command);
     }
 
-    // Valid test case: without prefix
     @Test
-    public void parse_validWithoutPrefix_success() throws Exception {
-        FindTableCommand command = parser.parse("3");
-        assertEquals(new FindTableCommand(3), command);
+    public void parse_validTidUpperCase_success() throws Exception {
+        FindTableCommand command = parser.parse("TID/5");
+        assertEquals(new FindTableCommand(5), command);
     }
 
-    // Valid test case: with whitespace
     @Test
-    public void parse_validWithWhitespace_success() throws Exception {
-        FindTableCommand command = parser.parse("   tableId/7   ");
+    public void parse_validTidMixedCase_success() throws Exception {
+        FindTableCommand command = parser.parse("tId/7");
         assertEquals(new FindTableCommand(7), command);
     }
 
-    // Invalid input: tableId/ but no number
     @Test
-    public void parse_missingNumber_failure() {
-        assertThrows(ParseException.class, () -> parser.parse("tableId/"));
+    public void parse_validTidWithWhitespace_success() throws Exception {
+        FindTableCommand command = parser.parse("  tid/8  ");
+        assertEquals(new FindTableCommand(8), command);
     }
 
-    // Invalid input: non-numeric ID
     @Test
-    public void parse_nonNumeric_failure() {
-        assertThrows(ParseException.class, () -> parser.parse("tableId/abc"));
+    public void parse_missingTidPrefix_throwsParseException() {
+        ParseException exception = assertThrows(ParseException.class, () -> parser.parse("3"));
+        assertEquals("Invalid format. You must use the prefix 'tid/'. "
+                + "Example: findTable tid/3", exception.getMessage());
     }
 
-    // Invalid input: empty input
     @Test
-    public void parse_empty_failure() {
-        assertThrows(ParseException.class, () -> parser.parse(""));
+    public void parse_wrongPrefix_throwsParseException() {
+        ParseException exception = assertThrows(ParseException.class, () -> parser.parse("tableid/3"));
+        assertEquals("Invalid format. You must use the prefix 'tid/'."
+                + " Example: findTable tid/3", exception.getMessage());
     }
 
-    // Invalid input: negative ID
     @Test
-    public void parse_negativeNumber_failure() {
-        assertThrows(ParseException.class, () -> parser.parse("-1"));
+    public void parse_nonNumericTid_throwsParseException() {
+        ParseException exception = assertThrows(ParseException.class, () -> parser.parse("tid/abc"));
+        assertEquals("Invalid table ID. It must be a numeric value.", exception.getMessage());
     }
 
-    // Invalid input: ID is zero
     @Test
-    public void parse_zero_failure() {
-        assertThrows(ParseException.class, () -> parser.parse("0"));
+    public void parse_negativeTid_throwsParseException() {
+        ParseException exception = assertThrows(ParseException.class, () -> parser.parse("tid/-1"));
+        assertEquals("Table ID must be a positive number.", exception.getMessage());
     }
 
-    // Invalid input: extra unexpected arguments
     @Test
-    public void parse_extraGarbage_failure() {
-        assertThrows(ParseException.class, () -> parser.parse("tableId/1 extra stuff here"));
+    public void parse_zeroTid_throwsParseException() {
+        ParseException exception = assertThrows(ParseException.class, () -> parser.parse("tid/0"));
+        assertEquals("Table ID must be a positive number.", exception.getMessage());
+    }
+
+    @Test
+    public void parse_emptyInput_throwsParseException() {
+        ParseException exception = assertThrows(ParseException.class, () -> parser.parse("   "));
+        assertEquals(String.format("Invalid command format! \n%1$s",
+                FindTableCommand.MESSAGE_USAGE), exception.getMessage());
     }
 }

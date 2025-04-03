@@ -16,12 +16,12 @@ public class FindTableCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Finds a table by its ID in the current wedding.\n"
-            + "Parameters: [tableId/TABLE_ID] or just the TABLE_ID\n"
+            + "Parameters: [tid/TABLE_ID] \n"
             + "Examples: \n"
-            + "  " + COMMAND_WORD + " tableId/1\n"
-            + "  " + COMMAND_WORD + " 1";
+            + "  " + COMMAND_WORD + " tid/1\n";
 
-    public static final String MESSAGE_NO_CURRENT_WEDDING = "No current wedding set. Use createWedding command first.";
+
+    public static final String MESSAGE_NO_CURRENT_WEDDING = "No current wedding set. Use setWedding command first.";
     public static final String MESSAGE_TABLE_NOT_FOUND = "Table with ID %d not found.";
     public static final String MESSAGE_SUCCESS = "Table found: Table ID: %d | Capacity: %d | Guests: %d";
 

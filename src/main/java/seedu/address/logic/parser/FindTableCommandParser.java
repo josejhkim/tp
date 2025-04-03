@@ -10,28 +10,22 @@ import seedu.address.logic.parser.exceptions.ParseException;
  */
 public class FindTableCommandParser implements Parser<FindTableCommand> {
 
-    /**
-     * Parses the given {@code String} of arguments in the context of FindTableCommand.
-     *
-     * @param args the user input after the command word
-     * @return FindTableCommand with parsed tableId
-     * @throws ParseException if the input is invalid
-     */
+    private static final String PREFIX_TID = "tid/";
+
     @Override
     public FindTableCommand parse(String args) throws ParseException {
-        String trimmedArgs = args.trim().toLowerCase();
+        String trimmedArgs = args.trim();
 
         if (trimmedArgs.isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindTableCommand.MESSAGE_USAGE));
         }
 
-        String tableIdStr;
-
-        if (trimmedArgs.startsWith("tableid/")) {
-            tableIdStr = trimmedArgs.substring("tableid/".length()).trim();
-        } else {
-            tableIdStr = trimmedArgs;
+        // Force strict format: must start with "tid/" (case insensitive)
+        if (!trimmedArgs.toLowerCase().startsWith(PREFIX_TID)) {
+            throw new ParseException("Invalid format. You must use the prefix 'tid/'. Example: findTable tid/3");
         }
+
+        String tableIdStr = trimmedArgs.substring(PREFIX_TID.length()).trim();
 
         try {
             int tableId = Integer.parseInt(tableIdStr);

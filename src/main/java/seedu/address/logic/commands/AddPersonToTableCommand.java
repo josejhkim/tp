@@ -56,6 +56,10 @@ public class AddPersonToTableCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         try {
+            if (!model.hasCurrentWedding()) {
+                throw new CommandException("No current wedding set. Please use 'setWedding' first.");
+            }
+
             Person personToAdd = model.findPersonByName(guestName);
 
             model.addPersonToTableById(personToAdd, newTableId);

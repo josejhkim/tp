@@ -18,7 +18,7 @@ public class GetAllTablesCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Lists all tables in the current wedding.\n"
             + "Example: " + COMMAND_WORD;
 
-    public static final String MESSAGE_NO_CURRENT_WEDDING = "No current wedding set. Use createWedding command first.";
+    public static final String MESSAGE_NO_CURRENT_WEDDING = "No current wedding set. Use setWedding command first.";
     public static final String MESSAGE_NO_TABLES = "No tables found for this wedding.";
     public static final String MESSAGE_SUCCESS = "List of tables:\n%1$s";
 
