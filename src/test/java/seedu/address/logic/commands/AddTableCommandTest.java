@@ -12,9 +12,6 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.table.Table;
 import seedu.address.model.wedding.Wedding;
 
-/**
- * Unit tests for AddTableCommand.
- */
 public class AddTableCommandTest {
 
     private Model model;
@@ -26,51 +23,49 @@ public class AddTableCommandTest {
 
     @Test
     public void execute_noWeddingSet_throwsCommandException() {
-        AddTableCommand command = new AddTableCommand(1, 5);
-
+        AddTableCommand command = new AddTableCommand(1, 6);
         CommandException exception = assertThrows(CommandException.class, () -> command.execute(model));
         assertEquals(AddTableCommand.MESSAGE_NO_CURRENT_WEDDING, exception.getMessage());
     }
 
     @Test
-    public void execute_duplicateTableId_throwsCommandException() throws CommandException {
+    public void execute_duplicateTableId_throwsCommandException() throws Exception {
         Wedding wedding = new Wedding("Test Wedding");
         model.addWedding(wedding);
         model.setCurrentWedding(wedding);
 
-        // Add table manually
-        model.addTable(new Table(1, 4));
+        model.addTable(new Table(1, 6)); // add initial table
 
-        AddTableCommand command = new AddTableCommand(1, 6); // duplicate tableId
+        AddTableCommand command = new AddTableCommand(1, 8); // duplicate ID
 
         CommandException exception = assertThrows(CommandException.class, () -> command.execute(model));
         assertEquals(String.format(AddTableCommand.MESSAGE_DUPLICATE_TABLE, 1), exception.getMessage());
     }
 
     @Test
-    public void execute_validInput_addsTableSuccessfully() throws Exception {
+    public void execute_invalidCapacity_throwsCommandException() throws Exception {
         Wedding wedding = new Wedding("Test Wedding");
         model.addWedding(wedding);
         model.setCurrentWedding(wedding);
 
-        AddTableCommand command = new AddTableCommand(2, 8);
+        AddTableCommand command = new AddTableCommand(2, -5); // invalid capacity
 
-        CommandResult result = command.execute(model);
-        assertEquals(String.format(AddTableCommand.MESSAGE_SUCCESS, 2, 8), result.getFeedbackToUser());
+        CommandException exception = assertThrows(CommandException.class, () -> command.execute(model));
+        assertEquals("Invalid table configuration: The table capacity should be a positive integer",
+                exception.getMessage());
     }
 
     @Test
-    public void execute_invalidTable_throwsCommandException() {
-        Wedding wedding = new Wedding("Test Wedding");
+    public void execute_validInput_addsTableSuccessfully() throws Exception {
+        Wedding wedding = new Wedding("Valid Wedding");
         model.addWedding(wedding);
         model.setCurrentWedding(wedding);
 
-        AddTableCommand command = new AddTableCommand(3, -1); // invalid capacity
+        AddTableCommand command = new AddTableCommand(3, 10);
 
-        CommandException exception = assertThrows(CommandException.class, () -> command.execute(model));
+        CommandResult result = command.execute(model);
 
-        assertEquals("Invalid table configuration: "
-                + "The table capacity should be a positive integer", exception.getMessage());
+        assertEquals(String.format(AddTableCommand.MESSAGE_SUCCESS, 3, 10), result.getFeedbackToUser());
     }
 
     @Test
@@ -88,4 +83,63 @@ public class AddTableCommandTest {
         assert (!cmd1.equals(cmd2));
         assert (!cmd1.equals(cmd3));
     }
+
+    @Test
+    public void execute_tableIdZero_throwsCommandException() throws Exception {
+        Wedding wedding = new Wedding("Zero ID Wedding");
+        model.addWedding(wedding);
+        model.setCurrentWedding(wedding);
+
+        AddTableCommand command = new AddTableCommand(0, 6);
+        CommandException exception = assertThrows(CommandException.class, () -> command.execute(model));
+        assertEquals("Invalid table configuration: The table ID should be a positive integer",
+                exception.getMessage());
+    }
+
+    @Test
+    public void execute_negativeTableId_throwsCommandException() throws Exception {
+        Wedding wedding = new Wedding("Negative ID Wedding");
+        model.addWedding(wedding);
+        model.setCurrentWedding(wedding);
+
+        AddTableCommand command = new AddTableCommand(-2, 6);
+        CommandException exception = assertThrows(CommandException.class, () -> command.execute(model));
+        assertEquals("Invalid table configuration: The table ID should be a positive integer",
+                exception.getMessage());
+    }
+
+    @Test
+    public void execute_zeroCapacity_throwsCommandException() throws Exception {
+        Wedding wedding = new Wedding("Zero Capacity Wedding");
+        model.addWedding(wedding);
+        model.setCurrentWedding(wedding);
+
+        AddTableCommand command = new AddTableCommand(4, 0);
+        CommandException exception = assertThrows(CommandException.class, () -> command.execute(model));
+        assertEquals("Invalid table configuration: The table capacity should be a positive integer",
+                exception.getMessage());
+    }
+
+    // @Test
+    // public void execute_maxIntegerCapacity_addsTableSuccessfully() throws Exception {
+    //     Wedding wedding = new Wedding("Big Wedding");
+    //     model.addWedding(wedding);
+    //     model.setCurrentWedding(wedding);
+    //
+    //     AddTableCommand command = new AddTableCommand(99, Integer.MAX_VALUE);
+    //     CommandResult result = command.execute(model);
+    //     assertEquals(String.format(AddTableCommand.MESSAGE_SUCCESS, 99, Integer.MAX_VALUE),
+    //     result.getFeedbackToUser());
+    // }
+
+    // @Test
+    // public void execute_tableIdOne_valid_success() throws Exception {
+    //     Wedding wedding = new Wedding("Boundary Test Wedding");
+    //     model.addWedding(wedding);
+    //     model.setCurrentWedding(wedding);
+    //
+    //     AddTableCommand command = new AddTableCommand(1, 5);
+    //     CommandResult result = command.execute(model);
+    //     assertEquals(String.format(AddTableCommand.MESSAGE_SUCCESS, 1, 5), result.getFeedbackToUser());
+    // }
 }
