@@ -108,7 +108,8 @@ Creates a new wedding in the wedding planner.
 
 ### Setting a Wedding : `setWedding`
 
-Sets a specific wedding as the active wedding, enabling modifications such as editing guest lists and other wedding details.
+Sets a specific wedding as the active wedding, enabling modifications such as editing guest lists and other wedding 
+details.
 
 **Format:**
 `setWedding WEDDINGNAME`
@@ -136,29 +137,29 @@ Provides an overview of the current active wedding, including details such as th
 - Running `weddingOverview` after setting an active wedding displays the wedding's summary details.
 
 
-### Adding a person: `addGuest`
+### Adding a person: `addPerson`
 
-Adds a person to the address book.
+Adds a person to the currently selected wedding.
 
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS d/DIETARY_RESTRICTION r/RSVP`
+**Format**: `addPerson n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS d/DIETARY_RESTRICTION r/RSVP`
 
 <box type="tip" seamless>
-
 💡**Tip:** Refer to the dietary restriction section below to see the full list of dietary restrictions to choose from.
-
 </box>
 
+- A wedding should be set before a person can be added.
+
 Examples:
-* `addGuest n/John Doe p/12345678 e/johndoe@example.com a/123 Street d/None r/YES`
-* `addGuest n/Willams p/88887777 e/Willams@example.com a/321 Street d/None r/NO`
+* `addPerson n/John Doe p/12345678 e/johndoe@example.com a/123 Street d/None r/YES`
+* `addPerson n/Willams p/88887777 e/Willams@example.com a/321 Street d/None r/NO`
 
 
-### Deleting a Person : `deleteGuest`
+### Deleting a Person : `deletePerson`
 
-Deletes the specified guest from the guest list.
+Deletes the a person from the currently selected wedding.
 
 **Format:**
-`deleteGuest [n/NAME] [p/PHONE_NUMBER]`
+`deletePerson INDEX`
 
 - Deletes the guest with the provided **NAME**.
 - The parameter `n/` must be followed by the guest's name **exactly** as it appears.
@@ -167,10 +168,7 @@ Deletes the specified guest from the guest list.
 an identifier and **not both**.
 
 **Examples:**
-- Running `seeRSVPList` followed by `deleteGuest p/12341234` will delete the guest with the phone number `12341234` from
-  the guest list.
-- Running `weddingOverview`, taking a look at the guest list, followed by `deleteGuest n/Johnny Wang` deletes the
-guest with the name `Johnny Wang`
+- deleteGuest 
 
 ### Filtering Persons: `filterPersons`
 
@@ -303,7 +301,7 @@ No known issues.
 | **deleteWedding**         | `deleteWedding n/NAME`<br>Example: `deleteWedding n/John & Jane Wedding`                                                                                             |
 | **setWedding**            | `setWedding n/NAME`<br>Example: `setWedding n/Smith Wedding`                                                                                                         |
 | **weddingOverview**       | `weddingOverview`<br>Example: `weddingOverview`                                                                                                                      |
-| **addPerson**             | `addPerson n/NAME p/PHONE e/EMAIL a/ADDRESS d/DIETARY_RESTRICTION r/RSVP`Example: `addPerson n/John Doe p/12345678 e/johndoe@example.com a/123 Street d/Vegan r/YES` |
+| **addPerson**             | `addPerson n/NAME p/PHONE e/EMAIL a/ADDRESS d/DIETARY_RESTRICTION r/RSVP`<br/>Example: `addPerson n/John Doe p/12345678 e/johndoe@example.com a/123 Street d/Vegan r/YES` |
 | **deletePerson**          | `deletePerson INDEX`<br>Example: `deletePerson 3`                                                                                                                    |
 | **Find**                  | `Find KEYWORD`<br>Example: `Find John`                                                                                                                               |
 | **filterPersons**         | `filterPersons [d/DIETARY_RESTRICTION_FIELD] [r/RSVP_FIELD]`<br>Example: `filterPersons d/Vegan r/YES`                                                               |
