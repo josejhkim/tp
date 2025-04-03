@@ -1,4 +1,5 @@
 [![CI Status](https://github.com/AY2425S2-CS2103T-F12-3/tp/workflows/Java%20CI/badge.svg)](https://github.com/AY2425S2-CS2103T-F12-3/tp/actions)
+[![codecov](https://codecov.io/gh/AY2425S2-CS2103T-F12-3/tp/graph/badge.svg?token=2QPQ134JD5)](https://codecov.io/gh/AY2425S2-CS2103T-F12-3/tp)
 
 # Wedding Hero
 

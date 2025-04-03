@@ -3,10 +3,10 @@
   title: ""
 ---
 
-# WeddingHero Level-3
+# WeddingHero
 
-[![CI Status](https://github.com/se-edu/WeddingHero-level3/workflows/Java%20CI/badge.svg)](https://github.com/se-edu/WeddingHero-level3/actions)
-[![codecov](https://codecov.io/gh/se-edu/WeddingHero-level3/branch/master/graph/badge.svg)](https://codecov.io/gh/se-edu/WeddingHero-level3)
+[![CI Status](https://github.com/AY2425S2-CS2103T-F12-3/tp/workflows/Java%20CI/badge.svg)](https://github.com/se-edu/WeddingHero-level3/actions)
+[![codecov](https://codecov.io/gh/AY2425S2-CS2103T-F12-3/tp/graph/badge.svg?token=2QPQ134JD5)](https://codecov.io/gh/AY2425S2-CS2103T-F12-3/tp)
 
 ![Ui](images/Ui.png)
 
