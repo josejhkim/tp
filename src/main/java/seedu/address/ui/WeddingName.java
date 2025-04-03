@@ -21,6 +21,9 @@ public class WeddingName extends UiPart<Region> {
     // Observable property to hold wedding name
     private final StringProperty weddingNameProperty = new SimpleStringProperty("Not Set");
 
+    /**
+     * Creates a {@code WeddingName} with the default wedding name.
+     */
     public WeddingName() {
         super(FXML);
 
