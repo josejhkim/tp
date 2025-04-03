@@ -17,6 +17,7 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.exceptions.NoCurrentWeddingException;
 import seedu.address.model.person.Person;
 import seedu.address.model.table.Table;
 import seedu.address.model.wedding.UniqueWeddingList;
@@ -88,6 +89,12 @@ public class AddressBookTest {
         assertTrue(addressBook.hasPerson(editedAlice));
     }
 
+    @Test
+    public void noCurrentWedding_addPerson_throwsNoCurrentWeddingException() {
+        AddressBookStubWithoutWedding addressBookStub = new AddressBookStubWithoutWedding();
+        assertThrows(NoCurrentWeddingException.class, () -> addressBookStub.addPerson(ALICE));
+    }
+
     //    To rewrite
 
     //    @Test
@@ -101,7 +108,30 @@ public class AddressBookTest {
     //        assertEquals(expected, addressBook.toString());
     //    }
 
+    /**
+     * A stub AddressBook without a current wedding set.
+     */
+    private static class AddressBookStubWithoutWedding extends AddressBook {
+        @Override
+        public Wedding getCurrentWedding() {
+            return null;
+        }
 
+        @Override
+        public void addPerson(Person person) {
+            throw new NoCurrentWeddingException();
+        }
+
+        @Override
+        public ObservableList<Person> getPersonList() {
+            return FXCollections.observableArrayList();
+        }
+
+        @Override
+        public ObservableList<Table> getTableList() {
+            return FXCollections.observableArrayList();
+        }
+    }
     /**
      * A stub ReadOnlyAddressBook whose persons list can violate interface constraints.
      */
@@ -141,6 +171,7 @@ public class AddressBookTest {
         public boolean hasCurrentWedding() {
             return true;
         }
+
 
         @Override
         public ObservableList<Wedding> getWeddingList() {
