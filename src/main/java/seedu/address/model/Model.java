@@ -112,6 +112,7 @@ public interface Model {
 
     void deletePersonFromTable(Person p, Table table);
 
+
     void deletePersonFromTableById(Person p, int tableId);
 
     void setTable(Table target, Table editedTable);

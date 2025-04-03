@@ -14,5 +14,6 @@ public class CliSyntax {
     public static final Prefix PREFIX_DIETARY_RESTRICTION = new Prefix("d/");
     public static final Prefix PREFIX_RSVP = new Prefix("r/");
     public static final Prefix PREFIX_TABLE_ID = new Prefix("tid/");
-    public static final Prefix PREFIX_CAPACITY = new Prefix("capacity/");
+    public static final Prefix PREFIX_CAPACITY = new Prefix("c/");
+
 }

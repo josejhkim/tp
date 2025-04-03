@@ -234,6 +234,7 @@ public class ModelManager implements Model {
         addressBook.addWedding(wedding);
     }
 
+
     @Override
     public void deleteCurrentWedding() {
         addressBook.deleteCurrentWedding();
