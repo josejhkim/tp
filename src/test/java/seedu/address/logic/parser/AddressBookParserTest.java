@@ -24,7 +24,6 @@ import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FilterPersonsCommand;
 import seedu.address.logic.commands.FindCommand;
-import seedu.address.logic.commands.GetRsvpListCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -50,7 +49,7 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_deleteWedding() throws Exception {
         DeleteWeddingCommand command = (DeleteWeddingCommand) parser.parseCommand(
-            DeleteWeddingCommand.COMMAND_WORD + " weddingName/ Default Wedding");
+            DeleteWeddingCommand.COMMAND_WORD + " n/ Default Wedding");
         assertEquals(new DeleteWeddingCommand("Default Wedding"), command);
     }
 
@@ -62,11 +61,6 @@ public class AddressBookParserTest {
     //         SetWeddingCommand.COMMAND_WORD + " " + weddingName);
     //     assertEquals(new SetWeddingCommand(weddingName), command);
     // }
-
-    @Test
-    public void parseCommand_seeRsvpList() throws Exception {
-        assertTrue(parser.parseCommand(GetRsvpListCommand.COMMAND_WORD) instanceof GetRsvpListCommand);
-    }
     // Existing tests..
 
     @Test

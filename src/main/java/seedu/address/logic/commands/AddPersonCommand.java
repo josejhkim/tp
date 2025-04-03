@@ -4,7 +4,9 @@ import static java.util.Objects.requireNonNull;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.exceptions.NoCurrentWeddingException;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.exceptions.DuplicatePersonException;
 
 /**
  * Adds a person to the current wedding.
@@ -19,6 +21,9 @@ public class AddPersonCommand extends Command {
         + "n/John Doe p/12345678 e/johndoe@example.com a/123 Street d/None r/YES";
 
     public static final String MESSAGE_SUCCESS = "Person added to wedding: %1$s";
+
+    public static final String MESSAGE_NO_WEDDING = "No wedding is currently set. Please set a wedding before adding a "
+        + "person.";
     private final Person person;
     /**
      * Creates an AddGuestCommand to add the specified {@code Person} to the rsvp list in the current wedding.
@@ -37,12 +42,13 @@ public class AddPersonCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-
-        if (model.hasPerson(person)) {
+        try {
+            model.addPerson(person);
+        } catch (NoCurrentWeddingException e) {
+            throw new CommandException(MESSAGE_NO_WEDDING);
+        } catch (DuplicatePersonException e) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
-
-        model.addPerson(person);
         return new CommandResult(String.format(MESSAGE_SUCCESS, person));
     }
 

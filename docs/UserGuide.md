@@ -6,17 +6,20 @@ pageNav: 3
 
 # Wedding Hero User Guide
 
---------------------------------------------------------------------------------------------------------------------
+As a professional wedding planner, you need a tool that keeps pace with your fast-moving schedule. 
+**Wedding Hero** is a desktop application tailored specifically for you. Optimised for rapid interactions through a 
+**Command Line Interface (CLI)**—while still offering the clarity and ease of a **Graphical User Interface (GUI)**
+—this application is built to help you manage complex wedding details with precision.
 
-## About Wedding Hero
+## Key Features
 
-**Wedding Hero** is a desktop application designed for **professional wedding planners** who manage large and complex weddings. Whether you're juggling multiple guest lists, dealing with intricate seating plans, or tracking RSVP statuses and dietary preferences across multiple weddings — Wedding Hero helps you stay organised and in control.
+- **Guest Lists & Seating Arrangements:** Organise and modify with speed.
+- **Crucial Guest Details:** Manage contact information, dietary requirements and RSVP statuses seamlessly.
+- **Multiple Weddings Management:** Keep track of several weddings effortlessly, consolidating details for each event 
+in one centralised dashboard.
 
-Unlike typical mouse-based apps, Wedding Hero combines the speed of a **Command Line Interface (CLI)** with the usability of a **Graphical User Interface (GUI)**. This hybrid design means planners who are fast typists can execute commands in seconds, while still benefiting from an intuitive visual overview of the event.
-
---------------------------------------------------------------------------------------------------------------------
-
-### Key Features
+If you're comfortable typing quickly, Wedding Hero empowers you to execute your planning tasks more efficiently than 
+traditional mouse-based applications.
 
 #### Guest & RSVP Management
 - **Contact Details**: Add guests with phone, email, address, dietary needs, and RSVP status
@@ -111,13 +114,10 @@ open the help window.<br>
 - `deletePerson 3` : Deletes the 3rd person shown in the currently displayed person list.
 - `exit` : Exits the application.
 
+
 - Refer to the [Features](#features) below for details of each command.
 
 --------------------------------------------------------------------------------------------------------------------
-
-##  Command Input Format & Syntax
-
-<box type="info" seamless>
 
 **Notes about the command format:**<br>
 
@@ -146,6 +146,7 @@ open the help window.<br>
 
 
 ⚠️ **PDF Warning**: If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
+
 
 </box>
 
@@ -223,7 +224,8 @@ setWedding John & Jane Wedding
 
 ### Setting a Wedding : `setWedding`
 
-Sets a specific wedding as the active wedding, enabling modifications such as editing guest lists and other wedding details.
+Sets a specific wedding as the active wedding, enabling modifications such as editing guest lists and other wedding 
+details.
 
 **Format:**
 ```
@@ -260,6 +262,7 @@ Provides an overview of the current active wedding, including details such as th
 - Running `weddingOverview` after setting an active wedding displays the wedding's summary details.
 
 ### Deleting a Wedding : `deleteWedding`
+
 
 Deletes a wedding from the system by name.
 
@@ -301,11 +304,11 @@ Each prefix represents a specific attribute of the person:
 - d/ → Dietary restriction (must be selected from approved list below)
 - r/ → RSVP status (YES or NO, NO_RESPONSE)
 
+
 <box type="tip" seamless>
-
 💡**Tip:** Refer to the dietary restriction section below to see the full list of dietary restrictions to choose from.
-
 </box>
+
 
 Allowed d/DIETARY_RESTRICTION values:
 - None
@@ -329,15 +332,16 @@ Allowed RSVP values:
 addPerson n/John Doe p/12345678 e/johndoe@example.com a/123 Street d/None r/YES
 addPerson n/Alex Tan p/87654321 e/alex@example.com a/456 Avenue d/Vegan r/NO
 ```
+- A wedding should be set before a person can be added.
 
 ### Deleting a Person : `deletePerson`
 
-Deletes a person from the currently active wedding's guest list, using their displayed index number.
 
+Deletes a person from the currently active wedding's guest list, using their displayed index number.
 
 **Format:**
 ```
-`deletePerson [INDEX]`
+`deletePerson INDEX`
 ```
 Details:
 INDEX: A positive integer corresponding to the person's number in the displayed person list.
@@ -347,16 +351,17 @@ INDEX: A positive integer corresponding to the person's number in the displayed 
 - If the index is invalid or out of range, the system will show an error.
 - Deletion is permanent and cannot be undone.
 
-**Examples:**
+
 ```
 deletePerson 1     // Deletes the first person shown in the list
 deletePerson 3     // Deletes the third person shown in the list
 ```
 <box type="warning" seamless> ❗ Make sure you're viewing the correct list of persons before deleting — the index is based on the currently displayed list. </box>
 
+
 ### Filtering Persons: `filterPersons`
 
-This command allows you to filter your list of persons by applying dietary restriction and/or RSVP status filters. 
+This command allows you to filter your list of persons by applying dietary restriction and/or RSVP status filters.
 You can use it to display only those persons who meet the criteria you specify.
 
 **Format:**
@@ -364,12 +369,12 @@ You can use it to display only those persons who meet the criteria you specify.
 `filterPersons [d/DIETARYRESTRICTION] [r/RSVP]`
 ```
 - Both parameters are optional for this command.
-- **Dietary Restriction Filter:** Use the prefix `d/` followed by a valid dietary restriction value 
+- **Dietary Restriction Filter:** Use the prefix `d/` followed by a valid dietary restriction value
 (e.g., `VEGAN`, `VEGETARIAN`). Include this if you want to filter persons based on dietary needs.
-- **RSVP Filter:** Use the prefix `r/` followed by a valid RSVP status (e.g., `YES`, `NO`). 
+- **RSVP Filter:** Use the prefix `r/` followed by a valid RSVP status (e.g., `YES`, `NO`).
 Include this if you want to filter persons by their RSVP response.
 
-You can provide one or both filters to narrow down your list. If no filters are specified, 
+You can provide one or both filters to narrow down your list. If no filters are specified,
 the command returns an unfiltered list of persons belonging to that wedding.
 
 ![List of filtered persons based on RSVP - No](images/UG-example-images/filterPersonExample.png)
@@ -494,7 +499,6 @@ example:
 - deletePersonFromTable name/John Doe tid/5 deletes the John Doe person from the table with ID 5
 
 --------------------------------------------------------------------------------------------------------------------
-
 ### Exiting the program : `exit`
 
 Exits the program.
@@ -503,17 +507,20 @@ Format: `exit`
 
 ### Saving the data
 
-WeddingHero data are saved in the hard disk automatically after any command that changes the data. There is no need to 
+WeddingHero data are saved in the hard disk automatically after any command that changes the data. There is no need to
 save manually.
 
 ### Editing the data file
 
-WeddingHero data are saved automatically as a JSON file `[JAR file location]/data/WeddingHero.json`. Advanced users are welcome to update data directly by editing that data file.
+WeddingHero data are saved automatically as a JSON file `[JAR file location]/data/WeddingHero.json`. 
+Advanced users are welcome to update data directly by editing that data file.
 <box type="warning" seamless><br>
 
 **Caution:**
-If your changes to the data file makes its format invalid, WeddingHero will discard all data and start with an empty data file at the next run.  Hence, it is recommended to take a backup of the file before editing it.<br>
-Furthermore, certain edits can cause the WeddingHero to behave in unexpected ways (e.g., if a value entered is outside the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
+If your changes to the data file makes its format invalid, WeddingHero will discard all data and start with an 
+empty data file at the next run.  Hence, it is recommended to take a backup of the file before editing it.<br>
+Furthermore, certain edits can cause the WeddingHero to behave in unexpected ways (e.g., if a value entered is outside 
+the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 </box>
 --------------------------------------------------------------------------------------------------------------------
 ### Glossary
@@ -533,13 +540,13 @@ Furthermore, certain edits can cause the WeddingHero to behave in unexpected way
 ## FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous WeddingHero home folder.
+**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains 
+the data of your previous WeddingHero home folder.
 
 --------------------------------------------------------------------------------------------------------------------
 ## Known issues
 1. When using multiple screens, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen. The remedy is to delete the preferences.json file created by the application before running the application again.
 2. If you minimize the Help Window and then run the help command (or use the Help menu, or the keyboard shortcut F1) again, the original Help Window will remain minimized, and no new Help Window will appear. The remedy is to manually restore the minimized Help Window.
-
 --------------------------------------------------------------------------------------------------------------------
 ## Planned Enhancements
 
@@ -549,20 +556,21 @@ Furthermore, certain edits can cause the WeddingHero to behave in unexpected way
 --------------------------------------------------------------------------------------------------------------------
 ## Command Summary
 
-| Action                        | Format, Examples                                                            |
-|-------------------------------|-----------------------------------------------------------------------------|
-| **Help**                      | `help` <br> e.g., `help`                                                    |
-| **Create Wedding**            | `createWedding WEDDINGNAME` <br> e.g., `createWedding John & Jane Wedding` |
-| **Set Wedding**               | `setWedding WEDDINGNAME` <br> e.g., `setWedding John & Jane Wedding`       |
-| **Wedding Overview**          | `weddingOverview` <br> e.g., `weddingOverview`                             |
-| **Add Guest**                 | `addGuest n/NAME p/PHONE e/EMAIL a/ADDRESS d/DIETARY r/RSVP` <br> e.g., `addGuest n/Ana p/9123...` |
-| **Delete Guest**              | `deleteGuest n/NAME` or `deleteGuest p/PHONE_NUMBER` <br> e.g., `deleteGuest p/91234567` |
-| **Filter Guests**             | `filterPersons [d/DIETARY] [r/RSVP]` <br> e.g., `filterPersons d/VEGETARIAN r/YES` |
-| **RSVP List**                 | `seeRSVPList` <br> e.g., `seeRSVPList`                                     |
-| **Add Table**                 | `addTable tableID/TABLEID CAPACITY` <br> e.g., `addTable tableID/5 10`     |
-| **Delete Table**              | `deleteTable tableID/TABLEID` <br> e.g., `deleteTable tableID/5`           |
-| **List All Tables**           | `getTables` <br> e.g., `getTables`                                         |
-| **Find Table by ID**          | `findTable tableID/TABLEID` <br> e.g., `findTable tableID/5`               |
-| **Assign Guest to Table**     | `addPersonToTable tid/TABLEID, `addPersonToTable tableID/5 p/91234567`     |
-| **Remove Guest from Table**   | `deletePersonFromTable tableID/TABLEID p/PHONE_NUMBER` <br> e.g., `deletePersonFromTable tableID/5 p/91234567` |
-| **Exit the Program**          | `exit` <br> e.g., `exit`                                                    |
+| **Action**                | **Format, Examples**                                                                                                                                                 |
+|---------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **createWedding**         | `createWedding n/NAME`<br>Example: `createWedding n/John & Jane Wedding`                                                                                             |
+| **deleteWedding**         | `deleteWedding n/NAME`<br>Example: `deleteWedding n/John & Jane Wedding`                                                                                             |
+| **setWedding**            | `setWedding n/NAME`<br>Example: `setWedding n/Smith Wedding`                                                                                                         |
+| **weddingOverview**       | `weddingOverview`<br>Example: `weddingOverview`                                                                                                                      |
+| **addPerson**             | `addPerson n/NAME p/PHONE e/EMAIL a/ADDRESS d/DIETARY_RESTRICTION r/RSVP`<br/>Example: `addPerson n/John Doe p/12345678 e/johndoe@example.com a/123 Street d/Vegan r/YES` |
+| **deletePerson**          | `deletePerson INDEX`<br>Example: `deletePerson 3`                                                                                                                    |
+| **Find**                  | `Find KEYWORD`<br>Example: `Find John`                                                                                                                               |
+| **filterPersons**         | `filterPersons [d/DIETARY_RESTRICTION_FIELD] [r/RSVP_FIELD]`<br>Example: `filterPersons d/Vegan r/YES`                                                               |
+| **addTable**              | `addTable tid/TABLE_ID c/CAPACITY`<br>Example: `addTable tid/1 c/8`                                                                                                  |
+| **addPersonToTable**      | `addPersonToTable n/NAME tid/TABLE_ID`<br>Example: `addPersonToTable n/John Doe tid/1`                                                                               |
+| **deletePersonFromTable** | `deletePersonFromTable n/NAME tid/TABLE_ID`<br>Example: `deletePersonFromTable n/John Doe tid/1`                                                                     |
+| **deleteTable**           | `deleteTable tid/TABLE_ID`<br>Example: `deleteTable tid/1`                                                                                                           |
+| **findTable**             | `findTable [tid/TABLE_ID] [INDEX]`<br>Examples: `findTable tid/1` or `findTable 1`                                                                                   |
+| **getTables**             | `getTables`<br>Example: `getTables`                                                                                                                                  |
+| **Help**                  | `Help`                                                                                                                                                               |
+| **exit**                  | `exit`                                                                                                                                                               |
