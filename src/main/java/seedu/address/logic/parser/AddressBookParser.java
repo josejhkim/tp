@@ -24,7 +24,6 @@ import seedu.address.logic.commands.FilterPersonsCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.FindTableCommand;
 import seedu.address.logic.commands.GetAllTablesCommand;
-import seedu.address.logic.commands.GetRsvpListCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.SetWeddingCommand;
@@ -84,9 +83,6 @@ public class AddressBookParser {
 
         case CreateWeddingCommand.COMMAND_WORD:
             return new CreateWeddingCommandParser().parse(arguments);
-
-        case GetRsvpListCommand.COMMAND_WORD:
-            return new SeeRsvpListCommandParser().parse(arguments);
 
         case AddPersonCommand.COMMAND_WORD:
             return new AddCommandParser().parse(arguments);

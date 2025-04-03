@@ -172,19 +172,19 @@ an identifier and **not both**.
 
 ### Filtering Persons: `filterPersons`
 
-This command allows you to filter your list of persons by applying dietary restriction and/or RSVP status filters. 
+This command allows you to filter your list of persons by applying dietary restriction and/or RSVP status filters.
 You can use it to display only those persons who meet the criteria you specify.
 
-**Format:** 
+**Format:**
 `filterPersons [d/DIETARYRESTRICTION] [r/RSVP]`
 
 - Both parameters are optional for this command.
-- **Dietary Restriction Filter:** Use the prefix `d/` followed by a valid dietary restriction value 
+- **Dietary Restriction Filter:** Use the prefix `d/` followed by a valid dietary restriction value
 (e.g., `VEGAN`, `VEGETARIAN`). Include this if you want to filter persons based on dietary needs.
-- **RSVP Filter:** Use the prefix `r/` followed by a valid RSVP status (e.g., `YES`, `NO`). 
+- **RSVP Filter:** Use the prefix `r/` followed by a valid RSVP status (e.g., `YES`, `NO`).
 Include this if you want to filter persons by their RSVP response.
 
-You can provide one or both filters to narrow down your list. If no filters are specified, 
+You can provide one or both filters to narrow down your list. If no filters are specified,
 the command returns an unfiltered list of persons belonging to that wedding.
 
 ![List of filtered persons based on RSVP - No](images/UG-example-images/filterPersonExample.png)
@@ -258,7 +258,7 @@ Format: `exit`
 
 ### Saving the data
 
-WeddingHero data are saved in the hard disk automatically after any command that changes the data. There is no need to 
+WeddingHero data are saved in the hard disk automatically after any command that changes the data. There is no need to
 save manually.
 
 ### Editing the data file
@@ -294,6 +294,7 @@ No known issues.
 
 
 ## Command Summary
+
 
 | **Action**                | **Format, Examples**                                                                                                                                                 |
 |---------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
