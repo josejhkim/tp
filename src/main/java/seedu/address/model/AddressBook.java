@@ -6,6 +6,7 @@ import java.util.List;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.ToStringBuilder;
+import seedu.address.model.exceptions.NoCurrentWeddingException;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
@@ -268,8 +269,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void addPerson(Person person) {
         if (currentWedding == null) {
-            throw new IllegalStateException("No current wedding is set. Please set a current wedding before adding a "
-                + "person.");
+            throw new NoCurrentWeddingException();
         }
         currentWedding.addPerson(person);
         personList.add(person);

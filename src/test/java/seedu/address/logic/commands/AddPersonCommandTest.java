@@ -23,6 +23,7 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.exceptions.NoCurrentWeddingException;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.table.Table;
@@ -371,8 +372,7 @@ public class AddPersonCommandTest {
         @Override
         public void addPerson(Person person) {
             if (currentWedding == null) {
-                throw new IllegalStateException("No current wedding is set. Please set a current wedding before "
-                    + "adding a person.");
+                throw new NoCurrentWeddingException();
             }
             throw new AssertionError("This method should not be called.");
         }

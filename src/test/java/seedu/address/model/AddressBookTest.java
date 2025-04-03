@@ -17,6 +17,7 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.exceptions.NoCurrentWeddingException;
 import seedu.address.model.person.Person;
 import seedu.address.model.table.Table;
 import seedu.address.model.wedding.UniqueWeddingList;
@@ -88,6 +89,12 @@ public class AddressBookTest {
         assertTrue(addressBook.hasPerson(editedAlice));
     }
 
+    @Test
+    public void noCurrentWedding_addPerson_throwsNoCurrentWeddingException() {
+        AddressBookStubWithoutWedding addressBookStub = new AddressBookStubWithoutWedding();
+        assertThrows(NoCurrentWeddingException.class, () -> addressBookStub.addPerson(ALICE));
+    }
+
     //    To rewrite
 
     //    @Test
@@ -108,6 +115,11 @@ public class AddressBookTest {
         @Override
         public Wedding getCurrentWedding() {
             return null;
+        }
+
+        @Override
+        public void addPerson(Person person) {
+            throw new NoCurrentWeddingException();
         }
 
         @Override

@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.exceptions.NoCurrentWeddingException;
 import seedu.address.model.person.Person;
 
 /**
@@ -45,7 +46,7 @@ public class AddPersonCommand extends Command {
         }
         try {
             model.addPerson(person);
-        } catch (IllegalStateException e) {
+        } catch (NoCurrentWeddingException e) {
             throw new CommandException(MESSAGE_NO_WEDDING);
         }
         return new CommandResult(String.format(MESSAGE_SUCCESS, person));
