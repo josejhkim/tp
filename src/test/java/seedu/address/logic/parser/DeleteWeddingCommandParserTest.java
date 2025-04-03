@@ -1,12 +1,12 @@
 package seedu.address.logic.parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.DeleteWeddingCommand;
-import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
  * Unit tests for {@link DeleteWeddingCommandParser}.
@@ -25,6 +25,7 @@ public class DeleteWeddingCommandParserTest {
 
     @Test
     public void parse_emptyArgs_throwsParseException() {
-        assertThrows(ParseException.class, () -> parser.parse(""));
+        assertParseFailure(parser, "a",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteWeddingCommand.MESSAGE_USAGE));
     }
 }
