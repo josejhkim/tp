@@ -9,6 +9,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.table.exceptions.TableFullException;
 import seedu.address.model.table.exceptions.TableNotFoundException;
 
@@ -55,19 +56,26 @@ public class AddPersonToTableCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+
+        if (!model.hasCurrentWedding()) {
+            throw new CommandException("No current wedding set. Please use 'setWedding' first.");
+        }
+
         try {
             Person personToAdd = model.findPersonByName(guestName);
 
             model.addPersonToTableById(personToAdd, newTableId);
 
             return new CommandResult(String.format(MESSAGE_ADD_GUEST_TO_TABLE_SUCCESS,
-                personToAdd.getName().fullName, newTableId));
+                    personToAdd.getName().fullName, newTableId));
+
+        } catch (PersonNotFoundException e) {
+            throw new CommandException(String.format("Person '%s' not found in the guest list.", guestName.fullName));
         } catch (TableNotFoundException e) {
             throw new CommandException(String.format(MESSAGE_TABLE_NOT_FOUND, newTableId));
         } catch (TableFullException e) {
             throw new CommandException(String.format(MESSAGE_TABLE_FULL, newTableId));
         }
-
     }
 
     @Override

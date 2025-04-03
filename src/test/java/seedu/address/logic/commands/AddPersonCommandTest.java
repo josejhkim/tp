@@ -23,6 +23,7 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.exceptions.NoCurrentWeddingException;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.table.Table;
@@ -65,7 +66,17 @@ public class AddPersonCommandTest {
         model = new ModelStubWithPerson(validPerson);
 
         assertThrows(CommandException.class,
-                AddPersonCommand.MESSAGE_DUPLICATE_PERSON, () -> addPersonCommand.execute(model));
+            AddPersonCommand.MESSAGE_DUPLICATE_PERSON, () -> addPersonCommand.execute(model));
+    }
+
+    @Test
+    public void execute_noWedding_throwsCommandException() {
+        model = new ModelStubWithoutWedding();
+        Person validPerson = new PersonBuilder().build();
+        AddPersonCommand addPersonCommand = new AddPersonCommand(validPerson);
+
+        assertThrows(CommandException.class,
+            AddPersonCommand.MESSAGE_NO_WEDDING, () -> addPersonCommand.execute(model));
     }
 
     @Test
@@ -349,6 +360,38 @@ public class AddPersonCommandTest {
             return new AddressBook();
         }
 
+    }
+    private class ModelStubWithoutWedding extends ModelStub {
+        private Wedding currentWedding;
+        private final Person person = new PersonBuilder().withName("Bob").build();
+        @Override
+        public boolean hasPerson(Person person) {
+            requireNonNull(person);
+            return this.person.isSamePerson(person);
+        }
+        @Override
+        public void addPerson(Person person) {
+            if (currentWedding == null) {
+                throw new NoCurrentWeddingException();
+            }
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setCurrentWedding(Wedding wedding) {
+            this.currentWedding = wedding;
+        }
+
+        @Override
+        public Wedding getCurrentWedding() {
+            return currentWedding;
+        }
+
+
+        @Override
+        public boolean hasCurrentWedding() {
+            return currentWedding != null;
+        }
     }
 
 }

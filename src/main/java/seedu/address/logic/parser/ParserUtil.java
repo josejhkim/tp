@@ -15,7 +15,6 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Rsvp;
-import seedu.address.model.table.Table;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -172,12 +171,15 @@ public class ParserUtil {
      * @throws ParseException
      */
     public static int parseTableId(String tableId) throws ParseException {
-        String trimmedTableId = tableId.trim();
-        if (!StringUtil.isNonZeroUnsignedInteger(trimmedTableId)) {
-            throw new ParseException(Table.ID_CONSTRAINTS);
+        try {
+            int id = Integer.parseInt(tableId.trim());
+            if (id <= 0) {
+                throw new ParseException("Table ID must be a positive integer.");
+            }
+            return id;
+        } catch (NumberFormatException e) {
+            throw new ParseException("Invalid table ID. Must be an integer.");
         }
-
-        return Integer.parseInt(trimmedTableId);
     }
 
     /**
@@ -193,4 +195,24 @@ public class ParserUtil {
 
         return trimmedWeddingName;
     }
+
+    /**
+     * Parses a string into a positive integer representing table capacity.
+     *
+     * @param capStr The string containing the capacity to be parsed.
+     * @return The parsed capacity as a positive integer.
+     * @throws ParseException If the string is not a valid integer or the value is not positive.
+     */
+    public static int parseCapacity(String capStr) throws ParseException {
+        try {
+            int cap = Integer.parseInt(capStr.trim());
+            if (cap <= 0) {
+                throw new ParseException("Capacity must be a positive integer.");
+            }
+            return cap;
+        } catch (NumberFormatException e) {
+            throw new ParseException("Invalid capacity. Must be an integer.");
+        }
+    }
+
 }

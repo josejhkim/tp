@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -16,7 +17,8 @@ public class CreateWeddingCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Creates a new wedding.\n"
             + "Parameters: n/NAME\n"
-            + "Example: " + COMMAND_WORD + " John and Jane's Wedding";
+            + "Example: " + COMMAND_WORD + " " + PREFIX_NAME
+        + "John and Jane's Wedding";
 
     public static final String MESSAGE_SUCCESS = "New wedding created: %1$s";
     public static final String MESSAGE_EXISTING_WEDDING = "A wedding with the name '%s' already exists.";
