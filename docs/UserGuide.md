@@ -168,19 +168,19 @@ guest with the name `Johnny Wang`
 
 ### Filtering Persons: `filterPersons`
 
-This command allows you to filter your list of persons by applying dietary restriction and/or RSVP status filters. 
+This command allows you to filter your list of persons by applying dietary restriction and/or RSVP status filters.
 You can use it to display only those persons who meet the criteria you specify.
 
-**Format:** 
+**Format:**
 `filterPersons [d/DIETARYRESTRICTION] [r/RSVP]`
 
 - Both parameters are optional for this command.
-- **Dietary Restriction Filter:** Use the prefix `d/` followed by a valid dietary restriction value 
+- **Dietary Restriction Filter:** Use the prefix `d/` followed by a valid dietary restriction value
 (e.g., `VEGAN`, `VEGETARIAN`). Include this if you want to filter persons based on dietary needs.
-- **RSVP Filter:** Use the prefix `r/` followed by a valid RSVP status (e.g., `YES`, `NO`). 
+- **RSVP Filter:** Use the prefix `r/` followed by a valid RSVP status (e.g., `YES`, `NO`).
 Include this if you want to filter persons by their RSVP response.
 
-You can provide one or both filters to narrow down your list. If no filters are specified, 
+You can provide one or both filters to narrow down your list. If no filters are specified,
 the command returns an unfiltered list of persons belonging to that wedding.
 
 ![List of filtered persons based on RSVP - No](images/UG-example-images/filterPersonExample.png)
@@ -265,7 +265,7 @@ Format: `exit`
 
 ### Saving the data
 
-WeddingHero data are saved in the hard disk automatically after any command that changes the data. There is no need to 
+WeddingHero data are saved in the hard disk automatically after any command that changes the data. There is no need to
 save manually.
 
 ### Editing the data file
@@ -305,7 +305,7 @@ Action                 | Format, Examples
 **Set Wedding**        | `setWedding WEDDINGNAME`<br>e.g., `setWedding John & Jane Wedding`<br>e.g., `setWedding Smith Wedding`
 **Wedding Overview**   | `weddingOverview`
 **Add Person**          | `addGuest n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS d/DIETARY_RESTRICTION r/RSVP`<br>e.g., `addGuest n/John Doe p/12345678 e/johndoe@example.com a/123 Street d/None r/YES`
-**Delete Person**       | `deleteGuest [n/NAME] [p/PHONE_NUMBER]`<br>e.g., `deleteGuest p/12341234`<br>e.g.,`deleteGuest n/Johnny Wang` 
+**Delete Person**       | `deleteGuest [n/NAME] [p/PHONE_NUMBER]`<br>e.g., `deleteGuest p/12341234`<br>e.g.,`deleteGuest n/Johnny Wang`
 **Add Table**          | `addTable tableID/TABLEID CAPACITY`<br>e.g., `addTable tableID/12 8`
 **Delete Table**       | `deleteTable tableID/TABLEID`<br>e.g., `deleteTable tableID/12`
 **List Tables**        | `getTables`
