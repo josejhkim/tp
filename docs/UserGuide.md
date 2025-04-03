@@ -573,4 +573,6 @@ the data of your previous WeddingHero home folder.
 | **findTable**             | `findTable [tid/TABLE_ID] [INDEX]`<br>Examples: `findTable tid/1` or `findTable 1`                                                                                   |
 | **getTables**             | `getTables`<br>Example: `getTables`                                                                                                                                  |
 | **Help**                  | `Help`                                                                                                                                                               |
-| **exit**                  | `exit`                                                                                                                                                               |
+| **exit**                  | `exit`                                     
+
+
