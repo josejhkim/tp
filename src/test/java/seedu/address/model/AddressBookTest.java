@@ -101,7 +101,25 @@ public class AddressBookTest {
     //        assertEquals(expected, addressBook.toString());
     //    }
 
+    /**
+     * A stub AddressBook without a current wedding set.
+     */
+    private static class AddressBookStubWithoutWedding extends AddressBook {
+        @Override
+        public Wedding getCurrentWedding() {
+            return null;
+        }
 
+        @Override
+        public ObservableList<Person> getPersonList() {
+            return FXCollections.observableArrayList();
+        }
+
+        @Override
+        public ObservableList<Table> getTableList() {
+            return FXCollections.observableArrayList();
+        }
+    }
     /**
      * A stub ReadOnlyAddressBook whose persons list can violate interface constraints.
      */
@@ -141,6 +159,7 @@ public class AddressBookTest {
         public boolean hasCurrentWedding() {
             return true;
         }
+
 
         @Override
         public ObservableList<Wedding> getWeddingList() {

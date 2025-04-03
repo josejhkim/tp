@@ -146,7 +146,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * @return the current Wedding
      */
     public Wedding getCurrentWedding() {
-        return this.currentWedding;
+        return currentWedding;
     }
 
     public Wedding getWeddingByName(String weddingName) {
@@ -267,8 +267,12 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Adds a person to the address book. The person must not already exist in the address book.
      */
     public void addPerson(Person person) {
+        if (currentWedding == null) {
+            throw new IllegalStateException("No current wedding is set. Please set a current wedding before adding a "
+                + "person.");
+        }
+        currentWedding.addPerson(person);
         personList.add(person);
-        getCurrentWedding().addPerson(person);
     }
 
     /**

@@ -19,6 +19,9 @@ public class AddPersonCommand extends Command {
         + "n/John Doe p/12345678 e/johndoe@example.com a/123 Street d/None r/YES";
 
     public static final String MESSAGE_SUCCESS = "Person added to wedding: %1$s";
+
+    public static final String MESSAGE_NO_WEDDING = "No wedding is currently set. Please set a wedding before adding a "
+        + "person.";
     private final Person person;
     /**
      * Creates an AddGuestCommand to add the specified {@code Person} to the rsvp list in the current wedding.
@@ -37,12 +40,14 @@ public class AddPersonCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-
         if (model.hasPerson(person)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
-
-        model.addPerson(person);
+        try {
+            model.addPerson(person);
+        } catch (IllegalStateException e) {
+            throw new CommandException(MESSAGE_NO_WEDDING);
+        }
         return new CommandResult(String.format(MESSAGE_SUCCESS, person));
     }
 
