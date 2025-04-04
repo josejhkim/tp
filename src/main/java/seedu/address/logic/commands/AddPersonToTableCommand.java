@@ -9,9 +9,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.exceptions.PersonNotFoundException;
-import seedu.address.model.table.exceptions.TableFullException;
-import seedu.address.model.table.exceptions.TableNotFoundException;
+
 
 /**
  * Adds the guest to the specified table.
@@ -53,6 +51,32 @@ public class AddPersonToTableCommand extends Command {
         this.newTableId = newTableId;
     }
 
+    // @Override
+    // public CommandResult execute(Model model) throws CommandException {
+    //     requireNonNull(model);
+    //
+    //     if (!model.hasCurrentWedding()) {
+    //         throw new CommandException("No current wedding set. Please use 'setWedding' first.");
+    //     }
+    //
+    //     try {
+    //         Person personToAdd = model.findPersonByName(guestName);
+    //
+    //         model.addPersonToTableById(personToAdd, newTableId);
+    //
+    //         return new CommandResult(String.format(MESSAGE_ADD_GUEST_TO_TABLE_SUCCESS,
+    //                 personToAdd.getName().fullName, newTableId));
+    //
+    //     } catch (PersonNotFoundException e) {
+    //         throw new CommandException(String.format("Person '%s' not found in the guest list.",
+    //         guestName.fullName));
+    //     } catch (TableNotFoundException e) {
+    //         throw new CommandException(String.format(MESSAGE_TABLE_NOT_FOUND, newTableId));
+    //     } catch (TableFullException e) {
+    //         throw new CommandException(String.format(MESSAGE_TABLE_FULL, newTableId));
+    //     }
+    // }
+
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
@@ -61,22 +85,13 @@ public class AddPersonToTableCommand extends Command {
             throw new CommandException("No current wedding set. Please use 'setWedding' first.");
         }
 
-        try {
-            Person personToAdd = model.findPersonByName(guestName);
+        Person personToAdd = model.findPersonByName(guestName); // now throws only CommandException
+        model.addPersonToTableById(personToAdd, newTableId);
 
-            model.addPersonToTableById(personToAdd, newTableId);
-
-            return new CommandResult(String.format(MESSAGE_ADD_GUEST_TO_TABLE_SUCCESS,
-                    personToAdd.getName().fullName, newTableId));
-
-        } catch (PersonNotFoundException e) {
-            throw new CommandException(String.format("Person '%s' not found in the guest list.", guestName.fullName));
-        } catch (TableNotFoundException e) {
-            throw new CommandException(String.format(MESSAGE_TABLE_NOT_FOUND, newTableId));
-        } catch (TableFullException e) {
-            throw new CommandException(String.format(MESSAGE_TABLE_FULL, newTableId));
-        }
+        return new CommandResult(String.format(MESSAGE_ADD_GUEST_TO_TABLE_SUCCESS,
+                personToAdd.getName().fullName, newTableId));
     }
+
 
     @Override
     public boolean equals(Object other) {

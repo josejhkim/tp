@@ -87,7 +87,7 @@ public class AddPersonToTableCommandTest {
         AddPersonToTableCommand command = new AddPersonToTableCommand(guestName, 999);
         CommandException ex = assertThrows(CommandException.class, () -> command.execute(model));
 
-        assertEquals("Table with id 999 not found!", ex.getMessage());
+        assertEquals("Table with ID 999 does not exist.", ex.getMessage());
     }
 
     @Test
@@ -110,7 +110,7 @@ public class AddPersonToTableCommandTest {
         AddPersonToTableCommand command = new AddPersonToTableCommand(guestName, 2);
         CommandException ex = assertThrows(CommandException.class, () -> command.execute(model));
 
-        assertEquals("Table with ID 2 is full!", ex.getMessage());
+        assertEquals("Table with ID 2 is full.", ex.getMessage());
     }
 
     @Test

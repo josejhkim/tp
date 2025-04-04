@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.table.Table;
@@ -77,7 +78,7 @@ public interface Model {
      */
     void addPerson(Person person);
 
-    Person findPersonByName(Name name);
+    Person findPersonByName(Name name) throws CommandException;
 
     /**
      * Replaces the given person {@code target} with {@code editedPerson}.
@@ -108,12 +109,12 @@ public interface Model {
 
     void addPersonToTable(Person p, Table table);
 
-    void addPersonToTableById(Person p, int tableId);
+    void addPersonToTableById(Person p, int tableId) throws CommandException;
 
     void deletePersonFromTable(Person p, Table table);
 
 
-    void deletePersonFromTableById(Person p, int tableId);
+    void deletePersonFromTableById(Person p, int tableId) throws CommandException;
 
     void setTable(Table target, Table editedTable);
 
