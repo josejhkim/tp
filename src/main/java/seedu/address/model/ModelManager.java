@@ -13,9 +13,13 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.table.Table;
+import seedu.address.model.table.exceptions.TableFullException;
+import seedu.address.model.table.exceptions.TableNotFoundException;
 import seedu.address.model.wedding.Wedding;
 import seedu.address.model.wedding.exceptions.WeddingNotFoundException;
 
@@ -155,10 +159,13 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedPerson);
         addressBook.setPerson(target, editedPerson);
     }
-
     @Override
-    public Person findPersonByName(Name name) {
-        return addressBook.findPersonByName(name);
+    public Person findPersonByName(Name name) throws CommandException {
+        try {
+            return addressBook.findPersonByName(name);
+        } catch (PersonNotFoundException e) {
+            throw new CommandException("Person '" + name.fullName + "' not found in the guest list.");
+        }
     }
 
     //=========== Tables ================================================================================
@@ -194,10 +201,15 @@ public class ModelManager implements Model {
     public void addPersonToTable(Person p, Table table) {
         addressBook.addPersonToTable(p, table);
     }
-
     @Override
-    public void addPersonToTableById(Person p, int tableId) {
-        addressBook.addPersonToTableById(p, tableId);
+    public void addPersonToTableById(Person p, int tableId) throws CommandException {
+        try {
+            addressBook.addPersonToTableById(p, tableId);
+        } catch (TableNotFoundException e) {
+            throw new CommandException("Table with ID " + tableId + " does not exist.");
+        } catch (TableFullException e) {
+            throw new CommandException("Table with ID " + tableId + " is full.");
+        }
     }
 
     @Override
@@ -206,9 +218,19 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void deletePersonFromTableById(Person p, int tableId) {
-        addressBook.deletePersonFromTable(p, tableId);
+    public void deletePersonFromTableById(Person person, int tableId) throws CommandException {
+        try {
+            Table table = findTableById(tableId);
+            table.findPerson(person); // throws PersonNotFoundException if not in table
+            addressBook.deletePersonFromTable(person, table);
+        } catch (TableNotFoundException e) {
+            throw new CommandException(String.format("Table with ID %d does not exist.", tableId));
+        } catch (PersonNotFoundException e) {
+            throw new CommandException(String.format("Person '%s' is not assigned to Table %d.",
+                    person.getName().fullName, tableId));
+        }
     }
+
 
     @Override
     public Table findTableById(int tableId) {

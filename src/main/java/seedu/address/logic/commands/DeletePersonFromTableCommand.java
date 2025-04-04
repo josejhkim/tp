@@ -9,8 +9,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.exceptions.PersonNotFoundException;
-import seedu.address.model.table.Table;
+
 
 /**
  * Deletes a guest from the given table.
@@ -50,39 +49,12 @@ public class DeletePersonFromTableCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        // 1. Check if wedding is set
         if (!model.hasCurrentWedding()) {
             throw new CommandException("No current wedding set. Please use 'setWedding' first.");
         }
 
-        // 2. Try to find the person by name, catch if not found
-        Person guestToRemove;
-        try {
-            guestToRemove = model.findPersonByName(guestName);
-        } catch (seedu.address.model.person.exceptions.PersonNotFoundException e) {
-            throw new CommandException(String.format("Person '%s' not found in the guest list.", guestName.fullName));
-        }
-
-        // 3. Check if the table exists
-        if (!model.hasTable(oldTableId)) {
-            throw new CommandException(String.format("Table with ID %d does not exist.", oldTableId));
-        }
-
-        Table table = model.getCurrentWedding().findTableById(oldTableId);
-        if (table == null) {
-            throw new CommandException(String.format("Table with ID %d could not be found.", oldTableId));
-        }
-
-        // 4. Check if the person is assigned to the table
-        try {
-            table.findPerson(guestToRemove); // throws if not assigned
-        } catch (PersonNotFoundException e) {
-            throw new CommandException(String.format("Person '%s' is not assigned to Table %d.",
-                    guestName.fullName, oldTableId));
-        }
-
-        // 5. Safe to delete
-        model.deletePersonFromTableById(guestToRemove, oldTableId);
+        Person guestToRemove = model.findPersonByName(guestName); // throws CommandException
+        model.deletePersonFromTableById(guestToRemove, oldTableId); // throws CommandException
 
         return new CommandResult(String.format(MESSAGE_REMOVED_GUEST_FROM_TABLE_SUCCESS,
                 guestToRemove.getName().fullName, oldTableId));

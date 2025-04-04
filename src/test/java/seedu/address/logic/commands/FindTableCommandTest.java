@@ -28,7 +28,7 @@ public class FindTableCommandTest {
     private final Name guestName = new Name("Guest A");
 
     @BeforeEach
-    public void setUp() {
+    public void setUp() throws CommandException {
         model = new ModelManager();
         Wedding wedding = new Wedding("Test Wedding");
         model.addWedding(wedding);

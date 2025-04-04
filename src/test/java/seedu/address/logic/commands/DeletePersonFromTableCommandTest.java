@@ -28,7 +28,7 @@ public class DeletePersonFromTableCommandTest {
     private Person guest;
 
     @BeforeEach
-    public void setUp() {
+    public void setUp() throws CommandException {
         model = new ModelManager();
         Wedding currentWedding = new Wedding("John and Jane's Wedding");
         model.addWedding(currentWedding);
