@@ -269,7 +269,8 @@ Details:
 
 - All fields are mandatory and must follow the exact format.
 - A person is identified by their name. 
-- Multiple persons can have the same number since children may not have a phone number, and it would be more flexible 
+- Multiple persons can have the same phone number since children may not have a phone number, and it would be more 
+  flexible 
   to allow guests to select their point of contact
 
 Each prefix represents a specific attribute of the person:
