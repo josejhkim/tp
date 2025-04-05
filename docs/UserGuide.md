@@ -187,13 +187,11 @@ Creates a new wedding in the wedding planner.
 
 ### Setting a Wedding : `setWedding`
 
-Sets a specific wedding as the active wedding, enabling modifications such as editing person lists and other wedding
-details.
+Sets a specific wedding as the active wedding, enabling modifications such as adding a person to a wedding and 
+assigning a person to a wedding's table.
 
-**Format:**
-```
-setWedding WEDDINGNAME
-```
+**Format:** `setWedding WEDDINGNAME`
+
 
 - Sets the active wedding context to the wedding with the provided **`WEDDINGNAME`**.
 - Activates a previously created wedding identified by WEDDINGNAME.
@@ -212,27 +210,21 @@ setWedding WEDDINGNAME
 
 Provides an overview of the current active wedding, including details such as the number of tables and persons.
 
-**Format:**
-```
-weddingOverview
-```
+**Format:** `weddingOverview`
 
 - Retrieves a summary overview of the active wedding.
 - No additional arguments are required.
 - The overview includes key details such as the number of tables and persons and the list of persons invited.
 
 **Examples:**
-- Running `weddingOverview` after setting an active wedding displays the wedding's summary details.
+- Running `weddingOverview` after setting an active wedding displays a summary of the wedding, including number of 
+  persons attending and number of tables.
 
 ### Deleting a Wedding : `deleteWedding`
 
-
 Deletes a wedding from the system by name.
 
-**Format:**
-```
-deleteWedding WEDDINGNAME
-```
+**Format:** `deleteWedding WEDDINGNAME`
 
 - Permanently deletes the wedding identified by WEDDINGNAME.
 - WEDDINGNAME must match the exact name of the wedding you created. The comparison is case-insensitive but spacing 
@@ -252,10 +244,8 @@ Examples:
 
 Adds a person to the currently active wedding’s person list.
 
-**Format:**
-```
-addPerson n/NAME p/PHONE e/EMAIL a/ADDRESS d/DIETARYRESTRICTION r/RSVP
-```
+**Format:** `addPerson n/NAME p/PHONE e/EMAIL a/ADDRESS d/DIETARYRESTRICTION r/RSVP`
+
 Details:
 
 - All fields are mandatory.
@@ -297,10 +287,8 @@ addPerson n/Alex Tan p/87654321 e/alex@example.com a/456 Avenue d/VEGAN r/NO
 
 Deletes a person from the currently active wedding's person list, using their displayed index number.
 
-**Format:**
-```
-deletePerson INDEX
-```
+**Format:** `deletePerson INDEX`
+
 Details:
 INDEX: A positive integer corresponding to the person's number in the displayed person list.
 (e.g., from a previous list or filterPersons command)
@@ -322,10 +310,8 @@ based on the currently displayed list. </box>
 This command allows you to filter your list of persons by applying dietary restriction and/or RSVP status filters.
 You can use it to display only those persons who meet the criteria you specify.
 
-**Format:**
-```
-filterPersons [d/DIETARYRESTRICTION] [r/RSVP]
-```
+**Format:** `filterPersons [d/DIETARYRESTRICTION] [r/RSVP]`
+
 - Both parameters are optional for this command.
 - Note that you can only key in one of each parameter for this command.
 - Using invalid prefixes such as `filterPersons n/John` will be treated as `filterPersons` as if no prefixes are given.
@@ -414,10 +400,8 @@ Finds a table by its ID.
 ### Adding a Person to a Table: addPersonToTable
 Assigns a Person to a specified Table within the currently active wedding.
 
-**Format:**
-```
-addPersonToTable n/NAME tid/INDEX  
-```
+**Format:** `addPersonToTable n/NAME tid/INDEX
+`  
 - Searches for the table with the specified `TABLEID`.
 - The parameter `TABLEID` should exactly match the table's identifier number.
 - Useful for quickly locating a specific table in the wedding layout.
@@ -428,10 +412,8 @@ addPersonToTable n/NAME tid/INDEX
 ### Removing a Person from a Table: deletePersonFromTable
 Removes a person from a table in the currently active wedding.
 
-**Format**:
-```
-deletePersonFromTable n/NAME tid/INDEX  
-```
+**Format**: `deletePersonFromTable n/NAME tid/INDEX
+`  
 - deletePersonFromTable n/NAME tid/TABLEID
 - NAME is the name of the person displayed on the list
 
