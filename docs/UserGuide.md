@@ -263,7 +263,7 @@ Adds a person to the currently active wedding’s person list.
 
 **Format:**
 ```
-addPerson n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS d/DIETARY_RESTRICTION r/RSVP
+addPerson n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS d/DIETARYRESTRICTION r/RSVP
 ```
 Details:
 
@@ -281,11 +281,12 @@ Each prefix represents a specific attribute of the person:
 - r/ → RSVP status (YES or NO, NO_RESPONSE)
 
 
-<box type="tip" seamless> Refer to the dietary restriction section below to see the full list of dietary restrictions to choose from.
+<box type="tip" seamless> Refer to the dietary restriction section below to see the full list of dietary 
+restrictions to choose from.
 </box>
 
 
-Allowed DIETARY_RESTRICTION values:
+Allowed DIETARYRESTRICTION values:
 - NONE
 - VEGETARIAN
 - VEGAN
@@ -301,7 +302,8 @@ Allowed RSVP values:
 - YES
 - NO
 - NO_RESPONSE (if not yet responded)
-  **Examples:**
+
+**Examples:**
 ```
 addPerson n/John Doe p/12345678 e/johndoe@example.com a/123 Street d/NONE r/YES
 addPerson n/Alex Tan p/87654321 e/alex@example.com a/456 Avenue d/VEGAN r/NO
@@ -516,10 +518,10 @@ the data of your previous WeddingHero home folder.
 | **deleteWedding**         | `deleteWedding n/NAME`<br>Example: `deleteWedding n/John & Jane Wedding`                                                                                             |
 | **setWedding**            | `setWedding n/NAME`<br>Example: `setWedding n/Smith Wedding`                                                                                                         |
 | **weddingOverview**       | `weddingOverview`<br>Example: `weddingOverview`                                                                                                                      |
-| **addPerson**             | `addPerson n/NAME p/PHONE e/EMAIL a/ADDRESS d/DIETARY_RESTRICTION r/RSVP`<br/>Example: `addPerson n/John Doe p/12345678 e/johndoe@example.com a/123 Street d/Vegan r/YES` |
+| **addPerson**             | `addPerson n/NAME p/PHONE e/EMAIL a/ADDRESS d/DIETARYRESTRICTION r/RSVP`<br/>Example: `addPerson n/John Doe p/12345678 e/johndoe@example.com a/123 Street d/Vegan r/YES` |
 | **deletePerson**          | `deletePerson INDEX`<br>Example: `deletePerson 3`                                                                                                                    |
 | **Find**                  | `Find KEYWORD`<br>Example: `Find John`                                                                                                                               |
-| **filterPersons**         | `filterPersons [d/DIETARY_RESTRICTION_FIELD] [r/RSVP_FIELD]`<br>Example: `filterPersons d/Vegan r/YES`                                                               |
+| **filterPersons**         | `filterPersons [d/DIETARYRESTRICTION] [r/RSVP_FIELD]`<br>Example: `filterPersons d/Vegan r/YES`                                                               |
 | **addTable**              | `addTable tid/TABLE_ID c/CAPACITY`<br>Example: `addTable tid/1 c/8`                                                                                                  |
 | **addPersonToTable**      | `addPersonToTable n/NAME tid/TABLE_ID`<br>Example: `addPersonToTable n/John Doe tid/1`                                                                               |
 | **deletePersonFromTable** | `deletePersonFromTable n/NAME tid/TABLE_ID`<br>Example: `deletePersonFromTable n/John Doe tid/1`                                                                     |
