@@ -264,6 +264,7 @@ Each prefix represents a specific attribute of the person:
 <box type="tip" seamless> Refer to the full list of `DIETARYRESTRICTION` values to choose from below. 
 </box>
 
+<a id="allowed-dietary-restrictions"></a>
 Allowed `DIETARYRESTRICTION` values:
 - NONE
 - VEGETARIAN
@@ -317,12 +318,10 @@ You can use it to display only those persons who meet the criteria you specify.
 - Adding anything after filterPersons that isn't a valid prefix such as `filterPersons n/John` or `filterPersons 
 someword` will be treated as `filterPersons` as if no filter is applied.
 - **Dietary Restriction Filter:** Use the prefix `d/` followed by a valid dietary restriction value
-  (e.g., `VEGAN`, `VEGETARIAN`). Include this if you want to filter persons based on dietary needs.
-- **RSVP Filter:** Use the prefix `r/` followed by a valid RSVP status (e.g., `YES`, `NO`).
+  (e.g., `VEGAN`, `VEGETARIAN`). Include this if you want to filter persons based on dietary needs. Please see 
+  [Allowed Dietary Restrictions](#allowed-dietary-restrictions) for the full list of dietary restrictions to filter by.
+- **RSVP Filter:** Use the prefix `r/` followed by a valid RSVP status (e.g., `YES`).
   Include this if you want to filter persons by their RSVP response.
-
-You can provide one or both filters to narrow down your list. If no filters are specified,
-the command returns an unfiltered list of persons belonging to that wedding.
 
 <img src="images/UG-example-images/filterPersonExample.png" alt="List of filtered persons based on RSVP - No" style="max-width: 70%; height: auto;" />
 
