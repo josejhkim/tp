@@ -263,30 +263,27 @@ Adds a person to the currently active wedding’s person list.
 
 **Format:**
 ```
-addPerson n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS d/DIETARYRESTRICTION r/RSVP
+addPerson n/NAME p/PHONE e/EMAIL a/ADDRESS d/DIETARYRESTRICTION r/RSVP
 ```
 Details:
 
-- All fields are mandatory and must follow the exact format.
-- A person is identified by their name only. 
-- Multiple persons can have the same contact information such as phone number or email since children may not have a 
+- All fields are mandatory.
+- A person is identified by their `NAME` only. 
+- Multiple persons can have the same contact information such as `PHONE` or `EMAIL` since children may not have a 
   phone number, and it would be more flexible to allow guests to select their point of contact.
 
 Each prefix represents a specific attribute of the person:
-- n/ → Full name (e.g., John Doe)
-- p/ → Phone number (e.g., 12345678)
-- e/ → Email address (e.g., johndoe@example.com)
-- a/ → Address (e.g., 123 Street)
-- d/ → Dietary Restriction (must be selected from approved list below)
-- r/ → RSVP status (YES or NO, NO_RESPONSE)
+- `n/` → Full name (e.g., John Doe)
+- `p/` → Phone number (e.g., 12345678)
+- `e/` → Email address (e.g., johndoe@example.com)
+- `a/` → Address (e.g., 123 Street)
+- `d/` → Dietary Restriction (must be selected from approved list below)
+- `r/` → RSVP status (`YES`, `NO`, `NO_RESPONSE`)
 
-
-<box type="tip" seamless> Refer to the dietary restriction section below to see the full list of dietary 
-restrictions to choose from.
+<box type="tip" seamless> Refer to the full list of `DIETARYRESTRICTION` values to choose from below. 
 </box>
 
-
-Allowed DIETARYRESTRICTION values:
+Allowed `DIETARYRESTRICTION` values:
 - NONE
 - VEGETARIAN
 - VEGAN
@@ -297,11 +294,6 @@ Allowed DIETARYRESTRICTION values:
 - FISH
 - SOY
 - SESAME
-
-Allowed RSVP values:
-- YES
-- NO
-- NO_RESPONSE (if not yet responded)
 
 **Examples:**
 ```
@@ -345,7 +337,7 @@ filterPersons [d/DIETARYRESTRICTION] [r/RSVP]
 ```
 - Both parameters are optional for this command.
 - Note that you can only key in one of each parameter for this command.
-- Using invalid prefixes such as `n/NAME` will be treated as `filterPersons` as if no prefixes are given 
+- Using invalid prefixes such as `filterPersons n/John` will be treated as `filterPersons` as if no prefixes are given.
 - **Dietary Restriction Filter:** Use the prefix `d/` followed by a valid dietary restriction value
   (e.g., `VEGAN`, `VEGETARIAN`). Include this if you want to filter persons based on dietary needs.
 - **RSVP Filter:** Use the prefix `r/` followed by a valid RSVP status (e.g., `YES`, `NO`).
