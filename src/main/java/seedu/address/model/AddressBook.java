@@ -60,16 +60,6 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-    * Replaces the contents of the person list with {@code persons}.
-    * {@code persons} must not contain duplicate persons.
-    *
-    * @param persons the UniquePersonList to set
-    */
-    public void setPersons(UniquePersonList persons) {
-        this.getCurrentWedding().setPersons(persons);
-    }
-
-    /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      *
      * @param newData the new data to reset to
@@ -309,6 +299,10 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Removes {@code key} from this {@code AddressBook}. {@code key} must exist in the address book.
      */
     public void deletePerson(Person key) {
+        requireNonNull(key);
+        if (key.isSeated()) {
+            deletePersonFromTable(key, key.getTableId());
+        }
         personList.delete(key);
         getCurrentWedding().deletePerson(key);
     }
@@ -402,9 +396,15 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void addPersonToTable(Person p, Table table) {
         int tableId = table.getTableId();
+        int oldTableId = p.getTableId();
+
         getCurrentWedding().addPersonToTable(p, table);
         personList.setPerson(p, new Person(p, tableId));
         tableList.setTable(table, getCurrentWedding().findTableById(tableId));
+        if (oldTableId > -1) {
+            tableList.setTable(getCurrentWedding().findTableById(oldTableId),
+                getCurrentWedding().findTableById(oldTableId));
+        }
     }
 
     /**

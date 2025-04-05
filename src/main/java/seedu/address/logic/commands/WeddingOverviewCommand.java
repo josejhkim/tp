@@ -4,6 +4,7 @@ import java.util.List;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.exceptions.NoCurrentWeddingException;
 import seedu.address.model.person.Person;
 import seedu.address.model.table.UniqueTableList;
 import seedu.address.model.wedding.Wedding;
@@ -33,37 +34,38 @@ public class WeddingOverviewCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        Wedding wedding = model.getCurrentWedding();
-        if (wedding == null) {
-            throw new CommandException(MESSAGE_NO_WEDDING);
-        }
+        try {
+            Wedding wedding = model.getCurrentWedding();
 
-        // ✅ Ensure TableList and RsvpList are properly initialized
-        UniqueTableList tableList = model.getCurrentWedding().getTableList();
+            // ✅ Ensure TableList and RsvpList are properly initialized
+            UniqueTableList tableList = model.getCurrentWedding().getTableList();
 
-        if (tableList == null) {
-            tableList = new UniqueTableList();
-        }
-
-        int tableCount = tableList.asUnmodifiableObservableList().size();
-        List<Person> guests = model.getFilteredPersonList();
-        int guestCount = guests.size();
-
-
-        StringBuilder guestListFormatted = new StringBuilder();
-        if (guests.isEmpty()) {
-            guestListFormatted.append("No guests added yet.");
-        } else {
-            for (Person guest : guests) {
-                guestListFormatted.append(guest.toString()).append("\n");
+            if (tableList == null) {
+                tableList = new UniqueTableList();
             }
-        }
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS,
+            int tableCount = tableList.asUnmodifiableObservableList().size();
+            List<Person> guests = model.getFilteredPersonList();
+            int guestCount = guests.size();
+
+
+            StringBuilder guestListFormatted = new StringBuilder();
+            if (guests.isEmpty()) {
+                guestListFormatted.append("No guests added yet.");
+            } else {
+                for (Person guest : guests) {
+                    guestListFormatted.append(guest.toString()).append("\n");
+                }
+            }
+
+            return new CommandResult(String.format(MESSAGE_SUCCESS,
                 wedding.getName(),
                 tableCount,
                 guestCount,
                 guestListFormatted.toString().trim()));
+        } catch (NoCurrentWeddingException ncwe) {
+            throw new CommandException(MESSAGE_NO_WEDDING);
+        }
     }
 
     @Override
