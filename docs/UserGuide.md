@@ -297,10 +297,10 @@ INDEX: A positive integer corresponding to the person's number in the displayed 
 - If the index is invalid or out of range, the system will show an error.
 - Deletion is permanent and cannot be undone.
 
-```
-deletePerson 1     // Deletes the first person shown in the list
-deletePerson 3     // Deletes the third person shown in the list
-```
+**Examples:**
+- Running `deletePerson 1` deletes the first person shown in the list.
+- Running `deletePerson 3` deletes the third person shown in the list.
+
 <box type="warning" seamless> Make sure you're viewing the correct list of persons before deleting — the index is 
 based on the currently displayed list. </box>
 
