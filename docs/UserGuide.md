@@ -290,8 +290,8 @@ You can use it to display only those persons who meet the criteria you specify.
 
 **Format:** `filterPersons [d/DIETARYRESTRICTION] [r/RSVP]`
 
-- Both prefixes `d/` and `r/` are optional for this command. But at least one of the prefixes have to be used for 
-  this command.
+- Both prefixes `d/` and `r/` are optional for this command. But at least one of the prefixes must be used for this 
+  command.
 - Note that each prefix can only be used at most once using the command. `filterPersons r/NO r/YES` will result in 
   an error.
 - **Dietary Restriction Filter:** Use the prefix `d/` followed by a valid dietary restriction value
