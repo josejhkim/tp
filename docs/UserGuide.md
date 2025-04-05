@@ -258,14 +258,14 @@ Each prefix represents a specific attribute of the person:
 - `p/` → Phone number (e.g., 12345678)
 - `e/` → Email address (e.g., johndoe@example.com)
 - `a/` → Address (e.g., 123 Street)
-- `d/` → Dietary Restriction (must be selected from approved list below)
-- `r/` → RSVP status (`YES`, `NO`, `NO_RESPONSE`)
+- `d/` → Dietary Restriction (must be selected from [Allowed Dietary Restrictions](#allowed-dietary-restrictions))
+- `r/` → RSVP status (must be selected from [Allowed RSVP Values](#allowed-rsvp-values))
 
 <box type="tip" seamless> Refer to the full list of `DIETARYRESTRICTION` values to choose from below. 
 </box>
 
 <a id="allowed-dietary-restrictions"></a>
-Allowed `DIETARYRESTRICTION` values:
+**Allowed `DIETARYRESTRICTION` values:**
 - NONE
 - VEGETARIAN
 - VEGAN
@@ -276,6 +276,12 @@ Allowed `DIETARYRESTRICTION` values:
 - FISH
 - SOY
 - SESAME
+
+<a id="allowed-rsvp-values"></a>
+**Allowed `RSVP` values:**
+- YES
+- NO
+- NO_RESPONSE
 
 **Examples:**
 ```
@@ -319,9 +325,10 @@ You can use it to display only those persons who meet the criteria you specify.
 someword` will be treated as `filterPersons` as if no filter is applied.
 - **Dietary Restriction Filter:** Use the prefix `d/` followed by a valid dietary restriction value
   (e.g., `VEGAN`, `VEGETARIAN`). Include this if you want to filter persons based on dietary needs. Please see 
-  [Allowed Dietary Restrictions](#allowed-dietary-restrictions) for the full list of dietary restrictions to filter by.
+  [Allowed Dietary Restrictions](#allowed-dietary-restrictions) for the full list of `DIETARYRESTRICTIONS` to filter by.
 - **RSVP Filter:** Use the prefix `r/` followed by a valid RSVP status (e.g., `YES`).
-  Include this if you want to filter persons by their RSVP response.
+  Include this if you want to filter persons by their RSVP status. Please see 
+ [Allowed RSVP Values](#allowed-rsvp-values) for the full list of `RSVP` status to filter by
 
 <img src="images/UG-example-images/filterPersonExample.png" alt="List of filtered persons based on RSVP - No" style="max-width: 70%; height: auto;" />
 
