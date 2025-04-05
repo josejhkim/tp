@@ -90,7 +90,8 @@ traditional mouse-based applications.
 
 5. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will
    open the help window.<br>
-- `addPerson n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 d/None r/YES` : Adds a person named John Doe with RSVP status and dietary preference to the active wedding.
+- `addPerson n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 d/None r/YES` : Adds a 
+  person named John Doe with RSVP status and dietary preference to the active wedding.
 - `createWedding n/Jack and Jill's Wedding` : Creates a new wedding called "Jack and Jill's Wedding". 
 - `exit` : Exits the application.
 
@@ -116,7 +117,8 @@ traditional mouse-based applications.
   e.g., `filterPersons [d/DietaryRestriction] [r/RSVP]`.
 
 <box>
-⚠️ PDF Warning: If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
+⚠️ PDF Warning: If you are using a PDF version of this document, be careful when copying and pasting commands that 
+span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
 </box>
 
 --------------------------------------------------------------------------------------------------------------------
@@ -187,7 +189,8 @@ Creates a new wedding in the wedding planner.
 <box type="tip" seamless>
 - After using createWedding, remember to set the wedding as active using:
   setWedding John & Jane Wedding
-- Always match spacing exactly when setting or referring to a wedding — "John&JaneWedding" is not the same as "John & Jane Wedding".
+- Always match spacing exactly when setting or referring to a wedding — "John&JaneWedding" is not the same as "John 
+& Jane Wedding".
 - Once a wedding is set, any added persons, tables, or edits will apply to that active wedding.
 </box>
 
@@ -241,7 +244,8 @@ deleteWedding WEDDINGNAME
 ```
 
 - Permanently deletes the wedding identified by WEDDINGNAME.
-- WEDDINGNAME must match the exact name of the wedding you created. The comparison is case-insensitive but spacing must match exactly.
+- WEDDINGNAME must match the exact name of the wedding you created. The comparison is case-insensitive but spacing 
+  must match exactly.
 - Once deleted, all associated persons, tables, and data under the wedding will also be removed.
 
 Examples:
@@ -263,7 +267,10 @@ addPerson n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS d/DIETARY_RESTRICTION r/RSVP
 ```
 Details:
 
-All fields are mandatory and must follow the exact format.
+- All fields are mandatory and must follow the exact format.
+- A person is identified by their name. 
+- Multiple persons can have the same number since children may not have a phone number, and it would be more flexible 
+  to allow guests to select their point of contact
 
 Each prefix represents a specific attribute of the person:
 - n/ → Full name (e.g., John Doe)
@@ -278,7 +285,7 @@ Each prefix represents a specific attribute of the person:
 </box>
 
 
-Allowed d/DIETARY_RESTRICTION values:
+Allowed DIETARY_RESTRICTION values:
 - NONE
 - VEGETARIAN
 - VEGAN
@@ -288,7 +295,7 @@ Allowed d/DIETARY_RESTRICTION values:
 - EGGS
 - FISH
 - SOY
-- SESMAE
+- SESAME
 
 Allowed RSVP values:
 - YES
