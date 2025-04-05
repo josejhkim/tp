@@ -309,6 +309,9 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Removes {@code key} from this {@code AddressBook}. {@code key} must exist in the address book.
      */
     public void deletePerson(Person key) {
+        if (key.isSeated()) {
+            deletePersonFromTable(key, key.getTableId());
+        }
         personList.delete(key);
         getCurrentWedding().deletePerson(key);
     }
@@ -402,9 +405,14 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void addPersonToTable(Person p, Table table) {
         int tableId = table.getTableId();
+        int oldTableId = p.getTableId();
+
         getCurrentWedding().addPersonToTable(p, table);
         personList.setPerson(p, new Person(p, tableId));
         tableList.setTable(table, getCurrentWedding().findTableById(tableId));
+        if (oldTableId > -1) {
+            tableList.setTable(getCurrentWedding().findTableById(oldTableId), getCurrentWedding().findTableById(oldTableId));
+        }
     }
 
     /**

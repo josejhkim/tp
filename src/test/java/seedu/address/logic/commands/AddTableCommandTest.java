@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -25,7 +26,7 @@ public class AddTableCommandTest {
     public void execute_noWeddingSet_throwsCommandException() {
         AddTableCommand command = new AddTableCommand(1, 6);
         CommandException exception = assertThrows(CommandException.class, () -> command.execute(model));
-        assertEquals(AddTableCommand.MESSAGE_NO_CURRENT_WEDDING, exception.getMessage());
+        assertEquals(Messages.MESSAGE_NO_CURRENT_WEDDING, exception.getMessage());
     }
 
     @Test

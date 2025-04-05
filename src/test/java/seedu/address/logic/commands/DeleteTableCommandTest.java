@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -29,7 +30,7 @@ public class DeleteTableCommandTest {
         DeleteTableCommand command = new DeleteTableCommand(1);
 
         CommandException exception = assertThrows(CommandException.class, () -> command.execute(model));
-        assertEquals(DeleteTableCommand.MESSAGE_NO_CURRENT_WEDDING, exception.getMessage());
+        assertEquals(Messages.MESSAGE_NO_CURRENT_WEDDING, exception.getMessage());
     }
 
     @Test
@@ -53,7 +54,7 @@ public class DeleteTableCommandTest {
         DeleteTableCommand command = new DeleteTableCommand(10); // table not added
 
         CommandException exception = assertThrows(CommandException.class, () -> command.execute(model));
-        assertEquals(String.format(DeleteTableCommand.MESSAGE_TABLE_NOT_FOUND, 10), exception.getMessage());
+        assertEquals(String.format(Messages.MESSAGE_UNKNOWN_TABLE_ID, 10), exception.getMessage());
     }
 
     @Test
