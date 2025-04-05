@@ -13,18 +13,15 @@ As a professional wedding planner, you need a tool that keeps pace with your fas
 
 ## Key Features
 
-- **Guest Lists & Seating Arrangements:** Organise and modify with speed.
-- **Crucial Guest Details:** Manage contact information, dietary requirements and RSVP statuses seamlessly.
+- **Person Lists & Seating Arrangements:** Organise and modify with speed.
+- **Crucial Person Details:** Manage contact information, dietary requirements and RSVP statuses seamlessly.
 - **Multiple Weddings Management:** Keep track of several weddings effortlessly, consolidating details for each event
   in one centralised dashboard.
 
 If you're comfortable typing quickly, Wedding Hero empowers you to execute your planning tasks more efficiently than
 traditional mouse-based applications.
+
 --------------------------------------------------------------------------------------------------------------------
-<!-- * Table of Contents -->
-<page-nav-print />
-
-
 ## Table of Contents
 
 ### Getting Started
@@ -94,7 +91,7 @@ traditional mouse-based applications.
 5. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will
    open the help window.<br>
 - `addPerson n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 d/None r/YES` : Adds a person named John Doe with RSVP status and dietary preference to the active wedding.
-- `deletePerson 3` : Deletes the 3rd person shown in the currently displayed person list.
+- `createWedding n/Jack and Jill's Wedding` : Creates a new wedding called "Jack and Jill's Wedding". 
 - `exit` : Exits the application.
 
 
@@ -111,21 +108,12 @@ traditional mouse-based applications.
 - **Prefixes** (e.g., `n/`, `p/`, `e/`) **must be used exactly as shown**, including lowercase letters and the slash.  
   Missing or mistyped prefixes will result in an invalid command.
 
-- **Parameters can be typed in any order.**  
-  For example, `n/John p/91234567` and `p/91234567 n/John` are both valid.
+- **Parameters can be typed in any order.**  For example, `n/John p/91234567` and `p/91234567 n/John` are both valid.
 
 - **Commands are case-sensitive for field values** where applicable, such as `d/VEGAN` vs. `d/vegan`.
 
-- **Enclose values in quotes if they include special characters or prefixes.**  
-  For example:  
-  Use `n/"John p/Doe"` instead of `n/John p/Doe` to avoid parsing errors.
-
-- **Duplicate prefixes will cause the command to fail unless escaped properly using `\`.**  
-  For example:  
-  `n/John \p/Doe` if a name includes the string `p/`.
-
 - **Optional parameters are shown in square brackets.**  
-  e.g., `deletePerson [INDEX]` means you provide just the index like `deletePerson 2`.
+  e.g., `filterPersons [d/DietaryRestriction] [r/RSVP]`.
 
 <box>
 ⚠️ PDF Warning: If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
@@ -154,10 +142,12 @@ Wedding Hero helps you manage **multiple weddings** with ease by using a **“se
 
 1. **Create a wedding** using the `createWedding` command.
 2. **Set the wedding as active** using the `setWedding` command.
-3. Once a wedding is set as active, all operations like adding guests, tables, or assigning seats apply **only to that active wedding**.
-4. You can view and manage each wedding’s guests, tables, and RSVP details independently.
+3. Once a wedding is set as active, all operations like adding persons, tables, or assigning seats apply **only to that 
+   active wedding**.
+4. You can view and manage each wedding’s persons, tables, and RSVP details independently.
 
->  **Note:** You can only interact with one wedding at a time. You must `setWedding` before performing most other commands (e.g., `addGuest`, `addTable`, etc.).
+>  **Note:** You can only interact with one wedding at a time. You must `setWedding` before performing most other 
+> commands (e.g., `addPerson`, `addTable`, etc.).
 
 ---
 
@@ -165,10 +155,10 @@ Wedding Hero helps you manage **multiple weddings** with ease by using a **“se
 
 Here's a typical command sequence you might use a wedding planner:
 
-```bash
+```
 createWedding n/John & Jane Wedding
 setWedding John & Jane Wedding
-addGuest n/John p/91234567 e/john@example.com a/123 Street d/None r/YES
+addPerson n/John p/91234567 e/john@example.com a/123 Street d/None r/YES
 addTable tid/1 c/10
 addPersonToTable n/John tid/1
 weddingOverview
@@ -203,7 +193,7 @@ Creates a new wedding in the wedding planner.
 
 ### Setting a Wedding : `setWedding`
 
-Sets a specific wedding as the active wedding, enabling modifications such as editing guest lists and other wedding
+Sets a specific wedding as the active wedding, enabling modifications such as editing person lists and other wedding
 details.
 
 **Format:**
@@ -226,7 +216,7 @@ setWedding WEDDINGNAME
 
 ### Wedding Overview : `weddingOverview`
 
-Provides an overview of the current active wedding, including details such as the number of tables and guests.
+Provides an overview of the current active wedding, including details such as the number of tables and persons.
 
 **Format:**
 ```
@@ -235,7 +225,7 @@ weddingOverview
 
 - Retrieves a summary overview of the active wedding.
 - No additional arguments are required.
-- The overview includes key details such as the number of tables and guests and the list of guests invited.
+- The overview includes key details such as the number of tables and persons and the list of persons invited.
 
 **Examples:**
 - Running `weddingOverview` after setting an active wedding displays the wedding's summary details.
@@ -265,7 +255,7 @@ Examples:
 
 ### Adding a person: `addPerson`
 
-Adds a person to the currently active wedding’s guest list.
+Adds a person to the currently active wedding’s person list.
 
 **Format:**
 ```
@@ -280,7 +270,7 @@ Each prefix represents a specific attribute of the person:
 - p/ → Phone number (e.g., 12345678)
 - e/ → Email address (e.g., johndoe@example.com)
 - a/ → Address (e.g., 123 Street)
-- d/ → Dietary restriction (must be selected from approved list below)
+- d/ → Dietary Restriction (must be selected from approved list below)
 - r/ → RSVP status (YES or NO, NO_RESPONSE)
 
 
@@ -289,9 +279,9 @@ Each prefix represents a specific attribute of the person:
 
 
 Allowed d/DIETARY_RESTRICTION values:
-- None
-- Vegetarian
-- Vegan
+- NONE
+- VEGETARIAN
+- VEGAN
 - HALAL
 - SHELLFISH
 - PEANUTS
@@ -299,7 +289,6 @@ Allowed d/DIETARY_RESTRICTION values:
 - FISH
 - SOY
 - SESMAE
-- NONE
 
 Allowed RSVP values:
 - YES
@@ -307,15 +296,14 @@ Allowed RSVP values:
 - NO_RESPONSE (if not yet responded)
   **Examples:**
 ```
-addPerson n/John Doe p/12345678 e/johndoe@example.com a/123 Street d/None r/YES
-addPerson n/Alex Tan p/87654321 e/alex@example.com a/456 Avenue d/Vegan r/NO
+addPerson n/John Doe p/12345678 e/johndoe@example.com a/123 Street d/NONE r/YES
+addPerson n/Alex Tan p/87654321 e/alex@example.com a/456 Avenue d/VEGAN r/NO
 ```
 - A wedding should be set before a person can be added.
 
 ### Deleting a Person : `deletePerson`
 
-
-Deletes a person from the currently active wedding's guest list, using their displayed index number.
+Deletes a person from the currently active wedding's person list, using their displayed index number.
 
 **Format:**
 ```
@@ -329,12 +317,12 @@ INDEX: A positive integer corresponding to the person's number in the displayed 
 - If the index is invalid or out of range, the system will show an error.
 - Deletion is permanent and cannot be undone.
 
-
 ```
 deletePerson 1     // Deletes the first person shown in the list
 deletePerson 3     // Deletes the third person shown in the list
 ```
-<box type="warning" seamless> Make sure you're viewing the correct list of persons before deleting — the index is based on the currently displayed list. </box>
+<box type="warning" seamless> Make sure you're viewing the correct list of persons before deleting — the index is 
+based on the currently displayed list. </box>
 
 
 ### Filtering Persons: `filterPersons`
@@ -347,6 +335,8 @@ You can use it to display only those persons who meet the criteria you specify.
 filterPersons [d/DIETARYRESTRICTION] [r/RSVP]
 ```
 - Both parameters are optional for this command.
+- Note that you can only key in one of each parameter for this command.
+- Using invalid prefixes such as `n/NAME` will be treated as `filterPersons` as if no prefixes are given 
 - **Dietary Restriction Filter:** Use the prefix `d/` followed by a valid dietary restriction value
   (e.g., `VEGAN`, `VEGETARIAN`). Include this if you want to filter persons based on dietary needs.
 - **RSVP Filter:** Use the prefix `r/` followed by a valid RSVP status (e.g., `YES`, `NO`).
@@ -363,19 +353,6 @@ the command returns an unfiltered list of persons belonging to that wedding.
 - Running `filterPersons d/VEGAN r/YES` displays all persons who are vegan and have accepted the invitation.
 - Using `filterPersons d/HALAL` displays all persons with a halal dietary restriction.
 - Running `filterPersons` displays all persons without any filter.
-
-### Showing RSVP List : `seeRSVPList`
-
-Displays the RSVP list for the current active wedding.
-
-**Format:**
-```
-seeRSVPList
-```
-
-- Retrieves and displays the RSVP list of the wedding that is currently set as active.
-- No additional arguments are required.
-- Useful for quickly reviewing which guests have responded.
 
 ## Managing Tables
 
@@ -398,7 +375,7 @@ addTable tid/TABLEID c/CAPACITY
 - There is an upper limit of 10000 as the maximum capacity
 
 **Examples:**
-- Running `addTable tid/12 c/8` will add a table with the ID `12` and a seating capacity for 8 guests.
+- Running `addTable tid/12 c/8` will add a table with the ID `12` and a seating capacity for 8 people.
 
 ### Deleting a Table : `deleteTable`
 
@@ -423,7 +400,7 @@ Lists all tables currently added to the wedding layout.
 
 - Retrieves a list of all tables.
 - No additional arguments are required.
-- The command displays details of each table like the guests seated at that table for easy reference.
+- The command displays details of each table like the persons seated at that table for easy reference.
 
 ### Finding a Table : `findTable`
 
@@ -497,11 +474,14 @@ the acceptable range). Therefore, edit the data file only if you are confident t
 
 ### Glossary
 
-- **Active Wedding**: The currently selected wedding that all actions (e.g., adding people or tables) apply to. You must use the `setWedding` command to set an active wedding.
+- **Active Wedding**: The currently selected wedding that all actions (e.g., adding people or tables) apply to. You 
+  must use the `setWedding` command to set an active wedding.
+  
+- **Table ID**: A unique integer identifier (e.g., `1`, `5`, `12`) given to each table during the `addTable` command.
+  Used for assigning and locating tables.
 
-- **Table ID**: A unique integer identifier (e.g., `1`, `5`, `12`) given to each table during the `addTable` command. Used for assigning and locating tables.
-
-- **Dietary Restriction**: Describes food requirements or allergies of a person. Acceptable values include: `None`, `Vegetarian`, `Vegan`, `HALAL`, `SHELLFISH`, `PEANUTS`, `FISH`, `EGGS`, `SOY`, `SESAME`.
+- **Dietary Restriction**: Describes food requirements or allergies of a person. Acceptable values include: `NONE`, 
+  `VEGETARIAN`, `VEGAN`, `HALAL`, `SHELLFISH`, `PEANUTS`, `FISH`, `EGGS`, `SOY`, `SESAME`.
 
 - **RSVP**: Indicates whether a person has responded to an invitation. Valid values: `YES`, `NO`, `NO_RESPONSE`.
 
@@ -519,11 +499,6 @@ the data of your previous WeddingHero home folder.
 ## Known issues
 1. When using multiple screens, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen. The remedy is to delete the preferences.json file created by the application before running the application again.
 2. If you minimize the Help Window and then run the help command (or use the Help menu, or the keyboard shortcut F1) again, the original Help Window will remain minimized, and no new Help Window will appear. The remedy is to manually restore the minimized Help Window.
---------------------------------------------------------------------------------------------------------------------
-## Planned Enhancements
-
-
-
 
 --------------------------------------------------------------------------------------------------------------------
 ## Command Summary
@@ -546,5 +521,3 @@ the data of your previous WeddingHero home folder.
 | **getTables**             | `getTables`<br>Example: `getTables`                                                                                                                                  |
 | **Help**                  | `Help`                                                                                                                                                               |
 | **exit**                  | `exit`                                     
-
-
