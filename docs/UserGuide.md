@@ -56,6 +56,7 @@ traditional mouse-based applications.
 - [Known issues](#known-issues)
 - [Command Summary](#command-summary)
 --------------------------------------------------------------------------------------------------------------------
+<div style="page-break-after: always;"></div>
 
 ## Quick start
 
@@ -109,6 +110,8 @@ span multiple lines as space characters surrounding line-breaks may be omitted w
 </box>
 
 --------------------------------------------------------------------------------------------------------------------
+<div style="page-break-after: always;"></div>
+
 ## Using Wedding Hero
 
 ### Getting Help
@@ -153,6 +156,8 @@ addPersonToTable n/John tid/1
 weddingOverview
 ```
 --------------------------------------------------------------------------------------------------------------------
+<div style="page-break-after: always;"></div>
+
 ## Features
 
 ### Managing Weddings
