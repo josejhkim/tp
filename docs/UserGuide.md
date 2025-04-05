@@ -119,13 +119,12 @@ span multiple lines as space characters surrounding line-breaks may be omitted w
 You can access a help popup at any time while using Wedding Hero.
 <img src="images/helpMessage.png" alt="help message" style="max-width: 70%; height: auto;" />
 
-
 ### Viewing Help: `help`
 
 Displays a message that explains how to access the full user guide.
 
 **Format:**
-```plaintext
+```
 help
 ```
 ## How Wedding Hero Works (System Flow)
