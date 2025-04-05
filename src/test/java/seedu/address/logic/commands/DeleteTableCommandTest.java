@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static seedu.address.logic.Messages.MESSAGE_UNKNOWN_TABLE_ID;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -42,7 +43,7 @@ public class DeleteTableCommandTest {
         DeleteTableCommand command = new DeleteTableCommand(-2); // invalid table ID
 
         CommandException exception = assertThrows(CommandException.class, () -> command.execute(model));
-        assertEquals(DeleteTableCommand.MESSAGE_INVALID_TABLE_ID, exception.getMessage());
+        assertEquals(String.format(MESSAGE_UNKNOWN_TABLE_ID, -2), exception.getMessage());
     }
 
     @Test

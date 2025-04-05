@@ -44,7 +44,6 @@ public class DeleteTableCommand extends Command {
         } catch (NoCurrentWeddingException ncwe) {
             throw new CommandException(MESSAGE_NO_CURRENT_WEDDING);
         }
-        
         return new CommandResult(String.format(MESSAGE_SUCCESS, tableId));
     }
 

@@ -411,7 +411,8 @@ public class AddressBook implements ReadOnlyAddressBook {
         personList.setPerson(p, new Person(p, tableId));
         tableList.setTable(table, getCurrentWedding().findTableById(tableId));
         if (oldTableId > -1) {
-            tableList.setTable(getCurrentWedding().findTableById(oldTableId), getCurrentWedding().findTableById(oldTableId));
+            tableList.setTable(getCurrentWedding().findTableById(oldTableId),
+                getCurrentWedding().findTableById(oldTableId));
         }
     }
 

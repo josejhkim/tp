@@ -52,7 +52,7 @@ public class AddTableCommandTest {
         AddTableCommand command = new AddTableCommand(2, -5); // invalid capacity
 
         CommandException exception = assertThrows(CommandException.class, () -> command.execute(model));
-        assertEquals("Invalid table configuration: The table capacity should be a positive integer",
+        assertEquals("Please input a number between 1 and 100, inclusive, for the table capacity!",
                 exception.getMessage());
     }
 
@@ -93,7 +93,7 @@ public class AddTableCommandTest {
 
         AddTableCommand command = new AddTableCommand(0, 6);
         CommandException exception = assertThrows(CommandException.class, () -> command.execute(model));
-        assertEquals("Invalid table configuration: The table ID should be a positive integer",
+        assertEquals("Please input a number between 1 and 100, inclusive, for the table id!",
                 exception.getMessage());
     }
 
@@ -105,7 +105,7 @@ public class AddTableCommandTest {
 
         AddTableCommand command = new AddTableCommand(-2, 6);
         CommandException exception = assertThrows(CommandException.class, () -> command.execute(model));
-        assertEquals("Invalid table configuration: The table ID should be a positive integer",
+        assertEquals("Please input a number between 1 and 100, inclusive, for the table id!",
                 exception.getMessage());
     }
 
@@ -117,30 +117,7 @@ public class AddTableCommandTest {
 
         AddTableCommand command = new AddTableCommand(4, 0);
         CommandException exception = assertThrows(CommandException.class, () -> command.execute(model));
-        assertEquals("Invalid table configuration: The table capacity should be a positive integer",
+        assertEquals("Please input a number between 1 and 100, inclusive, for the table capacity!",
                 exception.getMessage());
     }
-
-    // @Test
-    // public void execute_maxIntegerCapacity_addsTableSuccessfully() throws Exception {
-    //     Wedding wedding = new Wedding("Big Wedding");
-    //     model.addWedding(wedding);
-    //     model.setCurrentWedding(wedding);
-    //
-    //     AddTableCommand command = new AddTableCommand(99, Integer.MAX_VALUE);
-    //     CommandResult result = command.execute(model);
-    //     assertEquals(String.format(AddTableCommand.MESSAGE_SUCCESS, 99, Integer.MAX_VALUE),
-    //     result.getFeedbackToUser());
-    // }
-
-    // @Test
-    // public void execute_tableIdOne_valid_success() throws Exception {
-    //     Wedding wedding = new Wedding("Boundary Test Wedding");
-    //     model.addWedding(wedding);
-    //     model.setCurrentWedding(wedding);
-    //
-    //     AddTableCommand command = new AddTableCommand(1, 5);
-    //     CommandResult result = command.execute(model);
-    //     assertEquals(String.format(AddTableCommand.MESSAGE_SUCCESS, 1, 5), result.getFeedbackToUser());
-    // }
 }
