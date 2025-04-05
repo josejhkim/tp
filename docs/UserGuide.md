@@ -268,10 +268,9 @@ addPerson n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS d/DIETARYRESTRICTION r/RSVP
 Details:
 
 - All fields are mandatory and must follow the exact format.
-- A person is identified by their name. 
-- Multiple persons can have the same phone number since children may not have a phone number, and it would be more 
-  flexible 
-  to allow guests to select their point of contact
+- A person is identified by their name only. 
+- Multiple persons can have the same contact information such as phone number or email since children may not have a 
+  phone number, and it would be more flexible to allow guests to select their point of contact.
 
 Each prefix represents a specific attribute of the person:
 - n/ → Full name (e.g., John Doe)
