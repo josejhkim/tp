@@ -252,6 +252,7 @@ Details:
 - A person is identified by their `NAME` only. 
 - Multiple persons can have the same contact information such as `PHONE` or `EMAIL` since children may not have a 
   phone number, and it would be more flexible to allow guests to select their point of contact.
+- A wedding should be created and set before a person can be added.
 
 Each prefix represents a specific attribute of the person:
 - `n/` → Full name (e.g., John Doe)
@@ -288,7 +289,6 @@ Each prefix represents a specific attribute of the person:
 addPerson n/John Doe p/12345678 e/johndoe@example.com a/123 Street d/NONE r/YES
 addPerson n/Alex Tan p/87654321 e/alex@example.com a/456 Avenue d/VEGAN r/NO
 ```
-- A wedding should be set before a person can be added.
 
 ### Deleting a Person : `deletePerson`
 
