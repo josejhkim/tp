@@ -78,7 +78,7 @@ traditional mouse-based applications.
 
 5. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will
    open the help window.<br>
-- `addPerson n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 d/None r/YES` : Adds a 
+- `addPerson n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 d/NONE r/YES` : Adds a 
   person named John Doe with RSVP status and dietary preference to the active wedding.
 - `createWedding n/Jack and Jill's Wedding` : Creates a new wedding called "Jack and Jill's Wedding". 
 - `exit` : Exits the application.
@@ -149,7 +149,7 @@ Here's a typical command sequence you might use a wedding planner:
 ```
 createWedding n/John & Jane Wedding
 setWedding John & Jane Wedding
-addPerson n/John p/91234567 e/john@example.com a/123 Street d/None r/YES
+addPerson n/John p/91234567 e/john@example.com a/123 Street d/NONE r/YES
 addTable tid/1 c/10
 addPersonToTable n/John tid/1
 weddingOverview
