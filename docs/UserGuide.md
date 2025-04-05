@@ -11,7 +11,7 @@ As a professional wedding planner, you need a tool that keeps pace with your fas
 **Command Line Interface (CLI)**—while still offering the clarity and ease of a **Graphical User Interface (GUI)**
 —this application is built to help you manage complex wedding details with precision.
 
-## Key Features
+### Key Features
 
 - **Person Lists & Seating Arrangements:** Organise and modify with speed.
 - **Crucial Person Details:** Manage contact information, dietary requirements and RSVP statuses seamlessly.
@@ -24,50 +24,37 @@ traditional mouse-based applications.
 --------------------------------------------------------------------------------------------------------------------
 ## Table of Contents
 
-### Getting Started
-- [Quick Start](#quick-start)
-- [Command Input Format & Syntax](#command-input-format--syntax)
-
-
-### Using Wedding Hero
-- [Getting Help](#getting-help)
-- [Viewing Help](#viewing-help-help)
-- [How Weddin Hero works](#viewing-help-help)
-
-### Managing Weddings
-- [Creating a Wedding](#creating-a-wedding--createwedding)
-- [Setting a Wedding](#setting-a-wedding--setwedding)
-- [Wedding Overview](#wedding-overview--weddingoverview)
-- [Deleting a Wedding](#deleting-a-wedding--deletewedding)
-
-### Managing People
-- [Adding a Person](#adding-a-person-addperson)
-- [Deleting a Person](#deleting-a-person--deleteperson)
-- [Filtering Persons](#filtering-persons-filterpersons)
-- [Viewing RSVP List](#showing-rsvp-list--seersvplist)
-
-### Managing Tables
-- [Adding a Table](#adding-a-table--addtable)
-- [Deleting a Table](#deleting-a-table--deletetable)
-- [Listing Tables](#listing-tables--gettables)
-- [Finding a Table](#finding-a-table--findtable)
-
-### Seating Management
-- [Assigning a Person to a Table](#adding-a-person-to-a-table-addpersontotable)
-- [Removing a Person from a Table](#removing-a-person-from-a-table-deletepersonfromtable)
-
-### Application Commands
-- [Exiting the Program](#exiting-the-program--exit)
-- [Saving the Data](#saving-the-data)
-- [Editing the Data File](#editing-the-data-file)
-
-### Support & Reference
+- [Quick start](#quick-start)
+- [Using Wedding Hero](#using-wedding-hero)
+  - [Getting Help](#getting-help)
+  - [Viewing Help: `help`](#viewing-help-help)
+- [How Wedding Hero Works (System Flow)](#how-wedding-hero-works-system-flow)
+  - [Typical Workflow Example](#typical-workflow-example)
+- [Features](#features)
+  - [Managing Weddings](#managing-weddings)
+    - [Creating a Wedding : `createWedding`](#creating-a-wedding--createwedding)
+    - [Setting a Wedding : `setWedding`](#setting-a-wedding--setwedding)
+    - [Wedding Overview : `weddingOverview`](#wedding-overview--weddingoverview)
+    - [Deleting a Wedding : `deleteWedding`](#deleting-a-wedding--deletewedding)
+  - [Managing Persons](#managing-persons)
+    - [Adding a person: `addPerson`](#adding-a-person-addperson)
+    - [Deleting a Person : `deletePerson`](#deleting-a-person--deleteperson)
+    - [Filtering Persons: `filterPersons`](#filtering-persons-filterpersons)
+  - [Managing Tables](#managing-tables)
+    - [Adding a Table : `addTable`](#adding-a-table--addtable)
+    - [Deleting a Table : `deleteTable`](#deleting-a-table--deletetable)
+    - [Listing Tables : `getTables`](#listing-tables--gettables)
+    - [Finding a Table : `findTable`](#finding-a-table--findtable)
+  - [Assigning a Person to a Tables](#assigning-a-person-to-a-table)
+    - [Adding a Person to a Table: addPersonToTable](#adding-a-person-to-a-table-addpersontotable)
+    - [Removing a Person from a Table: deletePersonFromTable](#removing-a-person-from-a-table-deletepersonfromtable)
+  - [Exiting the program : `exit`](#exiting-the-program--exit)
+- [Saving the data](#saving-the-data)
+- [Editing the data file](#editing-the-data-file)
 - [Glossary](#glossary)
 - [FAQ](#faq)
-- [Known Issues](#known-issues)
+- [Known issues](#known-issues)
 - [Command Summary](#command-summary)
-
-
 --------------------------------------------------------------------------------------------------------------------
 
 ## Quick start
@@ -255,7 +242,7 @@ Examples:
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Managing People
+## Managing Persons
 
 ### Adding a person: `addPerson`
 
@@ -376,7 +363,7 @@ addTable tid/TABLEID c/CAPACITY
 - There is an upper limit of 10000 as the maximum capacity
 
 **Examples:**
-- Running `addTable tid/12 c/8` will add a table with the ID `12` and a seating capacity for 8 people.
+- Running `addTable tid/12 c/8` will add a table with the ID `12` and a seating capacity for 8 persons.
 
 ### Deleting a Table : `deleteTable`
 
@@ -417,11 +404,11 @@ Finds a table by its ID.
 **Examples:**
 - Running `findTable tid/12`  searches and displays the table with the id 12.
 
-## Assigning People to Tables
+## Assigning a Person to a Table
 
 --------------------------------------------------------------------------------------------------------------------
 ### Adding a Person to a Table: addPersonToTable
-Assigns a person to a specific table within a currently active wedding
+Assigns a Person to a specified Table within the currently active wedding.
 
 **Format:**
 ```
@@ -441,8 +428,8 @@ Removes a person from a table in the currently active wedding.
 ```
 deletePersonFromTable n/NAME tid/INDEX  
 ```
-- deletePersonFromTable n/PERSON_NAME tid/TABLEID
-- PERSON_NAME is the name of the person displayed on the list
+- deletePersonFromTable n/NAME tid/TABLEID
+- NAME is the name of the person displayed on the list
 
 example:
 - deletePersonFromTable name/John Doe tid/5 deletes the John Doe person from the table with ID 5
@@ -475,7 +462,7 @@ the acceptable range). Therefore, edit the data file only if you are confident t
 
 ### Glossary
 
-- **Active Wedding**: The currently selected wedding that all actions (e.g., adding people or tables) apply to. You 
+- **Active Wedding**: The currently selected wedding that all actions (e.g., adding a person or a table) apply to. You 
   must use the `setWedding` command to set an active wedding.
   
 - **Table ID**: A unique integer identifier (e.g., `1`, `5`, `12`) given to each table during the `addTable` command.
