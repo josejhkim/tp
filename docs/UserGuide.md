@@ -308,7 +308,7 @@ based on the currently displayed list. </box>
 
 ### Filtering Persons: `filterPersons`
 
-This command allows you to filter your list of persons by applying dietary restriction and/or RSVP status filters.
+This command allows you to filter your list of persons by applying `DIETARYRESTRICTION` and/or `RSVP` status filters.
 You can use it to display only those persons who meet the criteria you specify.
 
 **Format:** `filterPersons [d/DIETARYRESTRICTION] [r/RSVP]`
