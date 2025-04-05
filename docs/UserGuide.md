@@ -312,9 +312,10 @@ You can use it to display only those persons who meet the criteria you specify.
 
 **Format:** `filterPersons [d/DIETARYRESTRICTION] [r/RSVP]`
 
-- Both parameters are optional for this command.
+- Both prefixes `d/` and `r/` are optional for this command.
 - Note that you can only key in one of each parameter for this command.
-- Using invalid prefixes such as `filterPersons n/John` will be treated as `filterPersons` as if no prefixes are given.
+- Adding anything after filterPersons that isn't a valid prefix such as `filterPersons n/John` or `filterPersons 
+someword` will be treated as `filterPersons` as if no filter is applied.
 - **Dietary Restriction Filter:** Use the prefix `d/` followed by a valid dietary restriction value
   (e.g., `VEGAN`, `VEGETARIAN`). Include this if you want to filter persons based on dietary needs.
 - **RSVP Filter:** Use the prefix `r/` followed by a valid RSVP status (e.g., `YES`, `NO`).
@@ -473,6 +474,9 @@ the data of your previous WeddingHero home folder.
 ## Known issues
 1. When using multiple screens, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen. The remedy is to delete the preferences.json file created by the application before running the application again.
 2. If you minimize the Help Window and then run the help command (or use the Help menu, or the keyboard shortcut F1) again, the original Help Window will remain minimized, and no new Help Window will appear. The remedy is to manually restore the minimized Help Window.
+3. We understand that the list of dietary restrictions is not exhaustive and does not include all dietary 
+   restrictions people may have, but the list we have provided is applicable to majority of the population. We will 
+   try our best to include more dietary restrictions in the future. Stay tuned!
 
 --------------------------------------------------------------------------------------------------------------------
 ## Command Summary
