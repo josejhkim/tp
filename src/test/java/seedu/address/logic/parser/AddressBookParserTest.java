@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_RSVP;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
@@ -29,6 +30,8 @@ import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.Rsvp;
+import seedu.address.model.person.RsvpFilter;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.PersonUtil;
@@ -86,8 +89,10 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_filterPersons() throws Exception {
         FilterPersonsCommand expectedCommand =
-                (FilterPersonsCommand) parser.parseCommand(FilterPersonsCommand.COMMAND_WORD);
-        assertEquals(new FilterPersonsCommand(null, null), expectedCommand);
+                (FilterPersonsCommand) parser.parseCommand(FilterPersonsCommand.COMMAND_WORD + " "
+                        + PREFIX_RSVP + Rsvp.Status.NO);
+        RsvpFilter rsvpFilter = new RsvpFilter(new Rsvp(Rsvp.Status.NO));
+        assertEquals(new FilterPersonsCommand(null, rsvpFilter), expectedCommand);
     }
 
     @Test

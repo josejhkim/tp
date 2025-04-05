@@ -18,8 +18,6 @@ public class Messages {
     public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%1$d persons listed!";
     public static final String MESSAGE_DUPLICATE_FIELDS =
                 "Multiple values specified for the following single-valued field(s): ";
-    public static final String MESSAGE_INVALID_PERSON_NAME = "The person with the provided name doesn't exist";
-    public static final String MESSAGE_INVALID_TABLE_ID = "The table with the provided id doesn't exist";
 
     /**
      * Returns an error message indicating the duplicate prefixes.

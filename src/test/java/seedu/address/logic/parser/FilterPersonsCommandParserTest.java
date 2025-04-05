@@ -1,7 +1,10 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.CommandTestUtil.DIETARY_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.RSVP_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.RSVP_DESC_BOB;
+import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
 import org.junit.jupiter.api.Test;
@@ -23,9 +26,17 @@ public class FilterPersonsCommandParserTest {
             new DietaryRestrictionFilter(dietaryRestrictionNone);
 
     @Test
-    public void parse_noFilter() {
-        FilterPersonsCommand expectedCommand = new FilterPersonsCommand(null, null);
-        assertParseSuccess(parser, "", expectedCommand);
+    public void parse_invalidValue_failure() {
+        assertParseFailure(parser, " ", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                FilterPersonsCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "n/Alice", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                        FilterPersonsCommand.MESSAGE_USAGE));
+    }
+
+    @Test
+    public void parse_multipleRsvp_failure() {
+        assertParseFailure(parser, RSVP_DESC_BOB + RSVP_DESC_AMY , String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                        FilterPersonsCommand.MESSAGE_USAGE));
     }
 
     @Test
@@ -36,7 +47,7 @@ public class FilterPersonsCommandParserTest {
     }
 
     @Test
-    public void parse_invalidDietaryRestrictionFilter_throwsParseException() {
+    public void parse_validDietaryRestrictionFilter() {
         // Dietary restriction filter - d/None
         FilterPersonsCommand expectedCommand = new FilterPersonsCommand(dietaryRestrictionFilter, null);
         assertParseSuccess(parser, DIETARY_DESC_AMY, expectedCommand);

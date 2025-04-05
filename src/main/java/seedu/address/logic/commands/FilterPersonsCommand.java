@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.function.Predicate;
 
@@ -20,8 +21,9 @@ import seedu.address.model.person.RsvpFilter;
 public class FilterPersonsCommand extends Command {
     public static final String COMMAND_WORD = "filterPersons";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all people belonging to filtered request.\n"
-            + "Please pick the categories (Dietary restriction / RSVP) to filter by, or none to get unfiltered list.\n"
-            + "Parameters: [d/DIETARY_RESTRICTION_FIELD] [r/RSVP_FIELD]\n"
+            + "Please pick at least one of the two categories (Dietary restriction / RSVP) to filter by, with at most"
+            + " one filter within each category.\n"
+            + "Parameters: [d/DIETARYRESTRICTION] [r/RSVP]\n"
             + "Example: " + COMMAND_WORD + " d/" + TypicalRestriction.values()[0].toString()
             + " r/" + Status.values()[0].toString();
 
@@ -38,11 +40,12 @@ public class FilterPersonsCommand extends Command {
      * @param rsvpFilter the RSVP filter to apply; may be null
      */
     public FilterPersonsCommand(DietaryRestrictionFilter dietaryFilter, RsvpFilter rsvpFilter) {
+        assert dietaryFilter != null || rsvpFilter != null : "At least one filter must be provided.";
 
         this.dietaryRestrictionFilter = dietaryFilter;
         this.rsvpFilter = rsvpFilter;
 
-        Predicate<Person> predicate = person -> true;
+        Predicate<Person> predicate = PREDICATE_SHOW_ALL_PERSONS;
         if (dietaryFilter != null) {
             predicate = predicate.and(dietaryFilter);
         }
