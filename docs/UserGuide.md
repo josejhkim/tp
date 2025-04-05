@@ -147,7 +147,7 @@ Wedding Hero helps you manage **multiple weddings** with ease by using a **“se
 Here's a typical command sequence you might use a wedding planner:
 ```
 createWedding n/John & Jane Wedding
-setWedding n/ John & Jane Wedding
+setWedding n/John & Jane Wedding
 addPerson n/John p/91234567 e/john@example.com a/123 Street d/NONE r/YES
 addTable tid/1 c/10
 addPersonToTable n/John tid/1
@@ -178,7 +178,7 @@ Creates a new wedding in the wedding planner.
 
 <box type="tip" seamless>
 - After using createWedding, remember to set the wedding as active using:
-  setWedding John & Jane Wedding
+  `setWedding n/John & Jane Wedding`
 - Always match spacing exactly when setting or referring to a wedding — "John&JaneWedding" is not the same as "John 
 & Jane Wedding".
 - Once a wedding is set, any added persons, tables, or edits will apply to that active wedding.
@@ -189,7 +189,7 @@ Creates a new wedding in the wedding planner.
 Sets a specific wedding as the active wedding, enabling modifications such as adding a person to a wedding and 
 assigning a person to a wedding's table.
 
-**Format:** `setWedding WEDDINGNAME`
+**Format:** `setWedding n/WEDDINGNAME`
 
 
 - Sets the active wedding context to the wedding with the provided **`WEDDINGNAME`**.
@@ -199,8 +199,8 @@ assigning a person to a wedding's table.
 
 
 **Examples:**
-- Running `setWedding John & Jane Wedding` sets the active wedding to "John & Jane Wedding".
-- Using `setWedding Smith Wedding` sets the active wedding to the wedding named "Smith Wedding".
+- Running `setWedding n/John & Jane Wedding` sets the active wedding to "John & Jane Wedding".
+- Using `setWedding n/Smith Wedding` sets the active wedding to the wedding named "Smith Wedding".
 
 
   <box type="info" seamless> Note: You can only modify or view wedding details after setting a wedding as active. </box>
@@ -291,9 +291,9 @@ You can use it to display only those persons who meet the criteria you specify.
 **Format:** `filterPersons [d/DIETARYRESTRICTION] [r/RSVP]`
 
 - Both prefixes `d/` and `r/` are optional for this command. But at least one of the prefixes have to be used for 
-  this command
-- Note that you can only key in one category within each prefix for this command. If you key in multiple categories 
-  within a prefix, only the latest one will be used as a filter. 
+  this command.
+- Note that each prefix can only be used at most once using the command. `filterPersons r/NO r/YES` will result in 
+  an error.
 - **Dietary Restriction Filter:** Use the prefix `d/` followed by a valid dietary restriction value
   (e.g., `VEGAN`, `VEGETARIAN`). Include this if you want to filter persons based on dietary needs. Please see 
   [Allowed Dietary Restrictions](#allowed-dietary-restrictions) for the full list of `DIETARYRESTRICTIONS` to filter by.
