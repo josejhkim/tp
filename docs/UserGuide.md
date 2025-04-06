@@ -40,6 +40,7 @@ traditional mouse-based applications.
     - [Adding a person: `addPerson`](#adding-a-person-addperson)
     - [Deleting a Person : `deletePerson`](#deleting-a-person--deleteperson)
     - [Filtering Persons: `filterPersons`](#filtering-persons-filterpersons)
+    - [Listing Persons: `list`](#listing-persons--list)
   - [Managing Tables](#managing-tables)
     - [Adding a Table : `addTable`](#adding-a-table--addtable)
     - [Deleting a Table : `deleteTable`](#deleting-a-table--deletetable)
@@ -145,10 +146,9 @@ Wedding Hero helps you manage **multiple weddings** with ease by using a **“se
 ### Typical Workflow Example
 
 Here's a typical command sequence you might use a wedding planner:
-
 ```
 createWedding n/John & Jane Wedding
-setWedding John & Jane Wedding
+setWedding n/John & Jane Wedding
 addPerson n/John p/91234567 e/john@example.com a/123 Street d/NONE r/YES
 addTable tid/1 c/10
 addPersonToTable n/John tid/1
@@ -179,7 +179,7 @@ Creates a new wedding in the wedding planner.
 
 <box type="tip" seamless>
 - After using createWedding, remember to set the wedding as active using:
-  setWedding John & Jane Wedding
+  `setWedding n/John & Jane Wedding`
 - Always match spacing exactly when setting or referring to a wedding — "John&JaneWedding" is not the same as "John 
 & Jane Wedding".
 - Once a wedding is set, any added persons, tables, or edits will apply to that active wedding.
@@ -190,7 +190,7 @@ Creates a new wedding in the wedding planner.
 Sets a specific wedding as the active wedding, enabling modifications such as adding a person to a wedding and 
 assigning a person to a wedding's table.
 
-**Format:** `setWedding WEDDINGNAME`
+**Format:** `setWedding n/WEDDINGNAME`
 
 
 - Sets the active wedding context to the wedding with the provided **`WEDDINGNAME`**.
@@ -200,8 +200,8 @@ assigning a person to a wedding's table.
 
 
 **Examples:**
-- Running `setWedding John & Jane Wedding` sets the active wedding to "John & Jane Wedding".
-- Using `setWedding Smith Wedding` sets the active wedding to the wedding named "Smith Wedding".
+- Running `setWedding n/John & Jane Wedding` sets the active wedding to "John & Jane Wedding".
+- Using `setWedding n/Smith Wedding` sets the active wedding to the wedding named "Smith Wedding".
 
 
   <box type="info" seamless> Note: You can only modify or view wedding details after setting a wedding as active. </box>
@@ -253,36 +253,8 @@ Details:
 - Multiple persons can have the same contact information such as `PHONE` or `EMAIL` since children may not have a 
   phone number, and it would be more flexible to allow guests to select their point of contact.
 - A wedding should be created and set before a person can be added.
-
-Each prefix represents a specific attribute of the person:
-- `n/` → Full name (e.g., John Doe)
-- `p/` → Phone number (e.g., 12345678)
-- `e/` → Email address (e.g., johndoe@example.com)
-- `a/` → Address (e.g., 123 Street)
-- `d/` → Dietary Restriction (must be selected from [Allowed Dietary Restrictions](#allowed-dietary-restrictions))
-- `r/` → RSVP status (must be selected from [Allowed RSVP Values](#allowed-rsvp-values))
-
-<box type="tip" seamless> Refer to the full list of `DIETARYRESTRICTION` values to choose from below. 
-</box>
-
-<a id="allowed-dietary-restrictions"></a>
-**Allowed `DIETARYRESTRICTION` values:**
-- NONE
-- VEGETARIAN
-- VEGAN
-- HALAL
-- SHELLFISH
-- PEANUTS
-- EGGS
-- FISH
-- SOY
-- SESAME
-
-<a id="allowed-rsvp-values"></a>
-**Allowed `RSVP` values:**
-- YES
-- NO
-- NO_RESPONSE
+- Please refer to the full list of [Allowed Dietary Restrictions](#allowed-dietary-restrictions) and [Allowed RSVP 
+  Values](#allowed-rsvp-values)
 
 **Examples:**
 ```
@@ -319,10 +291,10 @@ You can use it to display only those persons who meet the criteria you specify.
 
 **Format:** `filterPersons [d/DIETARYRESTRICTION] [r/RSVP]`
 
-- Both prefixes `d/` and `r/` are optional for this command.
-- Note that you can only key in one of each parameter for this command.
-- Adding anything after filterPersons that isn't a valid prefix such as `filterPersons n/John` or `filterPersons 
-someword` will be treated as `filterPersons` as if no filter is applied.
+- At least one of 2 prefixes d/ and r/ must be used for this command. Both of the prefixes can be used together as well.
+- Note that each prefix can only be used at most once with the command. Running `filterPersons r/NO r/YES` will 
+  result in 
+  an error.
 - **Dietary Restriction Filter:** Use the prefix `d/` followed by a valid dietary restriction value
   (e.g., `VEGAN`, `VEGETARIAN`). Include this if you want to filter persons based on dietary needs. Please see 
   [Allowed Dietary Restrictions](#allowed-dietary-restrictions) for the full list of `DIETARYRESTRICTIONS` to filter by.
@@ -337,7 +309,21 @@ someword` will be treated as `filterPersons` as if no filter is applied.
 **Examples:**
 - Running `filterPersons d/VEGAN r/YES` displays all persons who are vegan and have accepted the invitation.
 - Using `filterPersons d/HALAL` displays all persons with a halal dietary restriction.
-- Running `filterPersons` displays all persons without any filter.
+- Running `filterPersons r/YES r/NO` will return an error message since multiple categories are not allowed for a prefix.
+
+### Listing Persons : `list`
+
+Lists all persons in the currently selected wedding, resetting any applied filters.
+
+**Format:** `list`
+
+Details:
+- This command displays every person in the currently selected wedding.
+- No prefixes are required for this command. Anything typed after the `list` command will be ignored
+- It updates the current view by removing any filters, ensuring that all persons are shown.
+
+**Example:**
+- Running `list` will update the display to show all persons stored in the currently selected wedding.
 
 ## Managing Tables
 
@@ -467,6 +453,39 @@ the acceptable range). Therefore, edit the data file only if you are confident t
 - **RSVP**: Indicates whether a person has responded to an invitation. Valid values: `YES`, `NO`, `NO_RESPONSE`.
 
 - **Index**: A positive integer shown in the GUI list view that represents the position of a person in the current filtered or full list. Used in commands like `deletePerson`.
+
+- **Prefix**: Refers to `n/`, `r/`, `p/` etc. Please refer to the list of prefixes and its meaning below to see what 
+  each of them refer to.
+
+### List of prefixes and its meaning:
+- `n/` → Name (e.g., John Doe or Jack and Jill's wedding)
+- `p/` → Phone number (e.g., 12345678)
+- `e/` → Email address (e.g., johndoe@example.com)
+- `a/` → Address (e.g., 123 Street)
+- `d/` → Dietary Restriction (must be selected from [Allowed Dietary Restrictions](#allowed-dietary-restrictions))
+- `r/` → RSVP status (must be selected from [Allowed RSVP Values](#allowed-rsvp-values))
+- `tid/` → Table ID integer (Must be greater than 0)
+- `c/` → Capacity allocated to table 
+
+<a id="allowed-dietary-restrictions"></a>
+### **Allowed `DIETARYRESTRICTION` values:**
+- NONE
+- VEGETARIAN
+- VEGAN
+- HALAL
+- SHELLFISH
+- PEANUTS
+- EGGS
+- FISH
+- SOY
+- SESAME
+
+<a id="allowed-rsvp-values"></a>
+### **Allowed `RSVP` values:**
+- YES
+- NO
+- NO_RESPONSE
+
 
 
 --------------------------------------------------------------------------------------------------------------------
