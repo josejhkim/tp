@@ -379,7 +379,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 1. User decides to add a new guest.
 2. User to enters the guest details in the following correct format:
-   `addGuest n/john Doe p/81231234 e/JohnDoe@gmail.com a/123 Kent Ridge d/None r/YES`
+   `addPerson n/john Doe p/81231234 e/JohnDoe@gmail.com a/123 Kent Ridge d/None r/YES`
 3. WeddingHero validates the entered details.
 4. WeddingHero adds the guest to the current wedding's guest list.
 5. WeddingHero displays a confirmation message that the guest has been successfully added.
