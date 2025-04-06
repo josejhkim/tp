@@ -454,7 +454,7 @@ the acceptable range). Therefore, edit the data file only if you are confident t
 
 - **Index**: A positive integer shown in the GUI list view that represents the position of a person in the current filtered or full list. Used in commands like `deletePerson`.
 
-- **Prefix**: Refers to `n/`, `r/`,`p/` etc. Please refer to the list of prefixes and its meaning below to see what 
+- **Prefix**: Refers to `n/`, `r/`, `p/` etc. Please refer to the list of prefixes and its meaning below to see what 
   each of them refer to.
 
 ### List of prefixes and its meaning:
