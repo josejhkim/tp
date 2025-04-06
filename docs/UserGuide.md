@@ -482,6 +482,15 @@ save manually.
 
 WeddingHero data are saved automatically as a JSON file `[JAR file location]/data/WeddingHero.json`.
 Advanced users are welcome to update data directly by editing that data file.
+
+<box type="warning" seamless>
+**Important Note about the `clear` Command:**
+- The `clear` command completely removes all wedding data from WeddingHero
+- This includes all weddings, guests, and tables
+- After clearing, you can create new weddings with any name, including names that were previously used
+- This action cannot be undone
+</box>
+
 <box type="warning" seamless><br>
 
 **Caution:**
