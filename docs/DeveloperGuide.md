@@ -317,6 +317,20 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **Preconditions:**
 - At least one wedding has been created in WeddingHero.
 
+**System Behavior:**
+- The active wedding setting is not preserved between application sessions.
+- When the application is restarted, no wedding is set as active.
+- Users must explicitly set their working wedding using `setWedding` after each application launch.
+
+**Design Rationale:**
+- The `setWedding` command is designed to set the current wedding context for the active session only.
+- This design choice provides several benefits:
+  1. **Explicit Context**: Users must consciously choose which wedding they want to work with at the start of each session.
+  2. **Safety**: Prevents accidental modifications to the wrong wedding by requiring explicit selection.
+  3. **Clarity**: Ensures users are always aware of which wedding they are currently viewing and modifying.
+  4. **Fresh Start**: Each session begins with a clean slate, reducing the chance of confusion from previous sessions.
+  5. **Intentional Workflow**: Encourages users to be deliberate about which wedding they are working on.
+
 **MSS**
 
 1. User wants to set a wedding as active.

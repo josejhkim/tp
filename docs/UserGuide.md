@@ -196,9 +196,25 @@ assigning a person to a wedding's table.
 
 - Sets the active wedding context to the wedding with the provided **`WEDDINGNAME`**.
 - Activates a previously created wedding identified by WEDDINGNAME.
-  -Once set, all person and table operations will apply to this active wedding.
-  -The WEDDINGNAME must match the name used during createWedding, with correct spacing.
+- Once set, all person and table operations will apply to this active wedding.
+- The WEDDINGNAME must match the name used during createWedding, with correct spacing.
+- Note: The active wedding setting is not preserved between application sessions. You will need to use `setWedding` again after restarting the application.
 
+<box type="info" seamless>
+💡 Design Rationale:
+- The `setWedding` command is designed to set the current wedding you are viewing and working on, not to persist the active wedding across application sessions.
+- This design choice allows you to:
+  - Start fresh with each application session
+  - Avoid accidentally modifying the wrong wedding
+  - Maintain clear context of which wedding you're working on
+  - Explicitly confirm which wedding you want to work with at the start of each session
+</box>
+
+<box type="tip" seamless>
+💡 Tips:
+- After restarting the application, always set your working wedding using `setWedding` before proceeding with other commands
+- Future versions may include a command to list all available weddings
+</box>
 
 **Examples:**
 - Running `setWedding n/John & Jane Wedding` sets the active wedding to "John & Jane Wedding".
