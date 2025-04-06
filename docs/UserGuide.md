@@ -209,17 +209,23 @@ assigning a person to a wedding's table.
 
 ### Wedding Overview : `weddingOverview`
 
-Provides an overview of the current active wedding, including details such as the number of tables and persons.
+Provides an overview of the current active wedding, including details such as the number of tables and total number of guests invited.
 
 **Format:** `weddingOverview`
 
 - Retrieves a summary overview of the active wedding.
 - No additional arguments are required.
-- The overview includes key details such as the number of tables and persons and the list of persons invited.
+- The overview includes key details such as:
+  - Number of tables created
+  - Total number of guests invited (regardless of RSVP status)
+  - List of all invited guests
+
+<box type="info" seamless>
+💡 Future Extension: A future update will add the ability to see the number of guests who have accepted their RSVP, helping you better plan for actual attendance.
+</box>
 
 **Examples:**
-- Running `weddingOverview` after setting an active wedding displays a summary of the wedding, including number of 
-  persons attending and number of tables.
+- Running `weddingOverview` after setting an active wedding displays a summary of the wedding, including number of guests invited and number of tables.
 
 ### Deleting a Wedding : `deleteWedding`
 
