@@ -418,7 +418,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ---
 
-### UC4: Add a guest
+### UC4: Add a Person
 
 **Preconditions:**
 - A wedding has been created.
@@ -461,7 +461,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ---
 
-### UC5: Delete a guest
+### UC5: Delete a person
 
 **Preconditions:**
 - A wedding has been created.
@@ -644,7 +644,8 @@ Creates a new wedding where Persons and Tables can be added after it has been se
 **Test case:** `createWedding n/John & Jane Wedding`  
 **Expected Result:** New Wedding is added to the list. A message that a new wedding has been created is shown.
 
-**Test case:** `createWedding n/John & Jane Wedding`  
+**Test case:** `createWedding n/John & Jane Wedding`, then do the command`createWedding n/John & Jane Wedding` again
+
 **Expected Result:** A message that a wedding already exists with the name is shown.
 
 **Incorrect Test Commands:**
