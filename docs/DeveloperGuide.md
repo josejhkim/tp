@@ -12,6 +12,9 @@ pageNav: 3
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Acknowledgements**
+- The project is based on the AddressBook-Level2 project created by the SE-EDU initiative
+- Github CoPilot was used by Bhavina Sathish Kumar to write trivial test cases and the JavaDocs for some trivial methods
+
 
 _{ list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well }_
 
@@ -295,11 +298,11 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | *        | wedding planner                                         | track expenses against a set budget                                                            | I stay informed of the wedding costs                                                                           |
 | *        | wedding planner                                         | share a to-do list with my clients                                                             | we can stay on the same page about what needs to be done                                                       |
 
-## Use cases
+## Use cases (UC)
 
 (For all use cases below, the **System** is the `WeddingHero` and the **guest** is the guest invited to the wedding, unless specified otherwise)
 
-### Use case: Create a wedding
+### UC1: Create a wedding
 
 **MSS**
 
@@ -370,7 +373,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ---
 
-### Use case: Wedding Overview
+### UC3: Wedding Overview
 
 **Preconditions:**
 - A wedding has been created.
@@ -396,7 +399,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ---
 
-### Use case: Add a guest
+### UC4: Add a guest
 
 **Preconditions:**
 - A wedding has been created.
@@ -439,7 +442,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ---
 
-### Use case: Delete a guest
+### UC5: Delete a guest
 
 **Preconditions:**
 - A wedding has been created.
@@ -504,7 +507,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ---
 
-### Use case: Add a table
+### UC6: Add a table
 
 **Preconditions:**
 - A wedding has been created.
@@ -543,7 +546,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ---
 
-### Use case: Delete a table
+### UC7: Delete a table
 
 **Preconditions:**
 - A wedding has been created.
@@ -824,3 +827,4 @@ Removes a person from a table in the currently active wedding.
 ## **Appendix: Planned Enhancements**
 
 Team size: 5
+
