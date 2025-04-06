@@ -40,6 +40,7 @@ traditional mouse-based applications.
     - [Adding a person: `addPerson`](#adding-a-person-addperson)
     - [Deleting a Person : `deletePerson`](#deleting-a-person--deleteperson)
     - [Filtering Persons: `filterPersons`](#filtering-persons-filterpersons)
+    - [Listing Persons: `list`](#listing-persons--list)
   - [Managing Tables](#managing-tables)
     - [Adding a Table : `addTable`](#adding-a-table--addtable)
     - [Deleting a Table : `deleteTable`](#deleting-a-table--deletetable)
@@ -290,9 +291,9 @@ You can use it to display only those persons who meet the criteria you specify.
 
 **Format:** `filterPersons [d/DIETARYRESTRICTION] [r/RSVP]`
 
-- Both prefixes `d/` and `r/` are optional for this command. But at least one of the prefixes must be used for this 
-  command.
-- Note that each prefix can only be used at most once using the command. `filterPersons r/NO r/YES` will result in 
+- At least one of 2 prefixes d/ and r/ must be used for this command. Both of the prefixes can be used together as well.
+- Note that each prefix can only be used at most once with the command. Running `filterPersons r/NO r/YES` will 
+  result in 
   an error.
 - **Dietary Restriction Filter:** Use the prefix `d/` followed by a valid dietary restriction value
   (e.g., `VEGAN`, `VEGETARIAN`). Include this if you want to filter persons based on dietary needs. Please see 
@@ -308,22 +309,21 @@ You can use it to display only those persons who meet the criteria you specify.
 **Examples:**
 - Running `filterPersons d/VEGAN r/YES` displays all persons who are vegan and have accepted the invitation.
 - Using `filterPersons d/HALAL` displays all persons with a halal dietary restriction.
-- Using `filterPersons r/YES r/NO` will return an error message since multiple categories are not allowed for a prefix.
+- Running `filterPersons r/YES r/NO` will return an error message since multiple categories are not allowed for a prefix.
 
 ### Listing Persons : `list`
 
-Lists all persons in the address book, resetting any applied filters.
+Lists all persons in the currently selected wedding, resetting any applied filters.
 
 **Format:** `list`
 
 Details:
-- This command displays every person in the address book.
+- This command displays every person in the currently selected wedding.
+- No prefixes are required for this command. Anything typed after the `list` command will be ignored
 - It updates the current view by removing any filters, ensuring that all persons are shown.
-- The command assumes that the address book is initialized and ready to display the complete list.
-- It provides a simple way to revert to the unfiltered person list after executing other commands that apply filters.
 
 **Example:**
-- Running `list` will update the display to show all persons stored in the address book.
+- Running `list` will update the display to show all persons stored in the currently selected wedding.
 
 ## Managing Tables
 
