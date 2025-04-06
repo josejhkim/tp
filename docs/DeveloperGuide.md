@@ -157,6 +157,25 @@ Classes used by multiple components are in the `seedu.address.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
+### `addPersonToTable` Command
+
+The `addPersonToTable`  allows a user to assign a specific guest to a specific table within the currently active wedding.
+
+The implementation involves several validation steps:
+- Checking that the input format is correct
+- Checking that the specified person exists in the current guest list
+- Checking that the table exists
+- Ensuring the table has available capacity
+
+Once all conditions are met, the guest is assigned to the table and the system state is saved.
+
+The activity diagram below illustrates the control flow of this command
+
+<puml src="diagrams/AddPersonToTableActivityDiagram.puml" width="600" alt="Activity diagram for addPersonToTable command" />
+
+
+
+
 ### \[Proposed\] Undo/redo feature
 
 #### Proposed Implementation
