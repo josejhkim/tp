@@ -390,7 +390,7 @@ Use case ends.
 
 ---
 
-### UC4: Add a guest
+### UC4: Add a Person
 
 **Preconditions:**
 - A wedding has been created.
@@ -398,12 +398,12 @@ Use case ends.
 
 **MSS**
 
-1. User decides to add a new guest.
-2. User to enters the guest details in the following correct format:
+1. User decides to add a new Person.
+2. User to enters the person details in the following correct format:
    `addPerson n/john Doe p/81231234 e/JohnDoe@gmail.com a/123 Kent Ridge d/None r/YES`
 3. WeddingHero validates the entered details.
-4. WeddingHero adds the guest to the current wedding's guest list.
-5. WeddingHero displays a confirmation message that the guest has been successfully added.
+4. WeddingHero adds the person to the current wedding's guest list.
+5. WeddingHero displays a confirmation message that the person has been successfully added.
    Use case ends.
 
 **Extensions:**
@@ -424,14 +424,14 @@ Use case ends.
 - 2c3. Once valid input is provided, the process resumes at step 3.
 
 3c. **Duplicate Person**
-- 3c1. If WeddingHero detects that a guest with the same identifier (e.g. same name) already exists,
+- 3c1. If WeddingHero detects that a person with the same identifier (e.g. same name) already exists,
     it notifies the user of the duplicate.
-- 3c2. WeddingHero prompts the user that guest has already been added.
+- 3c2. WeddingHero prompts the user that person has already been added.
 Use case ends.
 
 ---
 
-### UC5: Delete a guest
+### UC5: Delete a person
 
 **Preconditions:**
 - A wedding has been created.
@@ -441,20 +441,20 @@ Use case ends.
 
 1. User requests to view the current guest list.
 2. WeddingHero displays the list of guests.
-3. User selects a guest to delete by providing an identifier (guest name), e.g., `deletePerson n/John Doe`.
-4. WeddingHero searches for a guest matching the provided nam
-5. WeddingHero deletes the guest.
+3. User selects a person to delete by providing an identifier (person name), e.g., `deletePerson n/John Doe`.
+4. WeddingHero searches for a person matching the provided nam
+5. WeddingHero deletes the person.
    Use case ends.
 
 **Extensions:**
 
 3a. **Alternative Identifier: Phone Number**
-- 3a1. Instead of using the guest name, the user issues the delete command with a phone number identifier (e.g., `deleteGuest p/81231234`).
-- 3a2. WeddingHero searches for a guest matching the provided phone number.
+- 3a1. Instead of using the guest name, the user issues the delete command with a phone number identifier (e.g., `deletePerson p/81231234`).
+- 3a2. WeddingHero searches for a person matching the provided phone number.
 - 3a3. WeddingHero then proceeds to step 5 of the MSS.
 
 3b. **Missing Identifier Tag**
-- 3b1. The user issues the delete command without using the required identifier tag (e.g., `deleteGuest John Doe` without `n/` or `p/`).
+- 3b1. The user issues the delete command without using the required identifier tag (e.g., `deletePerson John Doe` without `n/` or `p/`).
 - 3b2. WeddingHero detects the missing tag and displays an error message instructing the user to use the correct identifier format.
 - 3b3. WeddingHero prompts the user to re-enter the command with either of the proper tags.
 - 3b4. If the user re-enters the command with a valid identifier, the process resumes at step 4.
@@ -631,6 +631,7 @@ Use case ends.
 # Glossary
 
 - **Person:** An individual invited to attend the wedding.
+- **Guest:** A Person invited to attend the wedding.
 - **Table:** A designated seating area at the wedding venue, typically used to group guests together.
 - **Dietary Restriction:** A limitation or specific requirement regarding food consumption, often due to allergies, health conditions, or personal preferences.
 - **RSVP Status:** The response provided by an invited guest indicating whether they will attend the event.
@@ -668,7 +669,8 @@ Creates a new wedding where Persons and Tables can be added after it has been se
 **Test case:** `createWedding n/John & Jane Wedding`  
 **Expected Result:** New Wedding is added to the list. A message that a new wedding has been created is shown.
 
-**Test case:** `createWedding n/John & Jane Wedding`  
+**Test case:** `createWedding n/John & Jane Wedding`, then do the command`createWedding n/John & Jane Wedding` again
+
 **Expected Result:** A message that a wedding already exists with the name is shown.
 
 **Incorrect Test Commands:**
