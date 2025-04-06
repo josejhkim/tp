@@ -291,8 +291,16 @@ public class AddressBook implements ReadOnlyAddressBook {
      * address book.
      */
     public void setPerson(Person target, Person editedPerson) {
-        personList.setPerson(target, editedPerson);
         getCurrentWedding().setPerson(target, editedPerson);
+        personList.setPerson(target, editedPerson);
+
+        // Since switching tables isn't allowed with the edit command
+        if (target.isSeated()) {
+            int tid = target.getTableId();
+            Table oldTable = tableList.findTableById(tid);
+            oldTable.setPerson(target, editedPerson);
+            tableList.setTable(oldTable, tableList.findTableById(tid));
+        }
     }
 
     /**
@@ -300,11 +308,13 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void deletePerson(Person key) {
         requireNonNull(key);
+
         if (key.isSeated()) {
             deletePersonFromTable(key, key.getTableId());
         }
+
+        getCurrentWedding().deletePerson(new Person(key, -1));
         personList.delete(key);
-        getCurrentWedding().deletePerson(key);
     }
 
     /**
@@ -345,8 +355,8 @@ public class AddressBook implements ReadOnlyAddressBook {
      * @param table the Table to add
      */
     public void addTable(Table table) {
-        tableList.addTable(table);
         getCurrentWedding().addTable(table);
+        tableList.addTable(table);
     }
 
     /**
@@ -361,9 +371,9 @@ public class AddressBook implements ReadOnlyAddressBook {
             this.personList.setPerson(p, removedFromTable);
         }
 
-        tableList.deleteTable(table);
-
         getCurrentWedding().deleteTable(table);
+
+        tableList.deleteTable(table);
     }
 
     /**
@@ -384,8 +394,8 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void setTable(Table target, Table editedTable) {
         requireNonNull(editedTable);
-        tableList.setTable(target, editedTable);
         getCurrentWedding().setTable(target, editedTable);
+        tableList.setTable(target, editedTable);
     }
 
     /**
@@ -425,8 +435,8 @@ public class AddressBook implements ReadOnlyAddressBook {
      * @param table the Table to delete the person from
      */
     public void deletePersonFromTable(Person p, Table table) {
-        personList.setPerson(p, new Person(p, -1));
         this.getCurrentWedding().deletePersonFromTable(p, table);
+        personList.setPerson(p, new Person(p, -1));
         tableList.setTable(table, this.getCurrentWedding().findTableById(table.getTableId()));
     }
 
