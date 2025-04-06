@@ -353,8 +353,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**
 
 1. User wants to view the wedding overview.
-2. WeddingHero retrieves the overview details of the current active wedding, including the number of tables, guests
-   and list of guests.
+2. WeddingHero retrieves the overview details of the current active wedding, including the number of tables, guests and list of guests.
 3. WeddingHero displays the wedding overview information.
 4. Use case ends.
 
@@ -543,13 +542,6 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 ## **Appendix: Instructions for manual testing**
 
 Given below are instructions to test the app manually.
-
-Set Wedding 
-
-CreateWedding 
-
-DeleteWedding 
-
 
 <box type="info" seamless>
 **Note:** These instructions only provide a starting point for testers to work on; testers are expected to do more *exploratory* testing.
