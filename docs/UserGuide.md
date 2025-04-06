@@ -21,7 +21,7 @@ As a professional wedding planner, you need a tool that keeps pace with your fas
 If you're comfortable typing quickly, Wedding Hero empowers you to execute your planning tasks more efficiently than
 traditional mouse-based applications.
 
---------------------------------------------------------------------------------------------------------------------
+---
 ## Table of Contents
 
 - [Quick start](#quick-start)
@@ -55,7 +55,7 @@ traditional mouse-based applications.
 - [FAQ](#faq)
 - [Known issues](#known-issues)
 - [Command Summary](#command-summary)
---------------------------------------------------------------------------------------------------------------------
+---
 <div style="page-break-after: always;"></div>
 
 ## Quick start
@@ -63,7 +63,7 @@ traditional mouse-based applications.
 1. Ensure you have Java `17` or above installed in your Computer.<br>
    **Mac users:** Ensure you have the precise JDK version prescribed
    [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).<br>
-   **Window and Linux users:** can find their Java `17` download links
+   **Windows and Linux users:** can find their Java `17` download links
    [here](https://www.oracle.com/java/technologies/downloads/#java17).
 2. Download the latest `.jar` file from [here](https://github.com/se-edu/WeddingHero-level3/releases).
 
@@ -86,7 +86,7 @@ traditional mouse-based applications.
 
 - Refer to the [Features](#features) below for details of each command.
 
---------------------------------------------------------------------------------------------------------------------
+---
 
 **Notes about the command format:**<br>
 
@@ -109,7 +109,7 @@ traditional mouse-based applications.
 span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
 </box>
 
---------------------------------------------------------------------------------------------------------------------
+---
 <div style="page-break-after: always;"></div>
 
 ## Using Wedding Hero
@@ -154,14 +154,14 @@ addTable tid/1 c/10
 addPersonToTable n/John tid/1
 weddingOverview
 ```
---------------------------------------------------------------------------------------------------------------------
+---
 <div style="page-break-after: always;"></div>
 
 ## Features
 
 ### Managing Weddings
 
---------------------------------------------------------------------------------------------------------------------
+---
 ### Creating a Wedding : `createWedding`
 
 Creates a new wedding in the wedding planner.
@@ -174,15 +174,17 @@ Creates a new wedding in the wedding planner.
 - This command is used to quickly add a new wedding event to the system.
 
 **Examples:**
-- Running `createWedding John & Jane Wedding` will create a wedding entry with the name "John & Jane Wedding".
-- Using `createWedding Smith Family Wedding` will add a wedding event named "Smith Family Wedding".
+- Running `createWedding n/John & Jane Wedding` will create a wedding entry with the name "John & Jane Wedding".
+- Using `createWedding n/Smith Family Wedding` will add a wedding event named "Smith Family Wedding".
 
 <box type="tip" seamless>
+
 - After using createWedding, remember to set the wedding as active using:
   setWedding John & Jane Wedding
 - Always match spacing exactly when setting or referring to a wedding — "John&JaneWedding" is not the same as "John 
 & Jane Wedding".
 - Once a wedding is set, any added persons, tables, or edits will apply to that active wedding.
+
 </box>
 
 ### Setting a Wedding : `setWedding`
@@ -204,7 +206,7 @@ assigning a person to a wedding's table.
 - Using `setWedding Smith Wedding` sets the active wedding to the wedding named "Smith Wedding".
 
 
-  <box type="info" seamless> Note: You can only modify or view wedding details after setting a wedding as active. </box>
+  <box type="info" seamless> Note: You can only modify or view wedding details after setting a wedding as active. Wedding Hero enforces single-wedding context to ensure that all operations are scoped cleanly to one event at a time, avoiding accidental mixing of guest lists across weddings. </box>
 
 ### Wedding Overview : `weddingOverview`
 
@@ -236,7 +238,7 @@ Examples:
 
 <box type="warning" seamless>  This action is irreversible. Ensure you are deleting the correct wedding before confirming. </box>
 
---------------------------------------------------------------------------------------------------------------------
+---
 
 ## Managing Persons
 
@@ -341,7 +343,7 @@ someword` will be treated as `filterPersons` as if no filter is applied.
 
 ## Managing Tables
 
---------------------------------------------------------------------------------------------------------------------
+---
 
 ### Adding a Table : `addTable`
 
@@ -357,7 +359,7 @@ addTable tid/TABLEID c/CAPACITY
   the `getTablesCommand`, to view the other tables
 - The parameter `CAPACITY` represents the seating capacity of the table.
 - Both parameters are required to correctly add the table to the wedding plan.
-- There is an upper limit of 10000 as the maximum capacity
+- There is an upper limit of 100 as the maximum capacity to the number of tables
 
 **Examples:**
 - Running `addTable tid/12 c/8` will add a table with the ID `12` and a seating capacity for 8 persons.
@@ -403,7 +405,7 @@ Finds a table by its ID.
 
 ## Assigning a Person to a Table
 
---------------------------------------------------------------------------------------------------------------------
+---
 ### Adding a Person to a Table: addPersonToTable
 Assigns a Person to a specified Table within the currently active wedding.
 
@@ -414,7 +416,7 @@ Assigns a Person to a specified Table within the currently active wedding.
 - Useful for quickly locating a specific table in the wedding layout.
 
 **Examples:**
-- Running `findTable tid/12`  searches and displays the table with the id 12.
+- Running `addPersonToTable n/John Doe tid/12`  adds John Doe to the table and displays the table with the id 12.
 
 ### Removing a Person from a Table: deletePersonFromTable
 Removes a person from a table in the currently active wedding.
@@ -425,9 +427,9 @@ Removes a person from a table in the currently active wedding.
 - NAME is the name of the person displayed on the list
 
 example:
-- deletePersonFromTable name/John Doe tid/5 deletes the John Doe person from the table with ID 5
+- deletePersonFromTable n/John Doe tid/5 deletes the John Doe person from the table with ID 5
 
---------------------------------------------------------------------------------------------------------------------
+---
 ### Exiting the program : `exit`
 
 Exits the program.
@@ -451,7 +453,7 @@ empty data file at the next run.  Hence, it is recommended to take a backup of t
 Furthermore, certain edits can cause the WeddingHero to behave in unexpected ways (e.g., if a value entered is outside
 the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 </box>
---------------------------------------------------------------------------------------------------------------------
+---
 
 ### Glossary
 
@@ -469,14 +471,14 @@ the acceptable range). Therefore, edit the data file only if you are confident t
 - **Index**: A positive integer shown in the GUI list view that represents the position of a person in the current filtered or full list. Used in commands like `deletePerson`.
 
 
---------------------------------------------------------------------------------------------------------------------
+---
 ## FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains
 the data of your previous WeddingHero home folder.
 
---------------------------------------------------------------------------------------------------------------------
+---
 ## Known issues
 1. When using multiple screens, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen. The remedy is to delete the preferences.json file created by the application before running the application again.
 2. If you minimize the Help Window and then run the help command (or use the Help menu, or the keyboard shortcut F1) again, the original Help Window will remain minimized, and no new Help Window will appear. The remedy is to manually restore the minimized Help Window.
@@ -484,24 +486,24 @@ the data of your previous WeddingHero home folder.
    restrictions people may have, but the list we have provided is applicable to majority of the population. We will 
    try our best to include more dietary restrictions in the future. Stay tuned!
 
---------------------------------------------------------------------------------------------------------------------
+---
 ## Command Summary
 
-| **Action**                | **Format, Examples**                                                                                                                                                 |
-|---------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **createWedding**         | `createWedding n/NAME`<br>Example: `createWedding n/John & Jane Wedding`                                                                                             |
-| **deleteWedding**         | `deleteWedding n/NAME`<br>Example: `deleteWedding n/John & Jane Wedding`                                                                                             |
-| **setWedding**            | `setWedding n/NAME`<br>Example: `setWedding n/Smith Wedding`                                                                                                         |
-| **weddingOverview**       | `weddingOverview`<br>Example: `weddingOverview`                                                                                                                      |
+| **Action**                | **Format, Examples**                                                                                                                                |
+|---------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------|
+| **createWedding**         | `createWedding n/NAME`<br>Example: `createWedding n/John & Jane Wedding`                                                                            |
+| **deleteWedding**         | `deleteWedding n/NAME`<br>Example: `deleteWedding n/John & Jane Wedding`                                                                            |
+| **setWedding**            | `setWedding n/NAME`<br>Example: `setWedding n/Smith Wedding`                                                                                        |
+| **weddingOverview**       | `weddingOverview`<br>Example: `weddingOverview`                                                                                                     |
 | **addPerson**             | `addPerson n/NAME p/PHONE e/EMAIL a/ADDRESS d/DIETARYRESTRICTION r/RSVP`<br/>Example: `addPerson n/John Doe p/12345678 e/johndoe@example.com a/123 Street d/Vegan r/YES` |
-| **deletePerson**          | `deletePerson INDEX`<br>Example: `deletePerson 3`                                                                                                                    |
-| **Find**                  | `Find KEYWORD`<br>Example: `Find John`                                                                                                                               |
-| **filterPersons**         | `filterPersons [d/DIETARYRESTRICTION] [r/RSVP_FIELD]`<br>Example: `filterPersons d/Vegan r/YES`                                                               |
-| **addTable**              | `addTable tid/TABLE_ID c/CAPACITY`<br>Example: `addTable tid/1 c/8`                                                                                                  |
-| **addPersonToTable**      | `addPersonToTable n/NAME tid/TABLE_ID`<br>Example: `addPersonToTable n/John Doe tid/1`                                                                               |
-| **deletePersonFromTable** | `deletePersonFromTable n/NAME tid/TABLE_ID`<br>Example: `deletePersonFromTable n/John Doe tid/1`                                                                     |
-| **deleteTable**           | `deleteTable tid/TABLE_ID`<br>Example: `deleteTable tid/1`                                                                                                           |
-| **findTable**             | `findTable [tid/TABLE_ID] [INDEX]`<br>Examples: `findTable tid/1` or `findTable 1`                                                                                   |
-| **getTables**             | `getTables`<br>Example: `getTables`                                                                                                                                  |
-| **Help**                  | `Help`                                                                                                                                                               |
+| **deletePerson**          | `deletePerson INDEX`<br>Example: `deletePerson 3`                                                                                                   |
+| **Find**                  | `Find KEYWORD`<br>Example: `Find John`                                                                                                              |
+| **filterPersons**         | `filterPersons [d/DIETARYRESTRICTION] [r/RSVP_FIELD]`<br>Example: `filterPersons d/Vegan r/YES`                                                     |
+| **addTable**              | `addTable tid/TABLE_ID c/CAPACITY`<br>Example: `addTable tid/1 c/8`                                                                                 |
+| **addPersonToTable**      | `addPersonToTable n/NAME tid/TABLE_ID`<br>Example: `addPersonToTable n/John Doe tid/1`                                                              |
+| **deletePersonFromTable** | `deletePersonFromTable n/NAME tid/TABLE_ID`<br>Example: `deletePersonFromTable n/John Doe tid/1`                                                    |
+| **deleteTable**           | `deleteTable tid/TABLE_ID`<br>Example: `deleteTable tid/1`                                                                                          |
+| **findTable**             | `findTable [tid/TABLE_ID] [INDEX]`<br>Examples: `findTable tid/1`                                                                                   |
+| **getTables**             | `getTables`<br>Example: `getTables`                                                                                                                 |
+| **Help**                  | `Help`                                                                                                                                              |
 | **exit**                  | `exit`                                     
