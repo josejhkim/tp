@@ -453,7 +453,7 @@ Assigns a Person to a specified Table within the currently active wedding.
 - Useful for quickly locating a specific table in the wedding layout.
 
 **Examples:**
-- Running `addPersonToTable n/John Doe tid/12`  adds John Doe to the table and displays the table with the id 12.
+- Running `addPerson n/John Doe tid/1`  adds a person called John Doe to the table with the id 1.
 
 ### Removing a Person from a Table: deletePersonFromTable
 Removes a person from a table in the currently active wedding.
