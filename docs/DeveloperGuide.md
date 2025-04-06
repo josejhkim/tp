@@ -420,7 +420,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 1. User requests to view the current guest list.
 2. WeddingHero displays the list of guests.
-3. User selects a guest to delete by providing an identifier (guest name), e.g., `deleteGuest n/John Doe`.
+3. User selects a guest to delete by providing an identifier (guest name), e.g., `deletePerson n/John Doe`.
 4. WeddingHero searches for a guest matching the provided name or phone number.
 5. WeddingHero deletes the guest.
    Use case ends.
@@ -428,12 +428,12 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **Extensions:**
 
 3a. **Alternative Identifier: Phone Number**
-    3a1. Instead of using the guest name, the user issues the delete command with a phone number identifier (e.g., `deleteGuest p/81231234`).
+    3a1. Instead of using the guest name, the user issues the delete command with a phone number identifier (e.g., `deletePerson p/81231234`).
     3a2. WeddingHero searches for a guest matching the provided phone number.
     3a3. WeddingHero then proceeds to step 5 of the MSS.
 
 3b. **Missing Identifier Tag**
-    3b1. The user issues the delete command without using the required identifier tag (e.g., `deleteGuest John Doe` without `n/` or `p/`).
+    3b1. The user issues the delete command without using the required identifier tag (e.g., `deletePerson John Doe` without `n/` or `p/`).
     3b2. WeddingHero detects the missing tag and displays an error message instructing the user to use the correct identifier format.
     3b3. WeddingHero prompts the user to re-enter the command with either of the proper tags.
     3b4. If the user re-enters the command with a valid identifier, the process resumes at step 4.
