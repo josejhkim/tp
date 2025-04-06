@@ -604,16 +604,214 @@ Given below are instructions to test the app manually.
 ### Launch and shutdown
 
 1. Initial launch
-   1. Download the jar file and copy it into an empty folder.
-   2. Double-click the jar file.
+   1a. Download the jar file and copy it into an empty folder.
+   1b. Double-click the jar file.
       Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
 
 2. Saving window preferences
-   1. Resize the window to an optimum size. Move the window to a different location. Close the window.
-   2. Re-launch the app by double-clicking the jar file.
+   2a.Resize the window to an optimum size. Move the window to a different location. Close the window.
+   2b.Re-launch the app by double-clicking the jar file.
       Expected: The most recent window size and location is retained.
 
-3. _{ more test cases … }_
+
+### Creating a New Wedding
+Creates a new wedding where Persons and Tables can be added after it has been set.
+
+**Prerequisites:** None
+
+**Test case:** `createWedding n/John & Jane Wedding`  
+**Expected Result:** New Wedding is added to the list. A message that a new wedding has been created is shown.
+
+**Test case:** `createWedding n/John & Jane Wedding`  
+**Expected Result:** A message that a wedding already exists with the name is shown.
+
+**Incorrect Test Commands:**
+- `createWedding John`
+- `createWedding`  
+  **Expected Result:** Error details of incorrect format and right usage are shown in the status message.
+
+---
+
+### Set Wedding
+Sets a wedding that has been created.
+
+**Prerequisites:** Wedding John & Jane has been created
+
+**Test case:** `setWedding n/John & Jane`  
+**Expected Result:** A message would be shown to indicate that the wedding has been set, and this would be reflected in the GUI.
+
+**Test case:** `setWedding n/Aikeen & Dueet`  
+**Expected Result:** An error message would be shown to indicate there is no such wedding.
+
+**Incorrect Test Commands:**
+- `setWedding John`
+- `setWedding`
+
+---
+
+### Wedding Overview
+Shows an overview of the current wedding including the number of people invited, the number of tables, and the guest names.
+
+**Prerequisites:** A wedding has been set
+
+**Test case:** `weddingOverview`  
+**Expected Result:** A message showing the number of people attending, the number of tables present and the guest names would be shown.
+
+**Incorrect Test Command:** `weddingOverview n/`  
+**Expected Result:** An error message showing that it is an incorrect command is shown.
+
+---
+
+### Delete Wedding
+Deletes the Wedding and removes all instances of the People and the Tables in the wedding.
+
+**Prerequisites:** A Wedding named John & Jane has been created
+
+**Test case:** `deleteWedding n/John & Jane`  
+**Expected Result:** The wedding of John & Jane is deleted. A message is shown that the wedding has been deleted.
+
+**Test case:** `deleteWedding n/Aikeen & Dueet`  
+**Expected Result:** No such error message is shown.
+
+**Incorrect Test Command:** `deleteWedding`  
+**Expected Result:** A message showing the correct error message is shown.
+
+---
+
+### Adding a Person
+Allows you to add people to the currently setWedding.
+
+**Prerequisites:** A Wedding named John & Jane has been created, and the wedding has been set
+
+**Test case:** `addPerson n/John Doe p/12345678 e/johndoe@example.com a/123 Street d/NONE r/YES`  
+**Expected Result:** The person John Does is added to the current wedding, and is reflected in the GUI.
+
+**Incorrect Test Command:** `addPerson n/John Doe p/12345678 e/johndoe@example.com a/123 Street d/NONE r/WHAT_HELP`  
+**Expected Result:** An error message is shown.
+
+---
+
+### Deleting a Person
+Deletes a person from the currently active wedding's person list, using their displayed index number.
+
+**Prerequisites:** A Wedding named John & Jane has been created, and the wedding has been set. John Doe has been added, and is the first person shown in the list
+
+**Test case:** `deletePerson 1`  
+**Expected Result:** The first person on the list, eg. John Doe would be deleted.
+
+**Incorrect Test Commands:**
+- `deletePerson -8`
+- `deletePerson a`  
+  **Expected Result:** An error message showing the correct input format is given.
+
+---
+
+### Filtering Persons
+Allows you to filter your list of persons by applying DIETARYRESTRICTION and/or RSVP status filters.
+
+**Prerequisites:** You have created and set a wedding, with a person with `n/John Doe` added with the HALAL dietary restriction
+
+**Test case:** `filterPersons Halal`  
+**Expected Result:** You would get a filtered list with the HALAL tag, and John Doe would be reflected.
+
+---
+
+### Adding a Table
+Adds a table with the specified table ID and capacity to the current wedding.
+
+**Prerequisites:** A Wedding has been created and set
+
+**Test case:** `addTable tid/12 c/8`  
+**Expected Result:** Will add a table, and would be reflected in the GUI.
+
+**Test case:** `addTable tid/120 c/8`  
+**Expected Result:** Would show that the ID is above the set limit.
+
+**Incorrect Test Commands:**
+- `addTable 120 8`
+- `addTable tid/ss c/3`  
+  **Expected Result:** An error message showing that it is an incorrect error message is shown.
+
+---
+
+### Deleting a Table
+Deletes a table by its table ID.
+
+**Prerequisites:** A Wedding has been created and set. Only a table with table id 1 has been added.
+
+**Test case:** `deleteTable tid/1`  
+**Expected Result:** The table with tableID one has been deleted and it would be removed from the list.
+
+**Test case:** `deleteTable tid/199`  
+**Expected Result:** An error message would be shown that the table does not exist.
+
+**Incorrect Test Commands:**
+- `deleteTable 2`
+- `deleteTable`
+- `deleteTable 3a`
+
+---
+
+### Listing Tables
+Lists all tables currently added to the wedding layout.
+
+**Prerequisites:** A Wedding has been created and set. Only a table with table id 1 has been added.
+
+**Test case:** `getTables`  
+**Expected Result:** The list of current tables is shown.
+
+**Incorrect Test Command:** `getTables a`  
+**Expected Result:** Would give an error message regarding the input.
+
+---
+
+### Finding Tables
+Finds a table by its ID.
+
+**Test case:** `findTable tid/12`  
+**Expected Result:** Displays the table with the id 12.
+
+**Incorrect Test Commands:**
+- `findTables 1`
+- `findTables a`  
+  **Expected Result:** Would give an error message regarding the input.
+
+---
+
+### Assigning a Person to a Table
+Assigns a Person to a specified Table within the currently active wedding.
+
+**Prerequisites:** A Wedding has been created and set. Only a table with table id 1 has been added. A person with the name John Doe has been added.
+
+**Test case:** `addPersonToTable n/John Doe tid/1`  
+**Expected Result:** The table 5 has a person named John Doe, and the person has the corresponding ID.
+
+**Test case:** `addPersonToTable n/John x Doe tid/1`  
+**Expected Result:** Won’t add the person to the table, as the person does not exist.
+
+**Test case:** `addPersonToTable n/John Doe tid/3`  
+**Expected Result:** Won’t add the person to the table, as the table does not exist.
+
+**Incorrect Test Command:** `addPersonToTable John Doe t1`  
+**Expected Result:** Would give an error message regarding the input.
+
+---
+
+### Deleting a Person from a Table
+Removes a person from a table in the currently active wedding.
+
+**Prerequisites:** A Wedding has been created and set. Only a table with table id 1 has been added. A person with the name John Doe has been added and assigned to the table.
+
+**Test case:** `deletePersonFromTable n/John Doe tid/5`  
+**Expected Result:** The person is deleted from the table.
+
+**Test case:** `deletePersonFromTable n/John Doee tid/5`  
+**Expected Result:** A message that the person does not exist would be shown.
+
+**Test case:** `deletePersonFromTable n/John Doe tid/3`  
+**Expected Result:** A message that the table does not exist would be shown.
+
+---
 
 ### Saving data
 
@@ -621,3 +819,8 @@ Given below are instructions to test the app manually.
    1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
 
 2. _{ more test cases … }_
+
+
+## **Appendix: Planned Enhancements**
+
+Team size: 5
