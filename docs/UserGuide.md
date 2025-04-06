@@ -39,6 +39,7 @@ traditional mouse-based applications.
   - [Managing Persons](#managing-persons)
     - [Adding a person: `addPerson`](#adding-a-person-addperson)
     - [Deleting a Person : `deletePerson`](#deleting-a-person--deleteperson)
+    - [Editing a Person : `edit`](#editing-a-person-edit)
     - [Filtering Persons: `filterPersons`](#filtering-persons-filterpersons)
     - [Listing Persons: `list`](#listing-persons--list)
   - [Managing Tables](#managing-tables)
@@ -242,7 +243,7 @@ Examples:
 
 ### Adding a person: `addPerson`
 
-Adds a person to the currently active wedding’s person list.
+Adds a person to the currently active wedding's person list.
 
 **Format:** `addPerson n/NAME p/PHONE e/EMAIL a/ADDRESS d/DIETARYRESTRICTION r/RSVP`
 
@@ -283,6 +284,34 @@ INDEX: A positive integer corresponding to the person's number in the displayed 
 <box type="warning" seamless> Make sure you're viewing the correct list of persons before deleting — the index is 
 based on the currently displayed list. </box>
 
+### Editing a Person : `edit`
+
+Edits an existing person's details in the currently active wedding.
+
+**Format:** `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [d/DIETARYRESTRICTION] [r/RSVP]`
+
+Details:
+- Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list.
+- At least one of the optional fields must be provided.
+- Existing values will be updated to the input values.
+- When editing tags, the existing tags of the person will be removed i.e., adding of tags is not cumulative.
+- You can remove all the person's tags by typing `t/` without specifying any tags after it.
+- Table ID is the only field that can not be changed as it is changed using the addPersonToTable command
+
+**Examples:**
+```
+edit 1 p/91234567 e/johndoe@example.com 
+(changes the phone number and email address of the first person in the list)
+
+edit 2 n/Betsy Crower d/VEGAN r/NO
+(changes the name, dietary restriction and RSVP status of the second person in the list)
+```
+
+<box type="tip" seamless>
+- The index must be a positive integer and must be in the current person list view
+- At least one field to edit must be provided
+- Fields can be edited in any order
+</box>
 
 ### Filtering Persons: `filterPersons`
 
@@ -516,6 +545,7 @@ the data of your previous WeddingHero home folder.
 | **deletePerson**          | `deletePerson INDEX`<br>Example: `deletePerson 3`                                                                                                                    |
 | **Find**                  | `Find KEYWORD`<br>Example: `Find John`                                                                                                                               |
 | **filterPersons**         | `filterPersons [d/DIETARYRESTRICTION] [r/RSVP_FIELD]`<br>Example: `filterPersons d/Vegan r/YES`                                                               |
+| **edit**                  | `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [d/DIETARYRESTRICTION] [r/RSVP]`<br>Example: `edit 1 p/91234567 e/johndoe@example.com`                        |
 | **addTable**              | `addTable tid/TABLE_ID c/CAPACITY`<br>Example: `addTable tid/1 c/8`                                                                                                  |
 | **addPersonToTable**      | `addPersonToTable n/NAME tid/TABLE_ID`<br>Example: `addPersonToTable n/John Doe tid/1`                                                                               |
 | **deletePersonFromTable** | `deletePersonFromTable n/NAME tid/TABLE_ID`<br>Example: `deletePersonFromTable n/John Doe tid/1`                                                                     |

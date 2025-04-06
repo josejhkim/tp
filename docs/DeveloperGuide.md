@@ -124,7 +124,7 @@ The `Model` component,
 
 * stores the address book data i.e., all `Person` objects (which are contained in a `UniquePersonList` object).
 * stores the currently 'selected' `Person` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Person>` that can be 'observed' e.g., the UI can be bound to this list so that the UI automatically updates when the data in the list change.
-* stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` object.
+* stores a `UserPref` object that represents the user's preferences. This is exposed to the outside as a `ReadOnlyUserPref` object.
 * does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components).
 
 <box type="info" seamless>
@@ -449,6 +449,49 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     5a2. WeddingHero informs the user that no matching guest was found.
     5a3. If the user re-enters a valid tag with a different value as an identifier, the process resumes at step 4.
     5a4. If the user changes commands, the use case ends.
+
+### Use case: Edit a guest
+
+**Preconditions:**
+- A wedding has been created.
+- A wedding has been set as the active wedding in WeddingHero.
+- The guest to be edited exists in the current wedding's guest list.
+
+**MSS**
+
+1. User requests to view the current guest list.
+2. WeddingHero displays the list of guests.
+3. User enters the edit command with the guest's index and at least one field to modify (e.g., `edit 1 p/91234567 e/newemail@example.com`).
+4. WeddingHero validates the index and the new field values.
+5. WeddingHero updates the guest's information with the new values.
+6. WeddingHero displays a confirmation message showing the updated guest information.
+   Use case ends.
+
+**Extensions:**
+
+3a. **Invalid Index**
+    3a1. User enters an index that is out of range or invalid.
+    3a2. WeddingHero displays an error message indicating that the index is invalid.
+    3a3. WeddingHero prompts the user to enter a valid index.
+    3a4. If the user provides a valid index, the process resumes at step 4.
+
+3b. **No Fields Specified**
+    3b1. User enters the edit command with an index but no fields to modify.
+    3b2. WeddingHero displays an error message indicating that at least one field must be specified for editing.
+    3b3. WeddingHero prompts the user to include at least one field to edit.
+    3b4. If the user includes valid fields to edit, the process resumes at step 4.
+
+4a. **Invalid Field Values**
+    4a1. User enters invalid values for one or more fields (e.g., invalid phone number or email format).
+    4a2. WeddingHero displays specific error messages for each invalid field.
+    4a3. WeddingHero prompts the user to correct the invalid fields.
+    4a4. If the user provides valid field values, the process resumes at step 5.
+
+4b. **Duplicate Person**
+    4b1. The edited guest information would result in a duplicate of an existing guest.
+    4b2. WeddingHero displays an error message indicating that the edit would create a duplicate guest.
+    4b3. WeddingHero prompts the user to modify the fields to avoid duplication.
+    4b4. If the user provides non-duplicating values, the process resumes at step 5.
 
 ---
 
