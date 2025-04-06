@@ -310,6 +310,21 @@ You can use it to display only those persons who meet the criteria you specify.
 - Using `filterPersons d/HALAL` displays all persons with a halal dietary restriction.
 - Using `filterPersons r/YES r/NO` will return an error message since multiple categories are not allowed for a prefix.
 
+### Listing Persons : `list`
+
+Lists all persons in the address book, resetting any applied filters.
+
+**Format:** `list`
+
+Details:
+- This command displays every person in the address book.
+- It updates the current view by removing any filters, ensuring that all persons are shown.
+- The command assumes that the address book is initialized and ready to display the complete list.
+- It provides a simple way to revert to the unfiltered person list after executing other commands that apply filters.
+
+**Example:**
+- Running `list` will update the display to show all persons stored in the address book.
+
 ## Managing Tables
 
 --------------------------------------------------------------------------------------------------------------------
