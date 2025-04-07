@@ -67,7 +67,7 @@ traditional mouse-based applications.
    [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).<br>
    **Windows and Linux users:** can find their Java `17` download links
    [here](https://www.oracle.com/java/technologies/downloads/#java17).
-2. Download the latest `.jar` file from [here](https://github.com/se-edu/WeddingHero-level3/releases).
+2. Download the latest `.jar` file from [here](https://github.com/AY2425S2-CS2103T-F12-3/tp/releases).
 
 3. Copy the file to the folder you want to use as the _home folder_ for your WeddingHero.
 
@@ -84,7 +84,6 @@ traditional mouse-based applications.
   guest named John Doe with RSVP status and dietary preference to the active wedding.
 - `createWedding n/Jack and Jill's Wedding` : Creates a new wedding called "Jack and Jill's Wedding". 
 - `exit` : Exits the application.
-
 
 - Refer to the [Features](#features) below for details of each command.
 
@@ -105,7 +104,8 @@ traditional mouse-based applications.
 
 - **Optional parameters are shown in square brackets.**  
   e.g., `filterPersons [d/DietaryRestriction] [r/RSVP]`.
-- **Note on Command Names:** The application uses command names like `addPerson` and `deletePerson` for technical reasons, but these commands are used to manage guests in the wedding. This design choice maintains consistency with the underlying implementation while providing a user-friendly interface for managing wedding guests.
+- **Note on Command Names:** The application uses command names like `addPerson` and `deletePerson` for technical 
+  reasons, but these commands are used to manage guests in the wedding. This design choice maintains consistency with the underlying implementation while providing a user-friendly interface for managing wedding guests.
 
 <box>
 ⚠️ PDF Warning: If you are using a PDF version of this document, be careful when copying and pasting commands that 
