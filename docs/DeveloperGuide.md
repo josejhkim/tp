@@ -705,13 +705,13 @@ Use case ends.
 **Preconditions:**
 - A wedding has been created.
 - The wedding has been set as the active wedding in WeddingHero.
-- A person has already been assigned to a table.
+- A guest has already been assigned to a table.
 
 **MSS**
 1. User decides to remove a guest from a table.
 2. User enters the table and the guest to be removed
-3. WeddingHero checks if the specified person exists and is assigned to the specified table.
-4. WeddingHero removes the person from the table.
+3. WeddingHero checks if the specified guest exists and is assigned to the specified table.
+4. WeddingHero removes the guest from the table.
 5. WeddingHero displays a confirmation message that the guest has been successfully removed from the table.  
    Use case ends.
 
