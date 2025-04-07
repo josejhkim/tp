@@ -253,6 +253,7 @@ The activity diagram below illustrates the control flow of this command:
 
 This command is useful when guests need to be reassigned to different tables or when a guest cancels their attendance but the planner wishes to retain their information in the guest list without a table assignment.
 
+
 ### \[Proposed\] Undo/redo feature
 
 #### Proposed Implementation
@@ -422,7 +423,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ---
 
-### Use case: Set a wedding
+### UC2: Set a wedding
 
 **Preconditions:**
 - At least one wedding has been created in the system.
@@ -550,56 +551,37 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
    Use case ends.
 
 **Extensions:**
-
 3a. **Invalid Guest Selection**
-    3a1. System detects that the selected guest does not exist.
-    3a2. System informs the user that the selection is invalid.
-    3a3. System prompts the user to make a valid selection.
-    3a4. If the user makes a valid selection, the process resumes at step 4.
+- 3a1. System detects that the selected guest does not exist.
+- 3a2. System informs the user that the selection is invalid.
+- 3a3. System prompts the user to make a valid selection.
+- 3a4. If the user makes a valid selection, the process resumes at step 4.
 
 ---
 
-### Use case: Edit a guest
 
-**Preconditions:**
-- A wedding has been created.
-- A wedding has been set as the active wedding.
-- The guest to be edited exists in the current wedding's guest list.
+### UC6: Edit a guest
 
-**MSS**
-
-1. User requests to view the guest list.
-2. System displays the list of guests.
-3. User selects a guest to edit.
-4. User provides new information for the selected guest.
-5. System validates the new information.
-6. System updates the guest's details.
-7. System confirms that the guest's information has been updated.
-   Use case ends.
-
-**Extensions:**
-
-3a. **Invalid Guest Selection**
-    3a1. System detects that the selected guest does not exist.
-    3a2. System informs the user that the selection is invalid.
-    3a3. System prompts the user to make a valid selection.
-    3a4. If the user makes a valid selection, the process resumes at step 4.
+- 3a1. System detects that the selected guest does not exist.
+- 3a2. System informs the user that the selection is invalid.
+- 3a3. System prompts the user to make a valid selection.
+- 3a4. If the user makes a valid selection, the process resumes at step 4.
 
 4a. **Invalid Information Format**
-    4a1. System detects that some new information is in an invalid format.
-    4a2. System informs the user which information is invalid and why.
-    4a3. System prompts the user to correct the invalid information.
-    4a4. If the user provides valid information, the process resumes at step 5.
+- 4a1. System detects that some new information is in an invalid format.
+- 4a2. System informs the user which information is invalid and why.
+- 4a3. System prompts the user to correct the invalid information.
+- 4a4. If the user provides valid information, the process resumes at step 5.
 
 4b. **Duplicate Guest**
-    4b1. System detects that the updated information would create a duplicate guest.
-    4b2. System informs the user that the changes would create a duplicate.
-    4b3. System prompts the user to modify the information to avoid duplication.
-    4b4. If the user provides unique information, the process resumes at step 5.
+- 4b1. System detects that the updated information would create a duplicate guest.
+- 4b2. System informs the user that the changes would create a duplicate.
+- 4b3. System prompts the user to modify the information to avoid duplication.
+- 4b4. If the user provides unique information, the process resumes at step 5.
 
 ---
 
-### UC6: Add a table
+### UC7: Add a table
 
 **Preconditions:**
 - A wedding has been created.
@@ -617,33 +599,34 @@ Use case ends.
 **Extensions:**
 
 2a. **Missing Required Information**
-    2a1. System detects that required table information is missing.
-    2a2. System informs the user which information is required.
-    2a3. System prompts the user to provide the missing information.
-    2a4. If the user provides the required information, the process resumes at step 3.
+- 2a1. System detects that required table information is missing.
+- 2a2. System informs the user which information is required.
+- 2a3. System prompts the user to provide the missing information.
+- 2a4. If the user provides the required information, the process resumes at step 3.
 
 2b. **Invalid Information Format**
-    2b1. System detects that some information is in an invalid format.
-    2b2. System informs the user which information is invalid and why.
-    2b3. System prompts the user to correct the invalid information.
-    2b4. If the user provides valid information, the process resumes at step 3.
+- 2b1. System detects that some information is in an invalid format.
+- 2b2. System informs the user which information is invalid and why.
+- 2b3. System prompts the user to correct the invalid information.
+- 2b4. If the user provides valid information, the process resumes at step 3.
 
 2c. **Duplicate Table ID**
-    2c1. System detects that a table with the same ID already exists.
-    2c2. System informs the user that the table ID is already in use.
-    2c3. System prompts the user to provide a different table ID.
-    2b4. If the user provides a unique table ID, the process resumes at step 3.
+- 2c1. System detects that a table with the same ID already exists.
+- 2c2. System informs the user that the table ID is already in use.
+- 2c3. System prompts the user to provide a different table ID.
+- 2b4. If the user provides a unique table ID, the process resumes at step 3.
+
 
 ---
 
-### UC7: Delete a table
+### UC8: Delete a table
 
 **Preconditions:**
 - A wedding has been created.
-- A wedding has been set as the active wedding.
+- A wedding has been set as the active wedding in WeddingHero.
+- The table to be deleted is created
 
 **MSS**
-
 1. User requests to delete a table.
 2. User provides the table ID.
 3. WeddingHero checks if the table exists.
@@ -664,7 +647,7 @@ Use case ends.
 - 2b3. If the user provides a valid table ID, the process resumes at step 3. Otherwise, use case ends.
 
 ---
-### UC8: Assign a Guest to a table
+### UC9: Assign a Guest to a table
 
 **Preconditions:**
 - A wedding has been created.
@@ -704,7 +687,7 @@ Use case ends.
 
 ---
 
-### UC9: Remove a Guest from a table
+### UC10: Remove a Guest from a table
 
 **Preconditions:**
 - A wedding has been created.
