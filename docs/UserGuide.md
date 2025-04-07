@@ -495,7 +495,7 @@ Removes a Guest from a table in the currently active wedding.
 **Format**: `deletePersonFromTable n/NAME tid/TABLEID`  
 
 - `NAME` is the name of the guest displayed on the list
-- `
+- `TABLEID` is the identifier of the table from which the guest will be removed
 
 **Example:**
 - `deletePersonFromTable n/John Doe tid/5` deletes the John Doe guest from the table with ID 5
