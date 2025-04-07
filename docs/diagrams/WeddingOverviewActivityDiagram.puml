@@ -9,6 +9,8 @@ start
 if (Command format valid?) then (yes)
   if (A wedding has been set as the 'current' wedding?) then (yes)
     :Retrieve the 'current' wedding;
+    :Make the 'current' wedding display all of its invited people;
+    :Make the 'current' wedding display all of its used tables;
     :Retrieve the list of tables used in this 'current' wedding;
     :Get the number of tables used in this 'current' wedding;
     :Retrieve the list of persons invited to this 'current' wedding;

@@ -195,7 +195,7 @@ The implementation involves the following validation steps:
 - Checking that the input format is correct
 - Checking that there is a currently selected wedding displayed in the GUI
 
-Once all conditions are met, the aforementioned overview information of the current wedding is shown in the area below the user input.
+Once all conditions are met, all of the persons invited to the wedding and all of the tables used in the wedding are displayed in the GUI, and the aforementioned overview information of the current wedding is shown in the area below the user input.
 
 The activity diagram below illustrates the control flow of this command
 
