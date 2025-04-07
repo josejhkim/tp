@@ -191,6 +191,20 @@ The activity diagram below illustrates the control flow of this command
 
 This command is useful for choosing which wedding the user wants to see and edit using the GUI.
 
+**System Behavior:**
+- The active wedding setting is not preserved between application sessions.
+- When the application is restarted, no wedding is set as active.
+- Users must explicitly set their working wedding after each application launch.
+
+**Design Rationale:**
+- The active wedding setting is designed for the current session only.
+- This design choice provides several benefits:
+    1. **Explicit Context**: Users must consciously choose which wedding they want to work with at the start of each session.
+    2. **Safety**: Prevents accidental modifications to the wrong wedding by requiring explicit selection.
+    3. **Clarity**: Ensures users are always aware of which wedding they are currently viewing and modifying.
+    4. **Fresh Start**: Each session begins with a clean slate, reducing the chance of confusion from previous sessions.
+    5. **Intentional Workflow**: Encourages users to be deliberate about which wedding they are working on.
+
 <div style="page-break-after: always;"></div>
 
 ### `weddingOverview` Command
@@ -233,6 +247,7 @@ This command is useful when a wedding has already happened and no longer needs t
 <div style="page-break-after: always;"></div>
 
 ### `addPerson` Command
+
 The `addPerson` command allows a user to add a guest to the currently active wedding's guest list. This command is essential for wedding planners to build and manage their client's guest list.
 
 The implementation involves several key steps and validation checks:
@@ -254,6 +269,7 @@ This command follows the Command pattern, where the `AddPersonCommand` encapsula
 <div style="page-break-after: always;"></div>
 
 ### `deletePerson` Command
+
 The `deletePerson` command allows users to remove a guest from the currently active wedding's guest list using their displayed index number.
 
 The implementation involves several key steps and validation checks:
@@ -276,6 +292,7 @@ This command supports the need for wedding planners to be able to update guest l
 <div style="page-break-after: always;"></div>
 
 ### `filterPersons` Command
+
 The `filterPersons` command allows users to filter the guest list based on dietary restrictions and/or RSVP status. This feature is particularly useful for wedding planners who need to quickly identify specific groups of guests, such as those with special dietary needs or those who have not yet responded to invitations.
 
 The implementation involves several key steps and validation checks:
@@ -316,6 +333,7 @@ This command is useful when the seating arrangement has been decided and guests 
 <div style="page-break-after: always;"></div>
 
 ### `deletePersonFromTable` Command
+
 The `deletePersonFromTable` command allows users to remove a person from their assigned table in the currently active wedding. This feature helps wedding planners manage seating arrangements efficiently when plans change.
 
 The implementation involves several key steps and validation checks:
@@ -401,16 +419,16 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **Extensions:**
 
 2a. **Invalid Wedding Name**
-    2a1. System detects an invalid wedding name.
-    2a2. System informs the user that the wedding name is invalid.
-    2a3. System prompts the user to provide a valid wedding name.
-    2a4. If the user provides a valid name, the process resumes at step 3.
+- 2a1. System detects an invalid wedding name.
+- 2a2. System informs the user that the wedding name is invalid.
+- 2a3. System prompts the user to provide a valid wedding name.
+- 2a4. If the user provides a valid name, the process resumes at step 3.
 
 2b. **Duplicate Wedding Name**
-    2b1. System detects that a wedding with the same name already exists.
-    2b2. System informs the user that the wedding name is already in use.
-    2b3. System prompts the user to provide a different wedding name.
-    2b4. If the user provides a unique name, the process resumes at step 3.
+- 2b1. System detects that a wedding with the same name already exists.
+- 2b2. System informs the user that the wedding name is already in use.
+- 2b3. System prompts the user to provide a different wedding name.
+- 2b4. If the user provides a unique name, the process resumes at step 3.
 
 ---
 
@@ -418,20 +436,6 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Preconditions:**
 - At least one wedding has been created in the system.
-
-**System Behavior:**
-- The active wedding setting is not preserved between application sessions.
-- When the application is restarted, no wedding is set as active.
-- Users must explicitly set their working wedding after each application launch.
-
-**Design Rationale:**
-- The active wedding setting is designed for the current session only.
-- This design choice provides several benefits:
-  1. **Explicit Context**: Users must consciously choose which wedding they want to work with at the start of each session.
-  2. **Safety**: Prevents accidental modifications to the wrong wedding by requiring explicit selection.
-  3. **Clarity**: Ensures users are always aware of which wedding they are currently viewing and modifying.
-  4. **Fresh Start**: Each session begins with a clean slate, reducing the chance of confusion from previous sessions.
-  5. **Intentional Workflow**: Encourages users to be deliberate about which wedding they are working on.
 
 **MSS**
 
@@ -542,6 +546,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
    Use case ends.
 
 **Extensions:**
+
 3a. **Invalid Guest Selection**
 - 3a1. System detects that the selected guest does not exist.
 - 3a2. System informs the user that the selection is invalid.
@@ -649,10 +654,10 @@ Use case ends.
 - 2a2. WeddingHero prompts the user to re-enter the command with the correct format.
 - 2a3. Once the correct input is provided, the process resumes at step 3.
 
-2b. **Table Not Found**
-- 2b1. If WeddingHero is unable to locate a table matching the provided ID, it informs the user that no matching table was found.
-- 2b2. WeddingHero prompts the user to either re-enter a valid table ID.
-- 2b3. If the user provides a valid table ID, the process resumes at step 3. Otherwise, use case ends.
+3a **Table Not Found**
+- 3a1. If WeddingHero is unable to locate a table matching the provided ID, it informs the user that no matching table was found.
+- 3a2. WeddingHero prompts the user to either re-enter a valid table ID.
+- 3a3. If the user provides a valid table ID, the process resumes at step 3. Otherwise, use case ends.
 
 ---
 ### UC9: Assign a Guest to a table
@@ -674,6 +679,10 @@ Use case ends.
 
 **Extensions:**
 
+2a. **Invalid Input Format**
+- 2a1. If the input is missing required fields or incorrectly formatted, WeddingHero displays an error message showing the correct format.
+- 2a2. Upon receiving the correct input, the process resumes at step 3.
+
 3a. **Person Not Found**
 - 3a1. If the specified guest does not exist, WeddingHero informs the user.
 - 3a2. User is prompted to re-enter a valid guest name.
@@ -688,10 +697,6 @@ Use case ends.
 - 4b1. If the table has reached its maximum capacity, WeddingHero displays an error message.
 - 4b2. User is prompted to select another table or modify the table capacity.
 - 4b3. If the user selects another table, the process resumes at step 4.
-
-2a. **Invalid Input Format**
-- 2a1. If the input is missing required fields or incorrectly formatted, WeddingHero displays an error message showing the correct format.
-- 2a2. Upon receiving the correct input, the process resumes at step 3.
 
 ---
 
@@ -712,6 +717,10 @@ Use case ends.
 
 **Extensions:**
 
+2a. **Invalid Input Format**
+- 2a1. If the input is missing required fields or incorrectly formatted, WeddingHero displays an error message showing the correct format.
+- 2a2. Upon receiving the correct input, the process resumes at step 3.
+
 3a. **Guest Not Found**
 - 3a1. If the specified guest does not exist, WeddingHero informs the user.
 - 3a2. User is prompted to re-enter a valid person name.
@@ -725,10 +734,6 @@ Use case ends.
 3c. **Guest Not Assigned to Table**
 - 3c1. If the person is not assigned to the specified table, WeddingHero informs the user.
 - 3c2. User may choose to cancel or try another table ID.
-
-2a. **Invalid Input Format**
-- 2a1. If the input is missing required fields or incorrectly formatted, WeddingHero displays an error message showing the correct format.
-- 2a2. Upon receiving the correct input, the process resumes at step 3.
 
 ### Non-Functional Requirements
 
@@ -762,13 +767,13 @@ Given below are instructions to test the app manually.
 ### Launch and shutdown
 
 1. Initial launch
-   1a. Download the jar file and copy it into an empty folder.
-   1b. Double-click the jar file.
+- 1a. Download the jar file and copy it into an empty folder.
+- 1b. Double-click the jar file.
       Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
 
 2. Saving window preferences
-   2a.Resize the window to an optimum size. Move the window to a different location. Close the window.
-   2b.Re-launch the app by double-clicking the jar file.
+- 2a.Resize the window to an optimum size. Move the window to a different location. Close the window.
+- 2b.Re-launch the app by double-clicking the jar file.
       Expected: The most recent window size and location is retained.
 
 
@@ -985,4 +990,6 @@ Dealing with corrupted data files
 ## **Appendix: Planned Enhancements**
 
 Team size: 5
+
+1. **Make setWedding error message more specific:** We currently don't have a feature where users can't directly access all of the names of the weddings they've created so far. The current error message for not entering an existing wedding's name for the `setWedding` command shows `There is no wedding with the name: ` with the typed wedding name. We plan to make this error message also mention all the names of currently created weddings so that the users can see which weddings they've created so far.
 
