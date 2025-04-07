@@ -852,7 +852,7 @@ Allows you to add people to the currently setWedding.
 **Prerequisites:** A Wedding named John & Jane has been created, and the wedding has been set
 
 **Test case:** `addPerson n/John Doe p/12345678 e/johndoe@example.com a/123 Street d/NONE r/YES`  
-**Expected Result:** The person John Does is added to the current wedding, and is reflected in the GUI.
+**Expected Result:** The person John Doe is added to the current wedding, and is reflected in the GUI.
 
 **Incorrect Test Command:** `addPerson n/John Doe p/12345678 e/johndoe@example.com a/123 Street d/NONE r/WHAT_HELP`  
 **Expected Result:** An error message is shown.
