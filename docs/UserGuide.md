@@ -47,7 +47,7 @@ traditional mouse-based applications.
     - [Deleting a Table : `deleteTable`](#deleting-a-table--deletetable)
     - [Listing Tables : `getTables`](#listing-tables--gettables)
     - [Finding a Table : `findTable`](#finding-a-table--findtable)
-  - [Assigning a guest to a Tables](#assigning-a-guest-to-a-table)
+  - [Assigning a guest to a Table](#assigning-a-guest-to-a-table)
     - [Adding a guest to a Table: addPersonToTable](#adding-a-guest-to-a-table-addpersontotable)
     - [Removing a guest from a Table: deletePersonFromTable](#removing-a-guest-from-a-table-deletepersonfromtable)
   - [Exiting the program : `exit`](#exiting-the-program--exit)
@@ -443,7 +443,7 @@ Finds a table by its ID.
 
 --------------------------------------------------------------------------------------------------------------------
 ### Adding a guest to a table: addPersonToTable
-Assigns a person to a specified table within the currently active wedding.
+Assigns a guest to a specified table within the currently active wedding.
 
 **Format:** `addPersonToTable n/NAME tid/INDEX
 `  
