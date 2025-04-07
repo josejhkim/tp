@@ -47,27 +47,27 @@ Wedding Hero is built for professional wedding planners who need a streamlined t
   - [Typical Workflow Example](#typical-workflow-example)
 - [Features](#features)
   - [Managing Weddings](#managing-weddings)
-    - [Creating a Wedding : `createWedding`](#creating-a-wedding--createwedding)
-    - [Setting a Wedding : `setWedding`](#setting-a-wedding--setwedding)
-    - [Wedding Overview : `weddingOverview`](#wedding-overview--weddingoverview)
-    - [Deleting a Wedding : `deleteWedding`](#deleting-a-wedding--deletewedding)
+    - [Creating a Wedding: `createWedding`](#creating-a-wedding-createwedding)
+    - [Setting a Wedding: `setWedding`](#setting-a-wedding-setwedding)
+    - [Wedding Overview: `weddingOverview`](#wedding-overview-weddingoverview)
+    - [Deleting a Wedding: `deleteWedding`](#deleting-a-wedding-deletewedding)
   - [Managing Guests](#managing-guests)
     - [Adding a Guest: `addPerson`](#adding-a-guest-addperson)
-    - [Deleting a Guest: `deletePerson`](#deleting-a-guest--deleteperson)
+    - [Deleting a Guest: `deletePerson`](#deleting-a-guest-deleteperson)
     - [Editing a Guest: `edit`](#editing-a-guest-edit)
     - [Filtering Guests: `filterPersons`](#filtering-guests-filterpersons)
     - [Finding a Guest: `find`](#finding-a-guest-find)
-    - [Listing Guests: `list`](#listing-guests--list)
+    - [Listing Guests: `list`](#listing-guests-list)
   - [Managing Tables](#managing-tables)
-    - [Adding a Table: `addTable`](#adding-a-table--addtable)
-    - [Deleting a Table: `deleteTable`](#deleting-a-table--deletetable)
-    - [Listing Tables: `getTables`](#listing-tables--gettables)
-    - [Finding a Table: `findTable`](#finding-a-table--findtable)
+    - [Adding a Table: `addTable`](#adding-a-table-addtable)
+    - [Deleting a Table: `deleteTable`](#deleting-a-table-deletetable)
+    - [Listing Tables: `getTables`](#listing-tables-gettables)
+    - [Finding a Table: `findTable`](#finding-a-table-findtable)
   - [Assigning a Guest to a Table](#assigning-a-guest-to-a-table)
     - [Adding a Guest to a Table: `addPersonToTable`](#adding-a-guest-to-a-table-addpersontotable)
     - [Removing a Guest from a Table: `deletePersonFromTable`](#removing-a-guest-from-a-table-deletepersonfromtable)
-  - [Clearing All Data: `clear`](#clearing-all-data--clear)
-  - [Exiting the Program: `exit`](#exiting-the-program--exit)
+  - [Clearing All Data: `clear`](#clearing-all-data-clear)
+  - [Exiting the Program: `exit`](#exiting-the-program-exit)
 - [Saving the Data](#saving-the-data)
 - [Editing the Data File](#editing-the-data-file)
 - [Glossary](#glossary)
@@ -433,7 +433,7 @@ Lists all guests in the current wedding, resetting any applied filters.
 ## Managing Tables
 ---
 
-### Adding a Table : `addTable`
+### Adding a Table: `addTable`
 
 Adds a table with the specified ID and capacity to the current wedding
 
@@ -474,7 +474,7 @@ Lists all tables currently added to the wedding layout.
 - No additional arguments are required.
 - The command displays details of each table like the guests seated at that table for easy reference.
 
-### Finding a Table : `findTable`
+### Finding a Table: `findTable`
 
 Finds a table by its ID.
 
@@ -518,7 +518,7 @@ Removes a Guest from a table in the currently active wedding.
 - `deletePersonFromTable n/John Doe tid/5` deletes the John Doe guest from the table with ID 5
 ---
 
-### Clearing All Data : `clear`
+### Clearing All Data: `clear`
 
 Removes **all WeddingHero data** from the system, returning it to an empty state (no weddings, guests, or tables).
 
@@ -537,7 +537,7 @@ Removes **all WeddingHero data** from the system, returning it to an empty state
 
 ---
 
-## Exiting the program : `exit`
+## Exiting the program: `exit`
 
 Exits the program.
 
