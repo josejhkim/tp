@@ -26,8 +26,8 @@ public class AddPersonToTableCommand extends Command {
         + "they will forcefully be removed from that table "
         + "to be relocated to the given table.\n"
         + "Parameters: "
-        + "[" + PREFIX_NAME + "NAME] "
-        + "[" + PREFIX_TABLE_ID + "TABLE ID]\n"
+        + "" + PREFIX_NAME + "NAME "
+        + "" + PREFIX_TABLE_ID + "TABLE ID\n"
         + "Example: " + COMMAND_WORD + " "
         + PREFIX_NAME + "John Doe "
         + PREFIX_TABLE_ID + "2";

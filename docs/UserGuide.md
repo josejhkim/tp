@@ -70,7 +70,7 @@ traditional mouse-based applications.
    [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).<br>
    **Windows and Linux users:** can find their Java `17` download links
    [here](https://www.oracle.com/java/technologies/downloads/#java17).
-2. Download the latest `.jar` file from [here](https://github.com/se-edu/WeddingHero-level3/releases).
+2. Download the latest `.jar` file from [here](https://github.com/AY2425S2-CS2103T-F12-3/tp/releases).
 
 3. Copy the file to the folder you want to use as the _home folder_ for your WeddingHero.
 
@@ -80,16 +80,15 @@ traditional mouse-based applications.
    
 <img src="images/Ui.png" alt="Ui" style="max-width: 75%; height: auto;" />
 
-
-5. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will
+5. Click full screen mode (recommended) for best use of the application. Full screen mode is preferred as it ensures optimal performance; we cannot guarantee error-free operation if the application is not run in full screen mode.
+6. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will
    open the help window.<br>
 - `addPerson n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 d/NONE r/YES` : Adds a 
   guest named John Doe with RSVP status and dietary preference to the active wedding.
 - `createWedding n/Jack and Jill's Wedding` : Creates a new wedding called "Jack and Jill's Wedding". 
 - `exit` : Exits the application.
 
-
-- Refer to the [Features](#features) below for details of each command.
+Refer to the [Features](#features) below for full details of each command.
 
 ---
 
@@ -104,11 +103,12 @@ traditional mouse-based applications.
 
 - **Parameters can be typed in any order.**  For example, `n/John p/91234567` and `p/91234567 n/John` are both valid.
 
-- **Commands are case-sensitive for field values** where applicable, such as `d/VEGAN` vs. `d/vegan`.
+ - **Commands are case-sensitive.** For example, you should type `createWedding` (correct) instead of `createwedding` (incorrect). Camel case means that you start with a lowercase letter and each new word begins with an uppercase letter without any spacing, making it easier for you to read commands.
 
 - **Optional parameters are shown in square brackets.**  
   e.g., `filterPersons [d/DietaryRestriction] [r/RSVP]`.
-- **Note on Command Names:** The application uses command names like `addPerson` and `deletePerson` for technical reasons, but these commands are used to manage guests in the wedding. This design choice maintains consistency with the underlying implementation while providing a user-friendly interface for managing wedding guests.
+- **Command Names:** The application uses command names like `addPerson` and `deletePerson` for technical 
+  reasons, but these commands are used to manage guests in the wedding. This design choice maintains consistency with the underlying implementation while providing a user-friendly interface for managing wedding guests.
 
 <box>
 ⚠️ PDF Warning: If you are using a PDF version of this document, be careful when copying and pasting commands that 
@@ -189,7 +189,6 @@ Creates a new wedding in the wedding planner.
   `setWedding n/John & Jane Wedding`
 - Always match spacing exactly when setting or referring to a wedding — "John&JaneWedding" is not the same as "John 
 & Jane Wedding".
-
 - Once a wedding is set, any added guests, tables, or edits will apply to that active wedding.
 
 </box>
@@ -235,7 +234,8 @@ Tips:
 
 ### Wedding Overview : `weddingOverview`
 
-Provides an overview of the current active wedding, including details such as the number of tables and total number of guests invited.
+Provides an overview of the current active wedding, including details such as the number of tables and total number 
+of guests invited.
 
 **Format:** `weddingOverview`
 
@@ -251,27 +251,33 @@ Provides an overview of the current active wedding, including details such as th
 <sub>Example output when getting a wedding overview with the command: `weddingOverview`</sub>  
   
 <box type="info" seamless>
-💡 Future Extension: A future update will add the ability to see the number of guests who have accepted their RSVP, helping you better plan for actual attendance.
+
+Future Extension: A future update will add the ability to see the number of guests who have accepted their RSVP, 
+helping you better plan for actual attendance.
 </box>
 
 **Examples:**
-- Running `weddingOverview` after setting an active wedding displays a summary of the wedding, including number of guests invited and number of tables.
+- Running `weddingOverview` after setting an active wedding displays a summary of the wedding, including number of 
+  guests invited and number of tables.
 
 ### Deleting a Wedding : `deleteWedding`
 
 Deletes a wedding from the system by name.
 
-**Format:** `deleteWedding WEDDINGNAME`
+**Format:** `deleteWedding n/WEDDINGNAME`
 
-- Permanently deletes the wedding identified by WEDDINGNAME.
-- WEDDINGNAME must match the exact name of the wedding you created. The comparison is case-insensitive but spacing 
+- Permanently deletes the wedding identified by `WEDDINGNAME`.
+- `WEDDINGNAME` must match the exact name of the wedding you created. The comparison is case-insensitive but spacing 
   must match exactly.
 - Once deleted, all associated guests, tables, and data under the wedding will also be removed.
 
 Examples:
-- deleteWedding John & Jane Wedding would delete John & Jane Wedding
+- `deleteWedding n/John & Jane Wedding` would delete John & Jane Wedding
 
-<box type="warning" seamless>  This action is irreversible. Ensure you are deleting the correct wedding before confirming. </box>
+<box type="warning" seamless>  
+
+This action is irreversible. Ensure you are deleting the correct wedding before confirming. 
+</box>
 
 ---
 
@@ -285,13 +291,15 @@ Format: `addPerson n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS d/DIETARY_RESTRICTION
 
 Details:
 
-- All fields are mandatory.
+- All fields are mandatory, except for `t/TAG`, which is optional.
 - A person is identified by their `NAME` only. 
+- `t/TAG` only accepts alphanumeric characters, and any amount of tags can be used for each person. <br>
+  For example, `addPerson n/John Doe p/12345678 e/johndoe@example.com a/123 Street d/None r/YES t/TAG1 t/TAG2 t/TAG3`
 - Multiple guests can have the same contact information such as `PHONE` or `EMAIL` since children may not have a 
   phone number, and it would be more flexible to allow guests to select their point of contact.
 - A wedding should be created and set before a person can be added.
 - Please refer to the full list of [Allowed Dietary Restrictions](#allowed-dietary-restrictions) and [Allowed RSVP 
-  Values](#allowed-rsvp-values)
+  Values](#allowed-rsvp-values).
 
 <img src="images/UG-example-images/addPersonExample.png" alt="Adding a new person named Jensen Huang" style="max-width: 70%; height: auto;" />
 
@@ -299,7 +307,7 @@ Details:
 
 **Examples:**
 ```
-addPerson n/John Doe p/12345678 e/johndoe@example.com a/123 Street d/NONE r/YES
+addPerson n/John Doe p/12345678 e/johndoe@example.com a/123 Street d/NONE r/YES t/Child
 addPerson n/Alex Tan p/87654321 e/alex@example.com a/456 Avenue d/VEGAN r/NO
 ```
 
@@ -328,7 +336,7 @@ based on the currently displayed list. </box>
 
 Edits an existing guest's details in the current wedding.
 
-**Format:** `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [d/DIETARYRESTRICTION] [r/RSVP]`
+**Format:** `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [d/DIETARYRESTRICTION] [r/RSVP] [t/TAG]…`
 
 Details:
 - Edits the guest at the specified `INDEX`. The index refers to the index number shown in the displayed guest list. The index **must be a positive integer** 1, 2, 3, …​
@@ -381,6 +389,27 @@ You can use it to display only those guests who meet the criteria you specify.
 - Using `filterPersons d/HALAL` displays all guests with a halal dietary restriction.
 - Running `filterPersons r/YES r/NO` will return an error message since multiple categories are not allowed for a prefix.
 
+
+### Finding a Guest: `find`
+
+Finds and lists all guests whose names contain any of the specified keywords. Keyword matching is case-insensitive.
+
+**Format:**
+```
+find KEYWORD [MORE_KEYWORDS]...
+```
+
+- **KEYWORD [MORE_KEYWORDS]...**: One or more keywords that the command uses to match against a guest's name. A guest is displayed if their name contains any of the keywords.
+- Keyword matching is case-insensitive, so a guest with the name `John` will be listed if the keyword used is `john`.
+
+**Examples:**
+- `find John`
+- `find alice bob`
+
+After running this command, the application updates the guest list view to display only those guests whose names match the specified keywords.
+
+> **Note:** Spaces are used in this command to separate keywords. For example, if there exists a guest with the name `John Tan` and another guest with the name `Jane Doe`. `find John Doe` will list both these guests since `John` is found in `John Tan` and `Doe` is found in `Jane Doe`.
+
 ### Listing Guests: `list`
 
 Lists all guests in the current wedding, resetting any applied filters.
@@ -403,10 +432,7 @@ Details:
 
 Adds a table with the specified ID and capacity to the current wedding
 
-**Format:**
-```
-addTable tid/TABLEID c/CAPACITY
-```
+**Format:** `addTable tid/TABLEID c/CAPACITY`
 
 - Adds a table with the provided `TABLEID` and `CAPACITY`.
 - The parameter `TABLEID` denotes the unique integer identifier for the table. Ensure that it is unique by using
@@ -533,34 +559,36 @@ the acceptable range). Therefore, edit the data file only if you are confident t
 
 - **Person**: Refers to an individual in the system, typically used when discussing the management of their details such as contact information, dietary restrictions, and RSVP status. This term is more general and can be used outside the context of a specific wedding event.
 
+
 - **Active Wedding**: The currently selected wedding that all actions (e.g., adding a guest or a table) apply to. You 
   must use the `setWedding` command to set an active wedding.
   
 - **Table ID**: A unique integer identifier (e.g., `1`, `5`, `12`) given to each table during the `addTable` command.
   Used for assigning and locating tables.
 
-- **Dietary Restriction**: Describes food requirements or allergies of a guest. Acceptable values include: `NONE`, 
-  `VEGETARIAN`, `VEGAN`, `HALAL`, `SHELLFISH`, `PEANUTS`, `FISH`, `EGGS`, `SOY`, `SESAME`.
+- **Dietary Restriction**: Describes food requirements or allergies of a guest. Please refer to the full list [here](#allowed-dietary-restrictions).
 
-- **RSVP**: Indicates whether a guest has responded to an invitation. Valid values: `YES`, `NO`, `NO_RESPONSE`.
+- **RSVP**: Indicates whether a guest has responded to an invitation. And if so, their response. Please refer to the full list [here](#allowed-rsvp-values).
 
 - **Index**: A positive integer shown in the GUI list view that represents the position of a guest in the current filtered or full list. Used in commands like `deletePerson`.
 
 - **Prefix**: Refers to `n/`, `r/`, `p/` etc. Please refer to the list of prefixes and its meaning below to see what 
   each of them refer to.
 
+<a id="List-of-prefixes"></a>
 ### List of prefixes and its meaning:
-- `n/` → Name (e.g., John Doe or Jack and Jill's wedding)
+- `n/` → Name of wedding or guest (e.g., John Doe or Jack and Jill's wedding)
 - `p/` → Phone number (e.g., 12345678)
 - `e/` → Email address (e.g., johndoe@example.com)
-- `a/` → Address (e.g., 123 Street)
-- `d/` → Dietary Restriction (must be selected from [Allowed Dietary Restrictions](#allowed-dietary-restrictions))
-- `r/` → RSVP status (must be selected from [Allowed RSVP Values](#allowed-rsvp-values))
-- `tid/` → Table ID integer (Must be greater than 0)
-- `c/` → Capacity allocated to table 
+- `a/` → Home Address (e.g., 123 Street)
+- `d/` → Dietary Restriction of guest (must be selected from [Allowed Dietary Restrictions](#allowed-dietary-restrictions))
+- `r/` → RSVP status, information about whether a guest is coming. (Must be selected from [Allowed RSVP Values](#allowed-rsvp-values))
+- `t/` → Tag, extra information about a guest. (``Multiple`` tags can belong to one person and only alphanumeric characters are allowed) (e.g.,`t/TAG1 t/TAG2 t/TAG3`)
+- `tid/` → Table ID integer used to identify a table within a wedding(Must be greater than 0)
+- `c/` → Capacity of a table representing a maximum number of guests that can be allocated to the table.
 
 <a id="allowed-dietary-restrictions"></a>
-### **Allowed `DIETARYRESTRICTION` values:**
+### Allowed `DIETARYRESTRICTION` values:
 - NONE
 - VEGETARIAN
 - VEGAN
@@ -573,45 +601,63 @@ the acceptable range). Therefore, edit the data file only if you are confident t
 - SESAME
 
 <a id="allowed-rsvp-values"></a>
-### **Allowed `RSVP` values:**
+### Allowed `RSVP` values:
 - YES
 - NO
 - NO_RESPONSE
 
 ---
+
 ## FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains
 the data of your previous WeddingHero home folder.
 
+**Q**: Where can I find updates or release notes about Wedding Hero?<br>
+**A**: Updates, release notes, and additional documentation can be found on our GitHub repository [here](https://github.com/AY2425S2-CS2103T-F12-3/tp). We regularly update the application with new features, bug fixes, and enhancements to improve your planning experience.
+
+**Q**: Why do my commands sometimes result in errors?  
+**A**: This might be due to an incorrect command format or missing/incorrect prefixes. Make sure you follow the exact syntax specified in the User Guide, including using the proper camel-case format (e.g., `createWedding` instead of `createwedding`).
+
+**Q**: I created a wedding, but I cannot add to it.  
+**A**: Remember to set the wedding you just added as active with the `setWedding` command. This ensures that all guest and table operations are applied to the selected wedding.
+
+**Q**: How is my data saved in Wedding Hero, and what precautions should I take when editing it manually?  
+**A**: Wedding Hero automatically saves your data in a JSON file located in the application's data folder. If you choose to edit this file manually, be sure to maintain the correct JSON format to prevent data corruption. It’s recommended that you back up your data before making any manual changes.
+
+---
+## Planned Enhancements
+1. We understand that the list of dietary restrictions is not exhaustive and does not include all dietary 
+   restrictions people may have, but the list we have provided is applicable to majority of the population. We will 
+   try our best to include more dietary restrictions in the future. Stay tuned!
+2. Currently, we do not expect most professional wedding planners to manage so many weddings at once that they cannot recall each event’s name. However, as our user base grows and the application’s usage scales, we plan to introduce a feature that displays all created weddings. This will provide planners an easy way to reference multiple weddings at a glance, ensuring a smoother workflow in high-volume scenarios.
+
 ---
 ## Known issues
 1. When using multiple screens, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen. The remedy is to delete the preferences.json file created by the application before running the application again.
 2. If you minimize the Help Window and then run the help command (or use the Help menu, or the keyboard shortcut F1) again, the original Help Window will remain minimized, and no new Help Window will appear. The remedy is to manually restore the minimized Help Window.
-3. We understand that the list of dietary restrictions is not exhaustive and does not include all dietary 
-   restrictions people may have, but the list we have provided is applicable to majority of the population. We will 
-   try our best to include more dietary restrictions in the future. Stay tuned!
+
 
 ---
 ## Command Summary
 
-| **Action**                | **Format, Examples**                                                                                                                                                     |
-|---------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **createWedding**         | `createWedding n/NAME`<br>Example: `createWedding n/John & Jane Wedding`                                                                                                 |
-| **deleteWedding**         | `deleteWedding n/NAME`<br>Example: `deleteWedding n/John & Jane Wedding`                                                                                                 |
-| **setWedding**            | `setWedding n/NAME`<br>Example: `setWedding n/Smith Wedding`                                                                                                             |
-| **weddingOverview**       | `weddingOverview`<br>Example: `weddingOverview`                                                                                                                          |
-| **addPerson**             | `addPerson n/NAME p/PHONE e/EMAIL a/ADDRESS d/DIETARYRESTRICTION r/RSVP`<br/>Example: `addPerson n/John Doe p/12345678 e/johndoe@example.com a/123 Street d/Vegan r/YES` |
-| **deletePerson**          | `deletePerson INDEX`<br>Example: `deletePerson 3`                                                                                                                        |
-| **find**                  | `find KEYWORD`<br>Example: `Find John`                                                                                                                                   |
-| **filterPersons**         | `filterPersons [d/DIETARYRESTRICTION] [r/RSVP_FIELD]`<br>Example: `filterPersons d/Vegan r/YES`                                                                          |
-| **addTable**              | `addTable tid/TABLE_ID c/CAPACITY`<br>Example: `addTable tid/1 c/8`                                                                                                      |
-| **addPersonToTable**      | `addPersonToTable n/NAME tid/TABLE_ID`<br>Example: `addPersonToTable n/John Doe tid/1`                                                                                   |
-| **deletePersonFromTable** | `deletePersonFromTable n/NAME tid/TABLE_ID`<br>Example: `deletePersonFromTable n/John Doe tid/1`                                                                         |
-| **deleteTable**           | `deleteTable tid/TABLE_ID`<br>Example: `deleteTable tid/1`                                                                                                               |
-| **findTable**             | `findTable [tid/TABLE_ID] [INDEX]`<br>Examples: `findTable tid/1`                                                                                                        |
-| **getTables**             | `getTables`<br>Example: `getTables`                                                                                                                                      |
-| **Help**                  | `help`                                                                                                                                                                   
+| **Action**                | **Format, Examples**                                                                    |
+|---------------------------|-------------------|
+| **createWedding**         | `createWedding n/NAME`<br>Example: `createWedding n/John & Jane Wedding`                |
+| **deleteWedding**         | `deleteWedding n/NAME`<br>Example: `deleteWedding n/John & Jane Wedding`                |
+| **setWedding**            | `setWedding n/NAME`<br>Example: `setWedding n/Smith Wedding`                            |
+| **weddingOverview**       | `weddingOverview`<br>Example: `weddingOverview`                                         |
+| **addPerson**             | `addPerson n/NAME p/PHONE e/EMAIL a/ADDRESS d/DIETARYRESTRICTION r/RSVP`<br/>Example: `addPerson n/John Doe p/12345678 e/johndoe@example.com a/123 Street d/Vegan r/YES` [t/TAG]… |
+| **deletePerson**          | `deletePerson INDEX`<br>Example: `deletePerson 3`                                       |
+| **edit**                  | `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [d/DIETARYRESTRICTION] [r/RSVP] [t/TAG]…`<br>Example: `edit 1 p/91234567 e/johndoe@example.com` |
+| **filterPersons**         | `filterPersons [d/DIETARYRESTRICTION] [r/RSVP_FIELD]`<br>Example: `filterPersons d/Vegan r/YES` |
+| **find**                  | `find KEYWORD [MORE_KEYWORDS]...`<br>Example: `find John`                                |
+| **addTable**              | `addTable tid/TABLE_ID c/CAPACITY`<br>Example: `addTable tid/1 c/8`                     |
+| **addPersonToTable**      | `addPersonToTable n/NAME tid/TABLE_ID`<br>Example: `addPersonToTable n/John Doe tid/1`  |
+| **deletePersonFromTable** | `deletePersonFromTable n/NAME tid/TABLE_ID`<br>Example: `deletePersonFromTable n/John Doe tid/1` |
+| **deleteTable**           | `deleteTable tid/TABLE_ID`<br>Example: `deleteTable tid/1`                              |
+| **findTable**             | `findTable [tid/TABLE_ID] [INDEX]`<br>Examples: `findTable tid/1`                       |
+| **getTables**             | `getTables`<br>Example: `getTables`                                                     |
+| **Help**                  | `help`                                                                                  
 | **exit**                  | `exit`
-

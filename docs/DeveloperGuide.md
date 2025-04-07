@@ -169,7 +169,11 @@ Once all conditions are met, a new wedding is created, and the user can then set
 
 The activity diagram below illustrates the control flow of this command
 
-<puml src="diagrams/CreateWeddingActivityDiagram.puml" width="600" alt="Activity diagram for addPersonToTable command" />
+<puml src="diagrams/CreateWeddingActivityDiagram.puml" width="600" alt="Activity diagram for createWedding command" />
+
+This command is useful for creating a new wedding to keep track of if the user has to manage another wedding.
+
+<div style="page-break-after: always;"></div>
 
 ### `setWedding` Command
 
@@ -183,7 +187,11 @@ Once all conditions are met, the wedding with the given name is retrieved and is
 
 The activity diagram below illustrates the control flow of this command
 
-<puml src="diagrams/SetWeddingActivityDiagram.puml" width="600" alt="Activity diagram for addPersonToTable command" />
+<puml src="diagrams/SetWeddingActivityDiagram.puml" width="600" alt="Activity diagram for setWedding command" />
+
+This command is useful for choosing which wedding the user wants to see and edit using the GUI.
+
+<div style="page-break-after: always;"></div>
 
 ### `weddingOverview` Command
 
@@ -199,7 +207,11 @@ Once all conditions are met, all of the persons invited to the wedding and all o
 
 The activity diagram below illustrates the control flow of this command
 
-<puml src="diagrams/WeddingOverviewActivityDiagram.puml" width="600" alt="Activity diagram for addPersonToTable command" />
+<puml src="diagrams/WeddingOverviewActivityDiagram.puml" width="600" alt="Activity diagram for weddingOverview command" />
+
+This command is useful for getting a quick overview of the currently set wedding.
+
+<div style="page-break-after: always;"></div>
 
 ### `deleteWedding` Command
 
@@ -214,7 +226,74 @@ If the wedding to be deleted is also the 'current' wedding and is being displaye
 
 The activity diagram below illustrates the control flow of this command
 
-<puml src="diagrams/SetWeddingActivityDiagram.puml" width="600" alt="Activity diagram for addPersonToTable command" />
+<puml src="diagrams/DeleteWeddingActivityDiagram.puml" width="600" alt="Activity diagram for deleteWedding command" />
+
+This command is useful when a wedding has already happened and no longer needs to be managed.
+
+<div style="page-break-after: always;"></div>
+
+### `addPerson` Command
+The `addPerson` command allows a user to add a guest to the currently active wedding's guest list. This command is essential for wedding planners to build and manage their client's guest list.
+
+The implementation involves several key steps and validation checks:
+
+1. The command creates a new `Person` object with the provided details (name, phone, email, tags, address, dietary restrictions, and RSVP status)
+2. It then attempts to add this person to the current wedding through the model
+3. The implementation includes the following validation checks:
+   - Verifying that there is a current wedding set (throws `NoCurrentWeddingException` if not)
+   - Ensuring the person is not already in the guest list (throws `DuplicatePersonException` if duplicate found)
+4. If successful, it returns a success message with the person's details
+5. If an exception is caught, it provides appropriate error feedback to the user
+
+The sequence diagram below illustrates how the `addPerson` command is processed:
+
+<puml src="diagrams/AddPersonActivityDiagram.puml" alt="Sequence Diagram for AddPerson Command" />
+
+This command follows the Command pattern, where the `AddPersonCommand` encapsulates a request as an object, allowing for parameterization of clients with different requests and queue or log requests.
+
+<div style="page-break-after: always;"></div>
+
+### `deletePerson` Command
+The `deletePerson` command allows users to remove a guest from the currently active wedding's guest list using their displayed index number.
+
+The implementation involves several key steps and validation checks:
+
+1. The command takes an index parameter to identify which person to delete
+2. It retrieves the list of currently displayed persons from the model
+3. The implementation includes the following validation checks:
+   - Verifying that there is a current wedding set
+   - Ensuring the provided index is within valid bounds of the displayed list
+4. If the index is valid, it retrieves the person at that index and removes them from the wedding
+5. If the person was assigned to a table, they are also removed from that table
+6. A success message is returned with details of the deleted person
+
+The activity diagram below illustrates the control flow of this command:
+
+<puml src="diagrams/DeletePersonActivityDiagram.puml" alt="Activity Diagram for DeletePerson Command" />
+
+This command supports the need for wedding planners to be able to update guest lists as clients make changes to their wedding plans.
+
+<div style="page-break-after: always;"></div>
+
+### `filterPersons` Command
+The `filterPersons` command allows users to filter the guest list based on dietary restrictions and/or RSVP status. This feature is particularly useful for wedding planners who need to quickly identify specific groups of guests, such as those with special dietary needs or those who have not yet responded to invitations.
+
+The implementation involves several key steps and validation checks:
+
+1. The command can accept one or both filter types: dietary restrictions (d/) and RSVP status (r/)
+2. It validates that at least one filter type is specified and prevents multiple filters of the same type
+3. It creates the appropriate filter objects based on the specified criteria
+4. For cases where both dietary restriction and RSVP filters are specified, it combines them using a logical AND operation
+5. It then applies the combined filter to the guest list in the model
+6. Finally, it returns a result message showing the number of persons who matched the filter criteria
+
+The activity diagram below illustrates the control flow of this command:
+
+<puml src="diagrams/FilterPersonsActivityDiagram.puml" alt="Activity Diagram for FilterPersons Command" />
+
+This filtering functionality helps wedding planners efficiently organize guests by important attributes, allowing for better catering planning and follow-up on outstanding RSVPs.
+
+<div style="page-break-after: always;"></div>
 
 ### `addPersonToTable` Command
 
@@ -231,6 +310,31 @@ Once all conditions are met, the guest is assigned to the table and the system s
 The activity diagram below illustrates the control flow of this command
 
 <puml src="diagrams/AddPersonToTableActivityDiagram.puml" width="600" alt="Activity diagram for addPersonToTable command" />
+
+This command is useful when the seating arrangement has been decided and guests need to be assigned to a table.
+
+<div style="page-break-after: always;"></div>
+
+### `deletePersonFromTable` Command
+The `deletePersonFromTable` command allows users to remove a person from their assigned table in the currently active wedding. This feature helps wedding planners manage seating arrangements efficiently when plans change.
+
+The implementation involves several key steps and validation checks:
+
+1. The command takes two required parameters: the guest's name and the table ID
+2. It first validates that there is a current wedding set
+3. It then checks that the specified person exists in the wedding's guest list
+4. Next, it verifies that the table with the given ID exists
+5. It also confirms that the person is actually seated at the specified table
+6. If all validations pass, the person is removed from the table and their table assignment status is updated
+7. Finally, a success message is displayed, confirming that the guest has been removed from the specified table
+
+The activity diagram below illustrates the control flow of this command:
+
+<puml src="diagrams/DeletePersonFromTableActivityDiagram.puml" alt="Activity Diagram for DeletePersonFromTable Command" />
+
+This command is useful when guests need to be reassigned to different tables or when a guest cancels their attendance but the planner wishes to retain their information in the guest list without a table assignment.
+
+<div style="page-break-after: always;"></div>
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -446,7 +550,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ---
 
-### Use case: Edit a guest
+### UC6: Edit a guest
 
 **Preconditions:**
 - A wedding has been created.
@@ -486,7 +590,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ---
 
-### UC6: Add a table
+### UC7: Add a table
 
 **Preconditions:**
 - A wedding has been created.
@@ -523,7 +627,7 @@ Use case ends.
 
 ---
 
-### UC7: Delete a table
+### UC8: Delete a table
 
 **Preconditions:**
 - A wedding has been created.
@@ -551,7 +655,7 @@ Use case ends.
 - 2b3. If the user provides a valid table ID, the process resumes at step 3. Otherwise, use case ends.
 
 ---
-### UC8: Assign a Guest to a table
+### UC9: Assign a Guest to a table
 
 **Preconditions:**
 - A wedding has been created.
@@ -591,7 +695,7 @@ Use case ends.
 
 ---
 
-### UC9: Remove a Guest from a table
+### UC10: Remove a Guest from a table
 
 **Preconditions:**
 - A wedding has been created.
@@ -645,6 +749,7 @@ Use case ends.
 - **Vendor (Extension):** A business or individual that supplies services or products—such as catering, photography, or decor—for the wedding.
 
 --------------------------------------------------------------------------------------------------------------------
+
 
 ## **Appendix: Instructions for manual testing**
 
@@ -869,11 +974,13 @@ Removes a person from a table in the currently active wedding.
 
 ### Saving data
 
-1. Dealing with missing/corrupted data files
-   1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
+Dealing with corrupted data files
 
-2. _{ more test cases … }_
-
+  1. If the app hangs due to corrupted data file, close the app
+  2. Locate the /data directory in the same directory as the app
+  3. Go inside the /data directory and locate weddinghero.json
+  4. Delete the weddinghero.json file
+  5. Restart the app
 
 ## **Appendix: Planned Enhancements**
 

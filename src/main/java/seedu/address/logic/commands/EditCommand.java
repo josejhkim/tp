@@ -44,8 +44,10 @@ public class EditCommand extends Command {
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) " + "[" + PREFIX_NAME + "NAME] " + "[" + PREFIX_PHONE
             + "PHONE] " + "[" + PREFIX_EMAIL + "EMAIL] " + "[" + PREFIX_ADDRESS + "ADDRESS] " + "[" + PREFIX_TAG
-            + "TAG]... " + "[" + PREFIX_DIETARY_RESTRICTION + "DIETARY_RESTRICTION] " + "[" + PREFIX_RSVP + "RSVP]\n"
-            + "Example: " + COMMAND_WORD + " 1 " + PREFIX_PHONE + "91234567 " + PREFIX_EMAIL + "johndoe@example.com "
+            + "TAG]... " + "[" + PREFIX_DIETARY_RESTRICTION + "DIETARY_RESTRICTION] " + "[" + PREFIX_TAG + "Tag1]" + "["
+            + PREFIX_RSVP + "RSVP]\n"
+            + "Example: " + COMMAND_WORD + " 1 " + PREFIX_PHONE + "91234567 " + PREFIX_TAG + "tag123 " + PREFIX_EMAIL
+            + "johndoe@example.com "
             + PREFIX_DIETARY_RESTRICTION + "VEGETARIAN " + PREFIX_RSVP + "YES";
 
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
@@ -56,7 +58,7 @@ public class EditCommand extends Command {
     private final EditPersonDescriptor editPersonDescriptor;
 
     /**
-     * @param index of the person in the filtered person list to edit
+     * @param index                of the person in the filtered person list to edit
      * @param editPersonDescriptor details to edit the person with
      */
     public EditCommand(Index index, EditPersonDescriptor editPersonDescriptor) {
@@ -89,7 +91,8 @@ public class EditCommand extends Command {
     }
 
     /**
-     * Creates and returns a {@code Person} with the details of {@code personToEdit} edited with
+     * Creates and returns a {@code Person} with the details of {@code personToEdit}
+     * edited with
      * {@code editPersonDescriptor}.
      */
     private static Person createEditedPerson(Person personToEdit, EditPersonDescriptor editPersonDescriptor) {
@@ -132,7 +135,8 @@ public class EditCommand extends Command {
     }
 
     /**
-     * Stores the details to edit the person with. Each non-empty field value will replace the corresponding field value
+     * Stores the details to edit the person with. Each non-empty field value will
+     * replace the corresponding field value
      * of the person.
      */
     public static class EditPersonDescriptor {
@@ -212,14 +216,16 @@ public class EditCommand extends Command {
         }
 
         /**
-         * Sets {@code tags} to this object's {@code tags}. A defensive copy of {@code tags} is used internally.
+         * Sets {@code tags} to this object's {@code tags}. A defensive copy of
+         * {@code tags} is used internally.
          */
         public void setTags(Set<Tag> tags) {
             this.tags = (tags != null) ? new HashSet<>(tags) : null;
         }
 
         /**
-         * Returns an unmodifiable tag set, which throws {@code UnsupportedOperationException} if modification is
+         * Returns an unmodifiable tag set, which throws
+         * {@code UnsupportedOperationException} if modification is
          * attempted. Returns {@code Optional#empty()} if {@code tags} is null.
          */
         public Optional<Set<Tag>> getTags() {
