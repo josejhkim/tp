@@ -160,8 +160,10 @@ Wedding Hero helps you manage **multiple weddings** with ease by using a **“se
    active wedding**.
 4. You can view and manage each wedding's guests, tables, and RSVP details independently.
 
->  **Note:** You can only interact with one wedding at a time. You must `setWedding` before performing most other 
-> commands (e.g., `addPerson`, `addTable`, etc.).
+<box type="info" seamless>
+
+You can only interact with one wedding at a time. You must `setWedding` before performing most other commands (e.g., `addPerson`, `addTable`, etc.).
+<box>
 
 ---
 
@@ -217,7 +219,6 @@ assigning a guest to a wedding's table.
 
 **Format:** `setWedding n/WEDDINGNAME`
 
-
 - Sets the active wedding context to the wedding with the provided `WEDDINGNAME`.
 - Activates a previously created wedding identified by `WEDDINGNAME`.
 - Once set, all guest and table operations will apply to this active wedding.
@@ -236,7 +237,6 @@ Design Rationale:
 </box>
 
 <box type="tip" seamless>
-Tips:
 
 - After restarting the application, always set your working wedding using `setWedding` before proceeding with other commands
 - Future versions may include a command to list all available weddings
@@ -246,7 +246,9 @@ Tips:
 - Running `setWedding n/John & Jane Wedding` sets the active wedding to "John & Jane Wedding".
 - Using `setWedding n/Smith Wedding` sets the active wedding to the wedding named "Smith Wedding".
 
-<box type="info" seamless> Note: You can only modify or view wedding details after setting a wedding as active. Wedding Hero enforces single-wedding context to ensure that all operations are scoped cleanly to one event at a time, avoiding accidental mixing of guest lists across weddings. </box>
+<box type="info" seamless> 
+
+You can only modify or view wedding details after setting a wedding as active. Wedding Hero enforces single-wedding context to ensure that all operations are scoped cleanly to one event at a time, avoiding accidental mixing of guest lists across weddings. </box>
 
 ### Wedding Overview : `weddingOverview`
 
