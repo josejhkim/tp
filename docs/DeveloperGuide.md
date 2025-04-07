@@ -654,10 +654,10 @@ Use case ends.
 - 2a2. WeddingHero prompts the user to re-enter the command with the correct format.
 - 2a3. Once the correct input is provided, the process resumes at step 3.
 
-2b. **Table Not Found**
-- 2b1. If WeddingHero is unable to locate a table matching the provided ID, it informs the user that no matching table was found.
-- 2b2. WeddingHero prompts the user to either re-enter a valid table ID.
-- 2b3. If the user provides a valid table ID, the process resumes at step 3. Otherwise, use case ends.
+3a **Table Not Found**
+- 3a1. If WeddingHero is unable to locate a table matching the provided ID, it informs the user that no matching table was found.
+- 3a2. WeddingHero prompts the user to either re-enter a valid table ID.
+- 3a3. If the user provides a valid table ID, the process resumes at step 3. Otherwise, use case ends.
 
 ---
 ### UC9: Assign a Guest to a table
@@ -679,6 +679,10 @@ Use case ends.
 
 **Extensions:**
 
+2a. **Invalid Input Format**
+- 2a1. If the input is missing required fields or incorrectly formatted, WeddingHero displays an error message showing the correct format.
+- 2a2. Upon receiving the correct input, the process resumes at step 3.
+
 3a. **Person Not Found**
 - 3a1. If the specified guest does not exist, WeddingHero informs the user.
 - 3a2. User is prompted to re-enter a valid guest name.
@@ -693,10 +697,6 @@ Use case ends.
 - 4b1. If the table has reached its maximum capacity, WeddingHero displays an error message.
 - 4b2. User is prompted to select another table or modify the table capacity.
 - 4b3. If the user selects another table, the process resumes at step 4.
-
-2a. **Invalid Input Format**
-- 2a1. If the input is missing required fields or incorrectly formatted, WeddingHero displays an error message showing the correct format.
-- 2a2. Upon receiving the correct input, the process resumes at step 3.
 
 ---
 
@@ -717,6 +717,10 @@ Use case ends.
 
 **Extensions:**
 
+2a. **Invalid Input Format**
+- 2a1. If the input is missing required fields or incorrectly formatted, WeddingHero displays an error message showing the correct format.
+- 2a2. Upon receiving the correct input, the process resumes at step 3.
+
 3a. **Guest Not Found**
 - 3a1. If the specified guest does not exist, WeddingHero informs the user.
 - 3a2. User is prompted to re-enter a valid person name.
@@ -730,10 +734,6 @@ Use case ends.
 3c. **Guest Not Assigned to Table**
 - 3c1. If the person is not assigned to the specified table, WeddingHero informs the user.
 - 3c2. User may choose to cancel or try another table ID.
-
-2a. **Invalid Input Format**
-- 2a1. If the input is missing required fields or incorrectly formatted, WeddingHero displays an error message showing the correct format.
-- 2a2. Upon receiving the correct input, the process resumes at step 3.
 
 ### Non-Functional Requirements
 
