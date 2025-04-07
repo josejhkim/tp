@@ -131,7 +131,7 @@ Refer to the [Features](#features) below for full details of each command.
   reasons, but these commands are used to manage guests in the wedding. This design choice maintains consistency with the underlying implementation while providing a user-friendly interface for managing wedding guests.
 
 <box>
-⚠️ PDF Warning: If you are using a PDF version of this document, be careful when copying and pasting commands that 
+PDF Warning: If you are using a PDF version of this document, be careful when copying and pasting commands that 
 span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
 </box>
 
