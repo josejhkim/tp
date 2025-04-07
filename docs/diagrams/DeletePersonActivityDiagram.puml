@@ -1,7 +1,7 @@
 @startuml
 start
 
-:User enters command 
+:User enters command
 "deletePerson INDEX";
 
 :Parse command;

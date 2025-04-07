@@ -1,7 +1,7 @@
 @startuml
 start
 
-:User enters command 
+:User enters command
 "filterPersons [d/DIETARYRESTRICTION] [r/RSVP]";
 
 :Parse command;

@@ -1,7 +1,7 @@
 @startuml
 start
 
-:User enters command 
+:User enters command
 "addPerson n/NAME p/PHONE e/EMAIL a/ADDRESS d/DIETARY_RESTRICTION r/RSVP [t/TAG]...";
 
 :Parse command;

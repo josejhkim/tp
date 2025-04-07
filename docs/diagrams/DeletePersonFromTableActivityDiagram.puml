@@ -1,7 +1,7 @@
 @startuml
 start
 
-:User enters command 
+:User enters command
 "deletePersonFromTable n/NAME tid/TABLE_ID";
 
 :Parse command;
