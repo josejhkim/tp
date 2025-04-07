@@ -176,6 +176,83 @@ The activity diagram below illustrates the control flow of this command
 
 
 
+### `addPerson` Command
+The `addPerson` command allows a user to add a guest to the currently active wedding's guest list. This command is essential for wedding planners to build and manage their client's guest list.
+
+The implementation involves several key steps and validation checks:
+
+1. The command creates a new `Person` object with the provided details (name, phone, email, tags, address, dietary restrictions, and RSVP status)
+2. It then attempts to add this person to the current wedding through the model
+3. The implementation includes the following validation checks:
+   - Verifying that there is a current wedding set (throws `NoCurrentWeddingException` if not)
+   - Ensuring the person is not already in the guest list (throws `DuplicatePersonException` if duplicate found)
+4. If successful, it returns a success message with the person's details
+5. If an exception is caught, it provides appropriate error feedback to the user
+
+The sequence diagram below illustrates how the `addPerson` command is processed:
+
+<puml src="diagrams/AddPersonActivityDiagram.puml" alt="Sequence Diagram for AddPerson Command" />
+
+
+This command follows the Command pattern, where the `AddPersonCommand` encapsulates a request as an object, allowing for parameterization of clients with different requests and queue or log requests.
+
+### `deletePerson` Command
+The `deletePerson` command allows users to remove a guest from the currently active wedding's guest list using their displayed index number.
+
+The implementation involves several key steps and validation checks:
+
+1. The command takes an index parameter to identify which person to delete
+2. It retrieves the list of currently displayed persons from the model
+3. The implementation includes the following validation checks:
+   - Verifying that there is a current wedding set
+   - Ensuring the provided index is within valid bounds of the displayed list
+4. If the index is valid, it retrieves the person at that index and removes them from the wedding
+5. If the person was assigned to a table, they are also removed from that table
+6. A success message is returned with details of the deleted person
+
+The activity diagram below illustrates the control flow of this command:
+
+<puml src="diagrams/DeletePersonActivityDiagram.puml" alt="Activity Diagram for DeletePerson Command" />
+
+This command supports the need for wedding planners to be able to update guest lists as clients make changes to their wedding plans.
+
+### `filterPersons` Command
+The `filterPersons` command allows users to filter the guest list based on dietary restrictions and/or RSVP status. This feature is particularly useful for wedding planners who need to quickly identify specific groups of guests, such as those with special dietary needs or those who have not yet responded to invitations.
+
+The implementation involves several key steps and validation checks:
+
+1. The command can accept one or both filter types: dietary restrictions (d/) and RSVP status (r/)
+2. It validates that at least one filter type is specified and prevents multiple filters of the same type
+3. It creates the appropriate filter objects based on the specified criteria
+4. For cases where both dietary restriction and RSVP filters are specified, it combines them using a logical AND operation
+5. It then applies the combined filter to the guest list in the model
+6. Finally, it returns a result message showing the number of persons who matched the filter criteria
+
+The activity diagram below illustrates the control flow of this command:
+
+<puml src="diagrams/FilterPersonsActivityDiagram.puml" alt="Activity Diagram for FilterPersons Command" />
+
+This filtering functionality helps wedding planners efficiently organize guests by important attributes, allowing for better catering planning and follow-up on outstanding RSVPs.
+
+### `deletePersonFromTable` Command
+The `deletePersonFromTable` command allows users to remove a person from their assigned table in the currently active wedding. This feature helps wedding planners manage seating arrangements efficiently when plans change.
+
+The implementation involves several key steps and validation checks:
+
+1. The command takes two required parameters: the guest's name and the table ID
+2. It first validates that there is a current wedding set
+3. It then checks that the specified person exists in the wedding's guest list
+4. Next, it verifies that the table with the given ID exists
+5. It also confirms that the person is actually seated at the specified table
+6. If all validations pass, the person is removed from the table and their table assignment status is updated
+7. Finally, a success message is displayed, confirming that the guest has been removed from the specified table
+
+The activity diagram below illustrates the control flow of this command:
+
+<puml src="diagrams/DeletePersonFromTableActivityDiagram.puml" alt="Activity Diagram for DeletePersonFromTable Command" />
+
+This command is useful when guests need to be reassigned to different tables or when a guest cancels their attendance but the planner wishes to retain their information in the guest list without a table assignment.
+
 ### \[Proposed\] Undo/redo feature
 
 #### Proposed Implementation
