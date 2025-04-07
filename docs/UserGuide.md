@@ -77,8 +77,8 @@ traditional mouse-based applications.
    
 <img src="images/Ui.png" alt="Ui" style="max-width: 75%; height: auto;" />
 
-
-5. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will
+5. Click full screen mode (recommended) for best use of the application. Full screen mode is preferred as it ensures optimal performance; we cannot guarantee error-free operation if the application is not run in full screen mode.
+6. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will
    open the help window.<br>
 - `addPerson n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 d/NONE r/YES` : Adds a 
   guest named John Doe with RSVP status and dietary preference to the active wedding.
