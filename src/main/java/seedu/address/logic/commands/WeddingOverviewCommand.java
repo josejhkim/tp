@@ -20,7 +20,7 @@ public class WeddingOverviewCommand extends Command {
     public static final String MESSAGE_SUCCESS = """
         Overview of %1$s's Wedding:
         Number of tables: %2$d
-        Number of persons invited: %3$d
+        Number of guests invited: %3$d
         Person list:
         %4$s
         """;
