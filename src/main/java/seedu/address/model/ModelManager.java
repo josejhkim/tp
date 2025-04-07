@@ -61,7 +61,8 @@ public class ModelManager implements Model {
         this.filteredTables = new FilteredList<>(this.addressBook.getTableList());
     }
 
-    //=========== UserPrefs ==================================================================================
+    // =========== UserPrefs
+    // ==================================================================================
 
     @Override
     public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
@@ -96,10 +97,13 @@ public class ModelManager implements Model {
         userPrefs.setAddressBookFilePath(addressBookFilePath);
     }
 
-    //=========== AddressBook ================================================================================
+    // =========== AddressBook
+    // ================================================================================
 
     @Override
     public void setAddressBook(ReadOnlyAddressBook addressBook) {
+        pcs.firePropertyChange("currentWedding", "", "Not Set");
+
         this.addressBook.resetData(addressBook);
     }
 
@@ -108,10 +112,12 @@ public class ModelManager implements Model {
         return addressBook;
     }
 
-    //=========== Filtered Person List Accessors =============================================================
+    // =========== Filtered Person List Accessors
+    // =============================================================
 
     /**
-     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
+     * Returns an unmodifiable view of the list of {@code Person} backed by the
+     * internal list of
      * {@code versionedAddressBook}
      */
     @Override
@@ -136,7 +142,8 @@ public class ModelManager implements Model {
         filteredTables.setPredicate(predicate);
     }
 
-    //=========== Persons ================================================================================
+    // =========== Persons
+    // ================================================================================
 
     @Override
     public boolean hasPerson(Person person) {
@@ -160,6 +167,7 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedPerson);
         addressBook.setPerson(target, editedPerson);
     }
+
     @Override
     public Person findPersonByName(Name name) throws CommandException {
         try {
@@ -169,7 +177,8 @@ public class ModelManager implements Model {
         }
     }
 
-    //=========== Tables ================================================================================
+    // =========== Tables
+    // ================================================================================
 
     @Override
     public void addTable(Table table) {
@@ -197,11 +206,11 @@ public class ModelManager implements Model {
         return addressBook.hasTable(tableId);
     }
 
-
     @Override
     public void addPersonToTable(Person p, Table table) {
         addressBook.addPersonToTable(p, table);
     }
+
     @Override
     public void addPersonToTableById(Person p, int tableId) throws CommandException {
         try {
@@ -232,7 +241,6 @@ public class ModelManager implements Model {
         }
     }
 
-
     @Override
     public Table findTableById(int tableId) {
         return addressBook.getTableById(tableId);
@@ -243,20 +251,20 @@ public class ModelManager implements Model {
         return addressBook.hasCurrentWedding();
     }
 
-
-    //=========== Wedding ================================================================================
+    // =========== Wedding
+    // ================================================================================
     /**
      * Adds a Wedding to the system. Only one Wedding can exist at a time.
      */
     @Override
     public void addWedding(Wedding wedding) {
         requireNonNull(wedding);
-        //        if (addressBook.getWedding() != null) {
-        //            throw new IllegalStateException("A wedding already exists. Cannot create another.");
-        //        }
+        // if (addressBook.getWedding() != null) {
+        // throw new IllegalStateException("A wedding already exists. Cannot create
+        // another.");
+        // }
         addressBook.addWedding(wedding);
     }
-
 
     @Override
     public void deleteCurrentWedding() {
@@ -270,7 +278,9 @@ public class ModelManager implements Model {
 
     @Override
     public void deleteWeddingByName(String weddingName) {
+        Wedding oldWedding = addressBook.getCurrentWedding();
         addressBook.deleteWeddingByName(weddingName);
+        pcs.firePropertyChange("currentWedding", oldWedding, "Not Set");
     }
 
     /**
@@ -315,6 +325,7 @@ public class ModelManager implements Model {
     public void removePropertyChangeListener(PropertyChangeListener listener) {
         this.pcs.removePropertyChangeListener(listener);
     }
+
     @Override
     public boolean hasWeddingWithName(String weddingName) {
         try {
@@ -325,8 +336,8 @@ public class ModelManager implements Model {
         }
     }
 
-
-    //=========== Other Utils ================================================================================
+    // =========== Other Utils
+    // ================================================================================
 
     @Override
     public boolean equals(Object other) {
@@ -341,7 +352,7 @@ public class ModelManager implements Model {
 
         ModelManager otherModelManager = (ModelManager) other;
         return addressBook.equals(otherModelManager.addressBook)
-            && userPrefs.equals(otherModelManager.userPrefs)
-            && filteredPersons.equals(otherModelManager.filteredPersons);
+                && userPrefs.equals(otherModelManager.userPrefs)
+                && filteredPersons.equals(otherModelManager.filteredPersons);
     }
 }
