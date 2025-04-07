@@ -546,10 +546,9 @@ the acceptable range). Therefore, edit the data file only if you are confident t
 - **Table ID**: A unique integer identifier (e.g., `1`, `5`, `12`) given to each table during the `addTable` command.
   Used for assigning and locating tables.
 
-- **Dietary Restriction**: Describes food requirements or allergies of a guest. Acceptable values include: `NONE`, 
-  `VEGETARIAN`, `VEGAN`, `HALAL`, `SHELLFISH`, `PEANUTS`, `FISH`, `EGGS`, `SOY`, `SESAME`.
+- **Dietary Restriction**: Describes food requirements or allergies of a guest. Please refer to the full list [here](#allowed-dietary-restrictions).
 
-- **RSVP**: Indicates whether a guest has responded to an invitation. Valid values: `YES`, `NO`, `NO_RESPONSE`.
+- **RSVP**: Indicates whether a guest has responded to an invitation. And if so, their response. Please refer to the full list [here](#allowed-rsvp-values).
 
 - **Index**: A positive integer shown in the GUI list view that represents the position of a guest in the current filtered or full list. Used in commands like `deletePerson`.
 
@@ -569,7 +568,7 @@ the acceptable range). Therefore, edit the data file only if you are confident t
 - `c/` → Capacity of a table representing a maximum number of guests that can be allocated to the table.
 
 <a id="allowed-dietary-restrictions"></a>
-### **Allowed `DIETARYRESTRICTION` values:**
+### Allowed `DIETARYRESTRICTION` values:
 - NONE
 - VEGETARIAN
 - VEGAN
@@ -582,7 +581,7 @@ the acceptable range). Therefore, edit the data file only if you are confident t
 - SESAME
 
 <a id="allowed-rsvp-values"></a>
-### **Allowed `RSVP` values:**
+### Allowed `RSVP` values:
 - YES
 - NO
 - NO_RESPONSE
@@ -596,7 +595,16 @@ the acceptable range). Therefore, edit the data file only if you are confident t
 the data of your previous WeddingHero home folder.
 
 **Q**: Where can I find updates or release notes about Wedding Hero?<br>
-**A**: Updates, release notes, and additional documentation can be found on our GitHub repository. We regularly update the application with new features, bug fixes, and enhancements to improve your planning experience.
+**A**: Updates, release notes, and additional documentation can be found on our GitHub repository [here](https://github.com/AY2425S2-CS2103T-F12-3/tp). We regularly update the application with new features, bug fixes, and enhancements to improve your planning experience.
+
+**Q**: Why do my commands sometimes result in errors?  
+**A**: This might be due to an incorrect command format or missing/incorrect prefixes. Make sure you follow the exact syntax specified in the User Guide, including using the proper camel-case format (e.g., `createWedding` instead of `createwedding`).
+
+**Q**: I created a wedding, but I cannot add to it.  
+**A**: Remember to set the wedding you just added as active with the `setWedding` command. This ensures that all guest and table operations are applied to the selected wedding.
+
+**Q**: How is my data saved in Wedding Hero, and what precautions should I take when editing it manually?  
+**A**: Wedding Hero automatically saves your data in a JSON file located in the application's data folder. If you choose to edit this file manually, be sure to maintain the correct JSON format to prevent data corruption. It’s recommended that you back up your data before making any manual changes.
 
 ---
 ## Planned Enhancements
