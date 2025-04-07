@@ -125,14 +125,12 @@ How the parsing works:
 
 The `Model` component,
 
-* stores the address book data i.e., all `Person` objects (which are contained in a `UniquePersonList` object). Each `Person` object represents a guest in the wedding.
-* stores the currently 'selected' `Person` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Person>` that can be 'observed' e.g., the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the address book data i.e., all `Wedding` objects (which are contained in a `UniqueWeddingList` object). Each `Wedding` object represents a wedding stored inside WeddingHero.
+  * each `Wedding` object, in turn, stores the data about that wedding i.e., all `Table` objects 'used' for the wedding(which are contained in a `UniqueTableList` object), and all `Person` objects 'invited' to the wedding (which are contained in a `UniquePersonList` object)
+* stores the currently 'selected' `Wedding` object that will be displayed and manipulated by the GUI
+* stores the `UniqueTableList` and `UniquePersonListof`  the currently 'selected' `Wedding` to be displayed on the GUI
 * stores a `UserPref` object that represents the user's preferences. This is exposed to the outside as a `ReadOnlyUserPref` object.
 * does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components).
-
-<box type="info" seamless>
-**Note:** An alternative (arguably, a more OOP) model is given below. It has a `Tag` list in the `AddressBook`, which `Person` references. This allows `AddressBook` to only require one `Tag` object per unique tag, instead of each `Person` needing their own `Tag` objects.<br>
-</box>
 
 <puml src="diagrams/BetterModelClassDiagram.puml" width="450" />
 
@@ -157,24 +155,82 @@ Classes used by multiple components are in the `seedu.address.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
-### `addPersonToTable` Command
+### `createWedding` Command
 
-The `addPersonToTable`  allows a user to assign a specific guest to a specific table within the currently active wedding.
+The `createWedding`  allows a user to create a new wedding to be stored inside the system.
 
-The implementation involves several validation steps:
+It should be noted that this command does not automatically set the wedding created by the command as the current wedding displayed in the GUI. The user could do that by using the `setWedding` command after the wedding has been created.
+
+The implementation involves the following validation steps:
 - Checking that the input format is correct
-- Checking that the specified person exists in the current guest list
-- Checking that the table exists
-- Ensuring the table has available capacity
+- Checking that another wedding with the same name does not already exist in the system
 
-Once all conditions are met, the guest is assigned to the table and the system state is saved.
+Once all conditions are met, a new wedding is created, and the user can then set this wedding to be the current wedding before adding guests and tables to this wedding.
 
 The activity diagram below illustrates the control flow of this command
 
-<puml src="diagrams/AddPersonToTableActivityDiagram.puml" width="600" alt="Activity diagram for addPersonToTable command" />
+<puml src="diagrams/CreateWeddingActivityDiagram.puml" width="600" alt="Activity diagram for createWedding command" />
 
+This command is useful for creating a new wedding to keep track of if the user has to manage another wedding.
 
+<div style="page-break-after: always;"></div>
 
+### `setWedding` Command
+
+The `setWedding`  allows a user to set a wedding as the 'current' wedding to display in the GUI and manipulate the data of.
+
+The implementation involves the following validation steps:
+- Checking that the input format is correct
+- Checking that the wedding with the given name exists
+
+Once all conditions are met, the wedding with the given name is retrieved and is set as the 'current' wedding to be displayed in the GUI and to have its `person` and `table` data manipulated on.
+
+The activity diagram below illustrates the control flow of this command
+
+<puml src="diagrams/SetWeddingActivityDiagram.puml" width="600" alt="Activity diagram for setWedding command" />
+
+This command is useful for choosing which wedding the user wants to see and edit using the GUI.
+
+<div style="page-break-after: always;"></div>
+
+### `weddingOverview` Command
+
+The `weddingOverview`  allows a user to get a quick overview of the currently selected wedding.
+
+It provides the user with the number of tables used for the current wedding and the number of persons invited to the current wedding. It also provides a list of the persons invited to the current wedding along with their details.
+
+The implementation involves the following validation steps:
+- Checking that the input format is correct
+- Checking that there is a currently selected wedding displayed in the GUI
+
+Once all conditions are met, all of the persons invited to the wedding and all of the tables used in the wedding are displayed in the GUI, and the aforementioned overview information of the current wedding is shown in the area below the user input.
+
+The activity diagram below illustrates the control flow of this command
+
+<puml src="diagrams/WeddingOverviewActivityDiagram.puml" width="600" alt="Activity diagram for weddingOverview command" />
+
+This command is useful for getting a quick overview of the currently set wedding.
+
+<div style="page-break-after: always;"></div>
+
+### `deleteWedding` Command
+
+The `deleteWedding`  allows a user to delete a wedding that has been previously stored from the system.
+
+The implementation involves the following validation steps:
+- Checking that the input format is correct
+- Checking that the wedding with the given name exists
+
+Once all conditions are met, the wedding with the given name is deleted from the system.
+If the wedding to be deleted is also the 'current' wedding and is being displayed on the GUI, then the GUI is cleared to show no information.
+
+The activity diagram below illustrates the control flow of this command
+
+<puml src="diagrams/DeleteWeddingActivityDiagram.puml" width="600" alt="Activity diagram for deleteWedding command" />
+
+This command is useful when a wedding has already happened and no longer needs to be managed.
+
+<div style="page-break-after: always;"></div>
 
 ### `addPerson` Command
 The `addPerson` command allows a user to add a guest to the currently active wedding's guest list. This command is essential for wedding planners to build and manage their client's guest list.
@@ -239,6 +295,26 @@ This filtering functionality helps wedding planners efficiently organize guests 
 
 <div style="page-break-after: always;"></div>
 
+### `addPersonToTable` Command
+
+The `addPersonToTable`  allows a user to assign a specific guest to a specific table within the currently active wedding.
+
+The implementation involves several validation steps:
+- Checking that the input format is correct
+- Checking that the specified person exists in the current guest list
+- Checking that the table exists
+- Ensuring the table has available capacity
+
+Once all conditions are met, the guest is assigned to the table and the system state is saved.
+
+The activity diagram below illustrates the control flow of this command
+
+<puml src="diagrams/AddPersonToTableActivityDiagram.puml" width="600" alt="Activity diagram for addPersonToTable command" />
+
+This command is useful when the seating arrangement has been decided and guests need to be assigned to a table.
+
+<div style="page-break-after: always;"></div>
+
 ### `deletePersonFromTable` Command
 The `deletePersonFromTable` command allows users to remove a person from their assigned table in the currently active wedding. This feature helps wedding planners manage seating arrangements efficiently when plans change.
 
@@ -259,93 +335,6 @@ The activity diagram below illustrates the control flow of this command:
 This command is useful when guests need to be reassigned to different tables or when a guest cancels their attendance but the planner wishes to retain their information in the guest list without a table assignment.
 
 <div style="page-break-after: always;"></div>
-
-
-### \[Proposed\] Undo/redo feature
-
-#### Proposed Implementation
-
-The proposed undo/redo mechanism is facilitated by `VersionedAddressBook`. It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`. Additionally, it implements the following operations:
-
-* `VersionedAddressBook#commit()` — Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` — Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` — Restores a previously undone address book state from its history.
-
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()`, and `Model#redoAddressBook()` respectively.
-
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
-
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
-
-<puml src="diagrams/UndoRedoState0.puml" alt="UndoRedoState0" />
-
-Step 2. The user executes `delete 5` command to delete the 5th guest in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
-
-<puml src="diagrams/UndoRedoState1.puml" alt="UndoRedoState1" />
-
-Step 3. The user executes `add n/David …` to add a new guest. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
-
-<puml src="diagrams/UndoRedoState2.puml" alt="UndoRedoState2" />
-
-<box type="info" seamless>
-**Note:** If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
-</box>
-
-Step 4. The user now decides that adding the guest was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
-
-<puml src="diagrams/UndoRedoState3.puml" alt="UndoRedoState3" />
-
-<box type="info" seamless>
-**Note:** If the `currentStatePointer` is at index 0, pointing to the initial AddressBook state, then there are no previous AddressBook states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
-</box>
-
-The following sequence diagram shows how an undo operation goes through the `Logic` component:
-
-<puml src="diagrams/UndoSequenceDiagram-Logic.puml" alt="UndoSequenceDiagram-Logic" />
-
-<box type="info" seamless>
-**Note:** The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-</box>
-
-Similarly, how an undo operation goes through the `Model` component is shown below:
-
-<puml src="diagrams/UndoSequenceDiagram-Model.puml" alt="UndoSequenceDiagram-Model" />
-
-The `redo` command does the opposite — it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
-
-<box type="info" seamless>
-**Note:** If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone AddressBook states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-</box>
-
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()`, or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
-
-<puml src="diagrams/UndoRedoState4.puml" alt="UndoRedoState4" />
-
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. Reason: It no longer makes sense to redo the `add n/David …` command. This is the behavior that most modern desktop applications follow.
-
-<puml src="diagrams/UndoRedoState5.puml" alt="UndoRedoState5" />
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-<puml src="diagrams/CommitActivityDiagram.puml" width="250" />
-
-#### Design considerations:
-
-**Aspect: How undo & redo executes:**
-
-* **Alternative 1 (current choice):** Saves the entire address book.
-  + Pros: Easy to implement.
-  + Cons: May have performance issues in terms of memory usage.
-
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-  + Pros: Will use less memory (e.g., for `delete`, just save the person being deleted).
-  + Cons: We must ensure that the implementation of each individual command is correct.
-
-_{more aspects and alternatives to be added}_
-
-### \[Proposed\] Data archiving
-
-_{Explain here how the data archiving feature will be implemented}_
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -394,11 +383,6 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | ***      | wedding planner                                         | decide how many guests should be seated at one table                                           | customise it to my clients’ needs                                                          |
 | ***      | wedding planner                                         | view the entire table list quickly                                                             | quickly see the list of tables and their capacities                                        |
 | **       | organised wedding planner                               | filter guests based on their dietary restrictions and RSVP status                              | view guests based on a specific category                                                   |
-| *        | forgetful wedding planner                               | mark the status of the vendor list                                                             | keep track of whether a vendor has confirmed                                               |
-| *        | detailed wedding planner                                | see a list of upcoming tasks that are most urgent                                              | pay attention to them first                                                                |
-| *        | wedding planner                                         | create a library of preferred vendors and pricing details                                      | easily recommend the best options to my clients                                            |
-| *        | wedding planner                                         | get a contact list of wedding-related vendors nearby                                           | I don’t have to worry about looking them up personally                                     |
-| *        | wedding planner                                         | track expenses against a set budget                                                            | I stay informed of the wedding costs                                                       |
 
 ## Use cases (UC)
 
@@ -990,11 +974,13 @@ Removes a person from a table in the currently active wedding.
 
 ### Saving data
 
-1. Dealing with missing/corrupted data files
-   1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
+Dealing with corrupted data files
 
-2. _{ more test cases … }_
-
+  1. If the app hangs due to corrupted data file, close the app
+  2. Locate the /data directory in the same directory as the app
+  3. Go inside the /data directory and locate weddinghero.json
+  4. Delete the weddinghero.json file
+  5. Restart the app
 
 ## **Appendix: Planned Enhancements**
 
