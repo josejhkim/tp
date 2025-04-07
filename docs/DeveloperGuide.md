@@ -193,8 +193,9 @@ The sequence diagram below illustrates how the `addPerson` command is processed:
 
 <puml src="diagrams/AddPersonActivityDiagram.puml" alt="Sequence Diagram for AddPerson Command" />
 
-
 This command follows the Command pattern, where the `AddPersonCommand` encapsulates a request as an object, allowing for parameterization of clients with different requests and queue or log requests.
+
+<div style="page-break-after: always;"></div>
 
 ### `deletePerson` Command
 The `deletePerson` command allows users to remove a guest from the currently active wedding's guest list using their displayed index number.
@@ -216,6 +217,8 @@ The activity diagram below illustrates the control flow of this command:
 
 This command supports the need for wedding planners to be able to update guest lists as clients make changes to their wedding plans.
 
+<div style="page-break-after: always;"></div>
+
 ### `filterPersons` Command
 The `filterPersons` command allows users to filter the guest list based on dietary restrictions and/or RSVP status. This feature is particularly useful for wedding planners who need to quickly identify specific groups of guests, such as those with special dietary needs or those who have not yet responded to invitations.
 
@@ -233,6 +236,8 @@ The activity diagram below illustrates the control flow of this command:
 <puml src="diagrams/FilterPersonsActivityDiagram.puml" alt="Activity Diagram for FilterPersons Command" />
 
 This filtering functionality helps wedding planners efficiently organize guests by important attributes, allowing for better catering planning and follow-up on outstanding RSVPs.
+
+<div style="page-break-after: always;"></div>
 
 ### `deletePersonFromTable` Command
 The `deletePersonFromTable` command allows users to remove a person from their assigned table in the currently active wedding. This feature helps wedding planners manage seating arrangements efficiently when plans change.
@@ -252,6 +257,8 @@ The activity diagram below illustrates the control flow of this command:
 <puml src="diagrams/DeletePersonFromTableActivityDiagram.puml" alt="Activity Diagram for DeletePersonFromTable Command" />
 
 This command is useful when guests need to be reassigned to different tables or when a guest cancels their attendance but the planner wishes to retain their information in the guest list without a table assignment.
+
+<div style="page-break-after: always;"></div>
 
 
 ### \[Proposed\] Undo/redo feature
