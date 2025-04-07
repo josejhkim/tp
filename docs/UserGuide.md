@@ -258,7 +258,7 @@ helping you better plan for actual attendance.
 
 Deletes a wedding from the system by name.
 
-**Format:** `deleteWedding WEDDINGNAME`
+**Format:** `deleteWedding n/WEDDINGNAME`
 
 - Permanently deletes the wedding identified by `WEDDINGNAME`.
 - `WEDDINGNAME` must match the exact name of the wedding you created. The comparison is case-insensitive but spacing 
