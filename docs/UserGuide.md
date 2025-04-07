@@ -51,32 +51,34 @@ Wedding Hero is built for professional wedding planners who need a streamlined t
     - [Setting a Wedding : `setWedding`](#setting-a-wedding--setwedding)
     - [Wedding Overview : `weddingOverview`](#wedding-overview--weddingoverview)
     - [Deleting a Wedding : `deleteWedding`](#deleting-a-wedding--deletewedding)
-  - [Managing Persons](#managing-persons)
-    - [Adding a guest: `addPerson`](#adding-a-guest-addperson)
-    - [Deleting a guest : `deletePerson`](#deleting-a-guest--deleteperson)
-    - [Editing a guest : `edit`](#editing-a-guest-edit)
-    - [Filtering guests: `filterPersons`](#filtering-guests-filterpersons)
+  - [Managing Guests](#managing-guests)
+    - [Adding a Guest: `addPerson`](#adding-a-guest-addperson)
+    - [Deleting a Guest: `deletePerson`](#deleting-a-guest--deleteperson)
+    - [Editing a Guest: `edit`](#editing-a-guest-edit)
+    - [Filtering Guests: `filterPersons`](#filtering-guests-filterpersons)
     - [Finding a Guest: `find`](#finding-a-guest-find)
-    - [Listing guests: `list`](#listing-guests--list)
+    - [Listing Guests: `list`](#listing-guests--list)
   - [Managing Tables](#managing-tables)
-    - [Adding a Table : `addTable`](#adding-a-table--addtable)
-    - [Deleting a Table : `deleteTable`](#deleting-a-table--deletetable)
-    - [Listing Tables : `getTables`](#listing-tables--gettables)
-    - [Finding a Table : `findTable`](#finding-a-table--findtable)
-  - [Assigning a guest to a Table](#assigning-a-guest-to-a-table)
-    - [Adding a guest to a Table: addPersonToTable](#adding-a-guest-to-a-table-addpersontotable)
-    - [Removing a guest from a Table: deletePersonFromTable](#removing-a-guest-from-a-table-deletepersonfromtable)
-  - [Clearing the program: `clear`](#clearing-all-data--clear)
-  - [Exiting the program : `exit`](#exiting-the-program--exit)
-- [Saving the data](#saving-the-data)
-- [Editing the data file](#editing-the-data-file)
+    - [Adding a Table: `addTable`](#adding-a-table--addtable)
+    - [Deleting a Table: `deleteTable`](#deleting-a-table--deletetable)
+    - [Listing Tables: `getTables`](#listing-tables--gettables)
+    - [Finding a Table: `findTable`](#finding-a-table--findtable)
+  - [Assigning a Guest to a Table](#assigning-a-guest-to-a-table)
+    - [Adding a Guest to a Table: `addPersonToTable`](#adding-a-guest-to-a-table-addpersontotable)
+    - [Removing a Guest from a Table: `deletePersonFromTable`](#removing-a-guest-from-a-table-deletepersonfromtable)
+  - [Clearing All Data: `clear`](#clearing-all-data--clear)
+  - [Exiting the Program: `exit`](#exiting-the-program--exit)
+- [Saving the Data](#saving-the-data)
+- [Editing the Data File](#editing-the-data-file)
 - [Glossary](#glossary)
-  - [List of prefixes](#list-of-prefixes-and-its-meaning)
-  - [Allowed dietary restrictions](#allowed-dietary-restrictions)
-  - [Allowed RSVP values](#allowed-rsvp-values) 
+  - [List of Prefixes and Their Meanings](#list-of-prefixes-and-its-meaning)
+  - [Allowed Dietary Restrictions](#allowed-dietary-restrictions)
+  - [Allowed RSVP Values](#allowed-rsvp-values)
+  - [Meaning of symbols](#meaning-of-symbols)
 - [FAQ](#faq)
-- [Known issues](#known-issues)
+- [Known Issues](#known-issues)
 - [Command Summary](#command-summary)
+
 ---
 <div style="page-break-after: always;"></div>
 
@@ -158,8 +160,10 @@ Wedding Hero helps you manage **multiple weddings** with ease by using a **“se
    active wedding**.
 4. You can view and manage each wedding's guests, tables, and RSVP details independently.
 
->  **Note:** You can only interact with one wedding at a time. You must `setWedding` before performing most other 
-> commands (e.g., `addPerson`, `addTable`, etc.).
+<box type="info" seamless>
+
+You can only interact with one wedding at a time. You must `setWedding` before performing most other commands (e.g., `addPerson`, `addTable`, etc.).
+<box>
 
 ---
 
@@ -180,7 +184,7 @@ weddingOverview
 
 ## Features
 
-### Managing Weddings
+## Managing Weddings
 
 ---
 ### Creating a Wedding : `createWedding`
@@ -215,7 +219,6 @@ assigning a guest to a wedding's table.
 
 **Format:** `setWedding n/WEDDINGNAME`
 
-
 - Sets the active wedding context to the wedding with the provided `WEDDINGNAME`.
 - Activates a previously created wedding identified by `WEDDINGNAME`.
 - Once set, all guest and table operations will apply to this active wedding.
@@ -234,7 +237,6 @@ Design Rationale:
 </box>
 
 <box type="tip" seamless>
-Tips:
 
 - After restarting the application, always set your working wedding using `setWedding` before proceeding with other commands
 - Future versions may include a command to list all available weddings
@@ -244,7 +246,9 @@ Tips:
 - Running `setWedding n/John & Jane Wedding` sets the active wedding to "John & Jane Wedding".
 - Using `setWedding n/Smith Wedding` sets the active wedding to the wedding named "Smith Wedding".
 
-<box type="info" seamless> Note: You can only modify or view wedding details after setting a wedding as active. Wedding Hero enforces single-wedding context to ensure that all operations are scoped cleanly to one event at a time, avoiding accidental mixing of guest lists across weddings. </box>
+<box type="info" seamless> 
+
+You can only modify or view wedding details after setting a wedding as active. Wedding Hero enforces single-wedding context to ensure that all operations are scoped cleanly to one event at a time, avoiding accidental mixing of guest lists across weddings. </box>
 
 ### Wedding Overview : `weddingOverview`
 
@@ -621,6 +625,14 @@ the acceptable range). Therefore, edit the data file only if you are confident t
 - YES
 - NO
 - NO_RESPONSE
+
+### Meaning of symbols
+| Box Type | Syntax Example                      | Description                                                                                          |
+|----------|-------------------------------------|------------------------------------------------------------------------------------------------------|
+| Tip      | `<box type="tip" seamless>`         | Used to provide helpful hints and suggestions to enhance your workflow.                            |
+| Info     | `<box type="info" seamless>`        | Provides additional context or clarification about a feature or instruction.                       |
+| Warning  | `<box type="warning" seamless>`     | Alerts the reader to important cautions or irreversible actions that need careful consideration.    |
+
 
 ---
 
