@@ -227,7 +227,7 @@ assigning a person to a wedding's table.
 
 ### Wedding Overview : `weddingOverview`
 
-Provides an overview of the current active wedding, including details such as the number of tables and total number of guests invited.
+Provides an overview of the current active wedding, including details such as the number of tables and total number of persons invited.
 
 **Format:** `weddingOverview`
 
@@ -235,15 +235,15 @@ Provides an overview of the current active wedding, including details such as th
 - No additional arguments are required.
 - The overview includes key details such as:
   - Number of tables created
-  - Total number of guests invited (regardless of RSVP status)
-  - List of all invited guests
+  - Total number of persons invited (regardless of RSVP status)
+  - List of all invited persons
 
 <box type="info" seamless>
-💡 Future Extension: A future update will add the ability to see the number of guests who have accepted their RSVP, helping you better plan for actual attendance.
+💡 Future Extension: A future update will add the ability to see the number of persons who have accepted their RSVP, helping you better plan for actual attendance.
 </box>
 
 **Examples:**
-- Running `weddingOverview` after setting an active wedding displays a summary of the wedding, including number of guests invited and number of tables.
+- Running `weddingOverview` after setting an active wedding displays a summary of the wedding, including number of persons invited and number of tables.
 
 ### Deleting a Wedding : `deleteWedding`
 
@@ -276,7 +276,7 @@ Details:
 - All fields are mandatory.
 - A person is identified by their `NAME` only. 
 - Multiple persons can have the same contact information such as `PHONE` or `EMAIL` since children may not have a 
-  phone number, and it would be more flexible to allow guests to select their point of contact.
+  phone number, and it would be more flexible to allow persons to select their point of contact.
 - A wedding should be created and set before a person can be added.
 - Please refer to the full list of [Allowed Dietary Restrictions](#allowed-dietary-restrictions) and [Allowed RSVP 
   Values](#allowed-rsvp-values)
@@ -453,7 +453,7 @@ Assigns a Person to a specified Table within the currently active wedding.
 - Useful for quickly locating a specific table in the wedding layout.
 
 **Examples:**
-- Running `addPerson n/John Doe tid/1`  adds a person called John Doe to the table with the id 1.
+- Running `addPersonToTable n/John Doe tid/1`  adds a person called John Doe to the table with the id 1.
 
 ### Removing a Person from a Table: deletePersonFromTable
 Removes a person from a table in the currently active wedding.
@@ -486,7 +486,7 @@ Advanced users are welcome to update data directly by editing that data file.
 <box type="warning" seamless>
 **Important Note about the `clear` Command:**
 - The `clear` command completely removes all wedding data from WeddingHero
-- This includes all weddings, guests, and tables
+- This includes all weddings, persons, and tables
 - After clearing, you can create new weddings with any name, including names that were previously used
 - This action cannot be undone
 </box>
