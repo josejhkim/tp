@@ -74,6 +74,7 @@ Wedding Hero is built for professional wedding planners who need a streamlined t
   - [List of Prefixes and Their Meanings](#list-of-prefixes-and-its-meaning)
   - [Allowed Dietary Restrictions](#allowed-dietary-restrictions)
   - [Allowed RSVP Values](#allowed-rsvp-values)
+  - [Meaning of symbols](#meaning-of-symbols)
 - [FAQ](#faq)
 - [Known Issues](#known-issues)
 - [Command Summary](#command-summary)
@@ -622,6 +623,14 @@ the acceptable range). Therefore, edit the data file only if you are confident t
 - YES
 - NO
 - NO_RESPONSE
+
+### Meaning of symbols
+| Box Type | Syntax Example                      | Description                                                                                          |
+|----------|-------------------------------------|------------------------------------------------------------------------------------------------------|
+| Tip      | `<box type="tip" seamless>`         | Used to provide helpful hints and suggestions to enhance your workflow.                            |
+| Info     | `<box type="info" seamless>`        | Provides additional context or clarification about a feature or instruction.                       |
+| Warning  | `<box type="warning" seamless>`     | Alerts the reader to important cautions or irreversible actions that need careful consideration.    |
+
 
 ---
 
