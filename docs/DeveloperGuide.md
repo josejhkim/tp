@@ -559,9 +559,27 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ---
 
+### Use case: Edit a guest
 
-### UC6: Edit a guest
+**Preconditions:**
+- A wedding has been created.
+- A wedding has been set as the active wedding.
+- The guest to be edited exists in the current wedding's guest list.
 
+**MSS**
+
+1. User requests to view the guest list.
+2. System displays the list of guests.
+3. User selects a guest to edit.
+4. User provides new information for the selected guest.
+5. System validates the new information.
+6. System updates the guest's details.
+7. System confirms that the guest's information has been updated.
+   Use case ends.
+
+**Extensions:**
+
+3a. **Invalid Guest Selection**
 - 3a1. System detects that the selected guest does not exist.
 - 3a2. System informs the user that the selection is invalid.
 - 3a3. System prompts the user to make a valid selection.
@@ -581,7 +599,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ---
 
-### UC7: Add a table
+### UC6: Add a table
 
 **Preconditions:**
 - A wedding has been created.
@@ -616,10 +634,9 @@ Use case ends.
 - 2c3. System prompts the user to provide a different table ID.
 - 2b4. If the user provides a unique table ID, the process resumes at step 3.
 
-
 ---
 
-### UC8: Delete a table
+### UC7: Delete a table
 
 **Preconditions:**
 - A wedding has been created.
@@ -647,7 +664,7 @@ Use case ends.
 - 2b3. If the user provides a valid table ID, the process resumes at step 3. Otherwise, use case ends.
 
 ---
-### UC9: Assign a Guest to a table
+### UC8: Assign a Guest to a table
 
 **Preconditions:**
 - A wedding has been created.
@@ -687,7 +704,7 @@ Use case ends.
 
 ---
 
-### UC10: Remove a Guest from a table
+### UC9: Remove a Guest from a table
 
 **Preconditions:**
 - A wedding has been created.
@@ -733,7 +750,6 @@ Use case ends.
 7. The app must ensure data accuracy by validating inputs (e.g., checking valid phone numbers) before updating the database.
 
 # Glossary
-
 - **Guest:** An individual invited to attend the wedding.
 - **Table:** A designated seating area at the wedding venue, typically used to group guests together.
 - **Dietary Restriction:** A limitation or specific requirement regarding food consumption, often due to allergies, health conditions, or personal preferences.
@@ -742,6 +758,7 @@ Use case ends.
 - **Vendor (Extension):** A business or individual that supplies services or products—such as catering, photography, or decor—for the wedding.
 
 --------------------------------------------------------------------------------------------------------------------
+
 
 ## **Appendix: Instructions for manual testing**
 
