@@ -153,7 +153,101 @@ Classes used by multiple components are in the `seedu.address.commons` package.
 
 ## **Implementation**
 
+This section describes some noteworthy details on how certain features are implemented.
+
+### `createWedding` Command
+
+The `createWedding`  allows a user to create a new wedding to be stored inside the system.
+
+It should be noted that this command does not automatically set the wedding created by the command as the current wedding displayed in the GUI. The user could do that by using the `setWedding` command after the wedding has been created.
+
+The implementation involves the following validation steps:
+- Checking that the input format is correct
+- Checking that another wedding with the same name does not already exist in the system
+
+Once all conditions are met, a new wedding is created, and the user can then set this wedding to be the current wedding before adding guests and tables to this wedding.
+
+The activity diagram below illustrates the control flow of this command
+
+<puml src="diagrams/CreateWeddingActivityDiagram.puml" width="600" alt="Activity diagram for createWedding command" />
+
+This command is useful for creating a new wedding to keep track of if the user has to manage another wedding.
+
+<div style="page-break-after: always;"></div>
+
+### `setWedding` Command
+
+The `setWedding`  allows a user to set a wedding as the 'current' wedding to display in the GUI and manipulate the data of.
+
+The implementation involves the following validation steps:
+- Checking that the input format is correct
+- Checking that the wedding with the given name exists
+
+Once all conditions are met, the wedding with the given name is retrieved and is set as the 'current' wedding to be displayed in the GUI and to have its `person` and `table` data manipulated on.
+
+The activity diagram below illustrates the control flow of this command
+
+<puml src="diagrams/SetWeddingActivityDiagram.puml" width="600" alt="Activity diagram for setWedding command" />
+
+This command is useful for choosing which wedding the user wants to see and edit using the GUI.
+
+**System Behavior:**
+- The active wedding setting is not preserved between application sessions.
+- When the application is restarted, no wedding is set as active.
+- Users must explicitly set their working wedding after each application launch.
+
+**Design Rationale:**
+- The active wedding setting is designed for the current session only.
+- This design choice provides several benefits:
+    1. **Explicit Context**: Users must consciously choose which wedding they want to work with at the start of each session.
+    2. **Safety**: Prevents accidental modifications to the wrong wedding by requiring explicit selection.
+    3. **Clarity**: Ensures users are always aware of which wedding they are currently viewing and modifying.
+    4. **Fresh Start**: Each session begins with a clean slate, reducing the chance of confusion from previous sessions.
+    5. **Intentional Workflow**: Encourages users to be deliberate about which wedding they are working on.
+
+<div style="page-break-after: always;"></div>
+
+### `weddingOverview` Command
+
+The `weddingOverview`  allows a user to get a quick overview of the currently selected wedding.
+
+It provides the user with the number of tables used for the current wedding and the number of persons invited to the current wedding. It also provides a list of the persons invited to the current wedding along with their details.
+
+The implementation involves the following validation steps:
+- Checking that the input format is correct
+- Checking that there is a currently selected wedding displayed in the GUI
+
+Once all conditions are met, all of the persons invited to the wedding and all of the tables used in the wedding are displayed in the GUI, and the aforementioned overview information of the current wedding is shown in the area below the user input.
+
+The activity diagram below illustrates the control flow of this command
+
+<puml src="diagrams/WeddingOverviewActivityDiagram.puml" width="600" alt="Activity diagram for weddingOverview command" />
+
+This command is useful for getting a quick overview of the currently set wedding.
+
+<div style="page-break-after: always;"></div>
+
+### `deleteWedding` Command
+
+The `deleteWedding`  allows a user to delete a wedding that has been previously stored from the system.
+
+The implementation involves the following validation steps:
+- Checking that the input format is correct
+- Checking that the wedding with the given name exists
+
+Once all conditions are met, the wedding with the given name is deleted from the system.
+If the wedding to be deleted is also the 'current' wedding and is being displayed on the GUI, then the GUI is cleared to show no information.
+
+The activity diagram below illustrates the control flow of this command
+
+<puml src="diagrams/DeleteWeddingActivityDiagram.puml" width="600" alt="Activity diagram for deleteWedding command" />
+
+This command is useful when a wedding has already happened and no longer needs to be managed.
+
+<div style="page-break-after: always;"></div>
+
 ### `addPerson` Command
+
 The `addPerson` command allows a user to add a guest to the currently active wedding's guest list. This command is essential for wedding planners to build and manage their client's guest list.
 
 The implementation involves several key steps and validation checks:
@@ -175,6 +269,7 @@ This command follows the Command pattern, where the `AddPersonCommand` encapsula
 <div style="page-break-after: always;"></div>
 
 ### `deletePerson` Command
+
 The `deletePerson` command allows users to remove a guest from the currently active wedding's guest list using their displayed index number.
 
 The implementation involves several key steps and validation checks:
@@ -197,6 +292,7 @@ This command supports the need for wedding planners to be able to update guest l
 <div style="page-break-after: always;"></div>
 
 ### `filterPersons` Command
+
 The `filterPersons` command allows users to filter the guest list based on dietary restrictions and/or RSVP status. This feature is particularly useful for wedding planners who need to quickly identify specific groups of guests, such as those with special dietary needs or those who have not yet responded to invitations.
 
 The implementation involves several key steps and validation checks:
@@ -217,6 +313,7 @@ This filtering functionality helps wedding planners efficiently organize guests 
 <div style="page-break-after: always;"></div>
 
 ### `addTable` Command
+
 The `addTable` command allows users to add a new table to the currently active wedding with a specified table ID and capacity.
 
 The implementation involves two main components:
@@ -244,6 +341,7 @@ This command is essential for wedding planners to set up the initial table layou
 <div style="page-break-after: always;"></div>
 
 ### `deleteTable` Command
+
 The `deleteTable` command allows users to remove a table from the currently active wedding using its table ID.
 
 The implementation involves two main components:
@@ -313,6 +411,7 @@ This command is useful when guests need to be reassigned to different tables or 
 <div style="page-break-after: always;"></div>
 
 ### `findTable` Command
+
 The `findTable` command allows users to search for a specific table in the currently active wedding using its table ID.
 
 The implementation involves two main components:
@@ -342,6 +441,7 @@ This command is useful for quickly locating specific tables in large wedding lay
 <div style="page-break-after: always;"></div>
 
 ### `getTables` Command
+
 The `getTables` command allows users to view all tables in the currently active wedding.
 
 The implementation involves two main components:
