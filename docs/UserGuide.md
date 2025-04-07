@@ -145,6 +145,7 @@ Wedding Hero helps you manage **multiple weddings** with ease by using a **“se
 
 ---
 
+
 ### Typical Workflow Example
 
 Here's a typical command sequence you might use a wedding planner:
@@ -203,7 +204,8 @@ assigning a guest to a wedding's table.
 - Note: The active wedding setting is not preserved between application sessions. You will need to use `setWedding` again after restarting the application.
 
 <box type="info" seamless>
-💡 Design Rationale:
+Design Rationale:
+
 - The `setWedding` command is designed to set the current wedding you are viewing and working on, not to persist the active wedding across application sessions.
 - This design choice allows you to:
   - Start fresh with each application session
@@ -213,7 +215,8 @@ assigning a guest to a wedding's table.
 </box>
 
 <box type="tip" seamless>
-💡 Tips:
+Tips:
+
 - After restarting the application, always set your working wedding using `setWedding` before proceeding with other commands
 - Future versions may include a command to list all available weddings
 </box>
@@ -332,6 +335,7 @@ edit 2 n/Betsy Crower d/VEGAN r/NO
 ```
 
 <box type="tip" seamless>
+
 - The index must be a positive integer and must be in the current guest list view
 - At least one field to edit must be provided
 - Fields can be edited in any order
@@ -488,6 +492,7 @@ Advanced users are welcome to update data directly by editing that data file.
 - This includes all weddings, guests, and tables
 - After clearing, you can create new weddings with any name, including names that were previously used
 - This action cannot be undone
+
 </box>
 
 ### Glossary
@@ -575,4 +580,5 @@ the data of your previous WeddingHero home folder.
 | **findTable**             | `findTable [tid/TABLE_ID] [INDEX]`<br>Examples: `findTable tid/1`                                                                                                        |
 | **getTables**             | `getTables`<br>Example: `getTables`                                                                                                                                      |
 | **Help**                  | `help`                                                                                                                                                                   
-| **exit**                  | `exit`                                                                                                                                                                   
+| **exit**                  | `exit`
+
