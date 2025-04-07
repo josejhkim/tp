@@ -186,7 +186,6 @@ Creates a new wedding in the wedding planner.
   `setWedding n/John & Jane Wedding`
 - Always match spacing exactly when setting or referring to a wedding — "John&JaneWedding" is not the same as "John 
 & Jane Wedding".
-
 - Once a wedding is set, any added guests, tables, or edits will apply to that active wedding.
 
 </box>
@@ -512,6 +511,7 @@ the acceptable range). Therefore, edit the data file only if you are confident t
 - **Guest**: Refers to an individual invited to attend the wedding. This term is used when discussing the context of the wedding event and the guest's participation in it.
 
 - **Person**: Refers to an individual in the system, typically used when discussing the management of their details such as contact information, dietary restrictions, and RSVP status. This term is more general and can be used outside the context of a specific wedding event.
+
 
 - **Active Wedding**: The currently selected wedding that all actions (e.g., adding a guest or a table) apply to. You 
   must use the `setWedding` command to set an active wedding.
