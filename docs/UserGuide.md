@@ -287,7 +287,8 @@ Details:
 
 - All fields are mandatory, except for `t/TAG`, which is optional.
 - A person is identified by their `NAME` only. 
-- `TAGS` only allow alphanumeric characters.
+- `t/TAG` only accepts alphanumeric characters, and any amount of tags can be used for each person. <br>
+  For example, `addPerson n/John Doe p/12345678 e/johndoe@example.com a/123 Street d/None r/YES t/TAG1 t/TAG2 t/TAG3`
 - Multiple guests can have the same contact information such as `PHONE` or `EMAIL` since children may not have a 
   phone number, and it would be more flexible to allow guests to select their point of contact.
 - A wedding should be created and set before a person can be added.
@@ -563,7 +564,7 @@ the acceptable range). Therefore, edit the data file only if you are confident t
 - `a/` → Home Address (e.g., 123 Street)
 - `d/` → Dietary Restriction of guest (must be selected from [Allowed Dietary Restrictions](#allowed-dietary-restrictions))
 - `r/` → RSVP status, information about whether a guest is coming. (Must be selected from [Allowed RSVP Values](#allowed-rsvp-values))
-- `t/` → Tag, extra information about a guest (only alphanumeric characters are allowed)
+- `t/` → Tag, extra information about a guest. (``Multiple`` tags can belong to one person and only alphanumeric characters are allowed) (e.g.,`t/TAG1 t/TAG2 t/TAG3`)
 - `tid/` → Table ID integer used to identify a table within a wedding(Must be greater than 0)
 - `c/` → Capacity of a table representing a maximum number of guests that can be allocated to the table.
 
@@ -599,6 +600,7 @@ the data of your previous WeddingHero home folder.
 1. We understand that the list of dietary restrictions is not exhaustive and does not include all dietary 
    restrictions people may have, but the list we have provided is applicable to majority of the population. We will 
    try our best to include more dietary restrictions in the future. Stay tuned!
+2. Currently, we do not expect most professional wedding planners to manage so many weddings at once that they cannot recall each event’s name. However, as our user base grows and the application’s usage scales, we plan to introduce a feature that displays all created weddings. This will provide planners an easy way to reference multiple weddings at a glance, ensuring a smoother workflow in high-volume scenarios.
 
 ---
 ## Known issues
