@@ -354,22 +354,19 @@ Edits an existing guest's details in the current wedding.
 - Existing values will be updated to the input values.
 - When editing tags, the existing tags of the guest will be removed i.e., adding of tags is not cumulative.
 - You can remove all the guest's tags by typing `t/` without specifying any tags after it.
-- Table ID is the only field that can not be changed as it is changed using the addPersonToTable command
+- Table ID is the only field that can not be changed as it is changed using the addPersonToTable command.
 
 **Examples:**
-```
-edit 1 p/91234567 e/johndoe@example.com 
-(changes the phone number and email address of the first guest in the list)
 
-edit 2 n/Betsy Crower d/VEGAN r/NO
-(changes the name, dietary restriction and RSVP status of the second guest in the list)
-```
+- `edit 1 p/91234567 e/johndoe@example.com` This changes the phone number and email address of the first guest in the list.
+- `edit 2 n/Betsy Crower d/VEGAN r/NO` This changes the name, dietary restriction and RSVP status of the second guest in the list.
+
 
 <box type="tip" seamless>
 
-- The index must be a positive integer and must be in the current guest list view
-- At least one field to edit must be provided
-- Fields can be edited in any order
+- The index must be a positive integer and must be in the current guest list view.
+- At least one field to edit must be provided.
+- Fields can be edited in any order.
 </box>
 
 ### Filtering Guests: `filterPersons`
