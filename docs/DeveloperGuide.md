@@ -566,7 +566,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ---
 
-### Use case: Edit a guest
+### UC6: Edit a guest
 
 **Preconditions:**
 - A wedding has been created.
@@ -606,7 +606,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ---
 
-### UC6: Add a table
+### UC7: Add a table
 
 **Preconditions:**
 - A wedding has been created.
@@ -643,7 +643,7 @@ Use case ends.
 
 ---
 
-### UC7: Delete a table
+### UC8: Delete a table
 
 **Preconditions:**
 - A wedding has been created.
@@ -671,7 +671,7 @@ Use case ends.
 - 2b3. If the user provides a valid table ID, the process resumes at step 3. Otherwise, use case ends.
 
 ---
-### UC8: Assign a Guest to a table
+### UC9: Assign a Guest to a table
 
 **Preconditions:**
 - A wedding has been created.
@@ -711,7 +711,7 @@ Use case ends.
 
 ---
 
-### UC9: Remove a Guest from a table
+### UC10: Remove a Guest from a table
 
 **Preconditions:**
 - A wedding has been created.
