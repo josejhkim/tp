@@ -12,7 +12,7 @@ pageNav: 3
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Acknowledgements**
-- The project is based on the AddressBook-Level2 project created by the SE-EDU initiative
+- The project is based on the AddressBook-Level3 project created by the SE-EDU initiative
 - Github CoPilot was used by Bhavina Sathish Kumar to write trivial test cases and the JavaDocs for some trivial methods
 
 
@@ -734,8 +734,8 @@ Allows you to filter your list of persons by applying DIETARYRESTRICTION and/or 
 
 **Prerequisites:** You have created and set a wedding, with a person with `n/John Doe` added with the HALAL dietary restriction
 
-**Test case:** `filterPersons Halal`  
-**Expected Result:** You would get a filtered list with the HALAL tag, and John Doe would be reflected.
+**Test case:** `filterPersons r/Halal`  
+**Expected Result:** You would have a filtered list of persons with the HALAL tag, including John Doe.
 
 ---
 
