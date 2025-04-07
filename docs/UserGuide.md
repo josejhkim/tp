@@ -345,7 +345,7 @@ addTable tid/TABLEID c/CAPACITY
   the `getTablesCommand`, to view the other tables
 - The parameter `CAPACITY` represents the seating capacity of the table.
 - Both parameters are required to correctly add the table to the wedding plan.
-- There is an upper limit of 100 as the maximum capacity to the number of tables
+- The maximum seating capacity is 100 people for each table
 
 **Examples:**
 - Running `addTable tid/12 c/8` will add a table with the ID `12` and a seating capacity for 8 persons.
