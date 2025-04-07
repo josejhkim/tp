@@ -297,17 +297,18 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ## Use cases
 
-(For all use cases below, the **System** is the `WeddingHero` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is the `WeddingHero`, unless specified otherwise)
 
 ### Use case: Create a wedding
 
 **MSS**
 
-1. User wants to create a new wedding.
-2. User enters the wedding name using the command, e.g., `createWedding John & Jane Wedding`.
-3. WeddingHero validates the input details.
-4. WeddingHero creates a new wedding entry in the system.
-5. WeddingHero confirms the successful creation of the wedding.
+1. User wants to create a new wedding event.
+2. User provides the wedding name.
+3. System validates the wedding name.
+4. System creates the new wedding.
+5. System confirms the wedding has been created.
+
    Use case ends.
 
 ---
@@ -463,14 +464,7 @@ s.
     3c3. WeddingHero prompts the user to re-enter a valid index.
     3c4. If the user provides a valid index, the process resumes at step 4.
 
-5a. **No Matching Person Found**
-    5a1. WeddingHero is unable to find any person
-    matching the provided index.
-    5a2. WeddingHero informs the user that no matching person
-    was found.
-    5a3. If the user re-enters a valid index with a different person
-   , the process resumes at step 4.
-    5a4. If the user changes commands, the use case ends.
+---
 
 ### Use case: Edit a person
 
