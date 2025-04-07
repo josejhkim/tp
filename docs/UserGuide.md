@@ -625,11 +625,11 @@ the acceptable range). Therefore, edit the data file only if you are confident t
 - NO_RESPONSE
 
 ### Meaning of symbols
-| Box Type | Syntax Example                      | Description                                                                                          |
-|----------|-------------------------------------|------------------------------------------------------------------------------------------------------|
-| Tip      | `<box type="tip" seamless>`         | Used to provide helpful hints and suggestions to enhance your workflow.                            |
-| Info     | `<box type="info" seamless>`        | Provides additional context or clarification about a feature or instruction.                       |
-| Warning  | `<box type="warning" seamless>`     | Alerts the reader to important cautions or irreversible actions that need careful consideration.    |
+| Box Type | Syntax Example                             | Description                                                                                          |
+|----------|--------------------------------------------|------------------------------------------------------------------------------------------------------|
+| Tip      | <box type="tip" seamless>Tip</box>         | Used to provide helpful hints and suggestions to enhance your workflow.                            |
+| Info     | <box type="info" seamless>Info</box>       | Provides additional context or clarification about a feature or instruction.                       |
+| Warning  | <box type="warning" seamless>Warning</box> | Alerts the reader to important cautions or irreversible actions that need careful consideration.    |
 
 
 ---
