@@ -16,6 +16,7 @@ public class DeleteWeddingCommand extends Command {
         + "Parameters: n/NAME "
             + "Example: " + COMMAND_WORD + " " + PREFIX_NAME + " Jon's Wedding";
 
+
     public static final String MESSAGE_SUCCESS = "Wedding deleted: %1$s";
     public static final String MESSAGE_NO_WEDDING = "No wedding with the name '%s' exists.";
 

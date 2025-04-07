@@ -12,6 +12,9 @@ pageNav: 3
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Acknowledgements**
+- The project is based on the AddressBook-Level3 project created by the SE-EDU initiative
+- Github CoPilot was used by Bhavina Sathish Kumar to write trivial test cases and the JavaDocs for some trivial methods
+
 
 _{ list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well }_
 
@@ -154,6 +157,25 @@ Classes used by multiple components are in the `seedu.address.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
+### `addPersonToTable` Command
+
+The `addPersonToTable`  allows a user to assign a specific guest to a specific table within the currently active wedding.
+
+The implementation involves several validation steps:
+- Checking that the input format is correct
+- Checking that the specified person exists in the current guest list
+- Checking that the table exists
+- Ensuring the table has available capacity
+
+Once all conditions are met, the guest is assigned to the table and the system state is saved.
+
+The activity diagram below illustrates the control flow of this command
+
+<puml src="diagrams/AddPersonToTableActivityDiagram.puml" width="600" alt="Activity diagram for addPersonToTable command" />
+
+
+
+
 ### \[Proposed\] Undo/redo feature
 
 #### Proposed Implementation
@@ -271,38 +293,35 @@ Olivia is a professional wedding planner with 5 years of experience organising c
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a...                                                 | I want to...                                                                                 | So that I can                                                                                                  |
-|----------|---------------------------------------------------------|------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------|
-| ***      | wedding planner                                         | make changes to my clients plans                                                               |                                                                                                                |
-| ***      | wedding planner of a couple that can't make up their mind | add and delete the guest list                                                                  | should the couple decide to make changes                                                                       |
-| ***      | wedding planner of a couple with lots of guests         | indicate whether a guest is confirmed, unconfirmed, or cancelled                               | cater enough food for them                                                                                     |
-| ***      | wedding planner                                         | keep track of dietary restrictions for guests                                                  | ensure the catering meets everyone's needs                                                                     |
-| ***      | wedding planner                                         | track guest RSVPs and their meal preferences                                                   | finalise catering and seating arrangements efficiently                                                         |
-| ***      | wedding planner                                         | assign guests to tables                                                                        | ensure no seats are left empty within a table                                                                  |
-| ***      | wedding planner of high profile clients                 | store information about guests like contact details, address                                   | send out personalised invitation cards                                                                         |
-| ***      | wedding planner                                         | see a quick overview of a specific wedding                                                     | easily determine the number of guests and tables currently assigned to my client's wedding                    |
-| ***      | wedding planner with multiple clients                   | view the entire guest list assigned to one of my weddings easily                               | quickly look through guests' information                                                                       |
-| ***      | experienced wedding planner                             | set the number of tables early to gauge the number of guests my client has                     | easily manage other logistics such as venue decision, food catering etc.                                      |
-| ***      | wedding planner                                         | decide how many guests should be seated at one table                                           | customise it to my clients' needs                                                                              |
-| ***      | wedding planner                                         | view the entire table list quickly                                                             | quickly see the list of tables and their capacities                                                           |
-| **       | organised wedding planner                               | filter guests based on their dietary restrictions and RSVP status                              | view guests based on a specific category                                                                       |
-| **       | wedding planner                                         | maintain personal notes and comments on tasks                                                  | keep track of important details and task progress                                                             |
-| *        | forgetful wedding planner                               | mark the status of the vendor list                                                             | keep track of whether a vendor has confirmed                                                                   |
-| *        | detailed wedding planner                                | see a list of upcoming tasks that are most urgent                                              | pay attention to them first                                                                                    |
-| *        | wedding planner                                         | create a library of preferred vendors and pricing details                                      | easily recommend the best options to my clients                                                                |
-| *        | wedding planner                                         | send scheduled messages to the guests, vendors, and photographers                              | they can be reminded of the upcoming schedule and deadlines                                                    |
-| *        | wedding planner                                         | get a contact list of wedding-related vendors nearby                                           | I don't have to worry about looking them up personally                                                         |
-| *        | wedding planner                                         | track expenses against a set budget                                                            | I stay informed of the wedding costs                                                                           |
-| *        | wedding planner                                         | share a to-do list with my clients                                                             | we can stay on the same page about what needs to be done                                                       |
 
-## Use cases
+| Priority | As a...                                                 | I want to...                                                                                 | So that I can                                                                              |
+|----------|---------------------------------------------------------|------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------|
+| ***      | wedding planner                                         | make changes to my clients plans                                                               |                                                                                            |
+| ***      | wedding planner of a couple that can’t make up their mind | add and delete the guest list                                                                  | change the guest list should the couple decide to make changes                             |
+| ***      | wedding planner of a couple with lots of guests         | indicate whether a guest is confirmed, unconfirmed, or cancelled                               | cater enough food for them                                                                 |
+| ***      | wedding planner                                         | keep track of dietary restrictions for guests                                                  | ensure the catering meets everyone’s needs                                                 |
+| ***      | wedding planner                                         | track guest RSVPs and their meal preferences                                                   | finalise catering and seating arrangements efficiently                                     |
+| ***      | wedding planner                                         | assign guests to tables                                                                        | ensure no seats are left empty within a table                                              |
+| ***      | wedding planner of high profile clients                 | store information about guests like contact details, address                                   | send out personalised invitation cards                                                     |
+| ***      | wedding planner                                         | see a quick overview of a specific wedding                                                     | easily determine the number of guests and tables currently assigned to my client's wedding |
+| ***      | wedding planner with multiple clients                   | view the entire guest list assigned to one of my weddings easily                               | quickly look through guests’ information                                                   |
+| ***      | experienced wedding planner                             | set the number of tables early to gauge the number of guests my client has                     | easily manage other logistics such as venue decision, food catering etc.                   |
+| ***      | wedding planner                                         | decide how many guests should be seated at one table                                           | customise it to my clients’ needs                                                          |
+| ***      | wedding planner                                         | view the entire table list quickly                                                             | quickly see the list of tables and their capacities                                        |
+| **       | organised wedding planner                               | filter guests based on their dietary restrictions and RSVP status                              | view guests based on a specific category                                                   |
+| *        | forgetful wedding planner                               | mark the status of the vendor list                                                             | keep track of whether a vendor has confirmed                                               |
+| *        | detailed wedding planner                                | see a list of upcoming tasks that are most urgent                                              | pay attention to them first                                                                |
+| *        | wedding planner                                         | create a library of preferred vendors and pricing details                                      | easily recommend the best options to my clients                                            |
+| *        | wedding planner                                         | get a contact list of wedding-related vendors nearby                                           | I don’t have to worry about looking them up personally                                     |
+| *        | wedding planner                                         | track expenses against a set budget                                                            | I stay informed of the wedding costs                                                       |
+
+## Use cases (UC)
 
 (For all use cases below, the **System** is the `WeddingHero` and the **guest** is the guest invited to the wedding, unless specified otherwise)
 
-### Use case: Create a wedding
+### UC1: Create a wedding
 
 **MSS**
-
 1. User requests to create a new wedding.
 2. User provides the wedding name.
 3. System validates the wedding name.
@@ -326,7 +345,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ---
 
-### Use case: Set a wedding
+### UC2: Set a wedding
 
 **Preconditions:**
 - At least one wedding has been created in the system.
@@ -357,27 +376,26 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **Extensions:**
 
 2a. **Missing Wedding Name**
-    2a1. System detects that no wedding name was provided.
-    2a2. System informs the user that a wedding name is required.
-    2a3. System prompts the user to provide a wedding name.
-    2a4. If the user provides a wedding name, the process resumes at step 3.
+- 2a1. System detects that no wedding name was provided.
+- 2a2. System informs the user that a wedding name is required.
+- 2a3. System prompts the user to provide a wedding name.
+- 2a4. If the user provides a wedding name, the process resumes at step 3.
 
 2b. **Non-Existent Wedding**
-    2b1. System cannot find the specified wedding.
-    2b2. System informs the user that the wedding does not exist.
-    2b3. System prompts the user to provide a valid wedding name.
-    2b4. If the user provides a valid wedding name, the process resumes at step 3.
+- 2b1. System cannot find the specified wedding.
+- 2b2. System informs the user that the wedding does not exist.
+- 2b3. System prompts the user to provide a valid wedding name.
+- 2b4. If the user provides a valid wedding name, the process resumes at step 3.
 
 ---
 
-### Use case: Wedding Overview
+### UC3: Wedding Overview
 
 **Preconditions:**
-- A wedding has been created.
-- A wedding has been set as the active wedding.
+- The wedding has been set as the active wedding in WeddingHero.
+
 
 **MSS**
-
 1. User requests to view the wedding overview.
 2. System retrieves the overview details of the current active wedding, including:
    - Number of tables
@@ -389,14 +407,14 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **Extensions:**
 
 2a. **No Active Wedding Set**
-    2a1. System detects that no wedding is currently set.
-    2a2. System informs the user that an active wedding must be set first.
-    2a3. System prompts the user to set a wedding as active.
-    2a4. Once a wedding is set as active, the user may request the overview again.
+- 2a1. System detects that no wedding is currently set.
+- 2a2. System informs the user that an active wedding must be set first.
+- 2a3. System prompts the user to set a wedding as active.
+- 2a4. Once a wedding is set as active, the user may request the overview again.
 
 ---
 
-### Use case: Add a guest
+### UC4: Add a Guest
 
 **Preconditions:**
 - A wedding has been created.
@@ -420,26 +438,26 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **Extensions:**
 
 2a. **Missing Required Information**
-    2a1. System detects that required guest information is missing.
-    2a2. System informs the user which information is required.
-    2a3. System prompts the user to provide the missing information.
-    2a4. If the user provides the required information, the process resumes at step 3.
+- 2a1. System detects that required guest information is missing.
+- 2a2. System informs the user which information is required.
+- 2a3. System prompts the user to provide the missing information.
+- 2a4. If the user provides the required information, the process resumes at step 3.
 
 2b. **Invalid Information Format**
-    2b1. System detects that some information is in an invalid format.
-    2b2. System informs the user which information is invalid and why.
-    2b3. System prompts the user to correct the invalid information.
-    2b4. If the user provides valid information, the process resumes at step 3.
+- 2b1. System detects that some information is in an invalid format.
+- 2b2. System informs the user which information is invalid and why.
+- 2b3. System prompts the user to correct the invalid information.
+- 2b4. If the user provides valid information, the process resumes at step 3.
 
 2c. **Duplicate Guest**
-    2c1. System detects that a guest with the same name already exists.
-    2c2. System informs the user that the guest already exists.
-    2c3. System prompts the user to either modify the guest's name or cancel.
-    2c4. If the user provides unique name, the process resumes at step 3.
+- 2c1. System detects that a guest with the same name already exists.
+- 2c2. System informs the user that the guest already exists.
+- 2c3. System prompts the user to either modify the guest's name or cancel.
+- 2c4. If the user provides unique name, the process resumes at step 3.
 
 ---
 
-### Use case: Delete a guest
+### UC5: Delete a Guest
 
 **Preconditions:**
 - A wedding has been created.
@@ -455,12 +473,11 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
    Use case ends.
 
 **Extensions:**
-
 3a. **Invalid Guest Selection**
-    3a1. System detects that the selected guest does not exist.
-    3a2. System informs the user that the selection is invalid.
-    3a3. System prompts the user to make a valid selection.
-    3a4. If the user makes a valid selection, the process resumes at step 4.
+- 3a1. System detects that the selected guest does not exist.
+- 3a2. System informs the user that the selection is invalid.
+- 3a3. System prompts the user to make a valid selection.
+- 3a4. If the user makes a valid selection, the process resumes at step 4.
 
 ---
 
@@ -485,92 +502,164 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **Extensions:**
 
 3a. **Invalid Guest Selection**
-    3a1. System detects that the selected guest does not exist.
-    3a2. System informs the user that the selection is invalid.
-    3a3. System prompts the user to make a valid selection.
-    3a4. If the user makes a valid selection, the process resumes at step 4.
+- 3a1. System detects that the selected guest does not exist.
+- 3a2. System informs the user that the selection is invalid.
+- 3a3. System prompts the user to make a valid selection.
+- 3a4. If the user makes a valid selection, the process resumes at step 4.
 
 4a. **Invalid Information Format**
-    4a1. System detects that some new information is in an invalid format.
-    4a2. System informs the user which information is invalid and why.
-    4a3. System prompts the user to correct the invalid information.
-    4a4. If the user provides valid information, the process resumes at step 5.
+- 4a1. System detects that some new information is in an invalid format.
+- 4a2. System informs the user which information is invalid and why.
+- 4a3. System prompts the user to correct the invalid information.
+- 4a4. If the user provides valid information, the process resumes at step 5.
 
 4b. **Duplicate Guest**
-    4b1. System detects that the updated information would create a duplicate guest.
-    4b2. System informs the user that the changes would create a duplicate.
-    4b3. System prompts the user to modify the information to avoid duplication.
-    4b4. If the user provides unique information, the process resumes at step 5.
+- 4b1. System detects that the updated information would create a duplicate guest.
+- 4b2. System informs the user that the changes would create a duplicate.
+- 4b3. System prompts the user to modify the information to avoid duplication.
+- 4b4. If the user provides unique information, the process resumes at step 5.
 
 ---
 
-### Use case: Add a table
+### UC6: Add a table
 
 **Preconditions:**
 - A wedding has been created.
 - A wedding has been set as the active wedding.
 
 **MSS**
+1. User decides to add a new table.
+2. User enters the command the table ID.
+3. WeddingHero validates that the table ID is unique and that the capacity is a valid positive integer.
+4. WeddingHero adds the table to the current wedding 
+5. WeddingHero displays a confirmation message indicating that the table has been successfully added. 
 
-1. User requests to add a new table.
-2. User provides:
-   - Table ID
-   - Table capacity
-3. System validates the provided information.
-4. System adds the table to the current wedding's layout.
-5. System confirms that the table has been added successfully.
-   Use case ends.
+Use case ends.
 
 **Extensions:**
 
 2a. **Missing Required Information**
-    2a1. System detects that required table information is missing.
-    2a2. System informs the user which information is required.
-    2a3. System prompts the user to provide the missing information.
-    2a4. If the user provides the required information, the process resumes at step 3.
+- 2a1. System detects that required table information is missing.
+- 2a2. System informs the user which information is required.
+- 2a3. System prompts the user to provide the missing information.
+- 2a4. If the user provides the required information, the process resumes at step 3.
 
 2b. **Invalid Information Format**
-    2b1. System detects that some information is in an invalid format.
-    2b2. System informs the user which information is invalid and why.
-    2b3. System prompts the user to correct the invalid information.
-    2b4. If the user provides valid information, the process resumes at step 3.
+- 2b1. System detects that some information is in an invalid format.
+- 2b2. System informs the user which information is invalid and why.
+- 2b3. System prompts the user to correct the invalid information.
+- 2b4. If the user provides valid information, the process resumes at step 3.
 
 2c. **Duplicate Table ID**
-    2c1. System detects that a table with the same ID already exists.
-    2c2. System informs the user that the table ID is already in use.
-    2c3. System prompts the user to provide a different table ID.
-    2b4. If the user provides a unique table ID, the process resumes at step 3.
+- 2c1. System detects that a table with the same ID already exists.
+- 2c2. System informs the user that the table ID is already in use.
+- 2c3. System prompts the user to provide a different table ID.
+- 2b4. If the user provides a unique table ID, the process resumes at step 3.
 
 ---
 
-### Use case: Delete a table
+### UC7: Delete a table
 
 **Preconditions:**
 - A wedding has been created.
-- A wedding has been set as the active wedding.
+- A wedding has been set as the active wedding in WeddingHero.
+- The table to be deleted is created
 
 **MSS**
-
 1. User requests to delete a table.
 2. User provides the table ID.
-3. System verifies the table exists.
-4. System removes the table from the wedding layout.
-5. System confirms that the table has been deleted.
-   Use case ends.
+3. WeddingHero checks if the table exists.
+4. WeddingHero deletes the table from the layout.
+5. WeddingHero confirms that the table has been deleted.
+Use case ends.
 
 **Extensions:**
 
 2a. **Missing Table ID**
-    2a1. System detects that no table ID was provided.
-    2a2. System informs the user that a table ID is required.
-    2a3. System prompts the user to provide a table ID.
-    2a4. If the user provides a table ID, the process resumes at step 3.
+- 2a1. If the user omits the table ID when entering the command, WeddingHero displays an error message indicating that the table ID is required.
+- 2a2. WeddingHero prompts the user to re-enter the command with the correct format.
+- 2a3. Once the correct input is provided, the process resumes at step 3.
 
-2b. **Non-Existent Table**
-    2b1. System cannot find the specified table.
-    2b2. System informs the user that the table does not exist.
-    2b3. System prompts the user to provide a valid table ID.
-    2b4. If the user provides a valid table ID, the process resumes at step 3.
+2b. **Table Not Found**
+- 2b1. If WeddingHero is unable to locate a table matching the provided ID, it informs the user that no matching table was found.
+- 2b2. WeddingHero prompts the user to either re-enter a valid table ID.
+- 2b3. If the user provides a valid table ID, the process resumes at step 3. Otherwise, use case ends.
+
+---
+### UC8: Assign a Guest to a table
+
+**Preconditions:**
+- A wedding has been created.
+- The wedding has been set as the active wedding in WeddingHero.
+- At least one table has been created.
+- The guest to be added has already been added to the wedding
+
+**MSS**
+
+1. User requests to assign a guest to a table.
+2. User adds the table and the guest
+3. WeddingHero verifies that the guest and table exist.
+4. WeddingHero assigns the guest to the specified table.
+5. WeddingHero displays a confirmation message.
+Use case ends.
+
+**Extensions:**
+
+3a. **Person Not Found**
+- 3a1. If the specified guest does not exist, WeddingHero informs the user.
+- 3a2. User is prompted to re-enter a valid guest name.
+- 3a3. Upon valid input, the process resumes at step 3.
+
+4a. **Table Not Found**
+- 4a1. If the table ID does not match any existing table, WeddingHero informs the user.
+- 4a2. User is prompted to re-enter a valid table ID.
+- 4a3. Upon valid input, the process resumes at step 4.
+
+4b. **Table Full**
+- 4b1. If the table has reached its maximum capacity, WeddingHero displays an error message.
+- 4b2. User is prompted to select another table or modify the table capacity.
+- 4b3. If the user selects another table, the process resumes at step 4.
+
+2a. **Invalid Input Format**
+- 2a1. If the input is missing required fields or incorrectly formatted, WeddingHero displays an error message showing the correct format.
+- 2a2. Upon receiving the correct input, the process resumes at step 3.
+
+---
+
+### UC9: Remove a Guest from a table
+
+**Preconditions:**
+- A wedding has been created.
+- The wedding has been set as the active wedding in WeddingHero.
+- A person has already been assigned to a table.
+
+**MSS**
+1. User decides to remove a guest from a table.
+2. User enters the table and the guest to be removed
+3. WeddingHero checks if the specified person exists and is assigned to the specified table.
+4. WeddingHero removes the person from the table.
+5. WeddingHero displays a confirmation message that the guest has been successfully removed from the table.  
+   Use case ends.
+
+**Extensions:**
+
+3a. **Guest Not Found**
+- 3a1. If the specified guest does not exist, WeddingHero informs the user.
+- 3a2. User is prompted to re-enter a valid person name.
+- 3a3. Upon valid input, the process resumes at step 3.
+
+3b. **Table Not Found**
+- 3b1. If the specified table does not exist, WeddingHero informs the user.
+- 3b2. User is prompted to re-enter a valid table ID.
+- 3b3. Upon valid input, the process resumes at step 3.
+
+3c. **Guest Not Assigned to Table**
+- 3c1. If the person is not assigned to the specified table, WeddingHero informs the user.
+- 3c2. User may choose to cancel or try another table ID.
+
+2a. **Invalid Input Format**
+- 2a1. If the input is missing required fields or incorrectly formatted, WeddingHero displays an error message showing the correct format.
+- 2a2. Upon receiving the correct input, the process resumes at step 3.
 
 ### Non-Functional Requirements
 
@@ -583,7 +672,6 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 7. The app must ensure data accuracy by validating inputs (e.g., checking valid phone numbers) before updating the database.
 
 # Glossary
-
 - **Guest:** An individual invited to attend the wedding.
 - **Table:** A designated seating area at the wedding venue, typically used to group guests together.
 - **Dietary Restriction:** A limitation or specific requirement regarding food consumption, often due to allergies, health conditions, or personal preferences.
@@ -604,16 +692,215 @@ Given below are instructions to test the app manually.
 ### Launch and shutdown
 
 1. Initial launch
-   1. Download the jar file and copy it into an empty folder.
-   2. Double-click the jar file.
+   1a. Download the jar file and copy it into an empty folder.
+   1b. Double-click the jar file.
       Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
 
 2. Saving window preferences
-   1. Resize the window to an optimum size. Move the window to a different location. Close the window.
-   2. Re-launch the app by double-clicking the jar file.
+   2a.Resize the window to an optimum size. Move the window to a different location. Close the window.
+   2b.Re-launch the app by double-clicking the jar file.
       Expected: The most recent window size and location is retained.
 
-3. _{ more test cases … }_
+
+### Creating a New Wedding
+Creates a new wedding where Persons and Tables can be added after it has been set.
+
+**Prerequisites:** None
+
+**Test case:** `createWedding n/John & Jane Wedding`  
+**Expected Result:** New Wedding is added to the list. A message that a new wedding has been created is shown.
+
+**Test case:** `createWedding n/John & Jane Wedding`, then do the command`createWedding n/John & Jane Wedding` again
+
+**Expected Result:** A message that a wedding already exists with the name is shown.
+
+**Incorrect Test Commands:**
+- `createWedding John`
+- `createWedding`  
+  **Expected Result:** Error details of incorrect format and right usage are shown in the status message.
+
+---
+
+### Set Wedding
+Sets a wedding that has been created.
+
+**Prerequisites:** Wedding John & Jane has been created
+
+**Test case:** `setWedding n/John & Jane`  
+**Expected Result:** A message would be shown to indicate that the wedding has been set, and this would be reflected in the GUI.
+
+**Test case:** `setWedding n/Aikeen & Dueet`  
+**Expected Result:** An error message would be shown to indicate there is no such wedding.
+
+**Incorrect Test Commands:**
+- `setWedding John`
+- `setWedding`
+
+---
+
+### Wedding Overview
+Shows an overview of the current wedding including the number of people invited, the number of tables, and the guest names.
+
+**Prerequisites:** A wedding has been set
+
+**Test case:** `weddingOverview`  
+**Expected Result:** A message showing the number of people attending, the number of tables present and the guest names would be shown.
+
+**Incorrect Test Command:** `weddingOverview n/`  
+**Expected Result:** An error message showing that it is an incorrect command is shown.
+
+---
+
+### Delete Wedding
+Deletes the Wedding and removes all instances of the People and the Tables in the wedding.
+
+**Prerequisites:** A Wedding named John & Jane has been created
+
+**Test case:** `deleteWedding n/John & Jane`  
+**Expected Result:** The wedding of John & Jane is deleted. A message is shown that the wedding has been deleted.
+
+**Test case:** `deleteWedding n/Aikeen & Dueet`  
+**Expected Result:** No such error message is shown.
+
+**Incorrect Test Command:** `deleteWedding`  
+**Expected Result:** A message showing the correct error message is shown.
+
+---
+
+### Adding a Person
+Allows you to add people to the currently setWedding.
+
+**Prerequisites:** A Wedding named John & Jane has been created, and the wedding has been set
+
+**Test case:** `addPerson n/John Doe p/12345678 e/johndoe@example.com a/123 Street d/NONE r/YES`  
+**Expected Result:** The person John Does is added to the current wedding, and is reflected in the GUI.
+
+**Incorrect Test Command:** `addPerson n/John Doe p/12345678 e/johndoe@example.com a/123 Street d/NONE r/WHAT_HELP`  
+**Expected Result:** An error message is shown.
+
+---
+
+### Deleting a Person
+Deletes a person from the currently active wedding's person list, using their displayed index number.
+
+**Prerequisites:** A Wedding named John & Jane has been created, and the wedding has been set. John Doe has been added, and is the first person shown in the list
+
+**Test case:** `deletePerson 1`  
+**Expected Result:** The first person on the list, eg. John Doe would be deleted.
+
+**Incorrect Test Commands:**
+- `deletePerson -8`
+- `deletePerson a`  
+  **Expected Result:** An error message showing the correct input format is given.
+
+---
+
+### Filtering Persons
+Allows you to filter your list of persons by applying DIETARYRESTRICTION and/or RSVP status filters.
+
+**Prerequisites:** You have created and set a wedding, with a person with `n/John Doe` added with the HALAL dietary restriction
+
+**Test case:** `filterPersons r/Halal`  
+**Expected Result:** You would have a filtered list of persons with the HALAL tag, including John Doe.
+
+---
+
+### Adding a Table
+Adds a table with the specified table ID and capacity to the current wedding.
+
+**Prerequisites:** A Wedding has been created and set
+
+**Test case:** `addTable tid/12 c/8`  
+**Expected Result:** Will add a table, and would be reflected in the GUI.
+
+**Test case:** `addTable tid/120 c/8`  
+**Expected Result:** Would show that the ID is above the set limit.
+
+**Incorrect Test Commands:**
+- `addTable 120 8`
+- `addTable tid/ss c/3`  
+  **Expected Result:** An error message showing that it is an incorrect error message is shown.
+
+---
+
+### Deleting a Table
+Deletes a table by its table ID.
+
+**Prerequisites:** A Wedding has been created and set. Only a table with table id 1 has been added.
+
+**Test case:** `deleteTable tid/1`  
+**Expected Result:** The table with tableID one has been deleted and it would be removed from the list.
+
+**Test case:** `deleteTable tid/199`  
+**Expected Result:** An error message would be shown that the table does not exist.
+
+**Incorrect Test Commands:**
+- `deleteTable 2`
+- `deleteTable`
+- `deleteTable 3a`
+
+---
+
+### Listing Tables
+Lists all tables currently added to the wedding layout.
+
+**Prerequisites:** A Wedding has been created and set. Only a table with table id 1 has been added.
+
+**Test case:** `getTables`  
+**Expected Result:** The list of current tables is shown.
+
+**Incorrect Test Command:** `getTables a`  
+**Expected Result:** Would give an error message regarding the input.
+
+---
+
+### Finding Tables
+Finds a table by its ID.
+
+**Test case:** `findTable tid/12`  
+**Expected Result:** Displays the table with the id 12.
+
+**Incorrect Test Commands:**
+- `findTables 1`
+- `findTables a`  
+  **Expected Result:** Would give an error message regarding the input.
+
+---
+
+### Assigning a Person to a Table
+Assigns a Person to a specified Table within the currently active wedding.
+
+**Prerequisites:** A Wedding has been created and set. Only a table with table id 1 has been added. A person with the name John Doe has been added.
+
+**Test case:** `addPersonToTable n/John Doe tid/1`  
+**Expected Result:** The table 5 has a person named John Doe, and the person has the corresponding ID.
+
+**Test case:** `addPersonToTable n/John x Doe tid/1`  
+**Expected Result:** Won’t add the person to the table, as the person does not exist.
+
+**Test case:** `addPersonToTable n/John Doe tid/3`  
+**Expected Result:** Won’t add the person to the table, as the table does not exist.
+
+**Incorrect Test Command:** `addPersonToTable John Doe t1`  
+**Expected Result:** Would give an error message regarding the input.
+
+---
+
+### Deleting a Person from a Table
+Removes a person from a table in the currently active wedding.
+
+**Prerequisites:** A Wedding has been created and set. Only a table with table id 1 has been added. A person with the name John Doe has been added and assigned to the table.
+
+**Test case:** `deletePersonFromTable n/John Doe tid/5`  
+**Expected Result:** The person is deleted from the table.
+
+**Test case:** `deletePersonFromTable n/John Doee tid/5`  
+**Expected Result:** A message that the person does not exist would be shown.
+
+**Test case:** `deletePersonFromTable n/John Doe tid/3`  
+**Expected Result:** A message that the table does not exist would be shown.
+
+---
 
 ### Saving data
 
@@ -621,3 +908,9 @@ Given below are instructions to test the app manually.
    1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
 
 2. _{ more test cases … }_
+
+
+## **Appendix: Planned Enhancements**
+
+Team size: 5
+
