@@ -398,7 +398,7 @@ find KEYWORD [MORE_KEYWORDS]...
 
 After running this command, the application updates the guest list view to display only those guests whose names match the specified keywords.
 
-> **Note:** Spaces are used in this command to seperate keywords. For example, if there exists a guest with the name `John Tan` and another guest with the name `Jane Doe`. `find John Doe` will list both these guests since `John` is found in `John Tan` and `Doe` is found in `Jane Doe`.
+> **Note:** Spaces are used in this command to separate keywords. For example, if there exists a guest with the name `John Tan` and another guest with the name `Jane Doe`. `find John Doe` will list both these guests since `John` is found in `John Tan` and `Doe` is found in `Jane Doe`.
 
 ### Listing Guests: `list`
 
@@ -594,6 +594,9 @@ the acceptable range). Therefore, edit the data file only if you are confident t
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains
 the data of your previous WeddingHero home folder.
+
+**Q**: Where can I find updates or release notes about Wedding Hero?<br>
+**A**: Updates, release notes, and additional documentation can be found on our GitHub repository. We regularly update the application with new features, bug fixes, and enhancements to improve your planning experience.
 
 ---
 ## Planned Enhancements

@@ -3,7 +3,7 @@
 # Project Portfolio Presentation (PPP)
 
 ## Overview
-We developed [WeddingHero](#https://ay2425s2-cs2103t-f12-3.github.io/tp/index.html), a user-friendly wedding 
+We developed [WeddingHero](https://ay2425s2-cs2103t-f12-3.github.io/tp/index.html), a user-friendly wedding 
 management application designed to streamline the wedding planning process. With both a robust Command Line 
 Interface (CLI) and an intuitive Graphical User Interface (GUI), WeddingHero enables wedding planners to efficiently 
 manage multiple weddings, coordinate guest lists, seating arrangements, dietary restrictions, and RSVP tracking.
