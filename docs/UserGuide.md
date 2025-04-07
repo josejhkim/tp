@@ -51,32 +51,33 @@ Wedding Hero is built for professional wedding planners who need a streamlined t
     - [Setting a Wedding : `setWedding`](#setting-a-wedding--setwedding)
     - [Wedding Overview : `weddingOverview`](#wedding-overview--weddingoverview)
     - [Deleting a Wedding : `deleteWedding`](#deleting-a-wedding--deletewedding)
-  - [Managing Persons](#managing-persons)
-    - [Adding a guest: `addPerson`](#adding-a-guest-addperson)
-    - [Deleting a guest : `deletePerson`](#deleting-a-guest--deleteperson)
-    - [Editing a guest : `edit`](#editing-a-guest-edit)
-    - [Filtering guests: `filterPersons`](#filtering-guests-filterpersons)
+  - [Managing Guests](#managing-guests)
+    - [Adding a Guest: `addPerson`](#adding-a-guest-addperson)
+    - [Deleting a Guest: `deletePerson`](#deleting-a-guest--deleteperson)
+    - [Editing a Guest: `edit`](#editing-a-guest-edit)
+    - [Filtering Guests: `filterPersons`](#filtering-guests-filterpersons)
     - [Finding a Guest: `find`](#finding-a-guest-find)
-    - [Listing guests: `list`](#listing-guests--list)
+    - [Listing Guests: `list`](#listing-guests--list)
   - [Managing Tables](#managing-tables)
-    - [Adding a Table : `addTable`](#adding-a-table--addtable)
-    - [Deleting a Table : `deleteTable`](#deleting-a-table--deletetable)
-    - [Listing Tables : `getTables`](#listing-tables--gettables)
-    - [Finding a Table : `findTable`](#finding-a-table--findtable)
-  - [Assigning a guest to a Table](#assigning-a-guest-to-a-table)
-    - [Adding a guest to a Table: addPersonToTable](#adding-a-guest-to-a-table-addpersontotable)
-    - [Removing a guest from a Table: deletePersonFromTable](#removing-a-guest-from-a-table-deletepersonfromtable)
-  - [Clearing the program: `clear`](#clearing-all-data--clear)
-  - [Exiting the program : `exit`](#exiting-the-program--exit)
-- [Saving the data](#saving-the-data)
-- [Editing the data file](#editing-the-data-file)
+    - [Adding a Table: `addTable`](#adding-a-table--addtable)
+    - [Deleting a Table: `deleteTable`](#deleting-a-table--deletetable)
+    - [Listing Tables: `getTables`](#listing-tables--gettables)
+    - [Finding a Table: `findTable`](#finding-a-table--findtable)
+  - [Assigning a Guest to a Table](#assigning-a-guest-to-a-table)
+    - [Adding a Guest to a Table: `addPersonToTable`](#adding-a-guest-to-a-table-addpersontotable)
+    - [Removing a Guest from a Table: `deletePersonFromTable`](#removing-a-guest-from-a-table-deletepersonfromtable)
+  - [Clearing All Data: `clear`](#clearing-all-data--clear)
+  - [Exiting the Program: `exit`](#exiting-the-program--exit)
+- [Saving the Data](#saving-the-data)
+- [Editing the Data File](#editing-the-data-file)
 - [Glossary](#glossary)
-  - [List of prefixes](#list-of-prefixes-and-its-meaning)
-  - [Allowed dietary restrictions](#allowed-dietary-restrictions)
-  - [Allowed RSVP values](#allowed-rsvp-values) 
+  - [List of Prefixes and Their Meanings](#list-of-prefixes-and-its-meaning)
+  - [Allowed Dietary Restrictions](#allowed-dietary-restrictions)
+  - [Allowed RSVP Values](#allowed-rsvp-values)
 - [FAQ](#faq)
-- [Known issues](#known-issues)
+- [Known Issues](#known-issues)
 - [Command Summary](#command-summary)
+
 ---
 <div style="page-break-after: always;"></div>
 
@@ -180,7 +181,7 @@ weddingOverview
 
 ## Features
 
-### Managing Weddings
+## Managing Weddings
 
 ---
 ### Creating a Wedding : `createWedding`
