@@ -47,10 +47,10 @@ Wedding Hero is built for professional wedding planners who need a streamlined t
   - [Typical Workflow Example](#typical-workflow-example)
 - [Features](#features)
   - [Managing Weddings](#managing-weddings)
-    - [Creating a Wedding : `createWedding`](#creating-a-wedding--createwedding)
-    - [Setting a Wedding : `setWedding`](#setting-a-wedding--setwedding)
-    - [Wedding Overview : `weddingOverview`](#wedding-overview--weddingoverview)
-    - [Deleting a Wedding : `deleteWedding`](#deleting-a-wedding--deletewedding)
+    - [Creating a Wedding: `createWedding`](#creating-a-wedding--createwedding)
+    - [Setting a Wedding: `setWedding`](#setting-a-wedding--setwedding)
+    - [Wedding Overview: `weddingOverview`](#wedding-overview--weddingoverview)
+    - [Deleting a Wedding: `deleteWedding`](#deleting-a-wedding--deletewedding)
   - [Managing Guests](#managing-guests)
     - [Adding a Guest: `addPerson`](#adding-a-guest-addperson)
     - [Deleting a Guest: `deletePerson`](#deleting-a-guest--deleteperson)
@@ -186,7 +186,7 @@ weddingOverview
 ## Managing Weddings
 
 ---
-### Creating a Wedding : `createWedding`
+### Creating a Wedding: `createWedding`
 
 Creates a new wedding in the wedding planner.
 
@@ -211,7 +211,7 @@ Creates a new wedding in the wedding planner.
 
 </box>
 
-### Setting a Wedding : `setWedding`
+### Setting a Wedding: `setWedding`
 
 Sets a specific wedding as the active wedding, enabling modifications such as adding a guest to a wedding and 
 assigning a guest to a wedding's table.
@@ -249,7 +249,7 @@ Design Rationale:
 
 You can only modify or view wedding details after setting a wedding as active. Wedding Hero enforces single-wedding context to ensure that all operations are scoped cleanly to one event at a time, avoiding accidental mixing of guest lists across weddings. </box>
 
-### Wedding Overview : `weddingOverview`
+### Wedding Overview: `weddingOverview`
 
 Provides an overview of the current active wedding, including details such as the number of tables and total number 
 of guests invited.
@@ -277,7 +277,7 @@ helping you better plan for actual attendance.
 - Running `weddingOverview` after setting an active wedding displays a summary of the wedding, including number of 
   guests invited and number of tables.
 
-### Deleting a Wedding : `deleteWedding`
+### Deleting a Wedding: `deleteWedding`
 
 Deletes a wedding from the system by name.
 
@@ -326,7 +326,7 @@ addPerson n/John Doe p/12345678 e/johndoe@example.com a/123 Street d/NONE r/YES 
 addPerson n/Alex Tan p/87654321 e/alex@example.com a/456 Avenue d/VEGAN r/NO
 ```
 
-### Deleting a Guest : `deletePerson`
+### Deleting a Guest: `deletePerson`
 
 Deletes a guest from the currently active wedding's guest list, using their displayed index number.
 
@@ -346,7 +346,7 @@ INDEX: A positive integer corresponding to the guest's number in the displayed g
 <box type="warning" seamless> Make sure you're viewing the correct list of guests before deleting — the index is 
 based on the currently displayed list. </box>
 
-### Editing a Guest : `edit`
+### Editing a Guest: `edit`
 
 Edits an existing guest's details in the current wedding.
 
@@ -432,7 +432,7 @@ Lists all guests in the current wedding, resetting any applied filters.
 ## Managing Tables
 ---
 
-### Adding a Table : `addTable`
+### Adding a Table: `addTable`
 
 Adds a table with the specified ID and capacity to the current wedding
 
@@ -448,7 +448,7 @@ Adds a table with the specified ID and capacity to the current wedding
 **Examples:**
 - Running `addTable tid/12 c/8` will add a table with the ID `12` and a seating capacity for 8 guests.
 
-### Deleting a table : `deleteTable`
+### Deleting a table: `deleteTable`
 
 Deletes a table by its ID.
 
@@ -462,18 +462,17 @@ Deletes a table by its ID.
 **Examples:**
 - Running `deleteTable tid/12` deletes the table with the ID `12`.
 
-### Listing Tables : `getTables`
+### Listing Tables: `getTables`
 
 Lists all tables currently added to the wedding layout.
 
-**Format:**
-`getTables`
+**Format:** `getTables`
 
 - Retrieves a list of all tables.
 - No additional arguments are required.
 - The command displays details of each table like the guests seated at that table for easy reference.
 
-### Finding a Table : `findTable`
+### Finding a Table: `findTable`
 
 Finds a table by its ID.
 
@@ -517,7 +516,7 @@ Removes a Guest from a table in the currently active wedding.
 - `deletePersonFromTable n/John Doe tid/5` deletes the John Doe guest from the table with ID 5
 ---
 
-### Clearing All Data : `clear`
+### Clearing All Data: `clear`
 
 Removes **all WeddingHero data** from the system, returning it to an empty state (no weddings, guests, or tables).
 
@@ -536,7 +535,7 @@ Removes **all WeddingHero data** from the system, returning it to an empty state
 
 ---
 
-## Exiting the program : `exit`
+## Exiting the program: `exit`
 
 Exits the program.
 
