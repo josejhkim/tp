@@ -161,9 +161,8 @@ Wedding Hero helps you manage **multiple weddings** with ease by using a **“se
 4. You can view and manage each wedding's guests, tables, and RSVP details independently.
 
 <box type="info" seamless>
-
 You can only interact with one wedding at a time. You must `setWedding` before performing most other commands (e.g., `addPerson`, `addTable`, etc.).
-<box>
+</box>
 
 ---
 
