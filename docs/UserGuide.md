@@ -576,22 +576,21 @@ the data of your previous WeddingHero home folder.
 ---
 ## Command Summary
 
-| **Action**                | **Format, Examples**                                                                                                                                                     |
-|---------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **createWedding**         | `createWedding n/NAME`<br>Example: `createWedding n/John & Jane Wedding`                                                                                                 |
-| **deleteWedding**         | `deleteWedding n/NAME`<br>Example: `deleteWedding n/John & Jane Wedding`                                                                                                 |
-| **setWedding**            | `setWedding n/NAME`<br>Example: `setWedding n/Smith Wedding`                                                                                                             |
-| **weddingOverview**       | `weddingOverview`<br>Example: `weddingOverview`                                                                                                                          |
+| **Action**                | **Format, Examples**                                                                    |
+|---------------------------|-------------------|
+| **createWedding**         | `createWedding n/NAME`<br>Example: `createWedding n/John & Jane Wedding`                |
+| **deleteWedding**         | `deleteWedding n/NAME`<br>Example: `deleteWedding n/John & Jane Wedding`                |
+| **setWedding**            | `setWedding n/NAME`<br>Example: `setWedding n/Smith Wedding`                            |
+| **weddingOverview**       | `weddingOverview`<br>Example: `weddingOverview`                                         |
 | **addPerson**             | `addPerson n/NAME p/PHONE e/EMAIL a/ADDRESS d/DIETARYRESTRICTION r/RSVP`<br/>Example: `addPerson n/John Doe p/12345678 e/johndoe@example.com a/123 Street d/Vegan r/YES` |
-| **deletePerson**          | `deletePerson INDEX`<br>Example: `deletePerson 3`                                                                                                                        |
-| **find**                  | `find KEYWORD`<br>Example: `Find John`                                                                                                                                   |
-| **filterPersons**         | `filterPersons [d/DIETARYRESTRICTION] [r/RSVP_FIELD]`<br>Example: `filterPersons d/Vegan r/YES`                                                                          |
-| **addTable**              | `addTable tid/TABLE_ID c/CAPACITY`<br>Example: `addTable tid/1 c/8`                                                                                                      |
-| **addPersonToTable**      | `addPersonToTable n/NAME tid/TABLE_ID`<br>Example: `addPersonToTable n/John Doe tid/1`                                                                                   |
-| **deletePersonFromTable** | `deletePersonFromTable n/NAME tid/TABLE_ID`<br>Example: `deletePersonFromTable n/John Doe tid/1`                                                                         |
-| **deleteTable**           | `deleteTable tid/TABLE_ID`<br>Example: `deleteTable tid/1`                                                                                                               |
-| **findTable**             | `findTable [tid/TABLE_ID] [INDEX]`<br>Examples: `findTable tid/1`                                                                                                        |
-| **getTables**             | `getTables`<br>Example: `getTables`                                                                                                                                      |
-| **Help**                  | `help`                                                                                                                                                                   
+| **deletePerson**          | `deletePerson INDEX`<br>Example: `deletePerson 3`                                       |
+| **find**                  | `find KEYWORD`<br>Example: `Find John`                                                  |
+| **filterPersons**         | `filterPersons [d/DIETARYRESTRICTION] [r/RSVP_FIELD]`<br>Example: `filterPersons d/Vegan r/YES` |
+| **addTable**              | `addTable tid/TABLE_ID c/CAPACITY`<br>Example: `addTable tid/1 c/8`                     |
+| **addPersonToTable**      | `addPersonToTable n/NAME tid/TABLE_ID`<br>Example: `addPersonToTable n/John Doe tid/1`  |
+| **deletePersonFromTable** | `deletePersonFromTable n/NAME tid/TABLE_ID`<br>Example: `deletePersonFromTable n/John Doe tid/1` |
+| **deleteTable**           | `deleteTable tid/TABLE_ID`<br>Example: `deleteTable tid/1`                              |
+| **findTable**             | `findTable [tid/TABLE_ID] [INDEX]`<br>Examples: `findTable tid/1`                       |
+| **getTables**             | `getTables`<br>Example: `getTables`                                                     |
+| **Help**                  | `help`                                                                                  
 | **exit**                  | `exit`
-
