@@ -498,6 +498,16 @@ Advanced users are welcome to update data directly by editing that data file.
 
 </box>
 
+<box type="warning" seamless>
+
+**Caution:**
+
+- If your changes to the data file makes its format invalid, WeddingHero will discard all data and start with an
+empty data file at the next run.  Hence, it is recommended to take a backup of the file before editing it.<br>
+- Furthermore, certain edits can cause the WeddingHero to behave in unexpected ways (e.g., if a value entered is outside
+the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
+</box>
+
 ### Glossary
 - **Guest**: Refers to an individual invited to attend the wedding. This term is used when discussing the context of the wedding event and the guest's participation in it.
 
