@@ -191,6 +191,20 @@ The activity diagram below illustrates the control flow of this command
 
 This command is useful for choosing which wedding the user wants to see and edit using the GUI.
 
+**System Behavior:**
+- The active wedding setting is not preserved between application sessions.
+- When the application is restarted, no wedding is set as active.
+- Users must explicitly set their working wedding after each application launch.
+
+**Design Rationale:**
+- The active wedding setting is designed for the current session only.
+- This design choice provides several benefits:
+    1. **Explicit Context**: Users must consciously choose which wedding they want to work with at the start of each session.
+    2. **Safety**: Prevents accidental modifications to the wrong wedding by requiring explicit selection.
+    3. **Clarity**: Ensures users are always aware of which wedding they are currently viewing and modifying.
+    4. **Fresh Start**: Each session begins with a clean slate, reducing the chance of confusion from previous sessions.
+    5. **Intentional Workflow**: Encourages users to be deliberate about which wedding they are working on.
+
 <div style="page-break-after: always;"></div>
 
 ### `weddingOverview` Command
@@ -233,6 +247,7 @@ This command is useful when a wedding has already happened and no longer needs t
 <div style="page-break-after: always;"></div>
 
 ### `addPerson` Command
+
 The `addPerson` command allows a user to add a guest to the currently active wedding's guest list. This command is essential for wedding planners to build and manage their client's guest list.
 
 The implementation involves several key steps and validation checks:
@@ -254,6 +269,7 @@ This command follows the Command pattern, where the `AddPersonCommand` encapsula
 <div style="page-break-after: always;"></div>
 
 ### `deletePerson` Command
+
 The `deletePerson` command allows users to remove a guest from the currently active wedding's guest list using their displayed index number.
 
 The implementation involves several key steps and validation checks:
@@ -276,6 +292,7 @@ This command supports the need for wedding planners to be able to update guest l
 <div style="page-break-after: always;"></div>
 
 ### `filterPersons` Command
+
 The `filterPersons` command allows users to filter the guest list based on dietary restrictions and/or RSVP status. This feature is particularly useful for wedding planners who need to quickly identify specific groups of guests, such as those with special dietary needs or those who have not yet responded to invitations.
 
 The implementation involves several key steps and validation checks:
@@ -316,6 +333,7 @@ This command is useful when the seating arrangement has been decided and guests 
 <div style="page-break-after: always;"></div>
 
 ### `deletePersonFromTable` Command
+
 The `deletePersonFromTable` command allows users to remove a person from their assigned table in the currently active wedding. This feature helps wedding planners manage seating arrangements efficiently when plans change.
 
 The implementation involves several key steps and validation checks:
@@ -418,20 +436,6 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Preconditions:**
 - At least one wedding has been created in the system.
-
-**System Behavior:**
-- The active wedding setting is not preserved between application sessions.
-- When the application is restarted, no wedding is set as active.
-- Users must explicitly set their working wedding after each application launch.
-
-**Design Rationale:**
-- The active wedding setting is designed for the current session only.
-- This design choice provides several benefits:
-  1. **Explicit Context**: Users must consciously choose which wedding they want to work with at the start of each session.
-  2. **Safety**: Prevents accidental modifications to the wrong wedding by requiring explicit selection.
-  3. **Clarity**: Ensures users are always aware of which wedding they are currently viewing and modifying.
-  4. **Fresh Start**: Each session begins with a clean slate, reducing the chance of confusion from previous sessions.
-  5. **Intentional Workflow**: Encourages users to be deliberate about which wedding they are working on.
 
 **MSS**
 
@@ -542,6 +546,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
    Use case ends.
 
 **Extensions:**
+
 3a. **Invalid Guest Selection**
 - 3a1. System detects that the selected guest does not exist.
 - 3a2. System informs the user that the selection is invalid.
