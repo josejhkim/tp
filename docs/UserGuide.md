@@ -232,7 +232,8 @@ Tips:
 
 ### Wedding Overview : `weddingOverview`
 
-Provides an overview of the current active wedding, including details such as the number of tables and total number of guests invited.
+Provides an overview of the current active wedding, including details such as the number of tables and total number 
+of guests invited.
 
 **Format:** `weddingOverview`
 
@@ -244,11 +245,14 @@ Provides an overview of the current active wedding, including details such as th
   - List of all invited guests
 
 <box type="info" seamless>
-💡 Future Extension: A future update will add the ability to see the number of guests who have accepted their RSVP, helping you better plan for actual attendance.
+
+Future Extension: A future update will add the ability to see the number of guests who have accepted their RSVP, 
+helping you better plan for actual attendance.
 </box>
 
 **Examples:**
-- Running `weddingOverview` after setting an active wedding displays a summary of the wedding, including number of guests invited and number of tables.
+- Running `weddingOverview` after setting an active wedding displays a summary of the wedding, including number of 
+  guests invited and number of tables.
 
 ### Deleting a Wedding : `deleteWedding`
 
@@ -256,15 +260,18 @@ Deletes a wedding from the system by name.
 
 **Format:** `deleteWedding WEDDINGNAME`
 
-- Permanently deletes the wedding identified by WEDDINGNAME.
-- WEDDINGNAME must match the exact name of the wedding you created. The comparison is case-insensitive but spacing 
+- Permanently deletes the wedding identified by `WEDDINGNAME`.
+- `WEDDINGNAME` must match the exact name of the wedding you created. The comparison is case-insensitive but spacing 
   must match exactly.
 - Once deleted, all associated guests, tables, and data under the wedding will also be removed.
 
 Examples:
-- deleteWedding John & Jane Wedding would delete John & Jane Wedding
+- `deleteWedding n/John & Jane Wedding` would delete John & Jane Wedding
 
-<box type="warning" seamless>  This action is irreversible. Ensure you are deleting the correct wedding before confirming. </box>
+<box type="warning" seamless>  
+
+This action is irreversible. Ensure you are deleting the correct wedding before confirming. 
+</box>
 
 ---
 
@@ -278,17 +285,18 @@ Format: `addPerson n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS d/DIETARY_RESTRICTION
 
 Details:
 
-- All fields are mandatory.
+- All fields are mandatory, except for `t/TAG`, which is optional.
 - A person is identified by their `NAME` only. 
+- `TAGS` only allow alphanumeric characters.
 - Multiple guests can have the same contact information such as `PHONE` or `EMAIL` since children may not have a 
   phone number, and it would be more flexible to allow guests to select their point of contact.
 - A wedding should be created and set before a person can be added.
 - Please refer to the full list of [Allowed Dietary Restrictions](#allowed-dietary-restrictions) and [Allowed RSVP 
-  Values](#allowed-rsvp-values)
+  Values](#allowed-rsvp-values).
 
 **Examples:**
 ```
-addPerson n/John Doe p/12345678 e/johndoe@example.com a/123 Street d/NONE r/YES
+addPerson n/John Doe p/12345678 e/johndoe@example.com a/123 Street d/NONE r/YES t/Child
 addPerson n/Alex Tan p/87654321 e/alex@example.com a/456 Avenue d/VEGAN r/NO
 ```
 
@@ -317,7 +325,7 @@ based on the currently displayed list. </box>
 
 Edits an existing guest's details in the current wedding.
 
-**Format:** `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [d/DIETARYRESTRICTION] [r/RSVP]`
+**Format:** `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [d/DIETARYRESTRICTION] [r/RSVP] [t/TAG]…`
 
 Details:
 - Edits the guest at the specified `INDEX`. The index refers to the index number shown in the displayed guest list. The index **must be a positive integer** 1, 2, 3, …​
@@ -529,15 +537,17 @@ the acceptable range). Therefore, edit the data file only if you are confident t
 - **Prefix**: Refers to `n/`, `r/`, `p/` etc. Please refer to the list of prefixes and its meaning below to see what 
   each of them refer to.
 
+<a id="List-of-prefixes"></a>
 ### List of prefixes and its meaning:
-- `n/` → Name (e.g., John Doe or Jack and Jill's wedding)
+- `n/` → Name of wedding or guest (e.g., John Doe or Jack and Jill's wedding)
 - `p/` → Phone number (e.g., 12345678)
 - `e/` → Email address (e.g., johndoe@example.com)
-- `a/` → Address (e.g., 123 Street)
-- `d/` → Dietary Restriction (must be selected from [Allowed Dietary Restrictions](#allowed-dietary-restrictions))
-- `r/` → RSVP status (must be selected from [Allowed RSVP Values](#allowed-rsvp-values))
-- `tid/` → Table ID integer (Must be greater than 0)
-- `c/` → Capacity allocated to table 
+- `a/` → Home Address (e.g., 123 Street)
+- `d/` → Dietary Restriction of guest (must be selected from [Allowed Dietary Restrictions](#allowed-dietary-restrictions))
+- `r/` → RSVP status, information about whether a guest is coming. (Must be selected from [Allowed RSVP Values](#allowed-rsvp-values))
+- `t/` → Tag, extra information about a guest (only alphanumeric characters are allowed)
+- `tid/` → Table ID integer used to identify a table within a wedding(Must be greater than 0)
+- `c/` → Capacity of a table representing a maximum number of guests that can be allocated to the table.
 
 <a id="allowed-dietary-restrictions"></a>
 ### **Allowed `DIETARYRESTRICTION` values:**
@@ -559,6 +569,7 @@ the acceptable range). Therefore, edit the data file only if you are confident t
 - NO_RESPONSE
 
 ---
+
 ## FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
@@ -566,12 +577,16 @@ the acceptable range). Therefore, edit the data file only if you are confident t
 the data of your previous WeddingHero home folder.
 
 ---
+## Planned Enhancements
+1. We understand that the list of dietary restrictions is not exhaustive and does not include all dietary 
+   restrictions people may have, but the list we have provided is applicable to majority of the population. We will 
+   try our best to include more dietary restrictions in the future. Stay tuned!
+
+---
 ## Known issues
 1. When using multiple screens, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen. The remedy is to delete the preferences.json file created by the application before running the application again.
 2. If you minimize the Help Window and then run the help command (or use the Help menu, or the keyboard shortcut F1) again, the original Help Window will remain minimized, and no new Help Window will appear. The remedy is to manually restore the minimized Help Window.
-3. We understand that the list of dietary restrictions is not exhaustive and does not include all dietary 
-   restrictions people may have, but the list we have provided is applicable to majority of the population. We will 
-   try our best to include more dietary restrictions in the future. Stay tuned!
+
 
 ---
 ## Command Summary
@@ -582,8 +597,9 @@ the data of your previous WeddingHero home folder.
 | **deleteWedding**         | `deleteWedding n/NAME`<br>Example: `deleteWedding n/John & Jane Wedding`                |
 | **setWedding**            | `setWedding n/NAME`<br>Example: `setWedding n/Smith Wedding`                            |
 | **weddingOverview**       | `weddingOverview`<br>Example: `weddingOverview`                                         |
-| **addPerson**             | `addPerson n/NAME p/PHONE e/EMAIL a/ADDRESS d/DIETARYRESTRICTION r/RSVP`<br/>Example: `addPerson n/John Doe p/12345678 e/johndoe@example.com a/123 Street d/Vegan r/YES` |
+| **addPerson**             | `addPerson n/NAME p/PHONE e/EMAIL a/ADDRESS d/DIETARYRESTRICTION r/RSVP`<br/>Example: `addPerson n/John Doe p/12345678 e/johndoe@example.com a/123 Street d/Vegan r/YES` [t/TAG]… |
 | **deletePerson**          | `deletePerson INDEX`<br>Example: `deletePerson 3`                                       |
+| **edit**                  | `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [d/DIETARYRESTRICTION] [r/RSVP] [t/TAG]…`<br>Example: `edit 1 p/91234567 e/johndoe@example.com` |
 | **find**                  | `find KEYWORD`<br>Example: `Find John`                                                  |
 | **filterPersons**         | `filterPersons [d/DIETARYRESTRICTION] [r/RSVP_FIELD]`<br>Example: `filterPersons d/Vegan r/YES` |
 | **addTable**              | `addTable tid/TABLE_ID c/CAPACITY`<br>Example: `addTable tid/1 c/8`                     |
