@@ -316,27 +316,23 @@ This filtering functionality helps wedding planners efficiently organize guests 
 
 The `addTable` command allows users to add a new table to the currently active wedding with a specified table ID and capacity.
 
-The implementation involves two main components:
+The implementation includes the following steps and validations:
 
-1. **Command Parser (`AddTableCommandParser`)**
-   - Validates the command format and required prefixes (tid/ and c/)
-   - Extracts and parses the table ID and capacity values
-   - Creates a new `AddTableCommand` object with the parsed values
-
-2. **Command Execution (`AddTableCommand`)**
-   - Validates that there is a current wedding set
-   - Creates a new `Table` object with the specified ID and capacity
-   - Attempts to add the table to the wedding
-   - Handles various exceptions:
-     - `DuplicateTableException`: If a table with the same ID already exists
-     - `NoCurrentWeddingException`: If no wedding is currently set
-     - `IllegalArgumentException`: If the table ID or capacity is invalid
+1. The command receives input with the table ID (tid/) and capacity (c/) specified
+2. A `Table` object is created using these values
+3. It then attempts to add the table to the current wedding through the model
+4. The implementation performs several validation checks:
+    - Verifies that a current wedding is set (throws `NoCurrentWeddingException` if not)
+    - Checks if a table with the same ID already exists (throws `DuplicateTableException`)
+    - Validates the format and constraints of the table ID and capacity (throws `IllegalArgumentException` if invalid)
+5. If successful, it returns a success message with the table’s details
+6. If any exception is caught, appropriate error messages are shown to the user
 
 The activity diagram below illustrates the control flow of this command:
 
 <puml src="diagrams/AddTableActivityDiagram.puml" alt="Activity Diagram for AddTable Command" />
 
-This command is essential for wedding planners to set up the initial table layout for their events.
+This command helps wedding planners set up the layout of tables in preparation for seating guests.
 
 <div style="page-break-after: always;"></div>
 
@@ -344,27 +340,20 @@ This command is essential for wedding planners to set up the initial table layou
 
 The `deleteTable` command allows users to remove a table from the currently active wedding using its table ID.
 
-The implementation involves two main components:
+The implementation includes the following steps and validations:
 
-1. **Command Parser (`DeleteTableCommandParser`)**
-   - Supports two formats:
-     - Prefixed format: `deleteTable tid/1`
-     - Raw format: `deleteTable 1`
-   - Validates the table ID format and value
-   - Creates a new `DeleteTableCommand` object
-
-2. **Command Execution (`DeleteTableCommand`)**
-   - Validates that there is a current wedding set
-   - Attempts to delete the table with the specified ID
-   - Handles exceptions:
-     - `TableNotFoundException`: If the table doesn't exist
-     - `NoCurrentWeddingException`: If no wedding is currently set
+1. The command receives the table ID as input, either prefixed (tid/) or raw format
+2. It validates the format and value of the table ID
+3. The system checks if there is a current wedding set (throws `NoCurrentWeddingException` if not)
+4. It attempts to remove the table with the specified ID from the current wedding
+5. If the table does not exist, a `TableNotFoundException` is thrown
+6. On success, a confirmation message is returned to the user with the removed table’s details
 
 The activity diagram below illustrates the control flow of this command:
 
 <puml src="diagrams/DeleteTableActivityDiagram.puml" alt="Activity Diagram for DeleteTable Command" />
 
-This command helps wedding planners manage their table arrangements by removing tables that are no longer needed.
+This command ensures that seating arrangements stay flexible and reflect any changes to the event setup.
 
 <div style="page-break-after: always;"></div>
 
@@ -412,54 +401,41 @@ This command is useful when guests need to be reassigned to different tables or 
 
 ### `findTable` Command
 
-The `findTable` command allows users to search for a specific table in the currently active wedding using its table ID.
+The `findTable` command allows users to look up the details of a specific table in the currently active wedding using its table ID.
 
-The implementation involves two main components:
+The implementation involves the following steps and checks:
 
-1. **Command Parser (`FindTableCommandParser`)**
-   - Validates that the input starts with "tid/"
-   - Parses the table ID value
-   - Creates a new `FindTableCommand` object
-
-2. **Command Execution (`FindTableCommand`)**
-   - Validates that there is a current wedding set
-   - Searches for the table with the specified ID
-   - Displays the table's details including:
-     - Table ID
-     - Capacity
-     - Number of assigned guests
-   - Handles exceptions:
-     - `TableNotFoundException`: If the table doesn't exist
-     - `NoCurrentWeddingException`: If no wedding is currently set
+1. The command accepts a table ID prefixed with `tid/`
+2. It validates that a current wedding is set (throws `NoCurrentWeddingException` if not)
+3. The system searches for a table with the given ID
+4. If the table is not found, a `TableNotFoundException` is thrown
+5. If successful, it displays the table’s details, including:
+    - Table ID
+    - Capacity
+    - Number of guests assigned
 
 The activity diagram below illustrates the control flow of this command:
 
 <puml src="diagrams/FindTableActivityDiagram.puml" alt="Activity Diagram for FindTable Command" />
 
-This command is useful for quickly locating specific tables in large wedding layouts.
+This command helps planners retrieve specific table information quickly when managing large weddings.
 
 <div style="page-break-after: always;"></div>
 
 ### `getTables` Command
 
-The `getTables` command allows users to view all tables in the currently active wedding.
+The `getTables` command allows users to retrieve and view all tables in the currently active wedding.
 
-The implementation involves two main components:
+The implementation includes the following steps and validations:
 
-1. **Command Parser (`GetAllTablesCommandParser`)**
-   - Validates that no arguments are provided
-   - Creates a new `GetAllTablesCommand` object
-
-2. **Command Execution (`GetAllTablesCommand`)**
-   - Validates that there is a current wedding set
-   - Retrieves all tables from the wedding
-   - Displays each table's details including:
-     - Table ID
-     - Capacity
-     - Number of guests currently assigned
-     - List of assigned guests (if any)
-   - Handles exceptions:
-     - `NoCurrentWeddingException`: If no wedding is currently set
+1. The command is invoked without any arguments
+2. It checks that a current wedding is set (throws `NoCurrentWeddingException` if not)
+3. It fetches the complete list of tables from the wedding
+4. For each table, the following details are displayed:
+    - Table ID
+    - Capacity
+    - Number of guests currently assigned
+    - Names of assigned guests, if any
 
 The activity diagram below illustrates the control flow of this command:
 
