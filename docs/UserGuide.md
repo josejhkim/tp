@@ -442,20 +442,13 @@ Finds a table by its ID.
 **Examples:**
 - Running `findTable tid/12`  searches and displays the table with the id 12.
 
-## Assigning a Guest to a Table
+----
 
-<<<<<<< HEAD
----
-### Adding a Person to a Table: addPersonToTable
-Assigns a Person to a specified Table within the currently active wedding.
-=======
---------------------------------------------------------------------------------------------------------------------
 ### Adding a guest to a table: addPersonToTable
 Assigns a guest to a specified table within the currently active wedding.
->>>>>>> upstream/master
 
-**Format:** `addPersonToTable n/NAME tid/INDEX
-`  
+**Format:** `addPersonToTable n/NAME tid/INDEX`
+
 - Searches for the table with the specified `TABLEID`.
 - The parameter `TABLEID` should exactly match the table's identifier number.
 - Useful for quickly locating a specific table in the wedding layout.
@@ -473,8 +466,7 @@ Removes a Guest from a table in the currently active wedding.
 - NAME is the name of the guest displayed on the list
 
 example:
-- deletePersonFromTable name/John Doe tid/5 deletes the John Doe guest from the table with ID 5
-
+- deletePersonFromTable n/John Doe tid/5 deletes the John Doe guest from the table with ID 5
 
 ---
 ### Exiting the program : `exit`
@@ -485,8 +477,7 @@ Format: `exit`
 
 ### Saving the data
 
-WeddingHero data are saved in the hard disk automatically after any command that changes the data. There is no need to
-save manually.
+WeddingHero data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
 
 ### Editing the data file
 
@@ -494,22 +485,13 @@ WeddingHero data are saved automatically as a JSON file `[JAR file location]/dat
 Advanced users are welcome to update data directly by editing that data file.
 
 <box type="warning" seamless>
+
 **Important Note about the `clear` Command:**
 - The `clear` command completely removes all wedding data from WeddingHero
 - This includes all weddings, guests, and tables
 - After clearing, you can create new weddings with any name, including names that were previously used
 - This action cannot be undone
 </box>
-
-<box type="warning" seamless><br>
-
-**Caution:**
-If your changes to the data file makes its format invalid, WeddingHero will discard all data and start with an
-empty data file at the next run.  Hence, it is recommended to take a backup of the file before editing it.<br>
-Furthermore, certain edits can cause the WeddingHero to behave in unexpected ways (e.g., if a value entered is outside
-the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
-</box>
----
 
 ### Glossary
 - **Guest**: Refers to an individual invited to attend the wedding. This term is used when discussing the context of the wedding event and the guest's participation in it.
@@ -561,8 +543,6 @@ the acceptable range). Therefore, edit the data file only if you are confident t
 - NO
 - NO_RESPONSE
 
-
-
 ---
 ## FAQ
 
@@ -581,21 +561,21 @@ the data of your previous WeddingHero home folder.
 ---
 ## Command Summary
 
-| **Action**                | **Format, Examples**                                                                                                                                |
-|---------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------|
-| **createWedding**         | `createWedding n/NAME`<br>Example: `createWedding n/John & Jane Wedding`                                                                            |
-| **deleteWedding**         | `deleteWedding n/NAME`<br>Example: `deleteWedding n/John & Jane Wedding`                                                                            |
-| **setWedding**            | `setWedding n/NAME`<br>Example: `setWedding n/Smith Wedding`                                                                                        |
-| **weddingOverview**       | `weddingOverview`<br>Example: `weddingOverview`                                                                                                     |
+| **Action**                | **Format, Examples**                                                                                                                                                     |
+|---------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **createWedding**         | `createWedding n/NAME`<br>Example: `createWedding n/John & Jane Wedding`                                                                                                 |
+| **deleteWedding**         | `deleteWedding n/NAME`<br>Example: `deleteWedding n/John & Jane Wedding`                                                                                                 |
+| **setWedding**            | `setWedding n/NAME`<br>Example: `setWedding n/Smith Wedding`                                                                                                             |
+| **weddingOverview**       | `weddingOverview`<br>Example: `weddingOverview`                                                                                                                          |
 | **addPerson**             | `addPerson n/NAME p/PHONE e/EMAIL a/ADDRESS d/DIETARYRESTRICTION r/RSVP`<br/>Example: `addPerson n/John Doe p/12345678 e/johndoe@example.com a/123 Street d/Vegan r/YES` |
-| **deletePerson**          | `deletePerson INDEX`<br>Example: `deletePerson 3`                                                                                                   |
-| **Find**                  | `Find KEYWORD`<br>Example: `Find John`                                                                                                              |
-| **filterPersons**         | `filterPersons [d/DIETARYRESTRICTION] [r/RSVP_FIELD]`<br>Example: `filterPersons d/Vegan r/YES`                                                     |
-| **addTable**              | `addTable tid/TABLE_ID c/CAPACITY`<br>Example: `addTable tid/1 c/8`                                                                                 |
-| **addPersonToTable**      | `addPersonToTable n/NAME tid/TABLE_ID`<br>Example: `addPersonToTable n/John Doe tid/1`                                                              |
-| **deletePersonFromTable** | `deletePersonFromTable n/NAME tid/TABLE_ID`<br>Example: `deletePersonFromTable n/John Doe tid/1`                                                    |
-| **deleteTable**           | `deleteTable tid/TABLE_ID`<br>Example: `deleteTable tid/1`                                                                                          |
-| **findTable**             | `findTable [tid/TABLE_ID] [INDEX]`<br>Examples: `findTable tid/1`                                                                                   |
-| **getTables**             | `getTables`<br>Example: `getTables`                                                                                                                 |
-| **Help**                  | `Help`                                                                                                             
-| **exit**                  | `exit`                                     
+| **deletePerson**          | `deletePerson INDEX`<br>Example: `deletePerson 3`                                                                                                                        |
+| **find**                  | `find KEYWORD`<br>Example: `Find John`                                                                                                                                   |
+| **filterPersons**         | `filterPersons [d/DIETARYRESTRICTION] [r/RSVP_FIELD]`<br>Example: `filterPersons d/Vegan r/YES`                                                                          |
+| **addTable**              | `addTable tid/TABLE_ID c/CAPACITY`<br>Example: `addTable tid/1 c/8`                                                                                                      |
+| **addPersonToTable**      | `addPersonToTable n/NAME tid/TABLE_ID`<br>Example: `addPersonToTable n/John Doe tid/1`                                                                                   |
+| **deletePersonFromTable** | `deletePersonFromTable n/NAME tid/TABLE_ID`<br>Example: `deletePersonFromTable n/John Doe tid/1`                                                                         |
+| **deleteTable**           | `deleteTable tid/TABLE_ID`<br>Example: `deleteTable tid/1`                                                                                                               |
+| **findTable**             | `findTable [tid/TABLE_ID] [INDEX]`<br>Examples: `findTable tid/1`                                                                                                        |
+| **getTables**             | `getTables`<br>Example: `getTables`                                                                                                                                      |
+| **Help**                  | `help`                                                                                                                                                                   
+| **exit**                  | `exit`                                                                                                                                                                   
