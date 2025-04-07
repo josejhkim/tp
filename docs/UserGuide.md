@@ -448,7 +448,7 @@ Adds a table with the specified ID and capacity to the current wedding
 **Examples:**
 - Running `addTable tid/12 c/8` will add a table with the ID `12` and a seating capacity for 8 guests.
 
-### Deleting a table: `deleteTable`
+### Deleting a Table: `deleteTable`
 
 Deletes a table by its ID.
 
@@ -484,9 +484,9 @@ Finds a table by its ID.
 
 **Example:**
 - Running `findTable tid/12`  searches and displays the table with the id 12.
+## Assigning a Guest to a Table
 
-
-### Adding a guest to a table: `addPersonToTable`
+### Adding a Guest to a Table: `addPersonToTable`
 Assigns a guest to a specified table within the currently active wedding.
 
 **Format:** `addPersonToTable n/NAME tid/TABLEID`
