@@ -85,7 +85,7 @@ traditional mouse-based applications.
 - `createWedding n/Jack and Jill's Wedding` : Creates a new wedding called "Jack and Jill's Wedding". 
 - `exit` : Exits the application.
 
-- Refer to the [Features](#features) below for details of each command.
+Refer to the [Features](#features) below for full details of each command.
 
 ---
 
@@ -100,11 +100,11 @@ traditional mouse-based applications.
 
 - **Parameters can be typed in any order.**  For example, `n/John p/91234567` and `p/91234567 n/John` are both valid.
 
-- **Commands are case-sensitive for field values** where applicable, such as `d/VEGAN` vs. `d/vegan`.
+ - **Commands are case-sensitive.** For example, you should type `createWedding` (correct) instead of `createwedding` (incorrect). Camel case means that you start with a lowercase letter and each new word begins with an uppercase letter without any spacing, making it easier for you to read commands.
 
 - **Optional parameters are shown in square brackets.**  
   e.g., `filterPersons [d/DietaryRestriction] [r/RSVP]`.
-- **Note on Command Names:** The application uses command names like `addPerson` and `deletePerson` for technical 
+- **Command Names:** The application uses command names like `addPerson` and `deletePerson` for technical 
   reasons, but these commands are used to manage guests in the wedding. This design choice maintains consistency with the underlying implementation while providing a user-friendly interface for managing wedding guests.
 
 <box>
@@ -378,6 +378,27 @@ You can use it to display only those guests who meet the criteria you specify.
 - Using `filterPersons d/HALAL` displays all guests with a halal dietary restriction.
 - Running `filterPersons r/YES r/NO` will return an error message since multiple categories are not allowed for a prefix.
 
+
+### Finding a Guest: `find`
+
+Finds and lists all guests whose names contain any of the specified keywords. Keyword matching is case-insensitive.
+
+**Format:**
+```
+find KEYWORD [MORE_KEYWORDS]...
+```
+
+- **KEYWORD [MORE_KEYWORDS]...**: One or more keywords that the command uses to match against a guest's name. A guest is displayed if their name contains any of the keywords.
+- Keyword matching is case-insensitive, so a guest with the name `John` will be listed if the keyword used is `john`.
+
+**Examples:**
+- `find John`
+- `find alice bob`
+
+After running this command, the application updates the guest list view to display only those guests whose names match the specified keywords.
+
+> **Note:** Spaces are used in this command to seperate keywords. For example, if there exists a guest with the name `John Tan` and another guest with the name `Jane Doe`. `find John Doe` will list both these guests since `John` is found in `John Tan` and `Doe` is found in `Jane Doe`.
+
 ### Listing Guests: `list`
 
 Lists all guests in the current wedding, resetting any applied filters.
@@ -400,10 +421,7 @@ Details:
 
 Adds a table with the specified ID and capacity to the current wedding
 
-**Format:**
-```
-addTable tid/TABLEID c/CAPACITY
-```
+**Format:** `addTable tid/TABLEID c/CAPACITY`
 
 - Adds a table with the provided `TABLEID` and `CAPACITY`.
 - The parameter `TABLEID` denotes the unique integer identifier for the table. Ensure that it is unique by using
@@ -600,8 +618,8 @@ the data of your previous WeddingHero home folder.
 | **addPerson**             | `addPerson n/NAME p/PHONE e/EMAIL a/ADDRESS d/DIETARYRESTRICTION r/RSVP`<br/>Example: `addPerson n/John Doe p/12345678 e/johndoe@example.com a/123 Street d/Vegan r/YES` [t/TAG]… |
 | **deletePerson**          | `deletePerson INDEX`<br>Example: `deletePerson 3`                                       |
 | **edit**                  | `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [d/DIETARYRESTRICTION] [r/RSVP] [t/TAG]…`<br>Example: `edit 1 p/91234567 e/johndoe@example.com` |
-| **find**                  | `find KEYWORD`<br>Example: `Find John`                                                  |
 | **filterPersons**         | `filterPersons [d/DIETARYRESTRICTION] [r/RSVP_FIELD]`<br>Example: `filterPersons d/Vegan r/YES` |
+| **find**                  | `find KEYWORD [MORE_KEYWORDS]...`<br>Example: `find John`                                |
 | **addTable**              | `addTable tid/TABLE_ID c/CAPACITY`<br>Example: `addTable tid/1 c/8`                     |
 | **addPersonToTable**      | `addPersonToTable n/NAME tid/TABLE_ID`<br>Example: `addPersonToTable n/John Doe tid/1`  |
 | **deletePersonFromTable** | `deletePersonFromTable n/NAME tid/TABLE_ID`<br>Example: `deletePersonFromTable n/John Doe tid/1` |
