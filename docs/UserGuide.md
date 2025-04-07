@@ -11,15 +11,30 @@ As a professional wedding planner, you need a tool that keeps pace with your fas
 **Command Line Interface (CLI)**—while still offering the clarity and ease of a **Graphical User Interface (GUI)**
 —this application is built to help you manage complex wedding details with precision.
 
-### Key Features
+### Who Is This For?
 
-- **Guest Lists & Seating Arrangements:** Organise and modify with speed.
-- **Crucial Guest Details:** Manage contact information, dietary requirements and RSVP statuses seamlessly.
-- **Multiple Weddings Management:** Keep track of several weddings effortlessly, consolidating details for each event
-  in one centralised dashboard.
+Wedding Hero is built for professional wedding planners who need a streamlined tool to manage multiple weddings. This guide assumes you:
+- Are familiar with basic desktop applications.
+- Prefer fast, keyboard-based workflows while still wanting the option of a GUI.
+- Need to maintain detailed guest records, seating plans, and RSVP statuses.
+- Wish to save time and reduce manual errors in planning.
 
-If you're comfortable typing quickly, Wedding Hero empowers you to execute your planning tasks more efficiently than
-traditional mouse-based applications.
+
+### The Challenges We Address
+
+- **Managing wedding details:** Coordinating guest lists, dietary restrictions, and seating can be time-consuming and chaotic when planning multiple weddings.
+- **Guest information tracking:** Keeping track of each guest’s contact details, RSVP status, and dietary needs can be challenging.
+- **Seating arrangements:** Monitoring seating plans across different weddings requires careful organisation.
+- **Avoiding mix-ups:** It is essential to prevent confusion between guests from different weddings.
+- **Data navigation:** Sifting through multiple spreadsheets wastes valuable time.
+
+### How Wedding Hero Simplifies Wedding Planning
+
+- **Multi-wedding management:** Easily manage multiple weddings, each with its own set of guests and table arrangements.
+- **Smart guest tracking:** Effortlessly keep track of invitations, RSVPs, and any special dietary requirements.
+- **Streamlined table assignments:** Quickly assign guests to tables by name rather than by number.
+- **Command + GUI interface:** Enjoy the efficiency of command-line input alongside a clear, user-friendly graphical interface.
+- **Auto-save and data recovery:** Benefit from automatic saving after every change, ensuring your data is always secure.
 
 ---
 ## Table of Contents
@@ -83,6 +98,7 @@ traditional mouse-based applications.
 <img src="images/Ui.png" alt="Ui" style="max-width: 75%; height: auto;" />
 
 5. Click full screen mode (recommended) for best use of the application. Full screen mode is preferred as it ensures optimal performance; we cannot guarantee error-free operation if the application is not run in full screen mode.
+
 6. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will
    open the help window.<br>
 - `addPerson n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 d/NONE r/YES` : Adds a 
@@ -373,9 +389,9 @@ You can use it to display only those guests who meet the criteria you specify.
 - Note that each prefix can only be used at most once with the command. Running `filterPersons r/NO r/YES` will 
   result in an error.
 
-<img src="images/UG-example-images/filterPersonExample.png" alt="List of filtered guests based on RSVP - No" style="max-width: 70%; height: auto;" />
+<img src="images/UG-example-images/filterPersonExample.png" alt="List of filtered guests based on Dietary Restriction - d/VEGETARIAN" style="max-width: 70%; height: auto;" />
 
-<sub>Example output when filtering guests based on RSVP `NO` filter, using command: `filterPersons r/NO`</sub>
+<sub>Example output when filtering guests based on dietary restrictions, using command: `filterPersons d/VEGETARIAN`</sub>
 
 **Examples:**
 - Running `filterPersons d/VEGAN r/YES` displays all guests who are vegan and have accepted the invitation.
@@ -387,7 +403,7 @@ You can use it to display only those guests who meet the criteria you specify.
 
 Finds and lists all guests whose names contain any of the specified keywords. Keyword matching is case-insensitive.
 
-**Format:** find KEYWORD [MORE_KEYWORDS]...
+**Format:** `find KEYWORD [MORE_KEYWORDS]...`
 
 - `KEYWORD [MORE_KEYWORDS]...`: One or more keywords that the command uses to match against a guest's name. A guest is displayed if their name contains any of the keywords.
 - Keyword matching is case-insensitive, so a guest with the name `John` will be listed if the keyword used is `john`.
@@ -562,7 +578,6 @@ the acceptable range). Therefore, edit the data file only if you are confident t
 - **Guest**: Refers to an individual invited to attend the wedding. This term is used when discussing the context of the wedding event and the guest's participation in it.
 
 - **Person**: Refers to an individual in the system, typically used when discussing the management of their details such as contact information, dietary restrictions, and RSVP status. This term is more general and can be used outside the context of a specific wedding event.
-
 
 - **Active Wedding**: The currently selected wedding that all actions (e.g., adding a guest or a table) apply to. You 
   must use the `setWedding` command to set an active wedding.
