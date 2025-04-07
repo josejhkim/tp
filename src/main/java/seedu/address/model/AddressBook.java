@@ -60,16 +60,6 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-    * Replaces the contents of the person list with {@code persons}.
-    * {@code persons} must not contain duplicate persons.
-    *
-    * @param persons the UniquePersonList to set
-    */
-    public void setPersons(UniquePersonList persons) {
-        this.currentWedding.setPersons(persons);
-    }
-
-    /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      *
      * @param newData the new data to reset to
@@ -77,17 +67,30 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void resetData(ReadOnlyAddressBook newData) {
         requireNonNull(newData);
 
+        if (hasCurrentWedding()) {
+            deleteCurrentWedding();
+        }
+
+        uniqueWeddingList.clear();
+        personList.clear();
+        tableList.clear();
+
         // Add all weddings from newData, ensuring no duplicates
         for (Wedding wedding : newData.getWeddingList()) {
             if (!hasWedding(wedding)) {
                 Wedding toBeAdded = new Wedding(wedding);
-                this.uniqueWeddingList.addWedding(toBeAdded);
+                uniqueWeddingList.addWedding(toBeAdded);
             }
         }
 
         // Set current wedding if available
         if (newData.hasCurrentWedding() && !uniqueWeddingList.asUnmodifiableObservableList().isEmpty()) {
+            Wedding newCurrentWedding = newData.getCurrentWedding();
+
             setCurrentWeddingByName(newData.getCurrentWedding().getName());
+
+            personList.loadData(newCurrentWedding.getUniquePersonList());
+            tableList.loadData(newCurrentWedding.getTableList());
         }
     }
 
@@ -148,6 +151,9 @@ public class AddressBook implements ReadOnlyAddressBook {
      * @return the current Wedding
      */
     public Wedding getCurrentWedding() {
+        if (currentWedding == null) {
+            throw new NoCurrentWeddingException();
+        }
         return currentWedding;
     }
 
@@ -183,6 +189,10 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Delegates to deleteWedding method with the current wedding as parameter.
      */
     public void deleteCurrentWedding() {
+        if (!hasCurrentWedding()) {
+            throw new NoCurrentWeddingException();
+        }
+
         deleteWedding(currentWedding);
     }
 
@@ -261,7 +271,6 @@ public class AddressBook implements ReadOnlyAddressBook {
      * @return true if the person exists, false otherwise
      */
     public boolean hasPerson(Person person) {
-        requireNonNull(person);
         return personList.contains(person) && getCurrentWedding().hasPerson(person);
     }
 
@@ -269,13 +278,10 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Adds a person to the address book. The person must not already exist in the address book.
      */
     public void addPerson(Person person) {
-        if (currentWedding == null) {
-            throw new NoCurrentWeddingException();
-        }
         if (hasPerson(person)) {
             throw new DuplicatePersonException();
         }
-        currentWedding.addPerson(person);
+        getCurrentWedding().addPerson(person);
         personList.add(person);
     }
 
@@ -285,16 +291,30 @@ public class AddressBook implements ReadOnlyAddressBook {
      * address book.
      */
     public void setPerson(Person target, Person editedPerson) {
-        personList.setPerson(target, editedPerson);
         getCurrentWedding().setPerson(target, editedPerson);
+        personList.setPerson(target, editedPerson);
+
+        // Since switching tables isn't allowed with the edit command
+        if (target.isSeated()) {
+            int tid = target.getTableId();
+            Table oldTable = tableList.findTableById(tid);
+            oldTable.setPerson(target, editedPerson);
+            tableList.setTable(oldTable, tableList.findTableById(tid));
+        }
     }
 
     /**
      * Removes {@code key} from this {@code AddressBook}. {@code key} must exist in the address book.
      */
     public void deletePerson(Person key) {
+        requireNonNull(key);
+
+        if (key.isSeated()) {
+            deletePersonFromTable(key, key.getTableId());
+        }
+
+        getCurrentWedding().deletePerson(new Person(key, -1));
         personList.delete(key);
-        getCurrentWedding().deletePerson(key);
     }
 
     /**
@@ -335,8 +355,8 @@ public class AddressBook implements ReadOnlyAddressBook {
      * @param table the Table to add
      */
     public void addTable(Table table) {
-        tableList.addTable(table);
         getCurrentWedding().addTable(table);
+        tableList.addTable(table);
     }
 
     /**
@@ -347,13 +367,13 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void deleteTable(Table table) {
         for (Person p : table.getAllPersons()) {
             Person removedFromTable = new Person(p, -1);
-            currentWedding.setPerson(p, removedFromTable);
+            getCurrentWedding().setPerson(p, removedFromTable);
             this.personList.setPerson(p, removedFromTable);
         }
 
-        tableList.deleteTable(table);
-
         getCurrentWedding().deleteTable(table);
+
+        tableList.deleteTable(table);
     }
 
     /**
@@ -374,8 +394,8 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void setTable(Table target, Table editedTable) {
         requireNonNull(editedTable);
-        tableList.setTable(target, editedTable);
         getCurrentWedding().setTable(target, editedTable);
+        tableList.setTable(target, editedTable);
     }
 
     /**
@@ -386,9 +406,15 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void addPersonToTable(Person p, Table table) {
         int tableId = table.getTableId();
+        int oldTableId = p.getTableId();
+
         getCurrentWedding().addPersonToTable(p, table);
         personList.setPerson(p, new Person(p, tableId));
         tableList.setTable(table, getCurrentWedding().findTableById(tableId));
+        if (oldTableId > -1) {
+            tableList.setTable(getCurrentWedding().findTableById(oldTableId),
+                getCurrentWedding().findTableById(oldTableId));
+        }
     }
 
     /**
@@ -409,9 +435,9 @@ public class AddressBook implements ReadOnlyAddressBook {
      * @param table the Table to delete the person from
      */
     public void deletePersonFromTable(Person p, Table table) {
-        personList.setPerson(p, new Person(p, -1));
         this.getCurrentWedding().deletePersonFromTable(p, table);
-        tableList.setTable(table, this.currentWedding.findTableById(table.getTableId()));
+        personList.setPerson(p, new Person(p, -1));
+        tableList.setTable(table, this.getCurrentWedding().findTableById(table.getTableId()));
     }
 
     /**

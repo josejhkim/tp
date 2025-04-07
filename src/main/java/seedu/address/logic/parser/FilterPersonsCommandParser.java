@@ -1,5 +1,6 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DIETARY_RESTRICTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RSVP;
 
@@ -24,6 +25,12 @@ public class FilterPersonsCommandParser implements Parser<FilterPersonsCommand> 
 
         ArgumentMultimap argumentMultimap = ArgumentTokenizer.tokenize(args, PREFIX_DIETARY_RESTRICTION, PREFIX_RSVP);
 
+        if (!anyPrefixesPresent(argumentMultimap, PREFIX_DIETARY_RESTRICTION, PREFIX_RSVP)
+                || prefixHasMultipleOccurrences(argumentMultimap, PREFIX_DIETARY_RESTRICTION, PREFIX_RSVP)) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    FilterPersonsCommand.MESSAGE_USAGE));
+        }
+
         if (argumentMultimap.getValue(PREFIX_DIETARY_RESTRICTION).isPresent()) {
             DietaryRestriction dietaryRestriction = ParserUtil.parseDietaryRestriction(
                     argumentMultimap.getValue(PREFIX_DIETARY_RESTRICTION).get());
@@ -47,5 +54,15 @@ public class FilterPersonsCommandParser implements Parser<FilterPersonsCommand> 
      */
     private static boolean anyPrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
         return Stream.of(prefixes).anyMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+    }
+    /**
+     * Checks if any prefix has more than one occurrence in the argumentMultimap.
+     *
+     * @param argumentMultimap The map of prefixes to their argument values.
+     * @param prefixes The prefixes to check.
+     */
+    private static boolean prefixHasMultipleOccurrences(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes)
+                .anyMatch(prefix -> argumentMultimap.getAllValues(prefix).size() > 1);
     }
 }

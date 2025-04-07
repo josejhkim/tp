@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.model.person.DietaryRestriction.TypicalRestriction.EGGS;
 import static seedu.address.model.person.DietaryRestriction.TypicalRestriction.NONE;
@@ -70,6 +71,13 @@ public class FilterPersonsCommandTest {
 
         // different predicate -> returns false
         assertNotEquals(command1, command3);
+    }
+
+    @Test
+    public void execute_bothFiltersNull_throwsAssertionError() {
+        assertThrows(AssertionError.class, () -> {
+            new FilterPersonsCommand(null, null);
+        });
     }
 
     @Test
