@@ -258,14 +258,14 @@ _{Explain here how the data archiving feature will be implemented}_
 
 **Target user profile/ user persona**:
 
-Olivia is a professional wedding planner with 5 years of experience organising client weddings. She has to manage a significant number of wedding guests as well as the seating arrangement for the wedding. Olivia needs an efficient way to manage information without distractions.
+Olivia is a professional wedding planner with 5 years of experience organising client weddings. She has to manage a significant number of wedding persons as well as the seating arrangement for the wedding. Olivia needs an efficient way to manage information without distractions.
 
 * professional wedding planner
-* has a significant number of wedding guests
-* needs to manage guest list and seating arrangements
+* has a significant number of wedding persons
+* needs to manage person list and seating arrangements
 * needs an efficient way to manage information without distractions
 
-**Value proposition**: Wedding Hero is an all-in-one platform for wedding professionals. Consolidate guest lists, vendors, budgets, and relationships in one intuitive dashboard. Simplify planning, reduce stress, and craft unforgettable celebrations. Experience total control and unwavering confidence with Wedding Hero’s reliable, centralised, and streamlined solution.
+**Value proposition**: Wedding Hero is an all-in-one platform for wedding professionals. Consolidate person lists, vendors, budgets, and relationships in one intuitive dashboard. Simplify planning, reduce stress, and craft unforgettable celebrations. Experience total control and unwavering confidence with Wedding Hero’s reliable, centralised, and streamlined solution.
 
 ### User stories
 
@@ -274,23 +274,23 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | Priority | As a...                                                 | I want to...                                                                                 | So that I can                                                                                                  |
 |----------|---------------------------------------------------------|------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------|
 | ***      | wedding planner                                         | make changes to my clients plans                                                               |                                                                                                                |
-| ***      | wedding planner of a couple that can’t make up their mind | add and delete the guest list                                                                  | should the couple decide to make changes                                                                       |
-| ***      | wedding planner of a couple with lots of guests         | indicate whether a guest is confirmed, unconfirmed, or cancelled                               | cater enough food for them                                                                                     |
-| ***      | wedding planner                                         | keep track of dietary restrictions for guests                                                  | ensure the catering meets everyone’s needs                                                                     |
-| ***      | wedding planner                                         | track guest RSVPs and their meal preferences                                                   | finalise catering and seating arrangements efficiently                                                         |
-| ***      | wedding planner                                         | assign guests to tables                                                                        | ensure no seats are left empty within a table                                                                  |
-| ***      | wedding planner of high profile clients                 | store information about guests like contact details, address                                   | send out personalised invitation cards                                                                         |
-| ***      | wedding planner                                         | see a quick overview of a specific wedding                                                     | easily determine the number of guests and tables currently assigned to my client's wedding                    |
-| ***      | wedding planner with multiple clients                   | view the entire guest list assigned to one of my weddings easily                               | quickly look through guests’ information                                                                       |
-| ***      | experienced wedding planner                             | set the number of tables early to gauge the number of guests my client has                     | easily manage other logistics such as venue decision, food catering etc.                                      |
-| ***      | wedding planner                                         | decide how many guests should be seated at one table                                           | customise it to my clients’ needs                                                                              |
+| ***      | wedding planner of a couple that can’t make up their mind | add and delete the person list                                                                  | should the couple decide to make changes                                                                       |
+| ***      | wedding planner of a couple with lots of persons         | indicate whether a person is confirmed, unconfirmed, or cancelled                               | cater enough food for them                                                                                     |
+| ***      | wedding planner                                         | keep track of dietary restrictions for persons                                                  | ensure the catering meets everyone’s needs                                                                     |
+| ***      | wedding planner                                         | track person RSVPs and their meal preferences                                                   | finalise catering and seating arrangements efficiently                                                         |
+| ***      | wedding planner                                         | assign persons to tables                                                                        | ensure no seats are left empty within a table                                                                  |
+| ***      | wedding planner of high profile clients                 | store information about persons like contact details, address                                   | send out personalised invitation cards                                                                         |
+| ***      | wedding planner                                         | see a quick overview of a specific wedding                                                     | easily determine the number of persons and tables currently assigned to my client's wedding                    |
+| ***      | wedding planner with multiple clients                   | view the entire person list assigned to one of my weddings easily                               | quickly look through persons’ information                                                                       |
+| ***      | experienced wedding planner                             | set the number of tables early to gauge the number of persons my client has                     | easily manage other logistics such as venue decision, food catering etc.                                      |
+| ***      | wedding planner                                         | decide how many persons should be seated at one table                                           | customise it to my clients’ needs                                                                              |
 | ***      | wedding planner                                         | view the entire table list quickly                                                             | quickly see the list of tables and their capacities                                                           |
-| **       | organised wedding planner                               | filter guests based on their dietary restrictions and RSVP status                              | view guests based on a specific category                                                                       |
+| **       | organised wedding planner                               | filter persons based on their dietary restrictions and RSVP status                              | view persons based on a specific category                                                                       |
 | **       | wedding planner                                         | maintain personal notes and comments on tasks                                                  | keep track of important details and task progress                                                             |
 | *        | forgetful wedding planner                               | mark the status of the vendor list                                                             | keep track of whether a vendor has confirmed                                                                   |
 | *        | detailed wedding planner                                | see a list of upcoming tasks that are most urgent                                              | pay attention to them first                                                                                    |
 | *        | wedding planner                                         | create a library of preferred vendors and pricing details                                      | easily recommend the best options to my clients                                                                |
-| *        | wedding planner                                         | send scheduled messages to the guests, vendors, and photographers                              | they can be reminded of the upcoming schedule and deadlines                                                    |
+| *        | wedding planner                                         | send scheduled messages to the persons, vendors, and photographers                              | they can be reminded of the upcoming schedule and deadlines                                                    |
 | *        | wedding planner                                         | get a contact list of wedding-related vendors nearby                                           | I don’t have to worry about looking them up personally                                                         |
 | *        | wedding planner                                         | track expenses against a set budget                                                            | I stay informed of the wedding costs                                                                           |
 | *        | wedding planner                                         | share a to-do list with my clients                                                             | we can stay on the same page about what needs to be done                                                       |
@@ -368,8 +368,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**
 
 1. User wants to view the wedding overview.
-2. WeddingHero retrieves the overview details of the current active wedding, including the number of tables, guests
-   and list of guests.
+2. WeddingHero retrieves the overview details of the current active wedding, including the number of tables, persons
+   and list of person
+s.
 3. WeddingHero displays the wedding overview information.
 4. Use case ends.
 
@@ -383,7 +384,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ---
 
-### Use case: Add a guest
+### Use case: Add a person
 
 **Preconditions:**
 - A wedding has been created.
@@ -391,12 +392,12 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1. User decides to add a new guest.
-2. User to enters the guest details in the following correct format:
+1. User decides to add a new person.
+2. User to enters the person details in the following correct format:
    `addPerson n/john Doe p/81231234 e/JohnDoe@gmail.com a/123 Kent Ridge d/None r/YES`
 3. WeddingHero validates the entered details.
-4. WeddingHero adds the guest to the current wedding's guest list.
-5. WeddingHero displays a confirmation message that the guest has been successfully added.
+4. WeddingHero adds the person to the current wedding's person list.
+5. WeddingHero displays a confirmation message that the person has been successfully added.
    Use case ends.
 
 **Extensions:**
@@ -417,14 +418,16 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     2c3. Once valid input is provided, the process resumes at step 3.
 
 3c. **Duplicate Person**
-    3c1. If WeddingHero detects that a guest with the same identifier (e.g. same name) already exists,
+    3c1. If WeddingHero detects that a person
+    with the same identifier (e.g. same name) already exists,
     it notifies the user of the duplicate.
-    3c2. WeddingHero prompts the user that guest has already been added.
+    3c2. WeddingHero prompts the user that person
+    has already been added.
     Use case ends.
 
 ---
 
-### Use case: Delete a guest
+### Use case: Delete a person
 
 **Preconditions:**
 - A wedding has been created.
@@ -432,53 +435,58 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1. User requests to view the current guest list.
-2. WeddingHero displays the list of guests.
-3. User selects a guest to delete by providing an identifier (guest name), e.g., `deletePerson n/John Doe`.
-4. WeddingHero searches for a guest matching the provided name or phone number.
-5. WeddingHero deletes the guest.
+1. User requests to view the current person list.
+2. WeddingHero displays the list of persons.
+3. User selects a person to delete by providing an index number, e.g., `deletePerson 1`.
+4. WeddingHero searches for the person with the specified index in the current displayed list.
+5. WeddingHero deletes the person.
    Use case ends.
 
 **Extensions:**
 
-3a. **Alternative Identifier: Phone Number**
-    3a1. Instead of using the guest name, the user issues the delete command with a phone number identifier (e.g., `deletePerson p/81231234`).
-    3a2. WeddingHero searches for a guest matching the provided phone number.
-    3a3. WeddingHero then proceeds to step 5 of the MSS.
+3a. **Missing Index**
+    3a1. The user issues the delete command without providing an index (e.g., `deletePerson`).
+    3a2. WeddingHero detects the missing index and displays an error message instructing the user to provide a valid index.
+    3a3. WeddingHero prompts the user to re-enter the command with a valid index.
+    3a4. If the user re-enters the command with a valid index, the process resumes at step 4.
 
-3b. **Missing Identifier Tag**
-    3b1. The user issues the delete command without using the required identifier tag (e.g., `deletePerson John Doe` without `n/` or `p/`).
-    3b2. WeddingHero detects the missing tag and displays an error message instructing the user to use the correct identifier format.
-    3b3. WeddingHero prompts the user to re-enter the command with either of the proper tags.
-    3b4. If the user re-enters the command with a valid identifier, the process resumes at step 4.
+3b. **Invalid Index Format**
+    3b1. The user enters an invalid index format (e.g., non-numeric characters or negative numbers).
+    3b2. WeddingHero identifies the invalid index format and displays an error message.
+    3b3. WeddingHero prompts the user to re-enter a valid index.
+    3b4. If the user provides a valid index, the process resumes at step 4.
 
-3c. **Invalid Input Text**
-    3c1. The user enters invalid text that does not conform to the expected format (e.g., contains non-alphanumeric characters).
-    3c2. WeddingHero identifies the invalid input and displays an error message indicating that the input is invalid.
-    3c3. WeddingHero prompts the user to re-enter a valid identifier.
-    3c4. If the user provides a valid input, the process resumes at step 4.
+3c. **Index Out of Range**
+    3c1. The user enters an index that is larger than the number of person
+   s in the list.
+    3c2. WeddingHero detects the out-of-range index and displays an error message.
+    3c3. WeddingHero prompts the user to re-enter a valid index.
+    3c4. If the user provides a valid index, the process resumes at step 4.
 
 5a. **No Matching Person Found**
-    5a1. WeddingHero is unable to find any guest matching the provided identifier (name or phone number).
-    5a2. WeddingHero informs the user that no matching guest was found.
-    5a3. If the user re-enters a valid tag with a different value as an identifier, the process resumes at step 4.
+    5a1. WeddingHero is unable to find any person
+    matching the provided index.
+    5a2. WeddingHero informs the user that no matching person
+    was found.
+    5a3. If the user re-enters a valid index with a different person
+   , the process resumes at step 4.
     5a4. If the user changes commands, the use case ends.
 
-### Use case: Edit a guest
+### Use case: Edit a person
 
 **Preconditions:**
 - A wedding has been created.
 - A wedding has been set as the active wedding in WeddingHero.
-- The guest to be edited exists in the current wedding's guest list.
+- The person to be edited exists in the current wedding's person list.
 
 **MSS**
 
-1. User requests to view the current guest list.
-2. WeddingHero displays the list of guests.
-3. User enters the edit command with the guest's index and at least one field to modify (e.g., `edit 1 p/91234567 e/newemail@example.com`).
+1. User requests to view the current person list.
+2. WeddingHero displays the list of persons.
+3. User enters the edit command with the person's index and at least one field to modify (e.g., `edit 1 p/91234567 e/newemail@example.com`).
 4. WeddingHero validates the index and the new field values.
-5. WeddingHero updates the guest's information with the new values.
-6. WeddingHero displays a confirmation message showing the updated guest information.
+5. WeddingHero updates the person's information with the new values.
+6. WeddingHero displays a confirmation message showing the updated person information.
    Use case ends.
 
 **Extensions:**
@@ -502,8 +510,11 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     4a4. If the user provides valid field values, the process resumes at step 5.
 
 4b. **Duplicate Person**
-    4b1. The edited guest information would result in a duplicate of an existing guest.
-    4b2. WeddingHero displays an error message indicating that the edit would create a duplicate guest.
+    4b1. The edited person
+    information would result in a duplicate of an existing person
+   .
+    4b2. WeddingHero displays an error message indicating that the edit would create a duplicate person
+   .
     4b3. WeddingHero prompts the user to modify the fields to avoid duplication.
     4b4. If the user provides non-duplicating values, the process resumes at step 5.
 
@@ -590,9 +601,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 # Glossary
 
 - **Person:** An individual invited to attend the wedding.
-- **Table:** A designated seating area at the wedding venue, typically used to group guests together.
+- **Table:** A designated seating area at the wedding venue, typically used to group persons together.
 - **Dietary Restriction:** A limitation or specific requirement regarding food consumption, often due to allergies, health conditions, or personal preferences.
-- **RSVP Status:** The response provided by an invited guest indicating whether they will attend the event.
+- **RSVP Status:** The response provided by an invited person indicating whether they will attend the event.
 - **Wedding Planner:** A professional responsible for organizing, coordinating, and managing all aspects of a wedding event.
 - **Vendor (Extension):** A business or individual that supplies services or products—such as catering, photography, or decor—for the wedding.
 
