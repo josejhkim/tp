@@ -47,27 +47,27 @@ Wedding Hero is built for professional wedding planners who need a streamlined t
   - [Typical Workflow Example](#typical-workflow-example)
 - [Features](#features)
   - [Managing Weddings](#managing-weddings)
-    - [Creating a Wedding: `createWedding`](#creating-a-wedding--createwedding)
-    - [Setting a Wedding: `setWedding`](#setting-a-wedding--setwedding)
-    - [Wedding Overview: `weddingOverview`](#wedding-overview--weddingoverview)
-    - [Deleting a Wedding: `deleteWedding`](#deleting-a-wedding--deletewedding)
+    - [Creating a Wedding: `createWedding`](#creating-a-wedding-createwedding)
+    - [Setting a Wedding: `setWedding`](#setting-a-wedding-setwedding)
+    - [Wedding Overview: `weddingOverview`](#wedding-overview-weddingoverview)
+    - [Deleting a Wedding: `deleteWedding`](#deleting-a-wedding-deletewedding)
   - [Managing Guests](#managing-guests)
     - [Adding a Guest: `addPerson`](#adding-a-guest-addperson)
-    - [Deleting a Guest: `deletePerson`](#deleting-a-guest--deleteperson)
+    - [Deleting a Guest: `deletePerson`](#deleting-a-guest-deleteperson)
     - [Editing a Guest: `edit`](#editing-a-guest-edit)
     - [Filtering Guests: `filterPersons`](#filtering-guests-filterpersons)
     - [Finding a Guest: `find`](#finding-a-guest-find)
-    - [Listing Guests: `list`](#listing-guests--list)
+    - [Listing Guests: `list`](#listing-guests-list)
   - [Managing Tables](#managing-tables)
-    - [Adding a Table: `addTable`](#adding-a-table--addtable)
-    - [Deleting a Table: `deleteTable`](#deleting-a-table--deletetable)
-    - [Listing Tables: `getTables`](#listing-tables--gettables)
-    - [Finding a Table: `findTable`](#finding-a-table--findtable)
+    - [Adding a Table: `addTable`](#adding-a-table-addtable)
+    - [Deleting a Table: `deleteTable`](#deleting-a-table-deletetable)
+    - [Listing Tables: `getTables`](#listing-tables-gettables)
+    - [Finding a Table: `findTable`](#finding-a-table-findtable)
   - [Assigning a Guest to a Table](#assigning-a-guest-to-a-table)
     - [Adding a Guest to a Table: `addPersonToTable`](#adding-a-guest-to-a-table-addpersontotable)
     - [Removing a Guest from a Table: `deletePersonFromTable`](#removing-a-guest-from-a-table-deletepersonfromtable)
-  - [Clearing All Data: `clear`](#clearing-all-data--clear)
-  - [Exiting the Program: `exit`](#exiting-the-program--exit)
+  - [Clearing All Data: `clear`](#clearing-all-data-clear)
+  - [Exiting the Program: `exit`](#exiting-the-program-exit)
 - [Saving the Data](#saving-the-data)
 - [Editing the Data File](#editing-the-data-file)
 - [Glossary](#glossary)
@@ -448,7 +448,7 @@ Adds a table with the specified ID and capacity to the current wedding
 **Examples:**
 - Running `addTable tid/12 c/8` will add a table with the ID `12` and a seating capacity for 8 guests.
 
-### Deleting a table: `deleteTable`
+### Deleting a Table: `deleteTable`
 
 Deletes a table by its ID.
 
@@ -484,9 +484,9 @@ Finds a table by its ID.
 
 **Example:**
 - Running `findTable tid/12`  searches and displays the table with the id 12.
+## Assigning a Guest to a Table
 
-
-### Adding a guest to a table: `addPersonToTable`
+### Adding a Guest to a Table: `addPersonToTable`
 Assigns a guest to a specified table within the currently active wedding.
 
 **Format:** `addPersonToTable n/NAME tid/TABLEID`
@@ -625,11 +625,11 @@ the acceptable range). Therefore, edit the data file only if you are confident t
 - NO_RESPONSE
 
 ### Meaning of symbols
-| Box Type | Syntax Example                      | Description                                                                                          |
-|----------|-------------------------------------|------------------------------------------------------------------------------------------------------|
-| Tip      | `<box type="tip" seamless>`         | Used to provide helpful hints and suggestions to enhance your workflow.                            |
-| Info     | `<box type="info" seamless>`        | Provides additional context or clarification about a feature or instruction.                       |
-| Warning  | `<box type="warning" seamless>`     | Alerts the reader to important cautions or irreversible actions that need careful consideration.    |
+| Box Type | Syntax Example                             | Description                                                                                          |
+|----------|--------------------------------------------|------------------------------------------------------------------------------------------------------|
+| Tip      | <box type="tip" seamless>Tip</box>         | Used to provide helpful hints and suggestions to enhance your workflow.                            |
+| Info     | <box type="info" seamless>Info</box>       | Provides additional context or clarification about a feature or instruction.                       |
+| Warning  | <box type="warning" seamless>Warning</box> | Alerts the reader to important cautions or irreversible actions that need careful consideration.    |
 
 
 ---
