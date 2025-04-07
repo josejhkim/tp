@@ -90,33 +90,27 @@ traditional mouse-based applications.
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Command Format
+**Notes about the command format:**<br>
 
-<div markdown="block" class="alert alert-info">
+- **Words in `UPPER_CASE` are placeholders for user input.**  
+  For example, in `add n/NAME`, you can use:  
+  `add n/John Doe` (where `John Doe` replaces `NAME`).
 
-**:information_source: Notes about the command format:**<br>
+- **Prefixes** (e.g., `n/`, `p/`, `e/`) **must be used exactly as shown**, including lowercase letters and the slash.  
+  Missing or mistyped prefixes will result in an invalid command.
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
-  e.g. in `addPerson n/NAME`, `NAME` is a parameter which can be used as `addPerson n/John Doe`.
+- **Parameters can be typed in any order.**  For example, `n/John p/91234567` and `p/91234567 n/John` are both valid.
 
-* Items in square brackets are optional.<br>
-  e.g. `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
+- **Commands are case-sensitive for field values** where applicable, such as `d/VEGAN` vs. `d/vegan`.
 
-* Items with `…`​ after them can be used multiple times including zero times.<br>
-  e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+- **Optional parameters are shown in square brackets.**  
+  e.g., `filterPersons [d/DietaryRestriction] [r/RSVP]`.
+- **Note on Command Names:** The application uses command names like `addPerson` and `deletePerson` for technical reasons, but these commands are used to manage guests in the wedding. This design choice maintains consistency with the underlying implementation while providing a user-friendly interface for managing wedding guests.
 
-* Parameters can be in any order.<br>
-  e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
-
-* If a parameter is expected only once in the command but you specified it multiple times, only the last occurrence of the parameter will be taken.<br>
-  e.g. if you specify `p/12341234 p/56785678`, only `p/56785678` will be taken.
-
-* Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
-  e.g. if the command specifies `help 123`, it will be interpreted as `help`.
-
-* **Note on Command Names:** The application uses command names like `addPerson` and `deletePerson` for technical reasons, but these commands are used to manage guests in the wedding. This design choice maintains consistency with the underlying implementation while providing a user-friendly interface for managing wedding guests.
-
-</div>
+<box>
+⚠️ PDF Warning: If you are using a PDF version of this document, be careful when copying and pasting commands that 
+span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
+</box>
 
 --------------------------------------------------------------------------------------------------------------------
 <div style="page-break-after: always;"></div>
@@ -138,7 +132,7 @@ help
 ```
 ## How Wedding Hero Works (System Flow)
 
-Wedding Hero helps you manage **multiple weddings** with ease by using a **"set and operate" model**:
+Wedding Hero helps you manage **multiple weddings** with ease by using a **“set and operate” model**:
 
 1. **Create a wedding** using the `createWedding` command.
 2. **Set the wedding as active** using the `setWedding` command.
@@ -268,25 +262,33 @@ Examples:
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Managing Persons
+## Managing Guests
 
-### Adding a guest: `addPerson`
+### Adding a Guest: `addPerson`
 
 Adds a guest to the current wedding's guest list.
 
-Format: `addPerson n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS d/DIETARY_RESTRICTIONS r/RSVP_STATUS [t/TAG]…​`
+Format: `addPerson n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS d/DIETARY_RESTRICTIONS r/RSVP [t/TAG]…​`
 
-<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
-A guest can have any number of tags (including 0)
-</div>
+Details:
 
-Examples:
-* `addPerson n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 d/None r/YES`
-* `addPerson n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 d/Vegetarian r/NO t/criminal`
+- All fields are mandatory.
+- A person is identified by their `NAME` only. 
+- Multiple guests can have the same contact information such as `PHONE` or `EMAIL` since children may not have a 
+  phone number, and it would be more flexible to allow guests to select their point of contact.
+- A wedding should be created and set before a person can be added.
+- Please refer to the full list of [Allowed Dietary Restrictions](#allowed-dietary-restrictions) and [Allowed RSVP 
+  Values](#allowed-rsvp-values)
 
-### Deleting a guest : `deletePerson`
+**Examples:**
+```
+addPerson n/John Doe p/12345678 e/johndoe@example.com a/123 Street d/NONE r/YES
+addPerson n/Alex Tan p/87654321 e/alex@example.com a/456 Avenue d/VEGAN r/NO
+```
 
-Deletes a guest from the current wedding's guest list, using their displayed index number.
+### Deleting a Guest : `deletePerson`
+
+Deletes a guest from the currently active wedding's guest list, using their displayed index number.
 
 **Format:** `deletePerson INDEX`
 
@@ -305,11 +307,11 @@ INDEX: A positive integer corresponding to the guest's number in the displayed g
 <box type="warning" seamless> Make sure you're viewing the correct list of guests before deleting — the index is 
 based on the currently displayed list. </box>
 
-### Editing a guest : `edit`
+### Editing a Guest : `edit`
 
 Edits an existing guest's details in the current wedding.
 
-**Format:** `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [d/DIETARY_RESTRICTIONS] [r/RSVP_STATUS] [t/TAG]…​`
+**Format:** `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [d/DIETARYRESTRICTION] [r/RSVP]`
 
 Details:
 - Edits the guest at the specified `INDEX`. The index refers to the index number shown in the displayed guest list. The index **must be a positive integer** 1, 2, 3, …​
@@ -334,12 +336,12 @@ edit 2 n/Betsy Crower d/VEGAN r/NO
 - Fields can be edited in any order
 </box>
 
-### Filtering guests: `filterPersons`
+### Filtering Guests: `filterPersons`
 
-This command allows you to filter your list of guests by applying `DIETARY_RESTRICTIONS` and/or `RSVP_STATUS` filters.
+This command allows you to filter your list of guests by applying `DIETARYRESTRICTION` and/or `RSVP` status filters.
 You can use it to display only those guests who meet the criteria you specify.
 
-**Format:** `filterPersons [d/DIETARY_RESTRICTIONS] [r/RSVP_STATUS]`
+**Format:** `filterPersons [d/DIETARYRESTRICTION] [r/RSVP]`
 
 - At least one of 2 prefixes d/ and r/ must be used for this command. Both of the prefixes can be used together as well.
 - Note that each prefix can only be used at most once with the command. Running `filterPersons r/NO r/YES` will 
@@ -350,7 +352,7 @@ You can use it to display only those guests who meet the criteria you specify.
   [Allowed Dietary Restrictions](#allowed-dietary-restrictions) for the full list of `DIETARY_RESTRICTIONS` to filter by.
 - **RSVP Filter:** Use the prefix `r/` followed by a valid RSVP status (e.g., `YES`).
   Include this if you want to filter guests by their RSVP status. Please see 
- [Allowed RSVP Values](#allowed-rsvp-values) for the full list of `RSVP_STATUS` status to filter by
+ [Allowed RSVP Values](#allowed-rsvp-values) for the full list of `RSVP` status to filter by
 
 <img src="images/UG-example-images/filterPersonExample.png" alt="List of filtered guests based on RSVP - No" style="max-width: 70%; height: auto;" />
 
@@ -361,7 +363,7 @@ You can use it to display only those guests who meet the criteria you specify.
 - Using `filterPersons d/HALAL` displays all guests with a halal dietary restriction.
 - Running `filterPersons r/YES r/NO` will return an error message since multiple categories are not allowed for a prefix.
 
-### Listing guests: `list`
+### Listing Guests: `list`
 
 Lists all guests in the current wedding, resetting any applied filters.
 
@@ -398,7 +400,7 @@ addTable tid/TABLEID c/CAPACITY
 **Examples:**
 - Running `addTable tid/12 c/8` will add a table with the ID `12` and a seating capacity for 8 guests.
 
-### Deleting a Table : `deleteTable`
+### Deleting a table : `deleteTable`
 
 Deletes a table by its ID.
 
@@ -437,11 +439,11 @@ Finds a table by its ID.
 **Examples:**
 - Running `findTable tid/12`  searches and displays the table with the id 12.
 
-## Assigning a guest to a Table
+## Assigning a Guest to a Table
 
 --------------------------------------------------------------------------------------------------------------------
-### Adding a guest to a Table: addPersonToTable
-Assigns a guest to a specified Table within the currently active wedding.
+### Adding a guest to a table: addPersonToTable
+Assigns a person to a specified table within the currently active wedding.
 
 **Format:** `addPersonToTable n/NAME tid/INDEX
 `  
@@ -452,8 +454,8 @@ Assigns a guest to a specified Table within the currently active wedding.
 **Examples:**
 - Running `addPersonToTable n/John Doe tid/1`  adds a guest called John Doe to the table with the id 1.
 
-### Removing a guest from a Table: deletePersonFromTable
-Removes a guest from a table in the currently active wedding.
+### Removing a Guest from a Table: deletePersonFromTable
+Removes a Guest from a table in the currently active wedding.
 
 **Format**: `deletePersonFromTable n/NAME tid/INDEX
 `  
@@ -499,6 +501,9 @@ the acceptable range). Therefore, edit the data file only if you are confident t
 --------------------------------------------------------------------------------------------------------------------
 
 ### Glossary
+- **Guest**: Refers to an individual invited to attend the wedding. This term is used when discussing the context of the wedding event and the guest's participation in it.
+
+- **Person**: Refers to an individual in the system, typically used when discussing the management of their details such as contact information, dietary restrictions, and RSVP status. This term is more general and can be used outside the context of a specific wedding event.
 
 - **Active Wedding**: The currently selected wedding that all actions (e.g., adding a guest or a table) apply to. You 
   must use the `setWedding` command to set an active wedding.
@@ -527,7 +532,7 @@ the acceptable range). Therefore, edit the data file only if you are confident t
 - `c/` → Capacity allocated to table 
 
 <a id="allowed-dietary-restrictions"></a>
-### **Allowed `DIETARY_RESTRICTION` values:**
+### **Allowed `DIETARYRESTRICTION` values:**
 - NONE
 - VEGETARIAN
 - VEGAN
@@ -540,7 +545,7 @@ the acceptable range). Therefore, edit the data file only if you are confident t
 - SESAME
 
 <a id="allowed-rsvp-values"></a>
-### **Allowed `RSVP_STATUS` values:**
+### **Allowed `RSVP` values:**
 - YES
 - NO
 - NO_RESPONSE
@@ -571,11 +576,11 @@ the data of your previous WeddingHero home folder.
 | **deleteWedding**         | `deleteWedding n/NAME`<br>Example: `deleteWedding n/John & Jane Wedding`                                                                                             |
 | **setWedding**            | `setWedding n/NAME`<br>Example: `setWedding n/Smith Wedding`                                                                                                         |
 | **weddingOverview**       | `weddingOverview`<br>Example: `weddingOverview`                                                                                                                      |
-| **addPerson**             | `addPerson n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS d/DIETARY_RESTRICTIONS r/RSVP_STATUS [t/TAG]…​`<br/>Example: `addPerson n/John Doe p/12345678 e/johndoe@example.com a/123 Street d/Vegan r/YES` |
+| **addPerson**             | `addPerson n/NAME p/PHONE e/EMAIL a/ADDRESS d/DIETARYRESTRICTION r/RSVP`<br/>Example: `addPerson n/John Doe p/12345678 e/johndoe@example.com a/123 Street d/Vegan r/YES` |
 | **deletePerson**          | `deletePerson INDEX`<br>Example: `deletePerson 3`                                                                                                                    |
 | **Find**                  | `Find KEYWORD`<br>Example: `Find John`                                                                                                                               |
-| **filterPersons**         | `filterPersons [d/DIETARY_RESTRICTIONS] [r/RSVP_STATUS]`<br>Example: `filterPersons d/Vegan r/YES`                                                               |
-| **edit**                  | `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [d/DIETARY_RESTRICTIONS] [r/RSVP_STATUS] [t/TAG]…​`<br>Example: `edit 1 p/91234567 e/johndoe@example.com`                        |
+| **filterPersons**         | `filterPersons [d/DIETARYRESTRICTION] [r/RSVP_FIELD]`<br>Example: `filterPersons d/Vegan r/YES`                                                               |
+| **edit**                  | `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [d/DIETARYRESTRICTION] [r/RSVP]`<br>Example: `edit 1 p/91234567 e/johndoe@example.com`                        |
 | **addTable**              | `addTable tid/TABLE_ID c/CAPACITY`<br>Example: `addTable tid/1 c/8`                                                                                                  |
 | **addPersonToTable**      | `addPersonToTable n/NAME tid/TABLE_ID`<br>Example: `addPersonToTable n/John Doe tid/1`                                                                               |
 | **deletePersonFromTable** | `deletePersonFromTable n/NAME tid/TABLE_ID`<br>Example: `deletePersonFromTable n/John Doe tid/1`                                                                     |
