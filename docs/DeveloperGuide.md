@@ -401,16 +401,16 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **Extensions:**
 
 2a. **Invalid Wedding Name**
-    2a1. System detects an invalid wedding name.
-    2a2. System informs the user that the wedding name is invalid.
-    2a3. System prompts the user to provide a valid wedding name.
-    2a4. If the user provides a valid name, the process resumes at step 3.
+- 2a1. System detects an invalid wedding name.
+- 2a2. System informs the user that the wedding name is invalid.
+- 2a3. System prompts the user to provide a valid wedding name.
+- 2a4. If the user provides a valid name, the process resumes at step 3.
 
 2b. **Duplicate Wedding Name**
-    2b1. System detects that a wedding with the same name already exists.
-    2b2. System informs the user that the wedding name is already in use.
-    2b3. System prompts the user to provide a different wedding name.
-    2b4. If the user provides a unique name, the process resumes at step 3.
+- 2b1. System detects that a wedding with the same name already exists.
+- 2b2. System informs the user that the wedding name is already in use.
+- 2b3. System prompts the user to provide a different wedding name.
+- 2b4. If the user provides a unique name, the process resumes at step 3.
 
 ---
 
@@ -762,13 +762,13 @@ Given below are instructions to test the app manually.
 ### Launch and shutdown
 
 1. Initial launch
-   1a. Download the jar file and copy it into an empty folder.
-   1b. Double-click the jar file.
+- 1a. Download the jar file and copy it into an empty folder.
+- 1b. Double-click the jar file.
       Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
 
 2. Saving window preferences
-   2a.Resize the window to an optimum size. Move the window to a different location. Close the window.
-   2b.Re-launch the app by double-clicking the jar file.
+- 2a.Resize the window to an optimum size. Move the window to a different location. Close the window.
+- 2b.Re-launch the app by double-clicking the jar file.
       Expected: The most recent window size and location is retained.
 
 
@@ -985,4 +985,6 @@ Dealing with corrupted data files
 ## **Appendix: Planned Enhancements**
 
 Team size: 5
+
+1. **Make setWedding error message more specific:** We currently don't have a feature where users can't directly access all of the names of the weddings they've created so far. The current error message for not entering an existing wedding's name for the `setWedding` command shows `There is no wedding with the name: ` with the typed wedding name. We plan to make this error message also mention all the names of currently created weddings so that the users can see which weddings they've created so far.
 
