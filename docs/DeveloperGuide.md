@@ -193,8 +193,9 @@ The sequence diagram below illustrates how the `addPerson` command is processed:
 
 <puml src="diagrams/AddPersonActivityDiagram.puml" alt="Sequence Diagram for AddPerson Command" />
 
-
 This command follows the Command pattern, where the `AddPersonCommand` encapsulates a request as an object, allowing for parameterization of clients with different requests and queue or log requests.
+
+<div style="page-break-after: always;"></div>
 
 ### `deletePerson` Command
 The `deletePerson` command allows users to remove a guest from the currently active wedding's guest list using their displayed index number.
@@ -216,6 +217,8 @@ The activity diagram below illustrates the control flow of this command:
 
 This command supports the need for wedding planners to be able to update guest lists as clients make changes to their wedding plans.
 
+<div style="page-break-after: always;"></div>
+
 ### `filterPersons` Command
 The `filterPersons` command allows users to filter the guest list based on dietary restrictions and/or RSVP status. This feature is particularly useful for wedding planners who need to quickly identify specific groups of guests, such as those with special dietary needs or those who have not yet responded to invitations.
 
@@ -233,6 +236,8 @@ The activity diagram below illustrates the control flow of this command:
 <puml src="diagrams/FilterPersonsActivityDiagram.puml" alt="Activity Diagram for FilterPersons Command" />
 
 This filtering functionality helps wedding planners efficiently organize guests by important attributes, allowing for better catering planning and follow-up on outstanding RSVPs.
+
+<div style="page-break-after: always;"></div>
 
 ### `deletePersonFromTable` Command
 The `deletePersonFromTable` command allows users to remove a person from their assigned table in the currently active wedding. This feature helps wedding planners manage seating arrangements efficiently when plans change.
@@ -252,6 +257,8 @@ The activity diagram below illustrates the control flow of this command:
 <puml src="diagrams/DeletePersonFromTableActivityDiagram.puml" alt="Activity Diagram for DeletePersonFromTable Command" />
 
 This command is useful when guests need to be reassigned to different tables or when a guest cancels their attendance but the planner wishes to retain their information in the guest list without a table assignment.
+
+<div style="page-break-after: always;"></div>
 
 
 ### \[Proposed\] Undo/redo feature
@@ -559,9 +566,27 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ---
 
-
 ### UC6: Edit a guest
 
+**Preconditions:**
+- A wedding has been created.
+- A wedding has been set as the active wedding.
+- The guest to be edited exists in the current wedding's guest list.
+
+**MSS**
+
+1. User requests to view the guest list.
+2. System displays the list of guests.
+3. User selects a guest to edit.
+4. User provides new information for the selected guest.
+5. System validates the new information.
+6. System updates the guest's details.
+7. System confirms that the guest's information has been updated.
+   Use case ends.
+
+**Extensions:**
+
+3a. **Invalid Guest Selection**
 - 3a1. System detects that the selected guest does not exist.
 - 3a2. System informs the user that the selection is invalid.
 - 3a3. System prompts the user to make a valid selection.
@@ -615,7 +640,6 @@ Use case ends.
 - 2c2. System informs the user that the table ID is already in use.
 - 2c3. System prompts the user to provide a different table ID.
 - 2b4. If the user provides a unique table ID, the process resumes at step 3.
-
 
 ---
 
@@ -733,7 +757,6 @@ Use case ends.
 7. The app must ensure data accuracy by validating inputs (e.g., checking valid phone numbers) before updating the database.
 
 # Glossary
-
 - **Guest:** An individual invited to attend the wedding.
 - **Table:** A designated seating area at the wedding venue, typically used to group guests together.
 - **Dietary Restriction:** A limitation or specific requirement regarding food consumption, often due to allergies, health conditions, or personal preferences.
@@ -742,6 +765,7 @@ Use case ends.
 - **Vendor (Extension):** A business or individual that supplies services or products—such as catering, photography, or decor—for the wedding.
 
 --------------------------------------------------------------------------------------------------------------------
+
 
 ## **Appendix: Instructions for manual testing**
 
@@ -835,7 +859,7 @@ Allows you to add people to the currently setWedding.
 **Prerequisites:** A Wedding named John & Jane has been created, and the wedding has been set
 
 **Test case:** `addPerson n/John Doe p/12345678 e/johndoe@example.com a/123 Street d/NONE r/YES`  
-**Expected Result:** The person John Does is added to the current wedding, and is reflected in the GUI.
+**Expected Result:** The person John Doe is added to the current wedding, and is reflected in the GUI.
 
 **Incorrect Test Command:** `addPerson n/John Doe p/12345678 e/johndoe@example.com a/123 Street d/NONE r/WHAT_HELP`  
 **Expected Result:** An error message is shown.
