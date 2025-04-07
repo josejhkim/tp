@@ -102,9 +102,16 @@ public class ModelManager implements Model {
 
     @Override
     public void setAddressBook(ReadOnlyAddressBook addressBook) {
-        pcs.firePropertyChange("currentWedding", "", "Not Set");
+        Wedding oldWedding = null;
+        try {
+            oldWedding = this.addressBook.getCurrentWedding();
+        } catch (NoCurrentWeddingException e) {
+            // No wedding was set, pass
+        }
 
         this.addressBook.resetData(addressBook);
+
+        pcs.firePropertyChange("currentWedding", oldWedding, "Not Set");
     }
 
     @Override

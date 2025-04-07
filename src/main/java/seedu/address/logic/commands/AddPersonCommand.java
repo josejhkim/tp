@@ -17,9 +17,9 @@ public class AddPersonCommand extends Command {
     public static final String COMMAND_WORD = "addPerson";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a person to the current wedding.\n"
         + "Parameters: "
-        + "n/NAME p/PHONE e/EMAIL a/ADDRESS d/DIETARY_RESTRICTION r/RSVP\n"
+        + "n/NAME p/PHONE e/EMAIL t/TAG a/ADDRESS d/DIETARY_RESTRICTION r/RSVP\n"
         + "Example: " + COMMAND_WORD + " "
-        + "n/John Doe p/12345678 e/johndoe@example.com a/123 Street d/None r/YES";
+        + "n/John Doe p/12345678 e/johndoe@example.com t/tag123 t/tag4567 a/123 Street d/None r/YES";
 
     public static final String MESSAGE_SUCCESS = "Person added to wedding: %1$s";
 
